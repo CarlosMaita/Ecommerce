@@ -1,7 +1,8 @@
 <?php
 include_once('../common/sesion2.php');
 require('../../common/conexion.php');
- 
+
+#eliminar elemento 
 if(isset($_GET['delete']) & !empty($_GET['delete'])){
     
     $idproducto=$_GET['delete'];
@@ -237,7 +238,7 @@ $previouspage = $curpage - 1;
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
+                          
                              <?php
                                 
                             
