@@ -68,17 +68,26 @@ require('../../common/conexion.php');
               <div class="row justify-content-center mt-1 bg-white py-2">
                 <h3>Agregue las caracteristicas del modelo</h3>
               </div>
+              
               <form class="" action="addProducto.php" method="post">
               <div class="row mt-3">
                 <div class="input-group mb-3 col-6">
                   <div class="input-group-prepend">
                     <label class="input-group-text"><b>Seleccione el producto</b></label>
                   </div>
-                  <select name="tipo" class="custom-select text-secondary">
-                    <option value="franela">Franela Rouxa de Dama</option>
-                    <option value="chemise">Chemise Polo de Caballero</option>
-                    <option value="pantalón">Pantalón Wranger de Caballero</option>
-                    <option value="camisa">Camisa Rouxa de Dama</option>
+                  <select name="producto" class="custom-select text-secondary">
+                    <?php
+                       $sql="SELECT * FROM PRODUCTOS";
+                       $result = $conn->query($sql);
+                      if ($result->num_rows > 0) {
+                          while($row = $result->fetch_assoc()) {
+                            ?>
+                    <option value="<?=$row['IDPRODUCTO']?>"><?=$row['NOMBRE_P']?></option>
+                            <?php            
+                       }
+                      }
+                      
+                      ?> 
                   </select>
                 </div>
                 <div class="input-group mb-3 col-3">
@@ -86,8 +95,8 @@ require('../../common/conexion.php');
                     <label class="input-group-text"><b>Color principal</b></label>
                   </div>
                   <select name="tipo" class="custom-select text-secondary">
-                    <option value="ID-BBDD" style="color:#123e45;">Rojo</option>
-                    <option value="ID-BBDD"></span>Verde</option>
+                    <option value="ID-BBDD" style="color:#123e45">Rojo</option>
+                    <option value="ID-BBDD">Verde</option>
                     <option value="ID-BBDD">Amarillo</option>
                     <option value="ID-BBDD">Azul</option>
                   </select>
@@ -111,6 +120,8 @@ require('../../common/conexion.php');
                 <button type="submit" class="btn btn-outline-primary">Agregar</button>
               </div>
               </form>
+               
+               
                 <div class="row mt-3">
                   <div class="col-12">
                   <div class="card">

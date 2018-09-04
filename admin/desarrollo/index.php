@@ -1,6 +1,7 @@
 <?php
 include_once('../common/sesion2.php');
 require('../../common/conexion.php');
+
  ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -13,6 +14,7 @@ require('../../common/conexion.php');
     <link rel="icon" type="image/jpg" sizes="16x16" href="../../imagen/favicon.jpg">
     <title>Rouxa - Administración</title>
     <link href="../dist/css/style.min.css" rel="stylesheet">
+    <link href="../../css/new.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -75,26 +77,45 @@ require('../../common/conexion.php');
                           </tr>
                         </thead>
                         <tbody>
+                            <?php
+                            
+                          $sql="SELECT * FROM USUARIOS LIMIT 4;";
+                            
+                          $result = $conn->query($sql);
+                          if ($result->num_rows > 0) {
+                          // output data of each row
+                          while($row = $result->fetch_assoc()) {
+                              ?>
+                              
                           <tr>
-                            <td>alexisamm9261@gmail.com</td>
-                            <td>Alexis Montilla</td>
-                            <td>Administrador</td>
+                            <td><?=$row['CORREO']?></td>
+                            <td><?=$row['NOMBRE']?></td>
+                            <td><?php
+                                  switch($row['NIVEL']){
+                                      case 1:
+                                          echo 'Administrador';
+                                          break;
+                                      case 2:
+                                          echo 'Supervisor';
+                                          break;
+                                      case 3:
+                                          echo 'Vendedor';
+                                          break;
+                                      case 4:
+                                          echo 'Despachador';
+                                          break;
+                                      case 5:
+                                          echo 'Visitante';
+                                          break;      
+                                  }?></td>
                           </tr>
-                          <tr>
-                            <td>carlosmaita2009@gmail.com</td>
-                            <td>Carlos Maita</td>
-                            <td>Administrador</td>
-                          </tr>
-                          <tr>
-                            <td>luis.baez315@gmail.com</td>
-                            <td>Luis Baez</td>
-                            <td>Administrador</td>
-                          </tr>
-                          <tr>
-                            <td>pedropicapiedra@gmail.com</td>
-                            <td>Pedro Picapiedra</td>
-                            <td>Vendedor</td>
-                          </tr>
+                              
+                              <?php
+                           }
+                          }
+                            ?>                         
+                         
+                       
                         </tbody>
                       </table>
                     </div>
@@ -109,32 +130,33 @@ require('../../common/conexion.php');
                     <div class="table-responsive">
                       <table class="table table-hover">
                         <thead class="thead-light">
-                          <tr>
+                          <tr class="text-center">
                             <th scope="col">Color</th>
                             <th scope="col">Nombre</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td><img src="BBDD" alt=""></td>
-                            <td>Azul</td>
+                         
+                          <?php
+                            
+                          $sql="SELECT * FROM COLOR LIMIT 3;";
+                            
+                          $result = $conn->query($sql);
+                          if ($result->num_rows > 0) {
+                          // output data of each row
+                          while($row = $result->fetch_assoc()) {
+                              ?>
+                              
+                          <tr class="text-center">
+                              <td><span class="dot" style="background-color:<?=$row['HEX']?>"></span></td>
+                             <td><?=$row['COLOR']?></td>
                           </tr>
-                          <tr>
-                            <td><img src="BBDD" alt=""></td>
-                            <td>Verde</td>
-                          </tr>
-                          <tr>
-                            <td><img src="BBDD" alt=""></td>
-                            <td>Rojo</td>
-                          </tr>
-                          <tr>
-                            <td><img src="BBDD" alt=""></td>
-                            <td>Negro</td>
-                          </tr>
-                          <tr>
-                            <td><img src="BBDD" alt=""></td>
-                            <td>Blanco</td>
-                          </tr>
+                              
+                              <?php
+                           }
+                          }
+                            ?>    
+                         
                         </tbody>
                       </table>
                     </div>

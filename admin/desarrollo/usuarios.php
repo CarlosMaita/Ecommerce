@@ -1,7 +1,68 @@
 <?php
 include_once('../common/sesion2.php');
 require('../../common/conexion.php');
- ?>
+
+if(isset($_GET['nombre'],$_GET['apellido'],$_GET['email'], $_GET['clave'], $_GET['nivel'] )){
+    
+    $nombre= $_GET['nombre'].' '.  $_GET['apellido'];
+    $correo= $_GET['email'];
+    $clave= md5($_GET['clave']);
+    $nivel= $_GET['nivel'];
+    
+   $sql = "INSERT INTO `USUARIOS`(`NOMBRE`, `CORREO`, `CLAVE`, `NIVEL`) VALUES ('$nombre','$correo','$clave', '$nivel')";
+    
+if ($conn->query($sql) === TRUE) {
+    echo "<center>Nuevo USUARIO registrado</center>";
+    header('Location: ./usuarios.php');
+   } else { echo "Error: " . $sql . "<br>" . $conn->error;}
+    
+    
+}
+
+
+#paginacion y eliinacion de productos
+
+if(isset($_GET['delete']) & !empty($_GET['delete'])){
+    
+    $idusuario=$_GET['delete'];
+        
+        
+    #eliminar USURIO
+    $sql ="DELETE FROM USUARIOS WHERE IDUSUARIO='$idusuario'";
+    
+       if ($conn->query($sql) === TRUE) {
+           } else {
+             echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';
+        }
+    
+    
+} 
+
+$perpage  = 3;
+
+
+if(isset($_GET['page']) & !empty($_GET['page'])){
+	$curpage = $_GET['page'];
+}else{
+	$curpage = 1;
+}
+
+$start = ($curpage * $perpage) - $perpage;
+
+#necesito el total de elementos
+
+$PageSql = "SELECT * FROM USUARIOS";
+$pageres = mysqli_query($conn, $PageSql);
+$totalres = mysqli_num_rows($pageres);
+
+$endpage = ceil($totalres/$perpage);
+$startpage = 1;
+$nextpage = $curpage + 1;
+$previouspage = $curpage - 1;
+
+
+
+?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 <head>
@@ -71,42 +132,44 @@ require('../../common/conexion.php');
                     <div class="row justify-content-center mt-1 bg-white py-2">
                       <h3>Agregue el nuevo usuario</h3>
                     </div>
-                    <form class="" action=".php" method="post">
+                    
+                    <form class="" action="" method="GET">
                     <div class="row mt-3">
                       <div class="input-group mb-3 col-4">
                         <div class="input-group-append">
                           <span class="input-group-text"><b>Nombre</b></span>
                         </div>
-                        <input type="text" name="nombre" class="form-control text-secondary" placeholder="Ingrese el nombre">
+                        <input type="text" name="nombre" class="form-control text-secondary" placeholder="Ingrese el nombre" required>
                       </div>
                       <div class="input-group mb-3 col-4">
                         <div class="input-group-append">
                           <span class="input-group-text"><b>Apellido</b></span>
                         </div>
-                        <input type="text" name="apellido" class="form-control text-secondary" placeholder="Ingrese el apellido">
+                        <input type="text" name="apellido" class="form-control text-secondary" placeholder="Ingrese el apellido" required>
                       </div>
                       <div class="input-group mb-3 col-4">
                         <div class="input-group-prepend">
                           <label class="input-group-text"><b>Perfil</b></label>
                         </div>
-                        <select name="perfil" class="custom-select text-secondary">
+                        <select name="nivel" class="custom-select text-secondary">
                           <option value="1">Administrador</option>
-                          <option value="2">Vendedor</option>
-                          <option value="3">Desarrollador</option>
+                          <option value="2">Supervisor</option>
+                          <option value="3">Vendedor</option>
                           <option value="4">Despachador</option>
+                           <option value="5">Visitante</option>
                         </select>
                       </div>
                       <div class="input-group mb-3 col-6">
                         <div class="input-group-append">
                           <span class="input-group-text"><b>Correo</b></span>
                         </div>
-                        <input type="email" name="email" class="form-control text-secondary">
+                        <input type="email" name="email" class="form-control text-secondary" required>
                       </div>
                       <div class="input-group mb-3 col-6">
                         <div class="input-group-append">
                           <span class="input-group-text"><b>Password</b></span>
                         </div>
-                        <input type="password" name="clave" class="form-control text-secondary">
+                        <input type="password" name="clave" class="form-control text-secondary" required>
                       </div>
                     </div>
                     <div class="row justify-content-center mb-3">
@@ -129,32 +192,84 @@ require('../../common/conexion.php');
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td>alexisamm9261@gmail.com</td>
-                            <td>Alexis Montilla</td>
-                            <td>Administrador</td>
-                            <td><button type="button" class="btn btn-outline-danger btn-sm">Eliminar</button></td>
-                          </tr>
-                          <tr>
-                            <td>carlosmaita2009@gmail.com</td>
-                            <td>Carlos Maita</td>
-                            <td>Administrador</td>
-                            <td><button type="button" class="btn btn-outline-danger btn-sm">Eliminar</button></td>
-                          </tr>
-                          <tr>
-                            <td>luis.baez315@gmail.com</td>
-                            <td>Luis Baez</td>
-                            <td>Administrador</td>
-                            <td><button type="button" class="btn btn-outline-danger btn-sm">Eliminar</button></td>
-                          </tr>
-                          <tr>
-                            <td>pedropicapiedra@gmail.com</td>
-                            <td>Pedro Picapiedra</td>
-                            <td>Vendedor</td>
-                            <td><button type="button" class="btn btn-outline-danger btn-sm">Eliminar</button></td>
-                          </tr>
+                        
+                         <?php
+                                
+                            
+                             $sql = "SELECT * FROM USUARIOS LIMIT $start, $perpage";
+                             $result = $conn->query($sql);
+                             if ($result->num_rows > 0) {
+                             // output data of each row
+                                while($row = $result->fetch_assoc()) {
+                                   ?>
+                                   <tr>
+                                    <td><?=$row['CORREO']?></td>
+                                    <td><?=$row['NOMBRE']?></td>
+                                    <td><?php
+                                          switch($row['NIVEL']){
+                                              case 1:
+                                                  echo 'Administrador';
+                                                  break;
+                                              case 2:
+                                                  echo 'Supervisor';
+                                                  break;
+                                              case 3:
+                                                  echo 'Vendedor';
+                                                  break;
+                                              case 4:
+                                                  echo 'Despachador';
+                                                  break;
+                                              case 5:
+                                                  echo 'Visitante';
+                                                  break;      
+                                          }?></td>
+                                     <td><a class="btn btn-outline-danger btn-sm" href="?delete=<?=$row['IDUSUARIO']?>" >Eliminar</a></td>      
+                              </tr>
+                                   
+                                <?php
+                                    }
+                                } else{
+                                    echo "Sin USUARIOS";
+                                }?>
+                                
+                         
                         </tbody>
                       </table>
+                      
+                         <center>
+                        <nav aria-label="Page navigation example">
+                          <ul class="pagination justify-content-center">
+                  <?php if($curpage != $startpage){ ?>
+                    <li class="page-item">
+                      <a class="page-link" href="?page=<?php echo $startpage ?>" tabindex="-1" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">firts</span>
+                      </a>
+                    </li>
+                    <?php } ?>
+
+                          <?php if($curpage >=2){ ?>
+                            <li class="page-item"><a class="page-link" href="?page=<?php echo $previouspage ?>"><?php echo $previouspage ?></a></li>
+                            <?php }  ?>
+                            
+                            <li class="page-item active"><a class="page-link" href="?page=<?php echo $curpage ?>"><?php echo $curpage ?></a></li>
+                            
+                            <?php if($curpage != $endpage){ ?>
+                            <li class="page-item"><a class="page-link" href="?page=<?php echo $nextpage ?>"><?php echo $nextpage ?></a></li>
+                        <?php } ?>
+                          
+                         <?php if($curpage != $endpage){ ?>
+                        <li class="page-item">
+                          <a class="page-link" href="?page=<?php echo $endpage ?>" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Last</span>
+                          </a>
+                        </li>
+                        <?php } ?>
+                          </ul>
+                        </nav>
+                     </center>
+                      
                     </div>
                 </div>
               </div>
@@ -171,3 +286,6 @@ require('../../common/conexion.php');
     <script src="../dist/js/custom.min.js"></script>
 </body>
 </html>
+<?php
+$conn->close();
+?>
