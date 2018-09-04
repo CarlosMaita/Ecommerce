@@ -1,12 +1,30 @@
+<?php
+  include '../common/conexion.php';
+  include '../common/TasaUSD2.php';
+    $lista_tallas='';
+if(isset($_GET['id'])){
+        $sql= 'select TALLA,CANTIDAD from INVENTARIO where IDPRODUCTO='.$_GET["id"];
+            $res= $conn->query($sql);
+            $arreglo[] = NULL;
+           if ($res->num_rows > 0){
+            while($f=$res->fetch_assoc()){
+                $lista_tallas=$lista_tallas.'<option value="'.$f['TALLA'].'">'.$f['TALLA'].'</option>';
+                $newarreglo=array('Talla'=>$f['TALLA'], 'Cantidad'=> $f['CANTIDAD']);
+                array_push($arreglo,$newarreglo);
+            }
+           }else{
+               $lista_tallas='<option value="N/D">N/D</option>';
+                 $newarreglo=array('Talla'=>'N/D', 'Cantidad'=>'0');
+                 array_push($arreglo,$newarreglo);
+            }
+}
+?>
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-* {box-sizing: border-box;}
-.img-zoom-container {
-  position: relative;
-}
+
 .img-zoom-lens {
   position: absolute;
   border: 1px solid #d4d4d4;
@@ -23,12 +41,28 @@
 </style>
 </head>
 <body>
-
-<div id="myresult" class="img-zoom-result"></div>
-<div class="img-zoom-container">
-  <img id="myimage" src="../imagen/1c383cd30b7c298ab50293adfecb7b18.jpg" width="300" height="240">
+  <?php
+  $sql= 'select * from PRODUCTO where IDPRODUCTO='.$_GET["id"];
+  $res= $conn->query($sql);
+  while($f=$res->fetch_assoc()){
+    ?>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2">
+      <div class="row justify-content-center">
+        <div class="col-12">
+          <div id="myresult" class="img-zoom-result"></div>
+        </div>
+      </div>
+    </div>
+    <div class="col-6 text-center">
+      <div class="img-zoom-container">
+        <img src="<?php echo $f['IMAGEN'];?>" width="500px" height="650px" id="myimage"/>
+      </div>
+    </div>
+  </div>
 </div>
-
+<?php } ?>
 <script>
 function imageZoom(imgID, resultID){
   var img, lens, result, cx, cy;

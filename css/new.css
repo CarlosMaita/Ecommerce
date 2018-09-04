@@ -7,12 +7,12 @@
   border-radius: 50%;
 }
 .dot2{
-  min-height: 15px;
-  min-width: 15px;
-  max-height: 15px;
-  max-width: 15px;
+  min-height: 25px;
+  max-height: 25px;
+  min-width: 35px;
+  max-width: 35px;
   display: inline-block;
-  border-radius: 50%;
+  border-radius: 5%;
 }
 .dot3{
   min-height: 25px;
@@ -32,7 +32,14 @@
   border-bottom: 2px solid #eee;
   border-left: 2px solid #eee;
 }
-.img-zoom-result{
+.img-zoom-lens {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  /*set the size of the lens:*/
+  width: 40px;
+  height: 40px;
+}
+.img-zoom-result {
   border: 1px solid #eee;
   /*set the size of the result div:*/
   width: 200px;

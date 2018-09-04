@@ -41,7 +41,7 @@ require('../../common/conexion.php');
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="../principal">Inicio</a>
+                                    <a href="../principal.php">Inicio</a>
                                 </li>
                                 <li class="breadcrumb-item">
                                     <a href="index.php">Inventario</a>
@@ -128,9 +128,9 @@ require('../../common/conexion.php');
                             <th scope="col">Prenda</th>
                             <th scope="col">Marca</th>
                             <th scope="col">Precio</th>
-                            <th>C. Principal</th>
-                            <th>C. Secundario</th>
-                            <th></th>
+                            <th scope="col">C. Ppal</th>
+                            <th scope="col">C. Secd</th>
+                            <th scope="col"></th>
                           </tr>
                         </thead>
                         <tbody>
@@ -141,9 +141,30 @@ require('../../common/conexion.php');
                             <td>Franela</td>
                             <td>Rouxa</td>
                             <td>150,00</td>
-                            <td><span class="dot2" style="background-color:#1bae45;"></span>Rojo</td>
-                            <td><span class="dot2" style="background-color:#1bae45;"></span>Azul</td>
-                            <td><button type="button" class="btn btn-outline-danger btn-sm">Eliminar</button></td>
+                            <td><span class="dot2" style="background-color:#1bae45;" tilte="Rojo" data-toggle="tooltip"></span></td>
+                            <td><span class="dot2" style="background-color:#1b1145;" tilte="Azul" data-toggle="tooltip"></span></td>
+                            <td><button class="btn btn-outline-success btn-sm" type="button" name="">Modificar</button>
+                              <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eliminar2">Eliminar</button></td>
+                            <div class="modal fade" id="eliminar2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title text-danger"><b>¿Desea eliminar el modelo?</b></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    Tenga en cuenta que se eliminarán todas las tallas y cantidades.
+                                    Consulte con us supervisor antes de tomar esta desición.
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <a href="eliminar.php" class="btn btn-primary">Eliminar</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </tr>
                           <tr>
                             <td scope="row"><img src="" alt=""/></td>
@@ -152,9 +173,30 @@ require('../../common/conexion.php');
                             <td>Chemise</td>
                             <td>Polo</td>
                             <td>200,00</td>
-                            <td><span class="dot2" style="background-color:#1bae45;"></span>Rojo</td>
-                            <td><span class="dot2" style="background-color:#1bae45;"></span>Azul</td>
-                            <td><button type="button" class="btn btn-outline-danger btn-sm">Eliminar</button></td>
+                            <td><span class="dot2" style="background-color:#eeae45;"></span></td>
+                            <td><span class="dot2" style="background-color:#1aecd5;"></span></td>
+                            <td><button class="btn btn-outline-success btn-sm" type="button" name="">Modificar</button>
+                              <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eliminar3">Eliminar</button></td>
+                            <div class="modal fade" id="eliminar3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title text-danger"><b>¿Desea eliminar el modelo?</b></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    Tenga en cuenta que se eliminarán todas las tallas y cantidades.
+                                    Consulte con us supervisor antes de tomar esta desición.
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <a href="eliminar.php" class="btn btn-primary">Eliminar</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </tr>
                           <tr>
                             <td scope="row"><img src="" alt=""/></td>
@@ -163,9 +205,30 @@ require('../../common/conexion.php');
                             <td>Franela</td>
                             <td>Nike</td>
                             <td>120,00</td>
-                            <td><span class="dot2" style="background-color:#1bae45;"></span>Rojo</td>
-                            <td><span class="dot2" style="background-color:#1bae45;"></span>Azul</td>
-                            <td><button type="button" class="btn btn-outline-danger btn-sm">Eliminar</button></td>
+                            <td><span class="dot2" style="background-color:#daecdb;"></span></td>
+                            <td><span class="dot2" style="background-color:#1243dc;"></span></td>
+                            <td><button class="btn btn-outline-success btn-sm" type="button" name="">Modificar</button>
+                              <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eliminar4">Eliminar</button></td>
+                            <div class="modal fade" id="eliminar4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title text-danger"><b>¿Desea eliminar el modelo?</b></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    Tenga en cuenta que se eliminarán todas las tallas y cantidades.
+                                    Consulte con us supervisor antes de tomar esta desición.
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <a href="eliminar.php" class="btn btn-primary">Eliminar</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </tr>
                           <tr>
                             <td scope="row"><img src="" alt=""/></td>
@@ -174,9 +237,30 @@ require('../../common/conexion.php');
                             <td>Chemise</td>
                             <td>Polo</td>
                             <td>200,00</td>
-                            <td><span class="dot2" style="background-color:#1bae45;"></span>Rojo</td>
-                            <td><span class="dot2" style="background-color:#1bae45;"></span>Azul</td>
-                            <td><button type="button" class="btn btn-outline-danger btn-sm">Eliminar</button></td>
+                            <td><span class="dot2" style="background-color:#ddceaa;"></span></td>
+                            <td><span class="dot2" style="background-color:#1145aa;"></span></td>
+                            <td><button class="btn btn-outline-success btn-sm" type="button" name="">Modificar</button>
+                              <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eliminar5">Eliminar</button></td>
+                            <div class="modal fade" id="eliminar5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title text-danger"><b>¿Desea eliminar el modelo?</b></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    Tenga en cuenta que se eliminarán todas las tallas y cantidades.
+                                    Consulte con us supervisor antes de tomar esta desición.
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <a href="eliminar.php" class="btn btn-primary">Eliminar</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </tr>
                           <tr>
                             <td scope="row"><img src="" alt=""/></td>
@@ -185,31 +269,30 @@ require('../../common/conexion.php');
                             <td>Franela</td>
                             <td>Nike</td>
                             <td>120,00</td>
-                            <td><span class="dot2" style="background-color:#1bae45;"></span>Rojo</td>
-                            <td><span class="dot2" style="background-color:#1bae45;"></span>Azul</td>
-                            <td><button type="button" class="btn btn-outline-danger btn-sm">Eliminar</button></td>
-                          </tr>
-                          <tr>
-                            <td scope="row"><img src="" alt=""/></td>
-                            <th>Chemise Polo</th>
-                            <td>Caballero</td>
-                            <td>Chemise</td>
-                            <td>Polo</td>
-                            <td>200,00</td>
-                            <td><span class="dot2" style="background-color:#1bae45;"></span>Rojo</td>
-                            <td><span class="dot2" style="background-color:#1bae45;"></span>Azul</td>
-                            <td><button type="button" class="btn btn-outline-danger btn-sm">Eliminar</button></td>
-                          </tr>
-                          <tr>
-                            <td scope="row"><img src="" alt=""/></td>
-                            <th>Franela Nike</th>
-                            <td>Dama</td>
-                            <td>Franela</td>
-                            <td>Nike</td>
-                            <td>120,00</td>
-                            <td><span class="dot2" style="background-color:#1bae45;"></span>Rojo</td>
-                            <td><span class="dot2" style="background-color:#1bae45;"></span>Azul</td>
-                            <td><button type="button" class="btn btn-outline-danger btn-sm">Eliminar</button></td>
+                            <td><span class="dot2" style="background-color:#1bae45;"></span></td>
+                            <td><span class="dot2" style="background-color:#1bae45;"></span></td>
+                            <td><button class="btn btn-outline-success btn-sm" type="button" name="">Modificar</button>
+                              <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eliminar2">Eliminar</button></td>
+                            <div class="modal fade" id="eliminar2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title text-danger"><b>¿Desea eliminar el producto?</b></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    Tenga en cuenta que se eliminarán todos los modelos registrados, tallas y cantidades.
+                                    Consulte con us supervisor antes de tomar esta desición.
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <a href="eliminar.php" class="btn btn-primary">Eliminar</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </tr>
                         </tbody>
                       </table>
@@ -219,20 +302,21 @@ require('../../common/conexion.php');
                 </div>
 
             </div>
+            <div class="container">
+              <div class="container">
+                <small>Todos los colores disponibles se eentran registrados en el sistema. Si desea agregar otros colores que no aparecen como opciones
+                  de selección, ponte en contacto con el departamento de desarrollo y hazle llegar tu solicitud.</small>
+              </div>
+            </div>
             <?php include('../common/footer.php'); ?>
         </div>
     </div>
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
     <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
     <script src="../assets/extra-libs/sparkline/sparkline.js"></script>
-    <!--Wave Effects -->
     <script src="../dist/js/waves.js"></script>
-    <!--Menu sidebar -->
     <script src="../dist/js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
     <script src="../dist/js/custom.min.js"></script>
 </body>
 </html>

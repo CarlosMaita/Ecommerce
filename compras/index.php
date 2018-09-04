@@ -13,7 +13,7 @@
     <meta name="application-name" content="Tienda Virtual de Ropa, Rouxa."/>
     <link rel="icon" type="image/jpg" sizes="16x16" href="../imagen/favicon.jpg">
     <link rel="stylesheet" href="../css/style-main.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link href="../admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
     <script src='https://www.google.com/recaptcha/api.js'></script>
@@ -49,7 +49,7 @@
          while($row = $result->fetch_assoc()){
             ?>
         <div class="card" style="max-width: 100%; height: auto;">
-          <a href="compra/index.php?id=<?php echo $row['IDPRODUCTO']; ?>"><img class="vitrina card-img-top img-fluid" src="../imagen/<?php echo $row['IMAGEN']; ?>" alt="<?php echo $row['NOMBRE_P']; ?>"></a>
+          <a href="../compra/index.php?id=<?php echo $row['IDPRODUCTO']; ?>"><img class="vitrina card-img-top img-fluid" src="../imagen/<?php echo $row['IMAGEN']; ?>" alt="<?php echo $row['NOMBRE_P']; ?>"></a>
           <div class="card-body">
             <h5 class="card-title"><?php echo $row['NOMBRE_P']; ?></h5>
             <p class="card-text">Excelente para un paseo por la ciudad, el parque o el centro comercial. 100% Algodón.</p>
@@ -242,8 +242,8 @@
 </div>
 <!--Fin  de codigo. !-->
 <?php include_once '../common/footer2.php';?>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script src="../admin/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="../admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

@@ -40,7 +40,7 @@ require('../../common/conexion.php');
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="../principal">Inicio</a>
+                                        <a href="../principal.php">Inicio</a>
                                     </li>
                                     <li class="breadcrumb-item">
                                         <a href="index.php">Inventario</a>
@@ -92,6 +92,12 @@ require('../../common/conexion.php');
                   </div>
                   <input type="number" name="cantidad" class="form-control text-secondary" placeholder="Ingrese el nombre">
                 </div>
+                <div class="input-group mb-3 col-3">
+                  <div class="input-group-append">
+                    <span class="input-group-text"><b>Peso (gr)</b></span>
+                  </div>
+                  <input type="number" name="peso" class="form-control text-secondary" placeholder="Ingrese el peso">
+                </div>
               </div>
               <div class="row justify-content-center mb-3">
                 <button type="submit" class="btn btn-outline-primary">Agregar</button>
@@ -115,6 +121,7 @@ require('../../common/conexion.php');
                             <th scope="col">Marca</th>
                             <th scope="col">Talla</th>
                             <th scope="col">Cantidad</th>
+                            <th scope="col">Peso (gr)</th>
                             <th></th>
                           </tr>
                         </thead>
@@ -127,8 +134,28 @@ require('../../common/conexion.php');
                             <td>Rouxa</td>
                             <td>M</td>
                             <td>4</td>
-                            <td><button type="button" class="btn btn-outline-success btn-sm">Añadir</button>
-                            <button type="button" class="btn btn-outline-danger btn-sm">Eliminar</button></td>
+                            <td>100</td>
+                            <td><button class="btn btn-outline-success btn-sm" type="button" name="">Editar</button>
+                              <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eliminar1">Eliminar</button></td>
+                            <div class="modal fade" id="eliminar1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title text-danger"><b>¿Desea eliminar las tallas?</b></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    Consulte con su supervisor antes de elimnar cualquier cantidad.<br>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <a href="eliminar.php" class="btn btn-primary">Eliminar</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </tr>
                           <tr>
                             <td scope="row"><img src="" alt=""/></td>
@@ -138,8 +165,28 @@ require('../../common/conexion.php');
                             <td>Polo</td>
                             <td>S</td>
                             <td>12</td>
-                            <td><button type="button" class="btn btn-outline-success btn-sm">Añadir</button>
-                            <button type="button" class="btn btn-outline-danger btn-sm">Eliminar</button></td>
+                            <td>75</td>
+                            <td><button class="btn btn-outline-success btn-sm" type="button" name="">Editar</button>
+                              <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eliminar2">Eliminar</button></td>
+                            <div class="modal fade" id="eliminar2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title text-danger"><b>¿Desea eliminar las tallas?</b></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    Consulte con su supervisor antes de elimnar cualquier cantidad.<br>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <a href="eliminar.php" class="btn btn-primary">Eliminar</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </tr>
                           <tr>
                             <td scope="row"><img src="" alt=""/></td>
@@ -149,8 +196,28 @@ require('../../common/conexion.php');
                             <td>Nike</td>
                             <td>L</td>
                             <td>7</td>
-                            <td><button type="button" class="btn btn-outline-success btn-sm">Añadir</button>
-                            <button type="button" class="btn btn-outline-danger btn-sm">Eliminar</button></td>
+                            <td>92</td>
+                            <td><button class="btn btn-outline-success btn-sm" type="button" name="">Editar</button>
+                              <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eliminar3">Eliminar</button></td>
+                            <div class="modal fade" id="eliminar3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title text-danger"><b>¿Desea eliminar las tallas?</b></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    Consulte con su supervisor antes de elimnar cualquier cantidad.<br>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <a href="eliminar.php" class="btn btn-primary">Eliminar</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </tr>
                         </tbody>
                       </table>

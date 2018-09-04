@@ -13,7 +13,7 @@
   <link rel="icon" type="image/jpg" sizes="16x16" href="../imagen/favicon.jpg">
   <link href="assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="bg-dark">
+<body class="">
   <?php
       // put your code here
   if(isset($_POST['correo'])){
@@ -46,7 +46,7 @@
       ?>
   <div class="container">
     <div class="text-center">
-      <h1 class="text-white display-4">Rouxa - Administración</h1>
+      <img src="../imagen/logo.png" alt="Imagen principal" width="50%">
     </div>
     <div class="row">
     <div class="card card-login mx-auto mt-5 col-md-6 col-sm-10">
@@ -67,7 +67,7 @@
               <input class="form-check-input" type="checkbox">Recordar Password</label>
             </div>
           </div>
-          <button class="btn btn-primary btn-block" type="submit">Iniciar</button>
+          <button class="btn btn-outline-success btn-block" type="submit">Iniciar</button>
         </form>
         <div class="text-center mt-3">
           <a class="d-block small" href="forgot-password.html">Olvido el Password?</a>

@@ -1,9 +1,9 @@
 <?php
-$Fichero = "registros.txt"; //nombre del fichero donde se guardan los informes. 
-$ip = $_SERVER["REMOTE_ADDR"]; //guarda en la variable el ip 
-$fecha = date("Y-m-d;H:i:s"); //fecha y hora (por lo general del servidor) 
-$sistema = $_SERVER['HTTP_USER_AGENT']; //Esto nos genera varios datos del navegador y del sistema operativo 
-$conproxy = $_SERVER["HTTP_X_FORWARDED_FOR"]; //En caso de usar proxy para esconderse aqui estaria el ip real 
+$Fichero = "registros.txt"; //nombre del fichero donde se guardan los informes.
+$ip = $_SERVER["REMOTE_ADDR"]; //guarda en la variable el ip
+$fecha = date("Y-m-d;H:i:s"); //fecha y hora (por lo general del servidor)
+$sistema = $_SERVER['HTTP_USER_AGENT']; //Esto nos genera varios datos del navegador y del sistema operativo
+$conproxy = $_SERVER["HTTP_X_FORWARDED_FOR"]; //En caso de usar proxy para esconderse aqui estaria el ip real
 $host= $_SERVER["HTTP_HOST"];
 $url= $_SERVER["REQUEST_URI"];
 $log = "FECHA: $fecha SISTEMA: $sistema IP: $ip IPPROXY: $conproxy URL: http:// $host $url" ;
@@ -45,26 +45,26 @@ if($merchant_order_info == null) {
 }
 
 if ($merchant_order_info["status"] == 200) {
-    
-   // If the payment's transaction amount is equal (or bigger) than the merchant_order's amount you can release your items 
+
+   // If the payment's transaction amount is equal (or bigger) than the merchant_order's amount you can release your items
 	$paid_amount = 0;
-    
+
     $id_mp= $merchant_order_info["response"]["external_reference"];
     $id_mp=md5($id_mp);
 
 	foreach ($merchant_order_info["response"]["payments"] as  $payment) {
 		if ($payment['status'] == 'approved'){
 			$paid_amount += $payment['transaction_amount'];
-		}	
+		}
 	}
 	if($paid_amount >= $merchant_order_info["response"]["total_amount"]){
 		if(count($merchant_order_info["response"]["shipments"]) > 0) { // The merchant_order has shipments
 			if($merchant_order_info["response"]["shipments"][0]["status"] == "ready_to_ship"){
-			    
+
                     			    //Enviar mail
                     $destino='Carlosmaita2009@gmail.com'; //Administrador de empaquetado
                     $titulo="Nueva Compra";
-                    
+
                     $contenido = '<html>
                     <head>
                     <title>Rouxa</title>
@@ -72,47 +72,31 @@ if ($merchant_order_info["status"] == 200) {
                     <body>
                     <h1>Nueva compra en rouxa</h1>
                     <p>Buen dia Administrador rouxa,</p>
-                    <p>Un nuevo cliente ha realizado una compra, Revisa el tablero de empaquetar.</p> 
+                    <p>Un nuevo cliente ha realizado una compra, Revisa el tablero de empaquetar.</p>
                     <p>Que tenga un Feliz Dia.</p>
                     </body>
-                    </html>';    
-                    $headers = "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";    
+                    </html>';
+                    $headers = "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
                     $headers = "MIME-Version: 1.0" . "\r\n";
                     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-                        
                         mail($destino, $titulo, $contenido, $headers);
-                        
-			    
 				print_r("Totally paid. Print the label and release your item.");
 			}
 		} else { // The merchant_order don't has any shipments
 		//	print_r("Totally paid. Release your item.");
-            
-            
              $sql0="UPDATE `PEDIDOS` SET `ESTATUS`='3' WHERE  `IDPEDIDO`='$id_mp'";
-                    
                         if ($conn->query($sql0) === TRUE) {
-
                         } else {
                         echo "Error: " . $sql0 . "<br>" . $conn->error;
                         }
-                    
-            
 		}
 	} else {
 	//	print_r("Not paid yet. Do not release your item.");
-       
         $sql0="UPDATE `PEDIDOS` SET `ESTATUS`='2' WHERE  `IDPEDIDO`='$id_mp'";
-                    
                         if ($conn->query($sql0) === TRUE) {
-
                         } else {
                         echo "Error: " . $sql0 . "<br>" . $conn->error;
                         }
-        
-        
 	}
- 
 }
-
 ?>

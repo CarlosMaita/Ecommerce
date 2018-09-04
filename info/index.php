@@ -1,12 +1,11 @@
-
 <html>
     <head>
         <meta charset="UTF-8">
         <title>Rouxa</title>
            <link rel="stylesheet" href="css/Stile.css">
-           <link rel="stylesheet" href="css/fontello.css">
            <link rel="icon" type="image/jpg" sizes="16x16" href="../imagen/favicon.jpg">
            <link rel="shortcut icon" href="imagen/Logo_principal.ico">
+           <link href="../admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>
     <body>
        <div class="page">
@@ -38,6 +37,5 @@
         <?php
         include('pie.php');
         ?>
-
     </body>
 </html>

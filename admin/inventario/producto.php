@@ -40,7 +40,7 @@ require('../../common/conexion.php');
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="../principal">Inicio</a>
+                                        <a href="../principal.php">Inicio</a>
                                     </li>
                                     <li class="breadcrumb-item">
                                         <a href="index.php">Inventario</a>
@@ -184,7 +184,28 @@ require('../../common/conexion.php');
                             <td>Franela</td>
                             <td>Rouxa</td>
                             <td>150,00</td>
-                            <td><button type="button" class="btn btn-outline-danger btn-sm">Eliminar</button></td>
+                            <td><a class="btn btn-outline-success btn-sm" href="modificar.php">Modificar</a>
+                              <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eliminar3">Eliminar</button></td>
+                            <div class="modal fade" id="eliminar3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title text-danger"><b>¿Desea eliminar el producto?</b></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    Tenga en cuenta que se eliminarán todos los modelos registrados, tallas y cantidades.
+                                    Consulte con us supervisor antes de tomar esta desición.
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <a href="eliminar.php" class="btn btn-primary">Eliminar</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </tr>
                           <tr>
                             <td scope="row"><img src="" alt=""/></td>
@@ -193,7 +214,28 @@ require('../../common/conexion.php');
                             <td>Chemise</td>
                             <td>Polo</td>
                             <td>200,00</td>
-                            <td><button type="button" class="btn btn-outline-danger btn-sm">Eliminar</button></td>
+                            <td><button class="btn btn-outline-success btn-sm" type="button" name="">Modificar</button>
+                              <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eliminar2">Eliminar</button></td>
+                            <div class="modal fade" id="eliminar2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title text-danger"><b>¿Desea eliminar el producto?</b></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    Tenga en cuenta que se eliminarán todos los modelos registrados, tallas y cantidades.
+                                    Consulte con us supervisor antes de tomar esta desición.
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <a href="eliminar.php" class="btn btn-primary">Eliminar</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </tr>
                           <tr>
                             <td scope="row"><img src="" alt=""/></td>
@@ -202,7 +244,28 @@ require('../../common/conexion.php');
                             <td>Franela</td>
                             <td>Nike</td>
                             <td>120,00</td>
-                            <td><button type="button" class="btn btn-outline-danger btn-sm">Eliminar</button></td>
+                            <td><a class="btn btn-outline-success btn-sm" href="modificar.php">Modificar</a>
+                              <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eliminar">Eliminar</button></td>
+                            <div class="modal fade" id="eliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                              <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h5 class="modal-title text-danger"><b>¿Desea eliminar el producto?</b></h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    Tenga en cuenta que se eliminarán todos los modelos registrados, tallas y cantidades.
+                                    Consulte con us supervisor antes de tomar esta desición.
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <a href="eliminar.php" class="btn btn-primary">Eliminar</a>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                           </tr>
                         </tbody>
                       </table>
@@ -210,8 +273,8 @@ require('../../common/conexion.php');
                   </div>
                 </div>
                 </div>
-
             </div>
+
             <?php include('../common/footer.php'); ?>
         </div>
     </div>

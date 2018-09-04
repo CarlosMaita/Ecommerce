@@ -11,106 +11,15 @@
     <meta name="desciption" content="Rouxa, Tienda virtual de Ropa para Damas, Caballeros y Niños.">
     <meta name="keywords" content="Rouxa, Ropa, Damas, Caballeros, Zapatos, Tienda Virtual">
     <meta name="author" content="Eutuxia, C.A.">
-    <meta name="application-name" content="Tienda Virtual de Ropa, Rouxa." />
+    <meta name="application-name" content="Tienda Virtual de Ropa, Rouxa."/>
+    <link rel="icon" type="image/jpg" sizes="16x16" href="../imagen/favicon.jpg">
      <link rel="stylesheet" href="../css/style-main.css">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-    <!-- Font -Awesome -->
+    <link href="../admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
 <script src='https://www.google.com/recaptcha/api.js'></script>
     <title>Rouxa-Carrrito de Compras</title>
   </head>
 <script  type="text/javascript">
-function validacion(){
-    var r1=document.getElementById('nombre-cliente').value;
-    var r3=document.getElementById('telf-cliente').value;
-    var r4=document.getElementById('email-cliente').value;
-
-    var checkBox = document.getElementById("isfacture");
-    var r21=document.getElementById('razon-social').value;
-    var r2=document.getElementById('doc-identidad').value;
-    var r5=document.getElementById('dir-fiscal').value;
-
-    var r6=document.getElementById('estado').value;
-    var r61=document.getElementById('ciudad').value;
-    var r7=document.getElementById('municipio').value;
-    var r71=document.getElementById('parroquia').value;
-
-    var r8=document.getElementById('direccion').value;
-    var r9=document.getElementById('ref').value;
-    var r10=document.getElementById('codigo-postal').value;
-
-    var r11=document.getElementById('receptor').value;
-    var r12=document.getElementById('doc-identidad-receptor').value;
-    var r13=document.getElementById('telf-receptor').value;
-
-    if (r1==null || r1.length==0){
-        alert("Por favor, registre su nombre  como cliente.");
-        return false;
-    }
-     else if (r3==null|| r3.length==0){
-        alert("Por favor, registre un número telefonico de contacto.");
-        return false;
-    }
-
-    else if (r4==null|| r4.length==0){
-        alert("Por favor, registre un correo electronico de contacto.");
-        return false;
-    }
-       else if ((r21==null|| r21.length==0)&&(checkBox.checked)){
-        alert("Por favor, registre la razon social de la factura.");
-        return false;
-    }
-    else if ((r2==null|| r2.length==0)&&(checkBox.checked)){
-        alert("Por favor, registre El Registro Único de Información Fiscal (RIF) de la factura.");
-        return false;
-    }
-    else if ((r5==null|| r5.length==0) &&(checkBox.checked)){
-        alert("Por favor, registre la direccion fiscal de la factura.");
-        return false;
-    }
-      else if (r11==null|| r11.length==0){
-        alert("Por favor, registre a la persona que recibira el envio.");
-        return false;
-    }
-    else if (r12==null|| r12.length==0){
-        alert("Por favor, registre el documento de identidad de la persona que recibira el envio.");
-        return false;
-    }
-    else if (r13==null|| r13.length==0){
-        alert("Por favor, registre el numero telefonico donde se informara de su envio.");
-        return false;
-    }
-    else if (r6==null|| r6.length==0){
-        alert("Por favor, registre su estado.");
-        return false;
-    }
-      else if (r61==null|| r61.length==0){
-        alert("Por favor, registre su cuidad.");
-        return false;
-    }
-              else if (r7==null|| r7.length==0){
-        alert("Por favor, registre su municipio.");
-        return false;
-    }
-       else if (r71==null|| r71.length==0){
-        alert("Por favor, registre su parroquia.");
-        return false;
-    }
-      else if (r8==null|| r8.length==0){
-        alert("Por favor, rellene la direccion de envio.");
-        return false;
-    }
-              else if (r9==null|| r9.length==0){
-        alert("Por favor, informenos de un punto de referencia de la direccion de envio.");
-        return false;
-    }
-             else if (r10==null|| r10.length==0){
-        alert("Por favor, diganos el codigo postal de su zona.");
-        return false;
-    }
-    return true;
-}
 function Factura(){
                    // Get the checkbox
           var checkBox = document.getElementById("isfacture");
@@ -119,7 +28,6 @@ function Factura(){
           var text2 =  document.getElementById("type-identidad");
           var text3 =  document.getElementById("dir-fiscal");
           var text4 =  document.getElementById("razon-social");
-
           // If the checkbox is checked, display the output text
           if (checkBox.checked == true){
             text1.style.display = "block";
@@ -134,7 +42,6 @@ function Factura(){
           }
     }
 </script>
-
   <body>
     <?php include_once '../common/menu2.php';
           include_once '../common/2domenu2.php';
@@ -142,10 +49,10 @@ function Factura(){
 <!-- Inicio de codigo. !-->
   <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h1 class="display-4">Solicitud de Compra</h1>
+    <h2 class="display-4">Solicitud de Compra</h2>
     <p class="lead">Usted ha realizado la solicitud del siguiente carrito de compra. Por favor, verifique, complete los campos de datos solicitados  y confirme su compra.</p>
   </div>
-  <div  style="min-height: 10vh; width:auto">
+  <div style="min-height: 10vh; width:auto">
    <?php
         // put your code here
        if(isset($_SESSION['carrito'])){
@@ -193,119 +100,131 @@ function Factura(){
     </table>
    <?php
            $_SESSION['total']=$total;
-            }else{
-           echo '<center><h2>No hay productos añadidos en el carrito</h2></center>';
-            }
-    ?>
+            ?>
 </div>
   </div>
     <form action="cuentas_bancarias.php" method="POST" onsubmit="return validacion() && captch()">
     <div class="container">
-            <h1  class="text-center">Datos de Cliente</h1>
-            <div class="input-group mb-2">
-                  <input type="text" placeholder="Nombre de cliente"  name="nombre-cliente" id="nombre-cliente" class="form-control" >
-            </div>
-            <div class="input-group mb-2">
-                  <input type="text" placeholder="Número telefonico del Cliente" name="telf-cliente" id="telf-cliente" class="form-control" >
-            </div>
-            <div class="input-group mb-3">
-                  <input type="text" placeholder="E-mail del Cliente" name="email-cliente" id="email-cliente" value="@gmail.com" class="form-control"  >
-            </div>
-            <div class="mb-3 ">
-                    <center>
-                          <p>
-                   <input  id="isfacture" type="checkbox" onclick="Factura()" name="isfacture" value="true"> Yo, deseo factura fiscal</p>
-                    </center>
-            </div>
-           <div class="input-group mb-2">
-                <input type="text" placeholder="Razon Social" name="razon-social" id="razon-social" style="display: none"  class="form-control" >
-            </div>
-             <div class="input-group mb-2">
-                  <select name="type-identidad" id="type-identidad" style="display: none; border: 1px solid #ddd; width:20%; border-radius: 4px 0 0 4px; "  >
-                <option>V</option>
-                <option>E</option>
-                <option>J</option>
-                <option>P</option>
-                <option>G</option>
-              </select>
-              <input type="text" placeholder="Registro Único de Información Fiscal  (RIF)" name="doc-identidad" id="doc-identidad" maxlength="30" style="display: none"  class="form-control">
-            </div>
-             <div class="input-group mb-2">
-                 <input type="text" placeholder="Direccion Fiscal" name="dir-fiscal" id="dir-fiscal" style="display: none" class="form-control">
-            </div>
-              <h1 class="text-center">Datos de Envio</h1>
-               <div class="input-group mb-2">
-                 <input type="text" placeholder="Nombre y apellido del que recibe" name="receptor" id="receptor"class="form-control"  >
-            </div>
-               <div class="input-group mb-2">
-                <select name="type-identidad-receptor" id="type-identidad-receptor"  style="border: 1px solid #ddd; width:20%; border-radius: 4px 0 0 4px;">
-                <option>V</option>
-                <option>E</option>
-                <option>Passaporte</option>
-            </select>
-            <input type="text" placeholder="Documento de identidad del que recibe [ejemplo: 20184765]" name="doc-identidad-receptor" id="doc-identidad-receptor" maxlength="30" class="form-control" >
-            </div>
-            <div class="input-group mb-2">
-                 <input type="text" placeholder="Telefono del que recibe. Ejemplo: (+58) 414 9990000" name="telf-receptor" id="telf-receptor" class="form-control" >
-            </div>
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <label class="input-group-text" for="pais">Pais</label>
-              </div>
-                   <select name="pais" id="pais" class="custom-select" >
-                        <option value="Venezuela">Venezuela</option>
-                   </select>
-            </div>
-            <div class="input-group mb-2" >
-                 <input type="text" placeholder="Estado | Departamento | Provincia" name="estado" id="estado" maxlength="30" class="form-control" >
-            </div>
-            <div class="input-group mb-2">
-                 <input type="text" placeholder="Ciudad" name="ciudad" id="ciudad" maxlength="30" class="form-control" >
-            </div>
-            <div class="input-group mb-2">
-                  <input type="text" placeholder="Municipio | Localidad" name="municipio" id="municipio" maxlength="30" class="form-control" >
-            </div>
-            <div class="input-group mb-2">
-                  <input type="text" placeholder="Parroquia" name="parroquia" id="parroquia" maxlength="30" class="form-control" >
-            </div>
-            <div class="input-group mb-2">
-                <input type="text" placeholder="Direccion -  Barrio | Zona | Sector | Casa | Apartamento | local | Edificio" name="direccion" id="direccion" maxlength="200" class="form-control" >
-            </div>
-            <div class="input-group mb-2">
-                 <input type="text" placeholder="Referencia" name="ref" id="ref" maxlength="200" class="form-control" >
-            </div>
-            <div class="input-group mb-2">
-                    <input type="text" placeholder="Codigo Postal" name="codigo-postal" id="codigo-postal" maxlength="20" class="form-control" >
-
-            </div>
-            <div class="input-group mb-4">
-              <input type="text" placeholder="Observaciones de envio" name="observaciones" id="observaciones" maxlength="200" class="form-control" >
-            </div>
-               <div class="mb-3 ">
-                    <center>
-                          <p>
-                   <input   type="checkbox"  required> Yo, declaro haber leido y entendio los terminos, condiciones y politicas que regulan esta tienda virtual. De igual manera declaro que la informacion suministrada mediante este fomulario es correcta.</p>
-                    </center>
-            </div>
-              <center class="p-3" > <div class="g-recaptcha" data-sitekey="6LezMGIUAAAAAK7US9I7C9wD2OV9Hufqb8V5whVY"></div></center>
-              <ul class="grupo-botones mb-3" >
-               <li class="expand">
-                 <input class="boton-exp" type="submit" value="Confirmar">
-               </li>
-               <li class="expand">
-                    <input  class="boton-exp" type="reset" value="Limpiar Formulario">
-               </li>
-            </ul>
+      <div class="row justify-content-center">
+        <h3 class="text-center">Datos del Cliente</h3>
+      </div>
+      <div class="row my-3">
+        <div class="input-group col-4">
+          <input type="text" placeholder="Nombre de cliente" name="nombre-cliente" class="form-control" required>
         </div>
-        </form>
-<!--Fin  de codigo. !-->
-   <!--Pie de Pagina !-->
+        <div class="input-group col-4">
+          <input type="text" placeholder="Número telefonico del Cliente" name="telf-cliente" class="form-control" required>
+        </div>
+        <div class="input-group col-4">
+          <input type="email" placeholder="E-mail del Cliente" name="email-cliente" class="form-control" required>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 mb-2">
+          <h3 class="text-center">Datos necesarios para el Envío</h3>
+        </div>
+        <div class="input-group mb-2 col-4">
+          <input type="text" placeholder="Nombre y apellido del que recibe" name="receptor" class="form-control">
+        </div>
+        <div class="input-group mb-2 col-4">
+          <select name="type-identidad-receptor" style="border: 1px solid #ddd; width:20%; border-radius: 4px 0 0 4px;">
+            <option>V</option>
+            <option>E</option>
+            <option>Passaporte</option>
+          </select>
+          <input type="text" placeholder="Documento de identidad del que recibe [ejemplo: 20184765]" name="doc-identidad-receptor" maxlength="30" class="form-control" required>
+        </div>
+        <div class="input-group mb-2 col-4">
+          <input type="text" placeholder="Telefono del que recibe. Ej: 04149990000" name="telf-receptor" class="form-control" required>
+        </div>
+        <div class="input-group mb-2 col-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="pais">Pais</label>
+          </div>
+          <select name="pais" class="custom-select" required>
+            <option value="Venezuela">Venezuela</option>
+            <option value="Colombia">Colombia</option>
+            <option value="Panama">Panamá</option>
+          </select>
+        </div>
+        <div class="input-group mb-2 col-4">
+          <input type="text" placeholder="Estado | Departamento | Provincia" name="estado" maxlength="30" class="form-control" required>
+        </div>
+        <div class="input-group mb-2 col-2">
+          <input type="text" placeholder="Ciudad" name="ciudad" maxlength="30" class="form-control" required>
+        </div>
+        <div class="input-group mb-2 col-3">
+          <input type="text" placeholder="Municipio | Localidad" name="municipio" maxlength="30" class="form-control" required>
+        </div>
+        <div class="input-group mb-2 col-3">
+          <input type="text" placeholder="Parroquia" name="parroquia" maxlength="30" class="form-control">
+        </div>
+        <div class="input-group mb-2 col-6">
+          <input type="text" placeholder="Direccion -  Barrio | Zona | Sector | Casa | Apartamento | local | Edificio" name="direccion" maxlength="200" class="form-control" >
+        </div>
+        <div class="input-group mb-2 col-3">
+          <input type="text" placeholder="Código Postal" name="codigo-postal" maxlength="20" class="form-control">
+        </div>
+        <div class="input-group mb-2 col-5">
+          <input type="text" placeholder="Referencia" name="ref" maxlength="200" class="form-control">
+        </div>
+        <div class="input-group mb-2 col-3">
+          <select name="type-identidad-receptor" class="form-control">
+            <option value="domesa">Domesa</option>
+            <option value="zoom">Zoom</option>
+            <option value="mrw">MRW</option>
+          </select>
+        </div>
+        <div class="input-group mb-2 col-12">
+          <input type="text" placeholder="Observaciones de envío" name="observaciones" maxlength="200" class="form-control">
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <p><input id="isfacture" type="checkbox" onclick="Factura()" name="isfacture" value="true"> Yo, deseo factura fiscal</p>
+      </div>
+      <div class="row breadcrumb">
+        <div class="input-group mb-2 col-6">
+          <input type="text" placeholder="Razon Social" name="razon-social" id="razon-social" style="display: none" class="form-control">
+        </div>
+        <div class="input-group mb-2 col-6">
+          <select class="text-center" name="type-identidad" id="type-identidad" style="display: none; border: 1px solid #ddd; width:20%; border-radius: 4px 0 0 4px;">
+            <option>J</option>
+            <option>P</option>
+            <option>G</option>
+          </select>
+          <input type="text" placeholder="Registro Único de Información Fiscal  (RIF)" name="doc-identidad" id="doc-identidad" maxlength="30" style="display: none"  class="form-control">
+        </div>
+        <div class="input-group mb-2 col-12">
+          <input type="text" placeholder="Direccion Fiscal" name="dir-fiscal" id="dir-fiscal" style="display: none" class="form-control">
+        </div>
+      </div>
+      <div class="row my-3">
+        <p><input type="checkbox" required> Yo, declaro haber leido y entendido los <a href="../faq/index.php">términos, condiciones y politicas</a> que regulan esta tienda virtual. De igual manera declaro que la informacion suministrada mediante este fomulario es correcta.</p>
+      </div>
+      <div class="row my-4 justify-content-center">
+        <div class="col-2">
+          <button class="btn btn-outline-success" type="submit" name="">Confirmar</button>
+        </div>
+        <div class="col-2">
+          <a class="btn btn-outline-danger" name="" href="../index.php">Cancelar</a>
+        </div>
+      </div>
+    </div>
+  </form>
+<?php }else{ ?>
+  <div class="container">
+    <div class="row justify-content-center py-5">
+      <h2 class="text-danger">No hay productos añadidos en el carrito</h2>
+    </div>
+    <div class="row justify-content-center my-5">
+        <a href="../index.php" class="btn btn-outline-success col-4">Volver</a>
+    </div>
+  </div>
+  <?php } ?>
 <?php include_once '../common/footer2.php';?>
-    <!-- Optional JavaScript -->
     <script>
   function captch() {
     var response = grecaptcha.getResponse();
-
     if(response.length == 0){
       alert("Captcha no verificado")
       return false;
@@ -314,10 +233,8 @@ function Factura(){
     }
   }
 </script>
-
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<script src="../admin/assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="../admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+<script src="../admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
