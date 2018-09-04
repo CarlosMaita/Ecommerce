@@ -15,7 +15,7 @@ if(isset($_SESSION['ACCESO'])){
     if ($_SESSION['ACCESO']==TRUE){
         
 
-if(isset($_POST['nombre_p'])){
+if(isset($_POST['nombre_p'],$_POST['talla'],$cantidad=$_POST['cantidad'] )){
         $nombre_p=$_POST['nombre_p'];
         $talla=$_POST['talla'];
         $cantidad=$_POST['cantidad'];
