@@ -15,14 +15,14 @@
   </head>
   <body>
     <?php include_once '../common/menu2.php';?>
-<!-- Inicio de codigo. !-->
-    <div class="jumbotron mb-0" style="min-height:100vh">
+    <div class="jumbotron mb-0">
       <h1 class="display-4">Atención cercana</h1>
-      <p class="lead">Si quieres un canal de comunicacion rapido, eficaz y preciso. Te recomendamos el servicio de Atención cercana. Si deseas conectarte pulsa <i><a href="https://hangouts.google.com/group/GIpcKg7aQhnHT3IL2">Aqui</a></i>.</p>
+      <p class="lead">Si quieres un canal de comunicacion rápido, eficaz y preciso. Te recomendamos el servicio de Atención cercana. Estaremos atentos a tus dudas, opiniones y preguntas que desees realizarnos.</p>
+        <p>Si deseas contactarnos pulsa <i><a href="https://hangouts.google.com/group/GIpcKg7aQhnHT3IL2">Aqui</a></i>.</p>
       <hr class="my-4">
-      <p>La herramienta de comunicacion usada es Hangout, por lo que para contactarnos debes hacerlos a través de un correo gmail</p>
+      <p>Ten en cuenta que deberás tener una cuenta de correo Gmail para comunicarte con nosotros.
+        Si no tienes una cuenta de Gmail, ve a este <a href="https://accounts.google.com/signup/v2/webcreateaccount?service=mail&continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&ltmpl=default&flowName=GlifWebSignIn&flowEntry=SignUp" target="_blank">enlace</a> y podrás crear una cuenta de Gmail.</p>
     </div>
-<!--Pie de Pagina !-->
 <?php include_once '../common/footer2.php';?>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

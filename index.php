@@ -87,10 +87,9 @@
       <h1 class="display-4">¡Se un Vendedor Rouxa!</h1>
       <p class="lead">Podrás vender nuestros productos sin tener que realizar alguna inversión. ¡Ganarás un porcentaje de las ventas!</p>
       <hr class="my-4">
-      <p>Solo tendrás que dar tu código de Vendedor Rouxa a tu cliente, y este comprará a tu nombre los articúlos que desee.</p>
+      <p>Solo tendrás que dar tu código de Vendedor Rouxa a tu cliente, y este comprará a tu nombre los articúlos que desee. <small><a href="faq/index.php?id=6">Más info.</a> </small> </p>
       <a class="btn btn-secondary btn-lg disabled mt-3" href="" role="button">Proximamente</a>
     </div>
- <!--Pie de Pagina -->
 <?php include_once 'common/footer.php';?>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

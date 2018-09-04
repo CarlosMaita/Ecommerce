@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="../css/style-main.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
     <script src='https://www.google.com/recaptcha/api.js'></script>
     <title>Rouxa</title>
   </head>
@@ -23,10 +24,10 @@
           include_once '../common/2domenu2.php';
     ?>
    <div class="jumbotron mb-0">
-    <h1 class="display-4">¡Haz le seguimiento a tu compra!</h1>
-    <p class="lead">Inserta tu llave digital de compra en el campo que se muestra abajo.</p>
+    <h1 class="display-4">¡Hazle seguimiento a tu compra!</h1>
+    <p class="lead">Inserta tu <a href="../faq/index.php" target="_blank">llave digital</a> de compra en el campo que se muestra abajo. Y podrás ver el Estatus de tu compra.</p>
     <hr class="my-4">
-    <form action="" method="get" >
+    <form action="" method="get">
         <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="Inserte su Llave digital" aria-label="Inserte su Llave digital" aria-describedby="basic-addon2"  name="idcompra" maxlength="32">
           <div class="input-group-append">
@@ -36,8 +37,8 @@
         <div class="g-recaptcha" data-sitekey="6LezMGIUAAAAAK7US9I7C9wD2OV9Hufqb8V5whVY"></div>
     </form>
     </div>
-    <div class="text-center my-3">
-      <h2 class="display-4">¡Observa otros productos que te podrian interesar!</h2>
+    <div class="text-center my-4">
+      <h4 class="display-4" style="font-family: 'Playfair Display', serif;">¡Observa otros productos que te podrian interesar!</h4>
     </div>
     <article class="container my-5">
       <div class="card-deck">
@@ -69,7 +70,7 @@
       <p>Solo tendrás que dar tu código de Vendedor Rouxa a tu cliente, y este comprará a tu nombre los articúlos que desee.</p>
       <a class="btn btn-secondary btn-lg disabled mt-3" href="" role="button">Proximamente</a>
     </div>
-<div  style="min-height:55vh">
+<div style="min-height:55vh">
  <?php
   if (isset($_GET['g-recaptcha-response']) ){
         $recaptcha=$_GET['g-recaptcha-response'];

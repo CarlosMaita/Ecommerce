@@ -222,7 +222,7 @@
               </div>
               <div id="eight" class="collapse" aria-labelledby="height" data-parent="#accordionExample">
                 <div class="card-body">
-                  El estado de tu pedido lo puedes conocer con tu código de seguimiento, colocándolo en la opción de "Rastreo" de la empresa de encomiendas.
+                  El estado de tu pedido lo puedes conocer con tu código de seguimiento (Llave digital), colocándolo en la opción de "Rastreo" de la empresa de encomiendas.
                 </div>
               </div>
             </div>
@@ -453,7 +453,7 @@
                        ?>
        <div class="container p-3">
           <h1 id="letrap"  class="text-primary text-center">
-            Suscripciones
+            Seguimiento de pedidos
           </h1>
           <hr class="my-4">
        </div>
@@ -465,13 +465,13 @@
                   <div class="card-header" id="onei">
                     <h5 class="mb-0">
                       <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#cone" aria-expanded="true" aria-controls="collapseOne">
-                        Sin información.
+                        ¿Como se en donde se encuentra mi pedido?
                       </button>
                     </h5>
                   </div>
                   <div id="cone" class="collapse" aria-labelledby="onei" data-parent="#ac1">
                     <div class="card-body">
-
+                      La ubicación de tu pedido la podrás observar en la pagina de <a href="../compras/index.php">seguimiento</a>, colocando tu llave dital.
                     </div>
                   </div>
                 </div>
@@ -479,13 +479,14 @@
                   <div class="card-header" id="twoi">
                     <h5 class="mb-0">
                       <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#ctwo" aria-expanded="false" aria-controls="collapseTwo">
-
+                        ¿Que es una Llave digital?
                       </button>
                     </h5>
                   </div>
                   <div id="ctwo" class="collapse" aria-labelledby="twoi" data-parent="#ac1">
                     <div class="card-body">
-
+                      La <b>Llave digital</b> es un codigo generado por nuestro sistema, con el cual podrás obtener toda la información
+                      referente a tu pedido.
                     </div>
                   </div>
                 </div>
@@ -828,7 +829,7 @@
              <li id="faq-li" class="bg-dark">
                 <ul class="faq-row bg-dark">
                      <li><a href="index.php?id=1" class="bg-dark text-white">Productos</a></li>
-                     <li><a href="index.php?id=5" class="bg-dark text-white">Suscripciones</a></li>
+                     <li><a href="index.php?id=5" class="bg-dark text-white">Seguimiento de Pedidos</a></li>
                      <li><a href="index.php?id=6" class="bg-dark text-white">Vendedores</a ></li>
                      <li><a href="index.php?id=7" class="bg-dark text-white">Promociones</a></li>
                      <li><a href="index.php?id=10" class="bg-dark text-white">Publicar Ropa en Rouxa</a></li>
