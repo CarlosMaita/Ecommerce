@@ -1,35 +1,19 @@
 <?php
 include_once('../common/sesion2.php');
 require('../../common/conexion.php');
-
-#eliminar elemento 
+#eliminar elemento
 if(isset($_GET['delete']) & !empty($_GET['delete'])){
-    
     $idmodelo=$_GET['delete'];
-   
     $sql ="DELETE FROM MODELOS WHERE IDMODELO='$idmodelo'";
-    
        if ($conn->query($sql) === TRUE) {
-           } else {
-             echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';
-        }
-    
-    
-} 
-
+           } else { echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>'; }
+}
 $perpage  = 5;
-
-
 if(isset($_GET['page']) & !empty($_GET['page'])){
 	$curpage = $_GET['page'];
-}else{
-	$curpage = 1;
-}
-
+}else{$curpage = 1;}
 $start = ($curpage * $perpage) - $perpage;
-
 #necesito el total de elementos
-
 $PageSql = "SELECT * FROM MODELOS";
 $pageres = mysqli_query($conn, $PageSql);
 $totalres = mysqli_num_rows($pageres);
@@ -38,8 +22,6 @@ $endpage = ceil($totalres/$perpage);
 $startpage = 1;
 $nextpage = $curpage + 1;
 $previouspage = $curpage - 1;
-
-
  ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -107,7 +89,6 @@ $previouspage = $curpage - 1;
               <div class="row justify-content-center mt-1 bg-white py-2">
                 <h3>Agregue las caracteristicas del modelo</h3>
               </div>
-              
               <form class="" action="addModelo.php" method="POST" enctype="multipart/form-data">
               <div class="row mt-3">
                 <div class="input-group mb-3 col-6">
@@ -122,11 +103,10 @@ $previouspage = $curpage - 1;
                           while($row = $result->fetch_assoc()) {
                             ?>
                     <option value="<?=$row['IDPRODUCTO']?>"><?=$row['NOMBRE_P']?></option>
-                            <?php            
+                            <?php
                        }
                       }
-                      
-                      ?> 
+                      ?>
                   </select>
                 </div>
                 <div class="input-group mb-3 col-3">
@@ -141,11 +121,10 @@ $previouspage = $curpage - 1;
                           while($row = $result->fetch_assoc()) {
                             ?>
                         <option value="<?=$row['IDCOLOR']?>"><?=$row['COLOR']?></option>
-                            <?php            
+                            <?php
                        }
                       }
-                      
-                      ?> 
+                      ?>
                   </select>
                 </div>
                 <div class="input-group mb-3 col-3">
@@ -157,14 +136,13 @@ $previouspage = $curpage - 1;
                        $sql="SELECT * FROM COLOR";
                        $result = $conn->query($sql);
                       if ($result->num_rows > 0) {
-                          while($row = $result->fetch_assoc()) {
+                          while($row = $result->fetch_assoc()){
                             ?>
                         <option value="<?=$row['IDCOLOR']?>"><?=$row['COLOR']?></option>
-                            <?php            
+                            <?php
                        }
                       }
-                      
-                      ?> 
+                      ?>
                   </select>
                 </div>
                 <div class="col-12">
@@ -175,8 +153,6 @@ $previouspage = $curpage - 1;
                 <button type="submit" class="btn btn-outline-primary">Agregar</button>
               </div>
               </form>
-               
-               
                 <div class="row mt-3">
                   <div class="col-12">
                   <div class="card">
@@ -193,72 +169,94 @@ $previouspage = $curpage - 1;
                             <th scope="col">Genero</th>
                             <th scope="col">Prenda</th>
                             <th scope="col">Marca</th>
-                            <th scope="col">Precio</th>
+                            <th scope="col">Precio (Bs.)</th>
                             <th scope="col">C. Ppal</th>
                             <th scope="col">C. Secd</th>
                             <th scope="col"></th>
                           </tr>
                         </thead>
                         <tbody>
-
-                         
-                         
                              <?php
-                                
-                            
-                             $sql = "SELECT * FROM MODELOS m 
-                             INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
+                             $sql = "SELECT m.IDMODELO, m.IMAGEN, m.COLOR1, m.COLOR2, p.NOMBRE_P, p.GENERO, p.TIPO, p.PRECIO, p.MARCA
+                             FROM MODELOS m INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
                              LIMIT $start, $perpage";
                              $result = $conn->query($sql);
-                             if ($result->num_rows > 0) {
+                             if ($result->num_rows > 0){
                              // output data of each row
-                                while($row = $result->fetch_assoc()) {
+                                while($row = $result->fetch_assoc()){
                                     $idcolor1 = $row['COLOR1'];
                                     $idcolor2 = $row['COLOR2'];
-                                    
                                     $sql1="SELECT * FROM COLOR WHERE IDCOLOR='$idcolor1' LIMIT 1";
                                     $sql2="SELECT * FROM COLOR WHERE IDCOLOR='$idcolor2' LIMIT 1";
-                                    
                                     #color 1
                                     $result1 = $conn->query($sql1);
-                                    if ($result1->num_rows > 0) {
-                                        while($row1 = $result1->fetch_assoc()) {
+                                    if($result1->num_rows > 0){
+                                        while($row1 = $result1->fetch_assoc()){
                                            $color1= $row1['COLOR'];
-                                           $hex1=  $row1['HEX'];     
+                                           $hex1=  $row1['HEX'];
                                         }
                                     }
                                     #color 2
                                     $result2 = $conn->query($sql2);
-                                    if ($result2->num_rows > 0) {
-                                        while($row2 = $result2->fetch_assoc()) {
+                                    if($result2->num_rows > 0){
+                                        while($row2 = $result2->fetch_assoc()){
                                            $color2= $row2['COLOR'];
-                                           $hex2=  $row2['HEX'];     
+                                           $hex2=  $row2['HEX'];
                                         }
                                     }
-                                    
-                                    
                                    ?>
-                                  <tr>  
-                                    <td scope="row"><img src="" alt=""/> </td>
-                                    <th><?php echo $row['NOMBRE_P']; ?></th>
+                                  <tr>
+                                    <td scope="row"><img src="../../imagen/<?php echo $row['IMAGEN'];?>" alt="" width="25px"/></td>
+                                    <td><?php echo $row['NOMBRE_P']; ?></td>
                                     <td><?php switch($row['GENERO']){case '1': echo 'Dama'; break; case '2': echo 'Caballero'; break; default: echo 'Otro'; break; }?></td>
                                     <td><?=ucwords($row['TIPO'])?></td>
                                     <td><?=ucwords($row['MARCA'])?></td>
                                     <td><?php echo number_format($row['PRECIO'], 2, ',', '.'); ?></td>
                                     <td><span class="dot2" style="background-color:<?=$hex1?>;"></span><?=$color1?></td>
                                     <td><span class="dot2" style="background-color:<?=$hex2?>;"></span><?=$color2?></td>
-                                    <td><a href="modelo.php?delete=<?=$row['IDMODELO']?>" class="btn btn-outline-danger btn-sm" >Eliminar</a></td>
+                                    <td><a href="modificar.php?id=<?php echo $row['IDMODELO']; ?>" class="btn btn-outline-success btn-sm">Editar</a>
+                                      <a  href="javascript:void(0)" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eli<?php echo $row['IDMODELO']; ?>">Eliminar</a>
+                                    </td>
                                   </tr>
-                                   
+                                  <div class="modal fade" id="eli<?php echo $row['IDMODELO']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title">¿Desea eliminar el producto?</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <div class="container">
+                                            <div class="row align-items-center">
+                                              <div class="col-2">
+                                                <img src="../../imagen/<?php echo $row['IMAGEN'];?>" width="40px" alt="">
+                                              </div>
+                                              <div class="col-6">
+                                                <?php echo $row['NOMBRE_P'];?>
+                                              </div>
+                                              <div class="col-4">
+                                                <?=ucwords($row['MARCA']);?>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </br>
+                                          Tenga en cuenta que se eliminarán todos los modelos, y tallas que se encuentran registrados en el sistema.</br>
+                                          Consulte con su supervisor antes de realizar esta acción.
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                          <a href="modelo.php?delete=<?=$row['IDMODELO']?>" class="btn btn-primary">Eliminar</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
                                 <?php
                                     }
-                                } else{
-                                    echo "Sin Productos";
-                                }?>
-
+                                } else{ echo "Sin Modelos"; }?>
                         </tbody>
                       </table>
-                      
                         <center>
                         <nav aria-label="Page navigation example">
                           <ul class="pagination justify-content-center">
@@ -270,17 +268,13 @@ $previouspage = $curpage - 1;
                       </a>
                     </li>
                     <?php } ?>
-
                           <?php if($curpage >=2){ ?>
                             <li class="page-item"><a class="page-link" href="?page=<?php echo $previouspage ?>"><?php echo $previouspage ?></a></li>
                             <?php }  ?>
-                            
                             <li class="page-item active"><a class="page-link" href="?page=<?php echo $curpage ?>"><?php echo $curpage ?></a></li>
-                            
                             <?php if($curpage != $endpage){ ?>
                             <li class="page-item"><a class="page-link" href="?page=<?php echo $nextpage ?>"><?php echo $nextpage ?></a></li>
                         <?php } ?>
-                          
                          <?php if($curpage != $endpage){ ?>
                         <li class="page-item">
                           <a class="page-link" href="?page=<?php echo $endpage ?>" aria-label="Next">
@@ -292,13 +286,10 @@ $previouspage = $curpage - 1;
                           </ul>
                         </nav>
                      </center>
-                      
-                      
                     </div>
                   </div>
                 </div>
                 </div>
-
             </div>
             <div class="container">
               <div class="container">

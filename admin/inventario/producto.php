@@ -1,15 +1,12 @@
 <?php
 include_once('../common/sesion2.php');
 require('../../common/conexion.php');
-
-#eliminar elemento 
+#eliminar elemento
 if(isset($_GET['delete']) & !empty($_GET['delete'])){
-    
     $idproducto=$_GET['delete'];
-    #eliminar image 
+    #eliminar image
         #consigue direcion de imagen de producto
         $sql="SELECT IMAGEN FROM PRODUCTOS WHERE IDPRODUCTO='$idproducto' LIMIT 1";
-        
           $result = $conn->query($sql);
           if ($result->num_rows > 0) {
           // output data of each row
@@ -19,32 +16,17 @@ if(isset($_GET['delete']) & !empty($_GET['delete'])){
               unlink('../imagen/productos/'.$imagen);
            }
           }
-       
-        
     #eliminar producto
     $sql ="DELETE FROM PRODUCTOS WHERE IDPRODUCTO='$idproducto'";
-    
        if ($conn->query($sql) === TRUE) {
-           } else {
-             echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';
-        }
-    
-    
-} 
-
+           } else { echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>'; }
+}
 $perpage  = 5;
-
-
 if(isset($_GET['page']) & !empty($_GET['page'])){
 	$curpage = $_GET['page'];
-}else{
-	$curpage = 1;
-}
-
+}else{$curpage = 1;}
 $start = ($curpage * $perpage) - $perpage;
-
 #necesito el total de elementos
-
 $PageSql = "SELECT * FROM PRODUCTOS";
 $pageres = mysqli_query($conn, $PageSql);
 $totalres = mysqli_num_rows($pageres);
@@ -53,10 +35,6 @@ $endpage = ceil($totalres/$perpage);
 $startpage = 1;
 $nextpage = $curpage + 1;
 $previouspage = $curpage - 1;
-
-
-
-
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -123,7 +101,7 @@ $previouspage = $curpage - 1;
               <div class="row justify-content-center mt-1 bg-white py-2">
                 <h3>Agregue las caracteristicas del producto</h3>
               </div>
-              
+
               <form class="" action="addProducto.php" method="POST" enctype="multipart/form-data">
               <div class="row mt-3">
                 <div class="input-group mb-3 col-6">
@@ -141,6 +119,8 @@ $previouspage = $curpage - 1;
                     <option value="chemise">Chemise</option>
                     <option value="pantalón">Pantalón</option>
                     <option value="camisa">Camisa</option>
+                    <option value="zapato">Zapato</option>
+                    <option value="gorra">Gorra</option>
                   </select>
                 </div>
                 <div class="input-group mb-3 col-3">
@@ -215,8 +195,6 @@ $previouspage = $curpage - 1;
                 <button type="submit" class="btn btn-outline-primary">Agregar</button>
               </div>
               </form>
-               
-               
                 <div class="row mt-3">
                   <div class="col-12">
                   <div class="card">
@@ -233,16 +211,13 @@ $previouspage = $curpage - 1;
                             <th scope="col">Genero</th>
                             <th scope="col">Prenda</th>
                             <th scope="col">Marca</th>
+                            <th scope="col">Material</th>
                             <th scope="col">Precio</th>
                             <th></th>
                           </tr>
                         </thead>
                         <tbody>
-
-                          
                              <?php
-                                
-                            
                              $sql = "SELECT * FROM PRODUCTOS  LIMIT $start, $perpage";
                              $result = $conn->query($sql);
                              if ($result->num_rows > 0) {
@@ -250,25 +225,56 @@ $previouspage = $curpage - 1;
                                 while($row = $result->fetch_assoc()) {
                                    ?>
                                    <tr>
-                                    <td scope="row"><?php echo $row['IDPRODUCTO']; ?></td>
-                                    <th><?php echo $row['NOMBRE_P']; ?></th>
+                                    <td class="text-center"><img src="../../imagen/<?php echo $row['IMAGEN']; ?>" width="20px" alt=""></td>
+                                    <td><?php echo $row['NOMBRE_P']; ?></td>
+                                    <td><?=ucwords($row['TIPO']);?></td>
                                     <td><?php switch($row['GENERO']){case '1': echo 'Dama'; break; case '2': echo 'Caballero'; break; default: echo 'Otro'; break; }?></td>
-                                    <td><?=ucwords($row['TIPO'])?></td>
                                     <td><?=ucwords($row['MARCA'])?></td>
+                                    <td><?=ucwords($row['MATERIAL']);?></td>
                                     <td><?php echo number_format($row['PRECIO'], 2, ',', '.'); ?></td>
-                                     <td><a href="producto.php?delete=<?=$row['IDPRODUCTO']?>" class="btn btn-outline-danger btn-sm" >Eliminar</a></td>
+                                    <td><a href="modificar.php?id=<?=$row['IDPRODUCTO']?>" class="btn btn-outline-success btn-sm">Editar</a>
+                                      <a  href="javascript:void(0)"class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eli<?=$row['IDPRODUCTO']?>">Eliminar</a>
+                                    </td>
                                   </tr>
-                                   
+                                  <div class="modal fade" id="eli<?=$row['IDPRODUCTO']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title">¿Desea eliminar el producto?</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <div class="container">
+                                            <div class="row">
+                                              <div class="col-2">
+                                                <img src="../../imagen/<?php echo $row['IMAGEN'];?>" width="20px" alt="">
+                                              </div>
+                                              <div class="col-6">
+                                                <?php echo $row['NOMBRE_P'];?>
+                                              </div>
+                                              <div class="col-4">
+                                                <?=ucwords($row['MARCA']);?>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </br>
+                                          Tenga en cuenta que se eliminarán todos los modelos, y tallas que se encuentran registrados en el sistema.</br>
+                                          Consulte con su supervisor antes de realizar esta acción.
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                          <a href="producto.php?delete=<?=$row['IDPRODUCTO']?>" class="btn btn-primary">Eliminar</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
                                 <?php
                                     }
-                                } else{
-                                    echo "Sin Productos";
-                                }?>
-                       
-
+                                }else{ echo "Sin Productos"; } ?>
                         </tbody>
                       </table>
-                      
                           <center>
                         <nav aria-label="Page navigation example">
                           <ul class="pagination justify-content-center">
@@ -280,17 +286,15 @@ $previouspage = $curpage - 1;
                       </a>
                     </li>
                     <?php } ?>
-
                           <?php if($curpage >=2){ ?>
                             <li class="page-item"><a class="page-link" href="?page=<?php echo $previouspage ?>"><?php echo $previouspage ?></a></li>
                             <?php }  ?>
-                            
+
                             <li class="page-item active"><a class="page-link" href="?page=<?php echo $curpage ?>"><?php echo $curpage ?></a></li>
-                            
+
                             <?php if($curpage != $endpage){ ?>
                             <li class="page-item"><a class="page-link" href="?page=<?php echo $nextpage ?>"><?php echo $nextpage ?></a></li>
                         <?php } ?>
-                          
                          <?php if($curpage != $endpage){ ?>
                         <li class="page-item">
                           <a class="page-link" href="?page=<?php echo $endpage ?>" aria-label="Next">
@@ -302,27 +306,20 @@ $previouspage = $curpage - 1;
                           </ul>
                         </nav>
                      </center>
-                      
                     </div>
                   </div>
                 </div>
                 </div>
             </div>
-
             <?php include('../common/footer.php'); ?>
         </div>
     </div>
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
     <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
     <script src="../assets/extra-libs/sparkline/sparkline.js"></script>
-    <!--Wave Effects -->
     <script src="../dist/js/waves.js"></script>
-    <!--Menu sidebar -->
     <script src="../dist/js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
     <script src="../dist/js/custom.min.js"></script>
 </body>
 </html>

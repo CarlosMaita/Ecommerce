@@ -1,7 +1,6 @@
 <?php
 include_once('../common/sesion2.php');
 require('../../common/conexion.php');
-
  ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -78,15 +77,12 @@ require('../../common/conexion.php');
                         </thead>
                         <tbody>
                             <?php
-                            
                           $sql="SELECT * FROM USUARIOS LIMIT 4;";
-                            
                           $result = $conn->query($sql);
                           if ($result->num_rows > 0) {
                           // output data of each row
                           while($row = $result->fetch_assoc()) {
                               ?>
-                              
                           <tr>
                             <td><?=$row['CORREO']?></td>
                             <td><?=$row['NOMBRE']?></td>
@@ -106,16 +102,13 @@ require('../../common/conexion.php');
                                           break;
                                       case 5:
                                           echo 'Visitante';
-                                          break;      
+                                          break;
                                   }?></td>
                           </tr>
-                              
                               <?php
                            }
                           }
-                            ?>                         
-                         
-                       
+                            ?>
                         </tbody>
                       </table>
                     </div>
@@ -136,27 +129,23 @@ require('../../common/conexion.php');
                           </tr>
                         </thead>
                         <tbody>
-                         
                           <?php
-                            
                           $sql="SELECT * FROM COLOR LIMIT 3;";
-                            
                           $result = $conn->query($sql);
-                          if ($result->num_rows > 0) {
+                          if ($result->num_rows > 0){
                           // output data of each row
-                          while($row = $result->fetch_assoc()) {
+                          while($row = $result->fetch_assoc()){
                               ?>
-                              
                           <tr class="text-center">
                               <td><span class="dot" style="background-color:<?=$row['HEX']?>"></span></td>
                              <td><?=$row['COLOR']?></td>
                           </tr>
-                              
+
                               <?php
                            }
                           }
-                            ?>    
-                         
+                            ?>
+
                         </tbody>
                       </table>
                     </div>
