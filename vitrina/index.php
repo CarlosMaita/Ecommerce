@@ -215,9 +215,8 @@ $url= $_SERVER["REQUEST_URI"];
                   </div>
                   <div class="col-6">
                     <select name="orden" class="text-secondary">
-                      <option value=""></option>
-                      <option value="1"><a href="../index.php">Menor precio</a></option>
-                      <option value="2"><a href="#">Mayor precio</a></option>
+                      <option value="1"><a href="?precio=bajo">Menor precio</a></option>
+                      <option value="2"><a href="?precio=alto">Mayor precio</a></option>
                     </select>
                   </div>
               </div>
