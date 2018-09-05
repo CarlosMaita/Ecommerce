@@ -173,14 +173,14 @@ if(isset($_GET['tipo'])){
           <hr>
           <div class="row">
             <div class="col-12"><b>Color</b></div>
-            <div class="col-3 mt-2"><a href="#" title="Gris" data-toggle="tooltip"><span class="dot3" style="background-color:#123e45;"></a></div>
-            <div class="col-3 mt-2"><a href="#" title="Vinotinto" data-toggle="tooltip"><span class="dot3" style="background-color:#aa3e45;"></a></div>
-            <div class="col-3 mt-2"><a href="#" title="Rojo" data-toggle="tooltip"><span class="dot3" style="background-color:#f23e45;"></a></div>
-            <div class="col-3 mt-2"><a href="#" title="Azul" data-toggle="tooltip"><span class="dot3" style="background-color:#123eaf;"></a></div>
-            <div class="col-3 mt-2"><a href="#" title="Blanco" data-toggle="tooltip"><span class="dot3" style="background-color:#ddd;"></a></div>
-            <div class="col-3 mt-2"><a href="#" title="Violeta" data-toggle="tooltip"><span class="dot3" style="background-color:#ad12fe;"></a></div>
-            <div class="col-3 mt-2"><a href="#" title="Amarillo" data-toggle="tooltip"><span class="dot3" style="background-color:#afa111;"></a></div>
-            <div class="col-3 mt-2"><a href="#" title="Morado" data-toggle="tooltip"><span class="dot3" style="background-color:#fa34bc;"></a></div>
+            <div class="col-3 mt-2"><a href="#" title="Gris" data-toggle="tooltip" ><span class="dot3" style="background-color:#123e45;"/></a></div>
+            <div class="col-3 mt-2"><a href="#" title="Vinotinto" data-toggle="tooltip"><span class="dot3" style="background-color:#aa3e45;"/></a></div>
+            <div class="col-3 mt-2"><a href="#" title="Rojo" data-toggle="tooltip"><span class="dot3" style="background-color:#f23e45;"/></a></div>
+            <div class="col-3 mt-2"><a href="#" title="Azul" data-toggle="tooltip"><span class="dot3" style="background-color:#123eaf;"/></a></div>
+            <div class="col-3 mt-2"><a href="#" title="Blanco" data-toggle="tooltip"><span class="dot3" style="background-color:#ddd;"/></a></div>
+            <div class="col-3 mt-2"><a href="#" title="Violeta" data-toggle="tooltip"><span class="dot3" style="background-color:#ad12fe;"/></a></div>
+            <div class="col-3 mt-2"><a href="#" title="Amarillo" data-toggle="tooltip"><span class="dot3" style="background-color:#afa111;"/></a></div>
+            <div class="col-3 mt-2"><a href="#" title="Morado" data-toggle="tooltip"><span class="dot3" style="background-color:#fa34bc;"/></a></div>
           </div>
           <hr>
         </div>
@@ -213,17 +213,22 @@ if(isset($_GET['tipo'])){
         $numProd=4;
         $rand=rand();
          while(!$void){
-          $sql = "SELECT * FROM PRODUCTO ORDER BY Rand($rand) LIMIT $numProd OFFSET $offset";
+          $sql = "SELECT * FROM MODELOS m
+          INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
+          ORDER BY Rand($rand) LIMIT $numProd OFFSET $offset";
+        #select de busqueda
            if (isset($_GET['genero'])){
                if (!empty($genero)){
-                   $sql_genero='WHERE GENERO='.$genero;
-                   $sql = "SELECT * FROM PRODUCTO $sql_genero ORDER BY Rand($rand) LIMIT $numProd OFFSET $offset";
+                   $sql = "SELECT * FROM MODELOS m 
+                   INNER JOIN PRODUCTOS p ON p.GENERO=$genero AND p.IDPRODUCTO=m.IDPRODUCTO
+                   ORDER BY Rand($rand) LIMIT $numProd OFFSET $offset";
                }
            }
            if( isset($_GET['tipo'])){
                if (!empty($tipo)){
-               $sql_tipo="WHERE TIPO='$tipo'";
-               $sql = "SELECT * FROM PRODUCTO $sql_tipo  ORDER BY Rand($rand) LIMIT $numProd OFFSET $offset";
+               $sql = "SELECT * FROM MODELOS m 
+               INNER JOIN PRODUCTOS p ON p.TIPO='$tipo' AND p.IDPRODUCTO=m.IDPRODUCTO 
+               ORDER BY Rand($rand) LIMIT $numProd OFFSET $offset";
                }
            }
         $result = $conn->query($sql);
@@ -236,7 +241,7 @@ if(isset($_GET['tipo'])){
            while($row = $result->fetch_assoc()){
               ?>
           <div class="card" >
-            <a href="../compra/index.php?id=<?php echo $row['IDPRODUCTO']; ?>"><img class="card-img-top img-fluid vitrina" src="<?php echo $row['IMAGEN']; ?>" alt="<?php echo $row['NOMBRE_P']; ?>"></a>
+            <a href="../compra/index.php?idproducto=<?php echo $row['IDPRODUCTO']; ?>&idmodelo=<?php echo $row['IDMODELO']; ?>"><img class="card-img-top img-fluid vitrina" src="../imagen/<?php echo $row['IMAGEN']; ?>" alt="<?php echo $row['NOMBRE_P']; ?>"></a>
             <div class="card-body">
               <h5 class="card-title"><?php echo $row['NOMBRE_P']; ?></h5>
               <p class="text-muted">Franela ajustable al cuerpo, fresca y comoda.</p>
