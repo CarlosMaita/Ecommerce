@@ -2,8 +2,10 @@
   include '../common/conexion.php';
   include '../common/TasaUSD2.php';
     $lista_tallas='';
-if(isset($_GET['id'])){
-        $sql= 'select TALLA,CANTIDAD from INVENTARIO where IDPRODUCTO='.$_GET["id"];
+if(isset($_GET['idproducto'], $_GET['idmodelo'])){
+        $idproducto=$_GET['idproducto'];
+        $idmodelo=$_GET['idmodelo'];
+        $sql= 'SELECT * FROM INVENTARIO i INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO WHERE i.IDMODELO='.$idmodelo;
             $res= $conn->query($sql);
             $arreglo[] = NULL;
            if ($res->num_rows > 0){
@@ -87,7 +89,7 @@ and open the template in the editor.
      <?php
       include_once '../common/menu2.php';
       include_once '../common/2domenu2.php';
-      $sql= 'select * from PRODUCTO where IDPRODUCTO='.$_GET["id"];
+      $sql= 'select * FROM PRODUCTOS WHERE IDPRODUCTO='.$idproducto;
       $res= $conn->query($sql);
       while($f=$res->fetch_assoc()){
     ?>

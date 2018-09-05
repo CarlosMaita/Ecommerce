@@ -61,14 +61,16 @@
    <article class="container my-5">
      <div class="card-deck">
        <?php
-     $sql = "SELECT * FROM PRODUCTO ORDER BY Rand() LIMIT 4";
+     $sql = "SELECT * FROM MODELOS m
+     INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
+     ORDER BY Rand() LIMIT 4";
      $result = $conn->query($sql);
      if ($result->num_rows > 0) {
      // output data of each row
         while($row = $result->fetch_assoc()) {
            ?>
        <div class="card" style="max-width: 100%; height: auto;">
-         <a href="compra/index.php?id=<?php echo $row['IDPRODUCTO']; ?>"><img class="vitrina card-img-top img-fluid" src="imagen/<?php echo $row['IMAGEN']; ?>" alt="<?php echo $row['NOMBRE_P']; ?>"></a>
+         <a href="compra/index.php?idproducto=<?php echo $row['IDPRODUCTO']; ?>&idmodelo=<?php echo $row['IDMODELO']; ?>"><img class="vitrina card-img-top img-fluid" src="imagen/<?php echo $row['IMAGEN']; ?>" alt="<?php echo $row['NOMBRE_P']; ?>"></a>
          <div class="card-body">
            <h5 class="card-title"><?php echo $row['NOMBRE_P']; ?></h5>
            <p class="card-text">Excelente para un paseo por la ciudad, el parque o el centro comercial. 100% Algodón.</p>
