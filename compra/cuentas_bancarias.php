@@ -4,10 +4,8 @@
  }
   ?>
  <?php
-require_once ('common/mercadopago.php');
-
+require_once ('../common/mercadopago.php');
 $mp = new MP('1153047962046613', 'i3RGdgCvJXrKT1ceMNOHs4YLNHdgZ9Mj');
-
 if ($_POST){
 $_SESSION['nombre-cliente']=str_replace("'","",$_POST['nombre-cliente']);
 $_SESSION['telf-cliente']=str_replace("'","",$_POST['telf-cliente']);
@@ -70,9 +68,9 @@ $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
     <meta name="desciption" content="Rouxa, Tienda virtual de Ropa para Damas, Caballeros y Niños.">
     <meta name="keywords" content="Rouxa, Ropa, Damas, Caballeros, Zapatos, Tienda Virtual">
     <meta name="author" content="Eutuxia, C.A.">
-    <meta name="application-name" content="Tienda Virtual de Ropa, Rouxa." />
-     <link rel="stylesheet" href="css/style-main.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <meta name="application-name" content="Tienda Virtual de Ropa, Rouxa."/>
+    <link rel="stylesheet" href="../css/style-main.css">
+    <link href="../admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
     <title>Rouxa</title>
   </head>
@@ -97,7 +95,6 @@ $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
              r=confirm("¿Esta usted seguro?");
              return r;
          }
-
     </script>
   <body  onload="deshabilitaRetroceso()">
 <!-- Inicio de codigo. !-->
@@ -158,8 +155,8 @@ $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
             }
             ?>
 <?php include_once '../common/footer2.php'; ?>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <script src="../admin/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="../admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

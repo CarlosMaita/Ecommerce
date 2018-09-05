@@ -149,7 +149,7 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'] )){
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="../principal">Inicio</a>
+                                        <a href="../principal.php">Inicio</a>
                                     </li>
                                     <li class="breadcrumb-item">
                                         <a href="index.php">Inventario</a>
@@ -257,6 +257,12 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'] )){
                   </div>
                   <input type="number" name="cantidad" class="form-control text-secondary" placeholder="Ingrese cantidad" min="1" required>
                 </div>
+                <div class="input-group mb-3 col-3">
+                  <div class="input-group-append">
+                    <span class="input-group-text"><b>Peso (gr)</b></span>
+                  </div>
+                  <input type="number" name="peso" class="form-control text-secondary" placeholder="Ingrese el peso">
+                </div>
               </div>
               <div class="row justify-content-center mb-3">
                 <button type="submit" class="btn btn-outline-primary">Agregar</button>
@@ -278,10 +284,12 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'] )){
                             <th scope="col">Talla</th>
                             <th scope="col">Precio</th>
                             <th scope="col">Cantidad</th>
+                            <th scope="col">Peso (gr)</th>
                             <th></th>
                           </tr>
                         </thead>
                         <tbody>
+
                          
                          <?php
                                 
@@ -349,6 +357,7 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'] )){
                                     echo "Sin Inventario";
                                 }?>
                      
+
                         </tbody>
                       </table>
                       <center>

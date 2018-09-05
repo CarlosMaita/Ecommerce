@@ -2,7 +2,6 @@
     session_start();
     include 'common/conexion.php';
     include 'common/TasaUSD.php';
-    // put your code here
     if(isset($_GET['reset'])){ session_destroy();}
 ?>
 <!doctype html>
@@ -16,16 +15,16 @@
     <meta name="application-name" content="Tienda Virtual de Ropa, Rouxa."/>
     <link rel="icon" type="image/jpg" sizes="16x16" href="imagen/favicon.jpg">
     <link rel="stylesheet" href="css/style-main.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link href="admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: "ca-pub-8952175764108741",
-    enable_page_level_ads: true
-  });
-</script>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-8952175764108741",
+        enable_page_level_ads: true
+      });
+    </script>
     <title>Rouxa</title>
   </head>
   <body>
@@ -46,7 +45,7 @@
      <p class="lead text-white-50" style="font-family: 'Playfair Display', serif;">Enterate de todas las promociones a través de nuestras redes sociales. Envios gratis, precios al Mayor, Promociones Especiales y ¡Mucho más!</p>
      <a class="btn btn-outline-light btn-lg mt-3" href="https://www.instagram.com/rouxavzla/" role="button" target="_blank">Siguenos en Instagram</a>
    </div>
-    </div>
+  </div>
    <section class="principal2 container-fluid d-flex flex-column align-items-end justify-content-end pr-4 pb-3">
      <h5 class="display-4 lead text-light" style="font-family: 'Playfair Display', serif;">La familia es lo más importante</h5>
      <p class="font-italic text-muted h5">Creemos firmemente que tu familia es lo más importante para ti.</p>
@@ -78,23 +77,20 @@
        </div>
         <?php
             }
-        }else{
-            echo " <p>Aun no existen productos en Vitrina</p>";
-        }?>
+        }else{ echo " <p>Aun no existen productos en Vitrina</p>"; }?>
      </div>
    </article>
     <div class="jumbotron mb-0">
       <h1 class="display-4">¡Se un Vendedor Rouxa!</h1>
       <p class="lead">Podrás vender nuestros productos sin tener que realizar alguna inversión. ¡Ganarás un porcentaje de las ventas!</p>
       <hr class="my-4">
-      <p>Solo tendrás que dar tu código de Vendedor Rouxa a tu cliente, y este comprará a tu nombre los articúlos que desee.</p>
+      <p>Solo tendrás que dar tu código de Vendedor Rouxa a tu cliente, y este comprará a tu nombre los articúlos que desee. <small><a href="faq/index.php?id=6">Más info.</a> </small> </p>
       <a class="btn btn-secondary btn-lg disabled mt-3" href="" role="button">Proximamente</a>
     </div>
- <!--Pie de Pagina -->
 <?php include_once 'common/footer.php';?>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<script src="admin/assets/libs/jquery/dist/jquery.min.js"></script>
+<script src="admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+<script src="admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-119925583-1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];

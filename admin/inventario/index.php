@@ -63,7 +63,7 @@ $previouspage = $curpage - 1;
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="../principal">Inicio</a>
+                                        <a href="../principal.php">Inicio</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">Inventario</li>
                                 </ol>

@@ -80,7 +80,7 @@ $previouspage = $curpage - 1;
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="../principal">Inicio</a>
+                                    <a href="../principal.php">Inicio</a>
                                 </li>
                                 <li class="breadcrumb-item">
                                     <a href="index.php">Inventario</a>
@@ -194,12 +194,13 @@ $previouspage = $curpage - 1;
                             <th scope="col">Prenda</th>
                             <th scope="col">Marca</th>
                             <th scope="col">Precio</th>
-                            <th>C. Principal</th>
-                            <th>C. Secundario</th>
-                            <th></th>
+                            <th scope="col">C. Ppal</th>
+                            <th scope="col">C. Secd</th>
+                            <th scope="col"></th>
                           </tr>
                         </thead>
                         <tbody>
+
                          
                          
                              <?php
@@ -254,6 +255,7 @@ $previouspage = $curpage - 1;
                                 } else{
                                     echo "Sin Productos";
                                 }?>
+
                         </tbody>
                       </table>
                       
@@ -298,20 +300,21 @@ $previouspage = $curpage - 1;
                 </div>
 
             </div>
+            <div class="container">
+              <div class="container">
+                <small>Todos los colores disponibles se eentran registrados en el sistema. Si desea agregar otros colores que no aparecen como opciones
+                  de selección, ponte en contacto con el departamento de desarrollo y hazle llegar tu solicitud.</small>
+              </div>
+            </div>
             <?php include('../common/footer.php'); ?>
         </div>
     </div>
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
     <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
     <script src="../assets/extra-libs/sparkline/sparkline.js"></script>
-    <!--Wave Effects -->
     <script src="../dist/js/waves.js"></script>
-    <!--Menu sidebar -->
     <script src="../dist/js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
     <script src="../dist/js/custom.min.js"></script>
 </body>
 </html>

@@ -96,7 +96,7 @@ $previouspage = $curpage - 1;
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                        <a href="../principal">Inicio</a>
+                                        <a href="../principal.php">Inicio</a>
                                     </li>
                                     <li class="breadcrumb-item">
                                         <a href="index.php">Inventario</a>
@@ -238,6 +238,7 @@ $previouspage = $curpage - 1;
                           </tr>
                         </thead>
                         <tbody>
+
                           
                              <?php
                                 
@@ -264,6 +265,7 @@ $previouspage = $curpage - 1;
                                     echo "Sin Productos";
                                 }?>
                        
+
                         </tbody>
                       </table>
                       
@@ -305,8 +307,8 @@ $previouspage = $curpage - 1;
                   </div>
                 </div>
                 </div>
-
             </div>
+
             <?php include('../common/footer.php'); ?>
         </div>
     </div>

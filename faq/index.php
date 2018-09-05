@@ -9,17 +9,10 @@
     <meta name="application-name" content="Tienda Virtual de Ropa, Rouxa."/>
     <link rel="icon" type="image/jpg" sizes="16x16" href="../imagen/favicon.jpg">
     <link rel="stylesheet" href="../css/style-main.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link href="../admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
     <title>Rouxa</title>
     <style>
-        .vista{
-            width: 60%;
-            background:#fff;
-        }
-        @media screen and (max-width:600px){
-            .vista{ width: 95%; }
-        }
         #letrap{ font-size: 30px; }
         #topic:hover #res{ display: block; }
         #preg{
@@ -222,7 +215,7 @@
               </div>
               <div id="eight" class="collapse" aria-labelledby="height" data-parent="#accordionExample">
                 <div class="card-body">
-                  El estado de tu pedido lo puedes conocer con tu código de seguimiento, colocándolo en la opción de "Rastreo" de la empresa de encomiendas.
+                  El estado de tu pedido lo puedes conocer con tu código de seguimiento (Llave digital), colocándolo en la opción de "Rastreo" de la empresa de encomiendas.
                 </div>
               </div>
             </div>
@@ -453,7 +446,7 @@
                        ?>
        <div class="container p-3">
           <h1 id="letrap"  class="text-primary text-center">
-            Suscripciones
+            Seguimiento de pedidos
           </h1>
           <hr class="my-4">
        </div>
@@ -465,13 +458,13 @@
                   <div class="card-header" id="onei">
                     <h5 class="mb-0">
                       <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#cone" aria-expanded="true" aria-controls="collapseOne">
-                        Sin información.
+                        ¿Como se en donde se encuentra mi pedido?
                       </button>
                     </h5>
                   </div>
                   <div id="cone" class="collapse" aria-labelledby="onei" data-parent="#ac1">
                     <div class="card-body">
-
+                      La ubicación de tu pedido la podrás observar en la pagina de <a href="../compras/index.php">seguimiento</a>, colocando tu llave dital.
                     </div>
                   </div>
                 </div>
@@ -479,13 +472,14 @@
                   <div class="card-header" id="twoi">
                     <h5 class="mb-0">
                       <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#ctwo" aria-expanded="false" aria-controls="collapseTwo">
-
+                        ¿Que es una Llave digital?
                       </button>
                     </h5>
                   </div>
                   <div id="ctwo" class="collapse" aria-labelledby="twoi" data-parent="#ac1">
                     <div class="card-body">
-
+                      La <b>Llave digital</b> es un codigo generado por nuestro sistema, con el cual podrás obtener toda la información
+                      referente a tu pedido.
                     </div>
                   </div>
                 </div>
@@ -828,7 +822,7 @@
              <li id="faq-li" class="bg-dark">
                 <ul class="faq-row bg-dark">
                      <li><a href="index.php?id=1" class="bg-dark text-white">Productos</a></li>
-                     <li><a href="index.php?id=5" class="bg-dark text-white">Suscripciones</a></li>
+                     <li><a href="index.php?id=5" class="bg-dark text-white">Seguimiento de Pedidos</a></li>
                      <li><a href="index.php?id=6" class="bg-dark text-white">Vendedores</a ></li>
                      <li><a href="index.php?id=7" class="bg-dark text-white">Promociones</a></li>
                      <li><a href="index.php?id=10" class="bg-dark text-white">Publicar Ropa en Rouxa</a></li>
@@ -841,8 +835,8 @@
         ?>
    </div>
    <?php include_once '../common/footer2.php';?>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+     <script src="../admin/assets/libs/jquery/dist/jquery.min.js"></script>
+     <script src="../admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+     <script src="../admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
