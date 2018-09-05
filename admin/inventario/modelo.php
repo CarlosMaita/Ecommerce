@@ -1,6 +1,45 @@
 <?php
 include_once('../common/sesion2.php');
 require('../../common/conexion.php');
+
+#eliminar elemento 
+if(isset($_GET['delete']) & !empty($_GET['delete'])){
+    
+    $idmodelo=$_GET['delete'];
+   
+    $sql ="DELETE FROM MODELOS WHERE IDMODELO='$idmodelo'";
+    
+       if ($conn->query($sql) === TRUE) {
+           } else {
+             echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';
+        }
+    
+    
+} 
+
+$perpage  = 5;
+
+
+if(isset($_GET['page']) & !empty($_GET['page'])){
+	$curpage = $_GET['page'];
+}else{
+	$curpage = 1;
+}
+
+$start = ($curpage * $perpage) - $perpage;
+
+#necesito el total de elementos
+
+$PageSql = "SELECT * FROM MODELOS";
+$pageres = mysqli_query($conn, $PageSql);
+$totalres = mysqli_num_rows($pageres);
+
+$endpage = ceil($totalres/$perpage);
+$startpage = 1;
+$nextpage = $curpage + 1;
+$previouspage = $curpage - 1;
+
+
  ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -68,49 +107,76 @@ require('../../common/conexion.php');
               <div class="row justify-content-center mt-1 bg-white py-2">
                 <h3>Agregue las caracteristicas del modelo</h3>
               </div>
-              <form class="" action="addProducto.php" method="post">
+              
+              <form class="" action="addModelo.php" method="POST" enctype="multipart/form-data">
               <div class="row mt-3">
                 <div class="input-group mb-3 col-6">
                   <div class="input-group-prepend">
                     <label class="input-group-text"><b>Seleccione el producto</b></label>
                   </div>
-                  <select name="tipo" class="custom-select text-secondary">
-                    <option value="franela">Franela Rouxa de Dama</option>
-                    <option value="chemise">Chemise Polo de Caballero</option>
-                    <option value="pantalón">Pantalón Wranger de Caballero</option>
-                    <option value="camisa">Camisa Rouxa de Dama</option>
+                  <select name="producto" class="custom-select text-secondary">
+                    <?php
+                       $sql="SELECT * FROM PRODUCTOS";
+                       $result = $conn->query($sql);
+                      if ($result->num_rows > 0) {
+                          while($row = $result->fetch_assoc()) {
+                            ?>
+                    <option value="<?=$row['IDPRODUCTO']?>"><?=$row['NOMBRE_P']?></option>
+                            <?php            
+                       }
+                      }
+                      
+                      ?> 
                   </select>
                 </div>
                 <div class="input-group mb-3 col-3">
                   <div class="input-group-prepend">
                     <label class="input-group-text"><b>Color principal</b></label>
                   </div>
-                  <select name="tipo" class="custom-select text-secondary">
-                    <option value="ID-BBDD" style="color:#123e45;">Rojo</option>
-                    <option value="ID-BBDD"></span>Verde</option>
-                    <option value="ID-BBDD">Amarillo</option>
-                    <option value="ID-BBDD">Azul</option>
+                  <select name="color1" class="custom-select text-secondary">
+                     <?php
+                       $sql="SELECT * FROM COLOR";
+                       $result = $conn->query($sql);
+                      if ($result->num_rows > 0) {
+                          while($row = $result->fetch_assoc()) {
+                            ?>
+                        <option value="<?=$row['IDCOLOR']?>"><?=$row['COLOR']?></option>
+                            <?php            
+                       }
+                      }
+                      
+                      ?> 
                   </select>
                 </div>
                 <div class="input-group mb-3 col-3">
                   <div class="input-group-prepend">
                     <label class="input-group-text"><b>Color secundario</b></label>
                   </div>
-                  <select name="tipo" class="custom-select text-secondary">
-                    <option value="ID-BBDD">Rojo</option>
-                    <option value="ID-BBDD">Verde</option>
-                    <option value="ID-BBDD">Amarillo</option>
-                    <option value="ID-BBDD">Azul</option>
+                  <select name="color2" class="custom-select text-secondary">
+                     <?php
+                       $sql="SELECT * FROM COLOR";
+                       $result = $conn->query($sql);
+                      if ($result->num_rows > 0) {
+                          while($row = $result->fetch_assoc()) {
+                            ?>
+                        <option value="<?=$row['IDCOLOR']?>"><?=$row['COLOR']?></option>
+                            <?php            
+                       }
+                      }
+                      
+                      ?> 
                   </select>
                 </div>
                 <div class="col-12">
-                  <input class="form-group" name="archivo" type="file"/>
+                  <input class="form-group" name="archivo" type="file" required>
                 </div>
               </div>
               <div class="row justify-content-center mb-3">
                 <button type="submit" class="btn btn-outline-primary">Agregar</button>
               </div>
               </form>
+               
+               
                 <div class="row mt-3">
                   <div class="col-12">
                   <div class="card">
@@ -134,168 +200,100 @@ require('../../common/conexion.php');
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td scope="row"><img src="" alt=""/> </td>
-                            <th>Franela Rouxa</th>
-                            <td>Dama</td>
-                            <td>Franela</td>
-                            <td>Rouxa</td>
-                            <td>150,00</td>
-                            <td><span class="dot2" style="background-color:#1bae45;" tilte="Rojo" data-toggle="tooltip"></span></td>
-                            <td><span class="dot2" style="background-color:#1b1145;" tilte="Azul" data-toggle="tooltip"></span></td>
-                            <td><button class="btn btn-outline-success btn-sm" type="button" name="">Modificar</button>
-                              <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eliminar2">Eliminar</button></td>
-                            <div class="modal fade" id="eliminar2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title text-danger"><b>¿Desea eliminar el modelo?</b></h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    Tenga en cuenta que se eliminarán todas las tallas y cantidades.
-                                    Consulte con us supervisor antes de tomar esta desición.
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                    <a href="eliminar.php" class="btn btn-primary">Eliminar</a>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </tr>
-                          <tr>
-                            <td scope="row"><img src="" alt=""/></td>
-                            <th>Chemise Polo</th>
-                            <td>Caballero</td>
-                            <td>Chemise</td>
-                            <td>Polo</td>
-                            <td>200,00</td>
-                            <td><span class="dot2" style="background-color:#eeae45;"></span></td>
-                            <td><span class="dot2" style="background-color:#1aecd5;"></span></td>
-                            <td><button class="btn btn-outline-success btn-sm" type="button" name="">Modificar</button>
-                              <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eliminar3">Eliminar</button></td>
-                            <div class="modal fade" id="eliminar3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title text-danger"><b>¿Desea eliminar el modelo?</b></h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    Tenga en cuenta que se eliminarán todas las tallas y cantidades.
-                                    Consulte con us supervisor antes de tomar esta desición.
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                    <a href="eliminar.php" class="btn btn-primary">Eliminar</a>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </tr>
-                          <tr>
-                            <td scope="row"><img src="" alt=""/></td>
-                            <th>Franela Nike</th>
-                            <td>Dama</td>
-                            <td>Franela</td>
-                            <td>Nike</td>
-                            <td>120,00</td>
-                            <td><span class="dot2" style="background-color:#daecdb;"></span></td>
-                            <td><span class="dot2" style="background-color:#1243dc;"></span></td>
-                            <td><button class="btn btn-outline-success btn-sm" type="button" name="">Modificar</button>
-                              <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eliminar4">Eliminar</button></td>
-                            <div class="modal fade" id="eliminar4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title text-danger"><b>¿Desea eliminar el modelo?</b></h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    Tenga en cuenta que se eliminarán todas las tallas y cantidades.
-                                    Consulte con us supervisor antes de tomar esta desición.
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                    <a href="eliminar.php" class="btn btn-primary">Eliminar</a>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </tr>
-                          <tr>
-                            <td scope="row"><img src="" alt=""/></td>
-                            <th>Chemise Polo</th>
-                            <td>Caballero</td>
-                            <td>Chemise</td>
-                            <td>Polo</td>
-                            <td>200,00</td>
-                            <td><span class="dot2" style="background-color:#ddceaa;"></span></td>
-                            <td><span class="dot2" style="background-color:#1145aa;"></span></td>
-                            <td><button class="btn btn-outline-success btn-sm" type="button" name="">Modificar</button>
-                              <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eliminar5">Eliminar</button></td>
-                            <div class="modal fade" id="eliminar5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title text-danger"><b>¿Desea eliminar el modelo?</b></h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    Tenga en cuenta que se eliminarán todas las tallas y cantidades.
-                                    Consulte con us supervisor antes de tomar esta desición.
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                    <a href="eliminar.php" class="btn btn-primary">Eliminar</a>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </tr>
-                          <tr>
-                            <td scope="row"><img src="" alt=""/></td>
-                            <th>Franela Nike</th>
-                            <td>Dama</td>
-                            <td>Franela</td>
-                            <td>Nike</td>
-                            <td>120,00</td>
-                            <td><span class="dot2" style="background-color:#1bae45;"></span></td>
-                            <td><span class="dot2" style="background-color:#1bae45;"></span></td>
-                            <td><button class="btn btn-outline-success btn-sm" type="button" name="">Modificar</button>
-                              <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eliminar2">Eliminar</button></td>
-                            <div class="modal fade" id="eliminar2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title text-danger"><b>¿Desea eliminar el producto?</b></h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    Tenga en cuenta que se eliminarán todos los modelos registrados, tallas y cantidades.
-                                    Consulte con us supervisor antes de tomar esta desición.
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                    <a href="eliminar.php" class="btn btn-primary">Eliminar</a>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </tr>
+
+                         
+                         
+                             <?php
+                                
+                            
+                             $sql = "SELECT * FROM MODELOS m 
+                             INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
+                             LIMIT $start, $perpage";
+                             $result = $conn->query($sql);
+                             if ($result->num_rows > 0) {
+                             // output data of each row
+                                while($row = $result->fetch_assoc()) {
+                                    $idcolor1 = $row['COLOR1'];
+                                    $idcolor2 = $row['COLOR2'];
+                                    
+                                    $sql1="SELECT * FROM COLOR WHERE IDCOLOR='$idcolor1' LIMIT 1";
+                                    $sql2="SELECT * FROM COLOR WHERE IDCOLOR='$idcolor2' LIMIT 1";
+                                    
+                                    #color 1
+                                    $result1 = $conn->query($sql1);
+                                    if ($result1->num_rows > 0) {
+                                        while($row1 = $result1->fetch_assoc()) {
+                                           $color1= $row1['COLOR'];
+                                           $hex1=  $row1['HEX'];     
+                                        }
+                                    }
+                                    #color 2
+                                    $result2 = $conn->query($sql2);
+                                    if ($result2->num_rows > 0) {
+                                        while($row2 = $result2->fetch_assoc()) {
+                                           $color2= $row2['COLOR'];
+                                           $hex2=  $row2['HEX'];     
+                                        }
+                                    }
+                                    
+                                    
+                                   ?>
+                                  <tr>  
+                                    <td scope="row"><img src="" alt=""/> </td>
+                                    <th><?php echo $row['NOMBRE_P']; ?></th>
+                                    <td><?php switch($row['GENERO']){case '1': echo 'Dama'; break; case '2': echo 'Caballero'; break; default: echo 'Otro'; break; }?></td>
+                                    <td><?=ucwords($row['TIPO'])?></td>
+                                    <td><?=ucwords($row['MARCA'])?></td>
+                                    <td><?php echo number_format($row['PRECIO'], 2, ',', '.'); ?></td>
+                                    <td><span class="dot2" style="background-color:<?=$hex1?>;"></span><?=$color1?></td>
+                                    <td><span class="dot2" style="background-color:<?=$hex2?>;"></span><?=$color2?></td>
+                                    <td><a href="modelo.php?delete=<?=$row['IDMODELO']?>" class="btn btn-outline-danger btn-sm" >Eliminar</a></td>
+                                  </tr>
+                                   
+                                <?php
+                                    }
+                                } else{
+                                    echo "Sin Productos";
+                                }?>
+
                         </tbody>
                       </table>
+                      
+                        <center>
+                        <nav aria-label="Page navigation example">
+                          <ul class="pagination justify-content-center">
+                  <?php if($curpage != $startpage){ ?>
+                    <li class="page-item">
+                      <a class="page-link" href="?page=<?php echo $startpage ?>" tabindex="-1" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">firts</span>
+                      </a>
+                    </li>
+                    <?php } ?>
+
+                          <?php if($curpage >=2){ ?>
+                            <li class="page-item"><a class="page-link" href="?page=<?php echo $previouspage ?>"><?php echo $previouspage ?></a></li>
+                            <?php }  ?>
+                            
+                            <li class="page-item active"><a class="page-link" href="?page=<?php echo $curpage ?>"><?php echo $curpage ?></a></li>
+                            
+                            <?php if($curpage != $endpage){ ?>
+                            <li class="page-item"><a class="page-link" href="?page=<?php echo $nextpage ?>"><?php echo $nextpage ?></a></li>
+                        <?php } ?>
+                          
+                         <?php if($curpage != $endpage){ ?>
+                        <li class="page-item">
+                          <a class="page-link" href="?page=<?php echo $endpage ?>" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Last</span>
+                          </a>
+                        </li>
+                        <?php } ?>
+                          </ul>
+                        </nav>
+                     </center>
+                      
+                      
                     </div>
                   </div>
                 </div>

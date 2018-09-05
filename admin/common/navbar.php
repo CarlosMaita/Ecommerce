@@ -35,7 +35,9 @@
         </ul>
         <ul class="navbar-nav float-right">
             <li class="nav-item dropdown">
+
                 <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../imagen/favicon.jpg" alt="user" class="rounded-circle" width="31"></a>
+
                 <div class="dropdown-menu dropdown-menu-right user-dd animated">
                     <a class="dropdown-item" href="common/configuracion.php"><i class="ti-user m-r-5 m-l-5"></i>Mi Perfil</a>
                     <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal" data-target="#closeSesion"><i class="ti-export m-r-5 m-l-5"></i>Cerrar sesión</a>
@@ -56,25 +58,25 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="desarrollo/index.php" aria-expanded="false">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="desarrollo/" aria-expanded="false">
                         <i class="mdi mdi-account-network"></i>
                         <span class="hide-menu">Desarrollo</span>
                     </a>
                 </li>
                  <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="inventario/index.php" aria-expanded="false">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="inventario/" aria-expanded="false">
                         <i class="mdi mdi-arrange-bring-forward"></i>
                         <span class="hide-menu">Inventario</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                   <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ventas/index.php" aria-expanded="false">
+                   <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ventas/" aria-expanded="false">
                        <i class="mdi mdi-cart"></i>
                        <span class="hide-menu">Ventas</span>
                    </a>
                </li>
                 <li class="sidebar-item">
-                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="despacho/index.php" aria-expanded="false">
+                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="despacho/" aria-expanded="false">
                         <i class="mdi mdi-truck"></i>
                         <span class="hide-menu">Despacho</span>
                     </a>

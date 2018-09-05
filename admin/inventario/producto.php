@@ -1,7 +1,63 @@
 <?php
 include_once('../common/sesion2.php');
 require('../../common/conexion.php');
- ?>
+
+#eliminar elemento 
+if(isset($_GET['delete']) & !empty($_GET['delete'])){
+    
+    $idproducto=$_GET['delete'];
+    #eliminar image 
+        #consigue direcion de imagen de producto
+        $sql="SELECT IMAGEN FROM PRODUCTOS WHERE IDPRODUCTO='$idproducto' LIMIT 1";
+        
+          $result = $conn->query($sql);
+          if ($result->num_rows > 0) {
+          // output data of each row
+          while($row = $result->fetch_assoc()) {
+              $imagen=$row['IMAGEN'];
+               #elimina archivo
+              unlink('../imagen/productos/'.$imagen);
+           }
+          }
+       
+        
+    #eliminar producto
+    $sql ="DELETE FROM PRODUCTOS WHERE IDPRODUCTO='$idproducto'";
+    
+       if ($conn->query($sql) === TRUE) {
+           } else {
+             echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';
+        }
+    
+    
+} 
+
+$perpage  = 5;
+
+
+if(isset($_GET['page']) & !empty($_GET['page'])){
+	$curpage = $_GET['page'];
+}else{
+	$curpage = 1;
+}
+
+$start = ($curpage * $perpage) - $perpage;
+
+#necesito el total de elementos
+
+$PageSql = "SELECT * FROM PRODUCTOS";
+$pageres = mysqli_query($conn, $PageSql);
+$totalres = mysqli_num_rows($pageres);
+
+$endpage = ceil($totalres/$perpage);
+$startpage = 1;
+$nextpage = $curpage + 1;
+$previouspage = $curpage - 1;
+
+
+
+
+?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 <head>
@@ -67,13 +123,14 @@ require('../../common/conexion.php');
               <div class="row justify-content-center mt-1 bg-white py-2">
                 <h3>Agregue las caracteristicas del producto</h3>
               </div>
-              <form class="" action=".php" method="post">
+              
+              <form class="" action="addProducto.php" method="POST" enctype="multipart/form-data">
               <div class="row mt-3">
                 <div class="input-group mb-3 col-6">
                   <div class="input-group-append">
                     <span class="input-group-text"><b>Nombre del Producto</b></span>
                   </div>
-                  <input type="text" name="nombre_p" class="form-control text-secondary" placeholder="Ingrese el nombre">
+                  <input type="text" name="nombre_p" class="form-control text-secondary" placeholder="Ingrese el nombre" required>
                 </div>
                 <div class="input-group mb-3 col-3">
                   <div class="input-group-prepend">
@@ -91,37 +148,39 @@ require('../../common/conexion.php');
                     <label class="input-group-text"><b>Genero</b></label>
                   </div>
                   <select name="genero" class="custom-select text-secondary">
-                    <option value="dama">Dama</option>
-                    <option value="Caballero">Caballero</option>
-                    <option value="Niño">Niño</option>
-                    <option value="Niña">Niña</option>
+                    <option value="1">Dama</option>
+                    <option value="2">Caballero</option>
+                    <option value="3">Niño</option>
+                    <option value="4">Niña</option>
                   </select>
                 </div>
                 <div class="input-group mb-3 col-3">
                   <div class="input-group-prepend">
                     <label class="input-group-text"><b>Marca</b></label>
                   </div>
-                  <select class="custom-select text-secondary">
+                  <select class="custom-select text-secondary" name="marca">
                     <option value="Rouxa">Rouxa</option>
                     <option value="Nike">Nike</option>
                     <option value="Polo">Polo</option>
-                    <option value="Adidas">Adidas</option>
+                    <option value="Addidas">Addidas</option>
                   </select>
                 </div>
                 <div class="input-group mb-3 col-3">
                   <div class="input-group-append">
                     <span class="input-group-text"><b>Material</b></span>
                   </div>
-                  <input type="text" name="material" class="form-control text-secondary" placeholder="Ej: Algodon">
+                  <input type="text" name="material" class="form-control text-secondary" placeholder="Ej: Algodon" required>
                 </div>
                 <div class="input-group mb-3 col-3">
                   <div class="input-group-prepend">
                     <label class="input-group-text"><b>Cuello</b></label>
                   </div>
                   <select name="cuello" class="custom-select text-secondary">
-                    <option value="Redondo">Redondo</option>
-                    <option value="En V">En V</option>
-                    <option value="No Aplica">No Aplica</option>
+                    <option value="0">No Aplica</option>
+                    <option value="1">Redondo</option>
+                    <option value="2">En V</option>
+                    <option value="3">Mao</option>
+                    <option value="4">Chemise</option>
                   </select>
                 </div>
                 <div class="input-group mb-3 col-3">
@@ -129,33 +188,35 @@ require('../../common/conexion.php');
                     <label class="input-group-text"><b>Manga</b></label>
                   </div>
                   <select name="manga" class="custom-select text-secondary">
-                    <option value="Corta">Corta</option>
-                    <option value="3/4">3/4</option>
-                    <option value="Larga">Larga</option>
-                    <option value="Sin Manga">Sin Manga</option>
-                    <option value="No Aplica">No Aplica</option>
+                     <option value="0">No Aplica</option>
+                    <option value="1">Corta</option>
+                    <option value="2">3/4</option>
+                    <option value="3">Larga</option>
+                    <option value="4">Sin Manga</option>
                   </select>
                 </div>
                 <div class="input-group mb-3 col-3">
                   <div class="input-group-append">
                     <span class="input-group-text"><b>Precio</b></span>
                   </div>
-                  <input type="number" name="precio" class="form-control text-secondary" placeholder="Precio al detal">
+                  <input type="number" name="precio" class="form-control text-secondary" placeholder="Precio al detal" required>
                 </div>
                 <div class="input-group mb-3 col-9">
                   <div class="input-group-append">
                     <span class="input-group-text"><b>Descripción</b></span>
                   </div>
-                  <input type="text" name="descripcion" class="form-control text-secondary" placeholder="Describa el producto, esta descripcion será visible por el cliente">
+                  <input type="text" name="descripcion" class="form-control text-secondary" placeholder="Describa el producto, esta descripcion será visible por el cliente" required>
                 </div>
                 <div class="col-12">
-                  <input class="form-group" name="archivo" type="file"/>
+                  <input class="form-group" name="archivo" type="file"/ required>
                 </div>
               </div>
               <div class="row justify-content-center mb-3">
                 <button type="submit" class="btn btn-outline-primary">Agregar</button>
               </div>
               </form>
+               
+               
                 <div class="row mt-3">
                   <div class="col-12">
                   <div class="card">
@@ -177,98 +238,71 @@ require('../../common/conexion.php');
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td scope="row"><img src="" alt=""/> </td>
-                            <th>Franela Rouxa</th>
-                            <td>Dama</td>
-                            <td>Franela</td>
-                            <td>Rouxa</td>
-                            <td>150,00</td>
-                            <td><a class="btn btn-outline-success btn-sm" href="modificar.php">Modificar</a>
-                              <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eliminar3">Eliminar</button></td>
-                            <div class="modal fade" id="eliminar3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title text-danger"><b>¿Desea eliminar el producto?</b></h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    Tenga en cuenta que se eliminarán todos los modelos registrados, tallas y cantidades.
-                                    Consulte con us supervisor antes de tomar esta desición.
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                    <a href="eliminar.php" class="btn btn-primary">Eliminar</a>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </tr>
-                          <tr>
-                            <td scope="row"><img src="" alt=""/></td>
-                            <th>Chemise Polo</th>
-                            <td>Caballero</td>
-                            <td>Chemise</td>
-                            <td>Polo</td>
-                            <td>200,00</td>
-                            <td><button class="btn btn-outline-success btn-sm" type="button" name="">Modificar</button>
-                              <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eliminar2">Eliminar</button></td>
-                            <div class="modal fade" id="eliminar2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title text-danger"><b>¿Desea eliminar el producto?</b></h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    Tenga en cuenta que se eliminarán todos los modelos registrados, tallas y cantidades.
-                                    Consulte con us supervisor antes de tomar esta desición.
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                    <a href="eliminar.php" class="btn btn-primary">Eliminar</a>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </tr>
-                          <tr>
-                            <td scope="row"><img src="" alt=""/></td>
-                            <th>Franela Nike</th>
-                            <td>Dama</td>
-                            <td>Franela</td>
-                            <td>Nike</td>
-                            <td>120,00</td>
-                            <td><a class="btn btn-outline-success btn-sm" href="modificar.php">Modificar</a>
-                              <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eliminar">Eliminar</button></td>
-                            <div class="modal fade" id="eliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                              <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                  <div class="modal-header">
-                                    <h5 class="modal-title text-danger"><b>¿Desea eliminar el producto?</b></h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                      <span aria-hidden="true">&times;</span>
-                                    </button>
-                                  </div>
-                                  <div class="modal-body">
-                                    Tenga en cuenta que se eliminarán todos los modelos registrados, tallas y cantidades.
-                                    Consulte con us supervisor antes de tomar esta desición.
-                                  </div>
-                                  <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                    <a href="eliminar.php" class="btn btn-primary">Eliminar</a>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          </tr>
+
+                          
+                             <?php
+                                
+                            
+                             $sql = "SELECT * FROM PRODUCTOS  LIMIT $start, $perpage";
+                             $result = $conn->query($sql);
+                             if ($result->num_rows > 0) {
+                             // output data of each row
+                                while($row = $result->fetch_assoc()) {
+                                   ?>
+                                   <tr>
+                                    <td scope="row"><?php echo $row['IDPRODUCTO']; ?></td>
+                                    <th><?php echo $row['NOMBRE_P']; ?></th>
+                                    <td><?php switch($row['GENERO']){case '1': echo 'Dama'; break; case '2': echo 'Caballero'; break; default: echo 'Otro'; break; }?></td>
+                                    <td><?=ucwords($row['TIPO'])?></td>
+                                    <td><?=ucwords($row['MARCA'])?></td>
+                                    <td><?php echo number_format($row['PRECIO'], 2, ',', '.'); ?></td>
+                                     <td><a href="producto.php?delete=<?=$row['IDPRODUCTO']?>" class="btn btn-outline-danger btn-sm" >Eliminar</a></td>
+                                  </tr>
+                                   
+                                <?php
+                                    }
+                                } else{
+                                    echo "Sin Productos";
+                                }?>
+                       
+
                         </tbody>
                       </table>
+                      
+                          <center>
+                        <nav aria-label="Page navigation example">
+                          <ul class="pagination justify-content-center">
+                  <?php if($curpage != $startpage){ ?>
+                    <li class="page-item">
+                      <a class="page-link" href="?page=<?php echo $startpage ?>" tabindex="-1" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">firts</span>
+                      </a>
+                    </li>
+                    <?php } ?>
+
+                          <?php if($curpage >=2){ ?>
+                            <li class="page-item"><a class="page-link" href="?page=<?php echo $previouspage ?>"><?php echo $previouspage ?></a></li>
+                            <?php }  ?>
+                            
+                            <li class="page-item active"><a class="page-link" href="?page=<?php echo $curpage ?>"><?php echo $curpage ?></a></li>
+                            
+                            <?php if($curpage != $endpage){ ?>
+                            <li class="page-item"><a class="page-link" href="?page=<?php echo $nextpage ?>"><?php echo $nextpage ?></a></li>
+                        <?php } ?>
+                          
+                         <?php if($curpage != $endpage){ ?>
+                        <li class="page-item">
+                          <a class="page-link" href="?page=<?php echo $endpage ?>" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Last</span>
+                          </a>
+                        </li>
+                        <?php } ?>
+                          </ul>
+                        </nav>
+                     </center>
+                      
                     </div>
                   </div>
                 </div>

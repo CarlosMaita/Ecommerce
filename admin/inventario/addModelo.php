@@ -44,42 +44,19 @@ if(isset($_FILES['archivo'])){
 }
 
 
-if ($iscreated and isset($_POST['nombre_p'], $_POST['descripcion'], $_POST['genero'], $_POST['tipo'], $_POST['precio'], $_POST['cuello'], $_POST['manga'], $_POST['material'], $_POST['marca'])){
+if ($iscreated and isset($_POST['producto'], $_POST['color1'], $_POST['color2'])){
 //LECTURA DE VARIABLES
-$nombre_p = $_POST['nombre_p'];
-$descripcion =  $_POST['descripcion'];
-$genero= $_POST['genero'];
-$tipo=$_POST['tipo'];
-$precio =  $_POST['precio']; //double
+$idproducto = $_POST['producto'];
+$color1 =  $_POST['color1'];
+$color2= $_POST['color2'];
 
-/*Tipos de cuello
-(0) - No aplica
-(1) - Redondo
-(2) - En V
-(3) - Mao
-(4) - Chemise
-*/
-    
-$cuello=$_POST['cuello']; //entero
-    
-/*Tipo de manga
-(0) - No aplica
-(1) - Corta
-(2) - Tres Cuarto
-(3) - Larga
-(4) - Sin Manga
-*/    
-    
-$manga=$_POST['manga']; //Entero
-$material=$_POST['material'];
-$marca=$_POST['marca'];    
 //ESCRIBE EL COMANDO SQL
     
-$sql = "INSERT INTO `PRODUCTOS`(`NOMBRE_P`, `DESCRIPCION`, `GENERO`, `TIPO`, `PRECIO`, `IMAGEN`,`CUELLO`, `MANGA`, `MATERIAL`, `MARCA`) VALUES ('$nombre_p','$descripcion','$genero','$tipo','$precio','$name_archivo', '$cuello', '$manga', '$material' ,'$marca')";
+$sql = "INSERT INTO `MODELOS`(`IDPRODUCTO`, `COLOR1`, `COLOR2`, `IMAGEN`) VALUES ('$idproducto','$color1','$color2','$name_archivo')";
     
 if ($conn->query($sql) === TRUE) {
-    echo "<p>Nuevo PRODUCTO registrado</p>";
-    header('Location: ./producto.php');
+    echo "<p>Nuevo MODELO registrado</p>";
+    header('Location: ./modelo.php');
    } else { echo "Error: " . $sql . "<br>" . $conn->error;}
 }else{ echo 'producto no registrado, ocurrio un error';}
 

@@ -1,7 +1,69 @@
 <?php
 include_once('../common/sesion2.php');
 require('../../common/conexion.php');
- ?>
+
+if(isset($_GET['color'],$_GET['color_hex'] )){
+        $color=$_GET['color'];
+        $hex=$_GET['color_hex'];
+        
+         $sql = "INSERT INTO `COLOR`(`HEX`, `COLOR`) VALUES ('$hex','$color')";
+    
+        if ($conn->query($sql) === TRUE) {
+            echo "<center>Nuevo COLOR registrado</center>";
+            header('Location: ./colores.php');
+           } else { //echo "Error: " . $sql . "<br>" . $conn->error;
+                    echo '<script>alert("Error: Color Ya existe")</script>';
+                    }
+
+}
+
+
+
+#paginacion y eliinacion de productos
+
+if(isset($_GET['delete']) & !empty($_GET['delete'])){
+    
+    $idcolor=$_GET['delete'];
+        
+        
+    #eliminar USURIO
+    $sql ="DELETE FROM COLOR WHERE IDCOLOR='$idcolor'";
+    
+       if ($conn->query($sql) === TRUE) {
+           } else {
+             echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';
+        }
+    
+    
+} 
+
+$perpage  = 5;
+
+
+if(isset($_GET['page']) & !empty($_GET['page'])){
+	$curpage = $_GET['page'];
+}else{
+	$curpage = 1;
+}
+
+$start = ($curpage * $perpage) - $perpage;
+
+#necesito el total de elementos
+
+$PageSql = "SELECT * FROM COLOR";
+$pageres = mysqli_query($conn, $PageSql);
+$totalres = mysqli_num_rows($pageres);
+
+$endpage = ceil($totalres/$perpage);
+$startpage = 1;
+$nextpage = $curpage + 1;
+$previouspage = $curpage - 1;
+
+
+        
+
+?>
+
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 <head>
@@ -70,18 +132,19 @@ require('../../common/conexion.php');
                       <h6 class="card-subtitle">Estos colores serán usados para filtrar las busquedas en la página web.</h6>
                     </div>
                     <div class="row justify-content-center mt-1 bg-white py-2">
-                      <h3>Agregue el nuevo usuario</h3>
+                      <h3>Agregar el Nuevo Color</h3>
                     </div>
-                    <form class="" action=".php" method="post">
+                    
+                    <form class="" action="" method="GET">
                     <div class="row mt-3 justify-content-center">
                       <div class="input-group mb-3 col-6">
                         <div class="input-group-append">
-                          <span class="input-group-text"><b>Nombre</b></span>
+                          <span class="input-group-text"><b>Nombre del Color</b></span>
                         </div>
-                        <input type="text" name="color" class="form-control text-secondary" placeholder="Ingrese el nombre del color">
+                        <input type="text" name="color" class="form-control text-secondary" placeholder="Ingrese el nombre del color" required>
                       </div>
                       <div class="input-group mb-3 col-1">
-                        <input type="color" name="color_hexa" class="form-control text-secondary" placeholder="Ingrese el apellido">
+                        <input type="color" name="color_hex"  style="background:#fff; border: #ddd solid 1px;  " required>
                       </div>
                     </div>
                     <div class="row justify-content-center mb-3">
@@ -101,40 +164,72 @@ require('../../common/conexion.php');
                     <div class="table-responsive">
                       <table class="table table-hover">
                         <thead class="thead-light">
-                          <tr>
+                          <tr  class="text-center">
                             <th scope="col">Color</th>
                             <th scope="col">Nombre</th>
                             <th></th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td><span class="dot" style="background-color:#123e45;"></span></td>
-                            <td>Azul</td>
-                            <td><button type="button" class="btn btn-outline-danger btn-sm">Eliminar</button></td>
-                          </tr>
-                          <tr>
-                            <td><span class="dot" style="background-color:#1a3e45;"></span></td>
-                            <td>Verde</td>
-                            <td><button type="button" class="btn btn-outline-danger btn-sm">Eliminar</button></td>
-                          </tr>
-                          <tr>
-                            <td><span class="dot" style="background-color:#1bae45;"></span></td>
-                            <td>Rojo</td>
-                            <td><button type="button" class="btn btn-outline-danger btn-sm">Eliminar</button></td>
-                          </tr>
-                          <tr>
-                            <td><span class="dot" style="background-color:#9a3eb5;"></span></td>
-                            <td>Negro</td>
-                            <td><button type="button" class="btn btn-outline-danger btn-sm">Eliminar</button></td>
-                          </tr>
-                          <tr>
-                            <td><span class="dot" style="background-color:#9a1115;"></td>
-                            <td>Blanco</td>
-                            <td><button type="button" class="btn btn-outline-danger btn-sm">Eliminar</button></td>
-                          </tr>
+                         
+                           <?php
+                                
+                            
+                             $sql = "SELECT * FROM COLOR LIMIT $start, $perpage";
+                             $result = $conn->query($sql);
+                             if ($result->num_rows > 0) {
+                             // output data of each row
+                                while($row = $result->fetch_assoc()) {
+                                   ?>
+                                   <tr class="text-center">
+                                        <td><span class="dot" style="background-color:<?=$row['HEX']?>"></span></td>
+                                        <td><?=$row['COLOR']?></td>
+                                        <td><a class="btn btn-outline-danger btn-sm" href="?delete=<?=$row['IDCOLOR']?>" >Eliminar</a></td>      
+                              </tr>
+                                   
+                                <?php
+                                    }
+                                } else{
+                                    echo "Sin USUARIOS";
+                                }?>
+                                
                         </tbody>
                       </table>
+                      
+                      <center>
+                        <nav aria-label="Page navigation example">
+                          <ul class="pagination justify-content-center">
+                  <?php if($curpage != $startpage){ ?>
+                    <li class="page-item">
+                      <a class="page-link" href="?page=<?php echo $startpage ?>" tabindex="-1" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">firts</span>
+                      </a>
+                    </li>
+                    <?php } ?>
+
+                          <?php if($curpage >=2){ ?>
+                            <li class="page-item"><a class="page-link" href="?page=<?php echo $previouspage ?>"><?php echo $previouspage ?></a></li>
+                            <?php }  ?>
+                            
+                            <li class="page-item active"><a class="page-link" href="?page=<?php echo $curpage ?>"><?php echo $curpage ?></a></li>
+                            
+                            <?php if($curpage != $endpage){ ?>
+                            <li class="page-item"><a class="page-link" href="?page=<?php echo $nextpage ?>"><?php echo $nextpage ?></a></li>
+                        <?php } ?>
+                          
+                         <?php if($curpage != $endpage){ ?>
+                        <li class="page-item">
+                          <a class="page-link" href="?page=<?php echo $endpage ?>" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Last</span>
+                          </a>
+                        </li>
+                        <?php } ?>
+                          </ul>
+                        </nav>
+                     </center>
+                     
                     </div>
                   </div>
                 </div>

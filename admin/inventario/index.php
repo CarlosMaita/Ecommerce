@@ -1,6 +1,29 @@
 <?php
 include_once('../common/sesion2.php');
 require('../../common/conexion.php');
+
+$perpage  = 5;
+
+
+if(isset($_GET['page']) & !empty($_GET['page'])){
+	$curpage = $_GET['page'];
+}else{
+	$curpage = 1;
+}
+
+$start = ($curpage * $perpage) - $perpage;
+
+#necesito el total de elementos
+
+$PageSql = "SELECT * FROM PRODUCTOS";
+$pageres = mysqli_query($conn, $PageSql);
+$totalres = mysqli_num_rows($pageres);
+
+$endpage = ceil($totalres/$perpage);
+$startpage = 1;
+$nextpage = $curpage + 1;
+$previouspage = $curpage - 1;
+
  ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -80,29 +103,65 @@ require('../../common/conexion.php');
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
-                            <td scope="row"><img src="" alt=""/> </td>
-                            <th>Franela Rouxa</th>
-                            <td>Dama</td>
-                            <td>Franela</td>
-                            <td>150,00</td>
-                          </tr>
-                          <tr>
-                            <td scope="row"><img src="" alt=""/></td>
-                            <th>Chemise Polo</th>
-                            <td>Caballero</td>
-                            <td>Chemise</td>
-                            <td>200,00</td>
-                          </tr>
-                          <tr>
-                            <td scope="row"><img src="" alt=""/></td>
-                            <th>Franela Nike</th>
-                            <td>Dama</td>
-                            <td>Franela</td>
-                            <td>120,00</td>
-                          </tr>
+                         <?php
+                                
+                            
+                             $sql = "SELECT * FROM PRODUCTOS  LIMIT $start, $perpage";
+                             $result = $conn->query($sql);
+                             if ($result->num_rows > 0) {
+                             // output data of each row
+                                while($row = $result->fetch_assoc()) {
+                                   ?>
+                                   <tr>
+                                    <td scope="row"><?php echo $row['IDPRODUCTO']; ?></td>
+                                    <th><?php echo $row['NOMBRE_P']; ?></th>
+                                    <td><?php switch($row['GENERO']){case '1': echo 'Dama'; break; case '2': echo 'Caballero'; break; default: echo 'Otro'; break; }?></td>
+                                    <td><?=ucwords($row['TIPO'])?></td>
+                                    <td><?php echo number_format($row['PRECIO'], 2, ',', '.'); ?></td>
+                                  </tr>
+                                   
+                                <?php
+                                    }
+                                } else{
+                                    echo "Sin Productos";
+                                }?>
                         </tbody>
                       </table>
+                      
+                                           <center>
+                        <nav aria-label="Page navigation example">
+                          <ul class="pagination justify-content-center">
+                  <?php if($curpage != $startpage){ ?>
+                    <li class="page-item">
+                      <a class="page-link" href="?page=<?php echo $startpage ?>" tabindex="-1" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">firts</span>
+                      </a>
+                    </li>
+                    <?php } ?>
+
+                          <?php if($curpage >=2){ ?>
+                            <li class="page-item"><a class="page-link" href="?page=<?php echo $previouspage ?>"><?php echo $previouspage ?></a></li>
+                            <?php }  ?>
+                            
+                            <li class="page-item active"><a class="page-link" href="?page=<?php echo $curpage ?>"><?php echo $curpage ?></a></li>
+                            
+                            <?php if($curpage != $endpage){ ?>
+                            <li class="page-item"><a class="page-link" href="?page=<?php echo $nextpage ?>"><?php echo $nextpage ?></a></li>
+                        <?php } ?>
+                          
+                         <?php if($curpage != $endpage){ ?>
+                        <li class="page-item">
+                          <a class="page-link" href="?page=<?php echo $endpage ?>" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Last</span>
+                          </a>
+                        </li>
+                        <?php } ?>
+                          </ul>
+                        </nav>
+                     </center>
+
                     </div>
                   </div>
                 </div>
