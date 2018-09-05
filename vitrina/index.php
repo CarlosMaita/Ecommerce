@@ -2,6 +2,7 @@
 include '../common/conexion.php';
 include '../common/TasaUSD2.php';
 $publicidad="¡Compra Los mejores productos!";
+#busqueda por genero
 if(isset($_GET['genero'])){
     $genero=$_GET['genero'];
     switch($genero){
@@ -16,6 +17,7 @@ if(isset($_GET['genero'])){
             break;
     }
 }else{$genero=3;}
+#busqueda por tipo de prenda
 if(isset($_GET['tipo'])){
     $tipo=$_GET['tipo'];
     switch($tipo){
@@ -32,7 +34,17 @@ if(isset($_GET['tipo'])){
              $publicidad="¡Compra Zapatos de diferentes marcas y estilos!";
             break;
     }
-}else{ $tipo='null'; }
+}else{ $tipo=NULL; }
+#busqueda con color
+if(isset($_GET['color'])){
+    $color=$_GET['color'];
+}else{$color=NULL;}
+#busqueda con marca
+if(isset($_GET['marca'])){
+    $marca=$_GET['marca'];
+}else{$marca=NULL;}
+#conseguir URL
+$url= $_SERVER["REQUEST_URI"];
 ?>
 <!doctype html>
 <html lang="es">
@@ -157,30 +169,35 @@ if(isset($_GET['tipo'])){
           <hr>
           <div class="row">
             <div class="col-12"><b>Genero</b></div>
-            <div class="col-12"><small><a href="#">Dama</a></small></div>
-            <div class="col-12"><small><a href="#">Caballero</a></small></div>
-            <div class="col-12"><small><a href="#">Niña</a></small></div>
-            <div class="col-12"><small><a href="#">Niño</a></small></div>
+            <div class="col-12"><small><a href="?genero=1">Dama</a></small></div>
+            <div class="col-12"><small><a href="?genero=2">Caballero</a></small></div>
+            <div class="col-12"><small><a href="?genero=3">Niña</a></small></div>
+            <div class="col-12"><small><a href="?genero=3">Niño</a></small></div>
+            <div class="col-12"><small><a href="?genero=4">Al Mayor</a></small></div>
           </div>
           <hr>
           <div class="row">
             <div class="col-12"><b>Marca</b></div>
-            <div class="col-12"><small><a href="#">Rouxa</a></small></div>
-            <div class="col-12"><small><a href="#">Nike</a></small></div>
-            <div class="col-12"><small><a href="#">Adidas</a></small></div>
-            <div class="col-12"><small><a href="#">Puma</a></small></div>
+            <div class="col-12"><small><a href="?marca=rouxa">Rouxa</a></small></div>
+            <div class="col-12"><small><a href="?marca=nike">Nike</a></small></div>
+            <div class="col-12"><small><a href="?marca=adidas">Adidas</a></small></div>
+            <div class="col-12"><small><a href="?marca=puma">Puma</a></small></div>
           </div>
           <hr>
           <div class="row">
             <div class="col-12"><b>Color</b></div>
-            <div class="col-3 mt-2"><a href="#" title="Gris" data-toggle="tooltip" ><span class="dot3" style="background-color:#123e45;"/></a></div>
-            <div class="col-3 mt-2"><a href="#" title="Vinotinto" data-toggle="tooltip"><span class="dot3" style="background-color:#aa3e45;"/></a></div>
-            <div class="col-3 mt-2"><a href="#" title="Rojo" data-toggle="tooltip"><span class="dot3" style="background-color:#f23e45;"/></a></div>
-            <div class="col-3 mt-2"><a href="#" title="Azul" data-toggle="tooltip"><span class="dot3" style="background-color:#123eaf;"/></a></div>
-            <div class="col-3 mt-2"><a href="#" title="Blanco" data-toggle="tooltip"><span class="dot3" style="background-color:#ddd;"/></a></div>
-            <div class="col-3 mt-2"><a href="#" title="Violeta" data-toggle="tooltip"><span class="dot3" style="background-color:#ad12fe;"/></a></div>
-            <div class="col-3 mt-2"><a href="#" title="Amarillo" data-toggle="tooltip"><span class="dot3" style="background-color:#afa111;"/></a></div>
-            <div class="col-3 mt-2"><a href="#" title="Morado" data-toggle="tooltip"><span class="dot3" style="background-color:#fa34bc;"/></a></div>
+            <?php
+              $sql="SELECT * FROM COLOR";
+               $result = $conn->query($sql);
+                $cant=$result->num_rows;
+                if ($cant > 0) {
+                    while($f = $result->fetch_assoc()){
+                        ?>
+                         <div class="col-3 mt-2"><a href="?color=<?=$f['IDCOLOR']?>" title="Gris" data-toggle="tooltip" ><span class="dot3" style="background-color:<?=$f['HEX']?>;"/></a></div>
+                        <?php
+                    }
+                }
+              ?>            
           </div>
           <hr>
         </div>
@@ -216,7 +233,7 @@ if(isset($_GET['tipo'])){
           $sql = "SELECT * FROM MODELOS m
           INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
           ORDER BY Rand($rand) LIMIT $numProd OFFSET $offset";
-        #select de busqueda
+          #Busqueda por genero
            if (isset($_GET['genero'])){
                if (!empty($genero)){
                    $sql = "SELECT * FROM MODELOS m 
@@ -224,6 +241,7 @@ if(isset($_GET['tipo'])){
                    ORDER BY Rand($rand) LIMIT $numProd OFFSET $offset";
                }
            }
+           #busqueda por Tipo de prenda     
            if( isset($_GET['tipo'])){
                if (!empty($tipo)){
                $sql = "SELECT * FROM MODELOS m 
@@ -231,6 +249,23 @@ if(isset($_GET['tipo'])){
                ORDER BY Rand($rand) LIMIT $numProd OFFSET $offset";
                }
            }
+           #busqueda por color
+           if( isset($_GET['color'])){
+               if (!empty($color)){
+               $sql = "SELECT * FROM MODELOS m
+              INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO   
+              WHERE COLOR1=$color OR COLOR2=$color
+              ORDER BY Rand($rand) LIMIT $numProd OFFSET $offset";
+               }
+           }
+           #busqueda por marca
+           if( isset($_GET['marca'])){
+               if (!empty($marca)){
+               $sql = "SELECT * FROM MODELOS m
+              INNER JOIN PRODUCTOS p ON p.MARCA='$marca' AND p.IDPRODUCTO=m.IDPRODUCTO   
+              ORDER BY Rand($rand) LIMIT $numProd OFFSET $offset";
+               }
+           }  
         $result = $conn->query($sql);
         $cant=$result->num_rows;
         if ($cant > 0) {
