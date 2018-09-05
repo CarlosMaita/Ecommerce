@@ -1,76 +1,47 @@
 <?php
 include_once('../common/sesion2.php');
 require('../../common/conexion.php');
-
-
-
-#Añadir elemento 
+#Añadir elemento
 if(isset($_GET['add']) & !empty($_GET['add'])){
-    
     $idinventario=$_GET['add'];
-   
     $sql = "UPDATE INVENTARIO SET CANTIDAD=CANTIDAD+1 WHERE IDINVENTARIO = '$idinventario';";
-                  
                    if ($conn->query($sql) === TRUE) {
                         echo '<script> alert("Inventario Actualizado"); </script>';
-                       } else {
-                         echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';
-                    }
-    
-    
-} 
-
-#eliminar elemento 
+                      } else { echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>'; }
+}
+#eliminar elemento
 if(isset($_GET['delete']) & !empty($_GET['delete'])){
-    
     $idinventario=$_GET['delete'];
-   
     $sql ="DELETE FROM INVENTARIO WHERE IDINVENTARIO='$idinventario'";
-    
        if ($conn->query($sql) === TRUE) {
            } else {
              echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';
         }
-    
-    
-} 
-
-#paginacion de tallas
+}
+#paginacion de tallas bien aqui..
 $perpage  = 5;
-
 if(isset($_GET['page']) & !empty($_GET['page'])){
 	$curpage = $_GET['page'];
 }else{
 	$curpage = 1;
 }
-
 $start = ($curpage * $perpage) - $perpage;
-
 #necesito el total de elementos
-
 $PageSql = "SELECT * FROM INVENTARIO";
 $pageres = mysqli_query($conn, $PageSql);
 $totalres = mysqli_num_rows($pageres);
-
 $endpage = ceil($totalres/$perpage);
 $startpage = 1;
 $nextpage = $curpage + 1;
 $previouspage = $curpage - 1;
-
-
-
 if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'] )){
-    
         $idmodelo=$_POST['modelo'];
         $talla=$_POST['talla'];
         $cantidad=$_POST['cantidad'];
-        
     if ($idmodelo!=NULL && $talla!=NULL  && $cantidad!=NULL ){
-       
           $encontro=false;
           $sql="SELECT CANTIDAD, IDINVENTARIO FROM INVENTARIO WHERE IDMODELO='$idmodelo' AND TALLA='$talla' LIMIT 1;";
             $result = $conn->query($sql);
-              
           if ($result->num_rows > 0) {
           // output data of each row
               $encontro=true;
@@ -80,36 +51,20 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'] )){
            }
           }
               if ($encontro){
-                  
                   $sql = "UPDATE INVENTARIO SET CANTIDAD='$cantidad' WHERE IDINVENTARIO = '$idinventario';";
-                  
                    if ($conn->query($sql) === TRUE) {
                         echo '<script> alert("Inventario Actualizado"); </script>';
-                       } else {
-                         echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';
-                    }
-
+                       }else{ echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';}
               }else{
-                
                   //ESCRIBE EL COMANDO SQL
-                  
-                $sql = "INSERT INTO INVENTARIO (IDMODELO,TALLA, CANTIDAD) 
+                $sql = "INSERT INTO INVENTARIO (IDMODELO,TALLA, CANTIDAD)
                 VALUES ('$idmodelo', '$talla', '$cantidad')";
-
-            //        
                     if ($conn->query($sql) === TRUE) {
                         echo '<script> alert("Inventario añadido"); </script>';
-                       } else {
-                         echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';
-                    }
-                  
+                       } else {echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';}
               }
-         
-               } 
-            
-           
-        } 
-
+               }
+        }
  ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -183,7 +138,6 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'] )){
                     <label class="input-group-text"><b>Seleccione el modelo</b></label>
                   </div>
                   <select name="modelo" class="custom-select text-secondary">
-                   
                     <?php
                       $sql="SELECT * FROM MODELOS m
                       INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
@@ -193,16 +147,14 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'] )){
                           while($row = $result->fetch_assoc()) {
                             $idcolor1 = $row['COLOR1'];
                             $idcolor2 = $row['COLOR2'];
-
                             $sql1="SELECT * FROM COLOR WHERE IDCOLOR='$idcolor1' LIMIT 1";
                             $sql2="SELECT * FROM COLOR WHERE IDCOLOR='$idcolor2' LIMIT 1";
-
                             #color 1
                             $result1 = $conn->query($sql1);
                             if ($result1->num_rows > 0) {
                                 while($row1 = $result1->fetch_assoc()) {
                                    $color1= $row1['COLOR'];
-                                   $hex1=  $row1['HEX'];     
+                                   $hex1=  $row1['HEX'];
                                 }
                             }
                             #color 2
@@ -210,10 +162,9 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'] )){
                             if ($result2->num_rows > 0) {
                                 while($row2 = $result2->fetch_assoc()) {
                                    $color2= $row2['COLOR'];
-                                   $hex2=  $row2['HEX'];     
+                                   $hex2=  $row2['HEX'];
                                 }
                             }
-                              
                             switch($row['GENERO']) {
                                 case 1: $genero= 'Dama';
                                     break;
@@ -226,14 +177,12 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'] )){
                                 default: $genero= 'Unisex';
                                     break;
                             }
-
                             ?>
-                    <option value="<?=$row['IDMODELO']?>"><?php echo $row['NOMBRE_P'].' '.$row['MARCA'].' de '.$genero.' '.$color1.'/'.$color2  ?></option>
-                            <?php            
+                    <option value="<?=$row['IDMODELO']?>"><?php echo $row['NOMBRE_P'].' '.$color1.'/'.$color2  ?></option>
+                            <?php
                        }
                       }
-                      
-                      ?>                                    
+                      ?>
                   </select>
                 </div>
                 <div class="input-group mb-3 col-3">
@@ -241,9 +190,9 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'] )){
                     <span class="input-group-text"><b>Talla</b></span>
                   </div>
                   <select name="talla" id="talla" class="form-control text-secondary" required>
-                        <option  value="" inactived>Seleccione Una Talla</option>
-                         <option value="XS">Talla XS</option>      
-                         <option value="S">Talla S</option>      
+                        <option  value="" inactived>Seleccione una Talla</option>
+                         <option value="XS">Talla XS</option>
+                         <option value="S">Talla S</option>
                          <option value="M">Talla M</option>
                          <option value="L">Talla L</option>
                          <option value="XL">Talla XL</option>
@@ -280,41 +229,35 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'] )){
                         <thead class="thead-light">
                           <tr>
                             <th scope="col">Producto</th>
-                            <th scope="col-2">Nombre</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Marca</th>
                             <th scope="col">Talla</th>
-                            <th scope="col">Precio</th>
                             <th scope="col">Cantidad</th>
-                            <th scope="col">Peso (gr)</th>
+                            <th scope="col">Precio(Bs.)</th>
+                            <th scope="col">Peso(gr)</th>
                             <th></th>
                           </tr>
                         </thead>
                         <tbody>
-
-                         
                          <?php
-                                
-                            
-                             $sql = "SELECT * FROM INVENTARIO i
-                             INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO
+                             $sql = "SELECT i.IDINVENTARIO, i.TALLA, i.CANTIDAD, m.IDMODELO, m.IMAGEN, m.COLOR1, m.COLOR2, p.NOMBRE_P, p.GENERO, p.TIPO, p.PRECIO, p.MARCA
+                             FROM INVENTARIO i INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO
                              INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
                              LIMIT $start, $perpage";
-                            
                              $result = $conn->query($sql);
                              if ($result->num_rows > 0) {
                              // output data of each row
                                 while($row = $result->fetch_assoc()) {
                                     $idcolor1 = $row['COLOR1'];
                                     $idcolor2 = $row['COLOR2'];
-                                    
                                     $sql1="SELECT * FROM COLOR WHERE IDCOLOR='$idcolor1' LIMIT 1";
                                     $sql2="SELECT * FROM COLOR WHERE IDCOLOR='$idcolor2' LIMIT 1";
-                                    
                                     #color 1
                                     $result1 = $conn->query($sql1);
                                     if ($result1->num_rows > 0) {
                                         while($row1 = $result1->fetch_assoc()) {
                                            $color1= $row1['COLOR'];
-                                           $hex1=  $row1['HEX'];     
+                                           $hex1=  $row1['HEX'];
                                         }
                                     }
                                     #color 2
@@ -322,42 +265,73 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'] )){
                                     if ($result2->num_rows > 0) {
                                         while($row2 = $result2->fetch_assoc()) {
                                            $color2= $row2['COLOR'];
-                                           $hex2=  $row2['HEX'];     
+                                           $hex2=  $row2['HEX'];
                                         }
                                     }
-                                    
                                      switch($row['GENERO']) {
-                                case 1: $genero= 'Dama';
-                                    break;
-                                case 2: $genero= 'Caballero';
-                                    break;
-                                case 3: $genero= 'Niña';
-                                    break;
-                                case 4: $genero= 'Niño';
-                                    break;
-                                default: $genero= 'Unisex';
-                                    break;
-                            }
-                                    
-                                    
+                                          case 1: $genero= 'Dama';
+                                              break;
+                                          case 2: $genero= 'Caballero';
+                                              break;
+                                          case 3: $genero= 'Niña';
+                                              break;
+                                          case 4: $genero= 'Niño';
+                                              break;
+                                          default: $genero= 'Unisex';
+                                              break;
+                                      }
                                    ?>
-                                  <tr>  
-                                    <td scope="row"><img src="" alt=""/></td>
-                                    <td><?php echo $row['NOMBRE_P'].' '.$row['MARCA'].' de '.$genero.' '.$color1.'/'.$color2 ;?></td>
+                                  <tr>
+                                    <td scope="row"><img src="../../imagen/<?php echo $row['IMAGEN'];?>" alt="" width="25px"/></td>
+                                    <td><?php echo $row['NOMBRE_P'].' '.$color1.'/'.$color2 ;?></td>
+                                    <td><?=$row['MARCA']?></td>
                                     <td><?=$row['TALLA']?></td>
-                                    <td><?php echo number_format($row['PRECIO'], 2, ',', '.'); ?></td>
                                     <td><?=$row['CANTIDAD']?></td>
+                                    <td><?php echo number_format($row['PRECIO'], 2, ',', '.'); ?></td>
+                                    <td></td>
                                     <td><a href="tallas.php?add=<?=$row['IDINVENTARIO']?>" class="btn btn-outline-success btn-sm">Añadir</a>
-                                        <a href="tallas.php?delete=<?=$row['IDINVENTARIO']?>" class="btn btn-outline-danger btn-sm">Eliminar</a></td>
+                                        <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eli<?php echo $row['IDINVENTARIO'];?>">Eliminar</a></td>
                                   </tr>
-                                   
+                                  <div class="modal fade" id="eli<?php echo $row['IDINVENTARIO']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title">¿Desea eliminar todas las tallas de este modelo?</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <div class="container">
+                                            <div class="row align-items-center">
+                                              <div class="col-2">
+                                                <img src="../../imagen/<?php echo $row['IMAGEN'];?>" width="40px" alt="">
+                                              </div>
+                                              <div class="col-6">
+                                                <?php echo $row['NOMBRE_P'].' '.$color1.'/'.$color2;?>
+                                              </div>
+                                              <div class="col-4">
+                                                <?=ucwords($row['MARCA']);?>
+                                              </div>
+                                            </div>
+                                            <div class="row">
+                                              Eliminar las <?=$row['CANTIDAD']?> de la talla: <?=$row['TALLA']?>
+                                            </div>
+                                          </div>
+                                        </br>
+                                          Tenga en cuenta que se eliminarán todas las cantidadesde esta talla que se encuentran registrados en el sistema.</br>
+                                          Consulte con su supervisor antes de realizar esta acción.
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                          <a href="tallas.php?delete=<?=$row['IDINVENTARIO']?>" class="btn btn-primary">Eliminar</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
                                 <?php
                                     }
-                                } else{
-                                    echo "Sin Inventario";
-                                }?>
-                     
-
+                                }else{ echo "Sin Inventario"; } ?>
                         </tbody>
                       </table>
                       <center>
@@ -370,18 +344,14 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'] )){
                         <span class="sr-only">firts</span>
                       </a>
                     </li>
-                    <?php } ?>
-
-                          <?php if($curpage >=2){ ?>
+                    <?php }
+                           if($curpage >=2){ ?>
                             <li class="page-item"><a class="page-link" href="?page=<?php echo $previouspage ?>"><?php echo $previouspage ?></a></li>
                             <?php }  ?>
-                            
                             <li class="page-item active"><a class="page-link" href="?page=<?php echo $curpage ?>"><?php echo $curpage ?></a></li>
-                            
                             <?php if($curpage != $endpage){ ?>
                             <li class="page-item"><a class="page-link" href="?page=<?php echo $nextpage ?>"><?php echo $nextpage ?></a></li>
                         <?php } ?>
-                          
                          <?php if($curpage != $endpage){ ?>
                         <li class="page-item">
                           <a class="page-link" href="?page=<?php echo $endpage ?>" aria-label="Next">
@@ -392,9 +362,7 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'] )){
                         <?php } ?>
                           </ul>
                         </nav>
-                     </center> 
-                      
-                      
+                     </center>
                     </div>
                   </div>
                 </div>
@@ -404,16 +372,11 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'] )){
         </div>
     </div>
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
     <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
     <script src="../assets/extra-libs/sparkline/sparkline.js"></script>
-    <!--Wave Effects -->
     <script src="../dist/js/waves.js"></script>
-    <!--Menu sidebar -->
     <script src="../dist/js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
     <script src="../dist/js/custom.min.js"></script>
 </body>
 </html>

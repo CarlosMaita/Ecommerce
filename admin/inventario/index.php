@@ -1,29 +1,21 @@
 <?php
 include_once('../common/sesion2.php');
 require('../../common/conexion.php');
-
 $perpage  = 5;
-
-
 if(isset($_GET['page']) & !empty($_GET['page'])){
 	$curpage = $_GET['page'];
 }else{
 	$curpage = 1;
 }
-
 $start = ($curpage * $perpage) - $perpage;
-
 #necesito el total de elementos
-
 $PageSql = "SELECT * FROM PRODUCTOS";
 $pageres = mysqli_query($conn, $PageSql);
 $totalres = mysqli_num_rows($pageres);
-
 $endpage = ceil($totalres/$perpage);
 $startpage = 1;
 $nextpage = $curpage + 1;
 $previouspage = $curpage - 1;
-
  ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -98,14 +90,14 @@ $previouspage = $curpage - 1;
                             <th scope="col">Producto</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Genero</th>
-                            <th scope="col">Tipo</th>
-                            <th scope="col">Precio</th>
+														<th scope="col">Marca</th>
+														<th scope="col">Tipo</th>
+														<th scope="col">Material</th>
+                            <th scope="col">Precio(Bs.)</th>
                           </tr>
                         </thead>
                         <tbody>
                          <?php
-                                
-                            
                              $sql = "SELECT * FROM PRODUCTOS  LIMIT $start, $perpage";
                              $result = $conn->query($sql);
                              if ($result->num_rows > 0) {
@@ -113,13 +105,14 @@ $previouspage = $curpage - 1;
                                 while($row = $result->fetch_assoc()) {
                                    ?>
                                    <tr>
-                                    <td scope="row"><?php echo $row['IDPRODUCTO']; ?></td>
-                                    <th><?php echo $row['NOMBRE_P']; ?></th>
+                                    <td class="text-center"><img src="../../imagen/<?php echo $row['IMAGEN']; ?>" width="30px" alt=""></td>
+                                    <td><?php echo $row['NOMBRE_P']; ?></td>
                                     <td><?php switch($row['GENERO']){case '1': echo 'Dama'; break; case '2': echo 'Caballero'; break; default: echo 'Otro'; break; }?></td>
-                                    <td><?=ucwords($row['TIPO'])?></td>
+                                    <td><?=ucwords($row['MARCA'])?></td>
+																		<td><?=ucwords($row['TIPO'])?></td>
+																		<td><?=ucwords($row['MATERIAL'])?></td>
                                     <td><?php echo number_format($row['PRECIO'], 2, ',', '.'); ?></td>
                                   </tr>
-                                   
                                 <?php
                                     }
                                 } else{
@@ -127,8 +120,7 @@ $previouspage = $curpage - 1;
                                 }?>
                         </tbody>
                       </table>
-                      
-                                           <center>
+                      <center>
                         <nav aria-label="Page navigation example">
                           <ul class="pagination justify-content-center">
                   <?php if($curpage != $startpage){ ?>
@@ -139,17 +131,13 @@ $previouspage = $curpage - 1;
                       </a>
                     </li>
                     <?php } ?>
-
                           <?php if($curpage >=2){ ?>
                             <li class="page-item"><a class="page-link" href="?page=<?php echo $previouspage ?>"><?php echo $previouspage ?></a></li>
                             <?php }  ?>
-                            
                             <li class="page-item active"><a class="page-link" href="?page=<?php echo $curpage ?>"><?php echo $curpage ?></a></li>
-                            
                             <?php if($curpage != $endpage){ ?>
                             <li class="page-item"><a class="page-link" href="?page=<?php echo $nextpage ?>"><?php echo $nextpage ?></a></li>
                         <?php } ?>
-                          
                          <?php if($curpage != $endpage){ ?>
                         <li class="page-item">
                           <a class="page-link" href="?page=<?php echo $endpage ?>" aria-label="Next">
@@ -161,7 +149,6 @@ $previouspage = $curpage - 1;
                           </ul>
                         </nav>
                      </center>
-
                     </div>
                   </div>
                 </div>
@@ -171,16 +158,11 @@ $previouspage = $curpage - 1;
         </div>
     </div>
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
     <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
     <script src="../assets/extra-libs/sparkline/sparkline.js"></script>
-    <!--Wave Effects -->
     <script src="../dist/js/waves.js"></script>
-    <!--Menu sidebar -->
     <script src="../dist/js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
     <script src="../dist/js/custom.min.js"></script>
 </body>
 </html>

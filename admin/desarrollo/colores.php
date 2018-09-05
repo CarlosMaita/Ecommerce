@@ -5,65 +5,42 @@ require('../../common/conexion.php');
 if(isset($_GET['color'],$_GET['color_hex'] )){
         $color=$_GET['color'];
         $hex=$_GET['color_hex'];
-        
+
          $sql = "INSERT INTO `COLOR`(`HEX`, `COLOR`) VALUES ('$hex','$color')";
-    
+
         if ($conn->query($sql) === TRUE) {
             echo "<center>Nuevo COLOR registrado</center>";
             header('Location: ./colores.php');
            } else { //echo "Error: " . $sql . "<br>" . $conn->error;
                     echo '<script>alert("Error: Color Ya existe")</script>';
                     }
-
 }
-
-
-
 #paginacion y eliinacion de productos
-
 if(isset($_GET['delete']) & !empty($_GET['delete'])){
-    
     $idcolor=$_GET['delete'];
-        
-        
     #eliminar USURIO
     $sql ="DELETE FROM COLOR WHERE IDCOLOR='$idcolor'";
-    
        if ($conn->query($sql) === TRUE) {
            } else {
              echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';
         }
-    
-    
-} 
-
+}
 $perpage  = 5;
-
-
 if(isset($_GET['page']) & !empty($_GET['page'])){
 	$curpage = $_GET['page'];
 }else{
 	$curpage = 1;
 }
-
 $start = ($curpage * $perpage) - $perpage;
-
 #necesito el total de elementos
-
 $PageSql = "SELECT * FROM COLOR";
 $pageres = mysqli_query($conn, $PageSql);
 $totalres = mysqli_num_rows($pageres);
-
 $endpage = ceil($totalres/$perpage);
 $startpage = 1;
 $nextpage = $curpage + 1;
 $previouspage = $curpage - 1;
-
-
-        
-
 ?>
-
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 <head>
@@ -134,7 +111,6 @@ $previouspage = $curpage - 1;
                     <div class="row justify-content-center mt-1 bg-white py-2">
                       <h3>Agregar el Nuevo Color</h3>
                     </div>
-                    
                     <form class="" action="" method="GET">
                     <div class="row mt-3 justify-content-center">
                       <div class="input-group mb-3 col-6">
@@ -171,31 +147,55 @@ $previouspage = $curpage - 1;
                           </tr>
                         </thead>
                         <tbody>
-                         
                            <?php
-                                
-                            
                              $sql = "SELECT * FROM COLOR LIMIT $start, $perpage";
                              $result = $conn->query($sql);
                              if ($result->num_rows > 0) {
                              // output data of each row
-                                while($row = $result->fetch_assoc()) {
+                                while($row = $result->fetch_assoc()){
                                    ?>
-                                   <tr class="text-center">
+                                      <tr class="text-center">
                                         <td><span class="dot" style="background-color:<?=$row['HEX']?>"></span></td>
                                         <td><?=$row['COLOR']?></td>
-                                        <td><a class="btn btn-outline-danger btn-sm" href="?delete=<?=$row['IDCOLOR']?>" >Eliminar</a></td>      
-                              </tr>
-                                   
+                                        <td><a  href="javascript:void(0)" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eli<?php echo $row['IDCOLOR']; ?>">Eliminar</a></td>
+                                    </tr>
+                                    <div class="modal fade" id="eli<?php echo $row['IDCOLOR']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                      <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <h5 class="modal-title">¿Desea eliminar el producto?</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                              <span aria-hidden="true">&times;</span>
+                                            </button>
+                                          </div>
+                                          <div class="modal-body">
+                                            <div class="container">
+                                              <div class="row justify-content-around">
+                                                <div class="col-auto">
+                                                  <?=$row['COLOR']?>
+                                                </div>
+                                                <div class="col-auto">
+                                                  <span class="dot" style="background-color:<?=$row['HEX']?>"></span>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </br>
+                                            Tenga en cuenta no se podrá filtrar en la pagina por este color.</br>
+                                            Consulte con su supervisor antes de realizar esta acción.
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                            <a href="?delete=<?=$row['IDCOLOR']?>" class="btn btn-primary">Eliminar</a>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                      </tr>
                                 <?php
                                     }
-                                } else{
-                                    echo "Sin USUARIOS";
-                                }?>
-                                
+                                }else{ echo "Sin USUARIOS";} ?>
                         </tbody>
                       </table>
-                      
                       <center>
                         <nav aria-label="Page navigation example">
                           <ul class="pagination justify-content-center">
@@ -206,19 +206,15 @@ $previouspage = $curpage - 1;
                         <span class="sr-only">firts</span>
                       </a>
                     </li>
-                    <?php } ?>
-
-                          <?php if($curpage >=2){ ?>
+                    <?php }
+                          if($curpage >=2){ ?>
                             <li class="page-item"><a class="page-link" href="?page=<?php echo $previouspage ?>"><?php echo $previouspage ?></a></li>
                             <?php }  ?>
-                            
                             <li class="page-item active"><a class="page-link" href="?page=<?php echo $curpage ?>"><?php echo $curpage ?></a></li>
-                            
                             <?php if($curpage != $endpage){ ?>
                             <li class="page-item"><a class="page-link" href="?page=<?php echo $nextpage ?>"><?php echo $nextpage ?></a></li>
-                        <?php } ?>
-                          
-                         <?php if($curpage != $endpage){ ?>
+                        <?php }
+                         if($curpage != $endpage){ ?>
                         <li class="page-item">
                           <a class="page-link" href="?page=<?php echo $endpage ?>" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
@@ -229,7 +225,6 @@ $previouspage = $curpage - 1;
                           </ul>
                         </nav>
                      </center>
-                     
                     </div>
                   </div>
                 </div>
