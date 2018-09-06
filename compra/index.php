@@ -60,9 +60,9 @@ and open the template in the editor.
         </div>
         <div class="col-6 text-center">
             <img src="../imagen/19ca14e7ea6328a42e0eb13d585e4c22.jpg" class="container-imagen" width="600px" height="650px" id="myimage"/>
-            <div class="text-block">
+            <!--<div class="text-block">
               <div id="myresult" class="img-zoom-result"></div>
-            </div>
+            </div>-->
         </div>
         <div class="col-4">
           <div class="container-fluid">
@@ -146,9 +146,9 @@ and open the template in the editor.
                 <div class="col-12 text-center">
                  <div class="accordion" id="accordionExample">
                    <div class="card">
-                     <div class="card-header container-fluid" id="hone">
+                     <div class="card-header container-fluid bg-dark" id="hone">
                        <h5 class="mb-0">
-                         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#one" aria-expanded="true" aria-controls="collapseOne">
+                         <button class="btn btn-link text-white" type="button" data-toggle="collapse" data-target="#one" aria-expanded="true" aria-controls="collapseOne">
                            Descripción
                          </button>
                        </h5>
@@ -170,9 +170,9 @@ and open the template in the editor.
                      </div>
                    </div>
                    <div class="card">
-                     <div class="card-header" id="htwo">
+                     <div class="card-header bg-dark" id="htwo">
                        <h5 class="mb-0">
-                         <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#two" aria-expanded="false" aria-controls="collapseTwo">
+                         <button class="btn btn-link collapsed text-white" type="button" data-toggle="collapse" data-target="#two" aria-expanded="false" aria-controls="collapseTwo">
                            Características
                          </button>
                        </h5>
