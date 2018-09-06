@@ -27,8 +27,8 @@ if(isset($_FILES['archivo'])){
      if ($_FILES["archivo"]["size"]<= $limite_kb*1024){
          $ruta='../../imagen/';
          $archivo = substr(strrchr($_FILES["archivo"]["name"], "."), 1);
-         
-        $name_archivo=md5($C).'.'.$archivo;
+
+        $name_archivo=md5($C.$archivo).'.'.$archivo;
         $archivo=$ruta.$name_archivo;
 
          if(!file_exists($ruta)){ mkdir($ruta); }
@@ -59,24 +59,24 @@ $precio =  $_POST['precio']; //double
 (3) - Mao
 (4) - Chemise
 */
-    
+
 $cuello=$_POST['cuello']; //entero
-    
+
 /*Tipo de manga
 (0) - No aplica
 (1) - Corta
 (2) - Tres Cuarto
 (3) - Larga
 (4) - Sin Manga
-*/    
-    
+*/
+
 $manga=$_POST['manga']; //Entero
 $material=$_POST['material'];
-$marca=$_POST['marca'];    
+$marca=$_POST['marca'];
 //ESCRIBE EL COMANDO SQL
-    
+
 $sql = "INSERT INTO `PRODUCTOS`(`NOMBRE_P`, `DESCRIPCION`, `GENERO`, `TIPO`, `PRECIO`, `IMAGEN`,`CUELLO`, `MANGA`, `MATERIAL`, `MARCA`) VALUES ('$nombre_p','$descripcion','$genero','$tipo','$precio','$name_archivo', '$cuello', '$manga', '$material' ,'$marca')";
-    
+
 if ($conn->query($sql) === TRUE) {
     echo "<p>Nuevo PRODUCTO registrado</p>";
     header('Location: ./producto.php');

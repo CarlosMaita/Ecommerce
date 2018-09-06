@@ -94,7 +94,7 @@ and open the template in the editor.
       while($f=$res->fetch_assoc()){
     ?>
     <div class="container-fluid">
-      <div class="row">
+      <div class="row mt-5">
         <div class="col-2">
           <div class="row justify-content-center">
             <div class="col-12">
@@ -104,89 +104,85 @@ and open the template in the editor.
         </div>
         <div class="col-6 text-center">
           <div class="img-zoom-container">
-            <img src="<?php echo $f['IMAGEN'];?>" width="500px" height="650px" id="myimage"/>
+            <img src="<?php echo $f['IMAGEN'];?>" width="600px" height="650px" id="myimage"/>
           </div>
         </div>
         <div class="col-3">
           <div class="container">
             <div class="row">
               <div class="col-12">
-                <!--<div class="detalle">
-                  <nav id="texto">
-                    <ul class="menu-top">
-                      <li onclick="tablero(true)"><a id="stock">Stock</a></li>
-                      <li onclick="tablero(false)"><a id="pedido">Solicitud de Pedido</a></li>
-                    </ul>
-                    <div id="stock-block">
-                      <?php
-                          $nombre_p= $f["NOMBRE_P"];
-                          $des=$f["DESCRIPCION"];
-                          $precio=$f["PRECIO"]*$tasa_usd;
-                      ?>
-                      <h1 class="text-muted" id="nombre-p"><?php echo $nombre_p;?></h1>
-                      <p id="des" class="text-muted"><?php echo $des;?></p>
-                      <p id="precio" class="text-muted"><?php echo number_format($precio, 2, ',', '.');?> Bs</p>
-                      <?php } ?>
-                      <form action="carrito.php" method="POST" onsubmit="return validacion()">
-                        <div class="cantidad">
-                           <ul>
-                             <li>
-                               <select name="talla" id="search" onchange="talla_dis()" class="text-muted">
-                                   <?php echo $lista_tallas;?>
-                               </select>
-                             </li>
-                             <li>
-                               <input type="number" max="<?php echo $arreglo[1]['Cantidad']; ?>" min="1" maxlength="4" value="1" name="cantidad"
-                               id="cant" class="text-muted text-center">
-                               <input type="text" name="id" value="<?php echo $_GET["id"];?>" hidden="hidden" class="text-muted text-center">
-                             </li>
-                           </ul>
-                           <p id="dispo" class="text-muted ">Disponibilidad: <?php echo $arreglo[1]['Cantidad']; ?> [piezas]</p>
-                        </div>
-                        <center>
-                          <input type="submit" value="Añadir al carrito" class="btn btn-primary btn-ms py-2">
-                        </center>
-                      </form>
-                    </div>
-                    <div id="pedido-block">
-                      <h1 class="text-muted" id="nombre-p"><?php echo $nombre_p;?></h1>
-                        <p id="des"><?php echo $des;?></p>
-                        <p id="precio" class="text-primary"><?php echo number_format($precio, 2, ',', '.'); ?> Bs</p>
-                      <form action="../contacto/index.php" method="POST">
-                        <div class="cantidad">
-                          <ul>
-                            <li>
-                             <select name="talla" id="search">
-                               <option value="XXL">XXL</option>
-                               <option value="XL">XL</option>
-                               <option value="L">L</option>
-                               <option value="M">M</option>
-                               <option value="S">S</option>
-                               <option value="XS">XS</option>
-                               <option value="XXS">XXS</option>
-                             </select>
-                            </li>
-                            <li>
-                              <input type="number" max="9999" min="1" maxlength="4" value="1" name="cantidad" id="cant">
-                              <input type="text" name="id" value="<?php echo $_GET["id"];?>" hidden="hidden">
-                            </li>
-                          </ul>
-                          <p id="dispo" class="text-dark">Ponte en contacto con nosotros.</p>
-                        </div>
-                        <center>
-                          <input type="submit" value="Solicitar Producto" class="btn btn-primary btn-lg btn-block py-4">
-                        </center>
-                      </form>
-                    </div>
-                  </nav>
-                </div>-->
+                <p class="text-muted">Franela de Dama</p>
+                <h2><b>Franela De Dama Nike</b></h2>
+              </div>
+              <div class="col-12 mb-4">
+                <h3 class="lead">200,00 Bs.S</h3>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-8 mb-2">
+                Selecciona la Talla
+              </div>
+              <div class="col-4 mb-2">
+                Cantidad
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-5">
+                <select class="lista-talla" name="talla">
+                  <option value="s">S</option>
+                  <option value="m">M</option>
+                  <option value="l">L</option>
+                  <option value="xl">XL</option>
+                  <option value="xxl">XXL</option>
+                </select>
+              </div>
+              <div class="col-2 offset-3">
+                <select class="lista-talla-2" name="talla">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                </select>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-12">
+                <a class="btn btn-outline-dark" href="#">AÑADIR AL CARRITO</a>
+              </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+              <div class="col-12">
+                <small class="text-muted"><span class="text-dark">¿Deseas comprar mas de 12 piezas?</span><br>
+                  Ve a compras <a href="../vitrina/index.php?genero=4">Al Mayor</a>, y aprovecha las ofertas.</small>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-12">
+                <small class="text-muted"><span class="text-dark">¿No encuentras las tallas que deseas?</span><br>
+                  Ve a <a href="../vitrina.php?genero=4">solicitud de pedido</a>, y consulta por las otras tallas.</small>
+              </div>
+            </div>
+            <hr class="my-3">
+            <div class="row mt-3">
+              <div class="col-12">
+                <small class="text-muted"><b>¿Como hacemos los envíos?</b> <br>
+                  Los Envíos lo hacemos mediante agencias de encomiendas. <a href="../faq/index.php?id=2" target="_blank">Ver más</a></small>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <section class="container details mb-3 pb-3">
+  <?php } ?>
+    <section class="container details my-5 pb-3">
     <div class="container p-3">
        <h1 class="text-dark text-center">
          Detalles del Producto
@@ -207,7 +203,15 @@ and open the template in the editor.
              </div>
              <div id="one" class="collapse" aria-labelledby="hone" data-parent="#accordionExample">
                <div class="card-body">
-                 Los envíos los realizamos de 24 a 48 horas, a partir de la confirmación en nuestras cuentas el pago del pedido.
+                 <div class="container">
+                   <div class="row">
+                     <div class="col-12">
+                       Excelente para un paseo por la ciudad o el parque. Ir al gimnasio y salir a trotar.<br>
+                       Modelo Deportivo - Casual.<br>
+                       Totalmente fresca y cómoda, ajustable al cuerpo.
+                     </div>
+                   </div>
+                 </div>
                </div>
              </div>
            </div>
@@ -221,7 +225,13 @@ and open the template in the editor.
              </div>
              <div id="two" class="collapse" aria-labelledby="htwo" data-parent="#accordionExample">
                <div class="card-body">
-                 Todo dependerá de la empresa de encomiendas, del lugar de destino, y de la fecha en la cual se realiza el envío (feriados, fin de semana). En promedio tarda de 2 a 7 días en llegar.
+                 <div class="container">
+                   <div class="row">
+                     <div class="col-6">
+                       
+                     </div>
+                   </div>
+                 </div>
                </div>
              </div>
            </div>
