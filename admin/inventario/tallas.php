@@ -34,11 +34,12 @@ $endpage = ceil($totalres/$perpage);
 $startpage = 1;
 $nextpage = $curpage + 1;
 $previouspage = $curpage - 1;
-if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'] )){
+if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'], $_POST['peso'] )){
         $idmodelo=$_POST['modelo'];
         $talla=$_POST['talla'];
         $cantidad=$_POST['cantidad'];
-    if ($idmodelo!=NULL && $talla!=NULL  && $cantidad!=NULL ){
+        $peso=$_POST['peso'];
+    if ($idmodelo!=NULL && $talla!=NULL  && $cantidad!=NULL  ){
           $encontro=false;
           $sql="SELECT CANTIDAD, IDINVENTARIO FROM INVENTARIO WHERE IDMODELO='$idmodelo' AND TALLA='$talla' LIMIT 1;";
             $result = $conn->query($sql);
@@ -57,8 +58,8 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'] )){
                        }else{ echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';}
               }else{
                   //ESCRIBE EL COMANDO SQL
-                $sql = "INSERT INTO INVENTARIO (IDMODELO,TALLA, CANTIDAD)
-                VALUES ('$idmodelo', '$talla', '$cantidad')";
+                $sql = "INSERT INTO INVENTARIO (IDMODELO,TALLA, CANTIDAD, PESO)
+                VALUES ('$idmodelo', '$talla', '$cantidad', '$peso')";
                     if ($conn->query($sql) === TRUE) {
                         echo '<script> alert("Inventario añadido"); </script>';
                        } else {echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';}
@@ -210,7 +211,7 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'] )){
                   <div class="input-group-append">
                     <span class="input-group-text"><b>Peso (gr)</b></span>
                   </div>
-                  <input type="number" name="peso" class="form-control text-secondary" placeholder="Ingrese el peso">
+                  <input type="number" name="peso" step="0.1" min="0.1" class="form-control text-secondary" placeholder="Ingrese el peso" required>
                 </div>
               </div>
               <div class="row justify-content-center mb-3">
@@ -240,7 +241,7 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'] )){
                         </thead>
                         <tbody>
                          <?php
-                             $sql = "SELECT i.IDINVENTARIO, i.TALLA, i.CANTIDAD, m.IDMODELO, m.IMAGEN, m.COLOR1, m.COLOR2, p.NOMBRE_P, p.GENERO, p.TIPO, p.PRECIO, p.MARCA
+                             $sql = "SELECT i.IDINVENTARIO, i.TALLA, i.CANTIDAD, m.IDMODELO, m.IMAGEN, m.COLOR1, m.COLOR2, p.NOMBRE_P, p.GENERO, p.TIPO, p.PRECIO, p.MARCA, i.PESO
                              FROM INVENTARIO i INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO
                              INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
                              LIMIT $start, $perpage";
@@ -288,7 +289,7 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'] )){
                                     <td><?=$row['TALLA']?></td>
                                     <td><?=$row['CANTIDAD']?></td>
                                     <td><?php echo number_format($row['PRECIO'], 2, ',', '.'); ?></td>
-                                    <td></td>
+                                    <td><?=number_format($row['PESO'], 2,',', '.')?></td>
                                     <td><a href="tallas.php?add=<?=$row['IDINVENTARIO']?>" class="btn btn-outline-success btn-sm">Añadir</a>
                                         <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eli<?php echo $row['IDINVENTARIO'];?>">Eliminar</a></td>
                                   </tr>
