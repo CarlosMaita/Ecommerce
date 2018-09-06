@@ -8,7 +8,7 @@ Rouxa es la Tienda virtual (Ecommerce) de la empresa Venezolana Rouxa C.A., fabr
 
 ## Rouxa Ecommerce
 
-Es el proyecto de desarrollo de un sistema de venta de ropa por internet. Usamos tecnologia de vanguardia para el seguimiento del pedido para los clientes y un novedoso sistema administrativo que permite una sofisticada organizacion de las ventas y el control de mercancia.}
+Es el proyecto de desarrollo de un sistema de venta de ropa por internet. Usamos tecnologia de vanguardia para el seguimiento del pedido para los clientes y un novedoso sistema administrativo que permite una sofisticada organizacion de las ventas y el control de mercancia.
 
 ### https://www.rouxa.com.ve/ 
 
