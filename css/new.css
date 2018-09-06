@@ -52,3 +52,27 @@ width: 100px;
 .lista-talla-2{
 width: 75px;
 }
+/*Zoom Image*/
+.img-zoom-lens{
+  position: absolute;
+  border: 1px solid #fff;
+  width: 70px;
+  height: 70px;
+}
+.img-zoom-result{
+  border: 1px solid #eee;
+  width: 150px;
+  height: 150px;
+}
+.container-imagen{
+  border: 1px solid #eee;
+position: relative;
+}
+.text-block{
+position: absolute;
+top: 0px;
+right: 19px;
+color: white;
+padding-left: 20px;
+padding-right: 20px;
+}

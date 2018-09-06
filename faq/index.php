@@ -39,7 +39,7 @@
                      ?>
          <div class="container p-3">
             <h1 id="letrap"  class="text-primary text-center">
-              Productos
+              Ventas Al Mayor
             </h1>
             <hr class="my-4">
          </div>
@@ -48,27 +48,28 @@
              <div class="col-8 text-center">
                 <div class="accordion" id="ac1">
                   <div class="card">
-                    <div class="card-header" id="onei">
+                    <div class="card-header" id="uno">
                       <h5 class="mb-0">
-                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#cone" aria-expanded="true" aria-controls="collapseOne">
-                          Sin información.
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#cuno" aria-expanded="true" aria-controls="collapseOne">
+                          ¿A partir de cuantas piezas?
                         </button>
                       </h5>
                     </div>
-                    <div id="cone" class="collapse" aria-labelledby="onei" data-parent="#ac1">
+                    <div id="cuno" class="collapse" aria-labelledby="uno" data-parent="#ac1">
                       <div class="card-body">
+                        Las ventas Al Mayor se tomarán en cuenta a partir de 12 piezas.<br>
                       </div>
                     </div>
                   </div>
                   <div class="card">
-                    <div class="card-header" id="twoi">
+                    <div class="card-header" id="dos">
                       <h5 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#ctwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#cdos" aria-expanded="false" aria-controls="collapseTwo">
 
                         </button>
                       </h5>
                     </div>
-                    <div id="ctwo" class="collapse" aria-labelledby="twoi" data-parent="#ac1">
+                    <div id="cdos" class="collapse" aria-labelledby="dos" data-parent="#ac1">
                       <div class="card-body">
                       </div>
                     </div>
@@ -77,12 +78,45 @@
                     <div class="card-header" id="tres">
                       <h5 class="mb-0">
                         <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#ctres" aria-expanded="false" aria-controls="collapseThree">
+                          ¿Puedo elegir diferentes modelos?
                         </button>
                       </h5>
                     </div>
                     <div id="ctres" class="collapse" aria-labelledby="tres" data-parent="#ac1">
                       <div class="card-body">
-
+                        Si, Puedes seleccionar todos los modelos y productos que desees, siempre y cuando sea a partir de 12 piezas.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header" id="cuatro">
+                      <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#ccuatro" aria-expanded="false" aria-controls="collapseThree">
+                          ¿Las tallas pueden ser variadas?
+                        </button>
+                      </h5>
+                    </div>
+                    <div id="ccuatro" class="collapse" aria-labelledby="cuatro" data-parent="#ac1">
+                      <div class="card-body">
+                        Por supuesto, puedes seleccionar las tallas que desees.<br>
+                        En cualquier combinación que quieras elegir.
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-header" id="cinco">
+                      <h5 class="mb-0">
+                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#ccinco" aria-expanded="false" aria-controls="collapseThree">
+                          ¿Cuales son las ofertas que podré obtener?
+                        </button>
+                      </h5>
+                    </div>
+                    <div id="ccinco" class="collapse" aria-labelledby="cinco" data-parent="#ac1">
+                      <div class="card-body">
+                        Son las mejores ofertas:<br>
+                        - A partir de 1 Docena (12 piezas) hasta 4 Docenas, Recibirás un descuento del 5%.<br>
+                        - A partir de 5 Docenas hasta 9 Docenas, recibirás un descuento del 8%.<br>
+                        - A partir de 10 Docenas en adelante, recibirás un descuento del 10%.
                       </div>
                     </div>
                   </div>
@@ -99,7 +133,7 @@
                        ?>
      <div class="container p-3">
         <h1 id="letrap" class="text-primary  text-center">
-          Envios y entregas
+          Envíos y entregas
         </h1>
         <hr class="my-4">
      </div>
@@ -187,7 +221,7 @@
               </div>
               <div id="six" class="collapse" aria-labelledby="hsix" data-parent="#accordionExample">
                 <div class="card-body">
-                  Si, los pedidos los podemos enviar pagos desde la oficina de encomiendas. Sin embargo el cliente deberá cancelar el monto del envio antes de nosotros realizarlo.
+                  Si, los pedidos los podemos enviar pagos desde la oficina de encomiendas. Sin embargo el cliente deberá cancelar el monto del envío antes de nosotros realizarlo.
                 </div>
               </div>
             </div>
@@ -306,7 +340,7 @@
                 </div>
                 <div id="four" class="collapse" aria-labelledby="hfour" data-parent="#accordionExample">
                   <div class="card-body">
-                    No, los gastos del envio son montos pagados a la empresa de encomiendas, por lo cual nosotros no podemos devolver ese costo.
+                    No, los gastos del envío son montos pagados a la empresa de encomiendas, por lo cual nosotros no podemos devolver ese costo.
                   </div>
                 </div>
               </div>
@@ -685,7 +719,7 @@
                        ?>
        <div class="container p-3">
           <h1 id="letrap"  class="text-primary text-center">
-            Informacion de Rouxa
+            Información de Rouxa
           </h1>
           <hr class="my-4">
        </div>
@@ -812,16 +846,16 @@
          <ul class="faq-column">
              <li id="faq-li" class="bg-dark">
                  <ul class="faq-row">
-                    <li><a href="index.php?id=9" class="bg-dark text-white">Informacion de Rouxa</a></li>
-                    <li><a href="index.php?id=2" class="bg-dark text-white">Envios</a></li>
+                    <li><a href="index.php?id=9" class="bg-dark text-white">Información de Rouxa</a></li>
+                    <li><a href="index.php?id=2" class="bg-dark text-white">Envíos</a></li>
                     <li><a href="index.php?id=3" class="bg-dark text-white">Devoluciones y Reembolsos</a></li>
-                    <li><a href="index.php?id=4" class="bg-dark text-white">Metodos de pago</a></li>
+                    <li><a href="index.php?id=4" class="bg-dark text-white">Métodos de pago</a></li>
                     <li><a href="index.php?id=8" class="bg-dark text-white">Retiros en tienda</a></li>
                 </ul>
              </li>
              <li id="faq-li" class="bg-dark">
                 <ul class="faq-row bg-dark">
-                     <li><a href="index.php?id=1" class="bg-dark text-white">Productos</a></li>
+                     <li><a href="index.php?id=1" class="bg-dark text-white">Al Mayor</a></li>
                      <li><a href="index.php?id=5" class="bg-dark text-white">Seguimiento de Pedidos</a></li>
                      <li><a href="index.php?id=6" class="bg-dark text-white">Vendedores</a ></li>
                      <li><a href="index.php?id=7" class="bg-dark text-white">Promociones</a></li>
