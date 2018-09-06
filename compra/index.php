@@ -52,10 +52,9 @@ and open the template in the editor.
     ?>
     <div class="container-fluid">
       <div class="row mt-5">
-        <div class="col-2">
+        <div class="col-1">
           <div class="row justify-content-center">
             <div class="col-12">
-
             </div>
           </div>
         </div>
@@ -65,8 +64,8 @@ and open the template in the editor.
               <div id="myresult" class="img-zoom-result"></div>
             </div>
         </div>
-        <div class="col-3">
-          <div class="container">
+        <div class="col-4">
+          <div class="container-fluid">
             <div class="row">
               <div class="col-12">
                 <p class="text-muted">Franela de Dama</p>
@@ -119,7 +118,7 @@ and open the template in the editor.
             <div class="row">
               <div class="col-12">
                 <small class="text-muted"><span class="text-dark">¿Deseas comprar mas de 12 piezas?</span><br>
-                  Ve a compras <a href="../vitrina/index.php?genero=4">Al Mayor</a>, y aprovecha las ofertas.</small>
+                  Ve a compras <a href="../vitrina/index.php?genero=4">Al Mayor</a>, y aprovecha las mejores ofertas.</small>
               </div>
             </div>
             <div class="row mt-3">
@@ -135,68 +134,82 @@ and open the template in the editor.
                   Los Envíos lo hacemos mediante agencias de encomiendas. <a href="../faq/index.php?id=2" target="_blank">Ver más</a></small>
               </div>
             </div>
+            <hr class="mt-3">
+            <div class="row">
+              <div class="container-fluid mt-4">
+                 <h5 class="text-white text-center bg-dark py-2 lead">
+                   Detalles del Producto
+                 </h5>
+              </div>
+              <div class="container">
+                <div class="row justify-content-center">
+                <div class="col-12 text-center">
+                 <div class="accordion" id="accordionExample">
+                   <div class="card">
+                     <div class="card-header container-fluid" id="hone">
+                       <h5 class="mb-0">
+                         <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#one" aria-expanded="true" aria-controls="collapseOne">
+                           Descripción
+                         </button>
+                       </h5>
+                     </div>
+                     <div id="one" class="collapse" aria-labelledby="hone" data-parent="#accordionExample">
+                       <div class="card-body">
+                         <div class="container-fluid">
+                           <div class="row">
+                             <div class="col-12 text-left">
+                               <small>
+                               Excelente para un paseo por la ciudad o el parque.
+                               <br>Ir al gimnasio y salir a trotar.<br>
+                               Modelo Deportivo - Casual.<br>
+                               Totalmente fresca y cómoda, ajustable al cuerpo.</small>
+                             </div>
+                           </div>
+                         </div>
+                       </div>
+                     </div>
+                   </div>
+                   <div class="card">
+                     <div class="card-header" id="htwo">
+                       <h5 class="mb-0">
+                         <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#two" aria-expanded="false" aria-controls="collapseTwo">
+                           Características
+                         </button>
+                       </h5>
+                     </div>
+                     <div id="two" class="collapse" aria-labelledby="htwo" data-parent="#accordionExample">
+                       <div class="card-body">
+                         <div class="container-fluid">
+                           <div class="row">
+                             <div class="col-12 text-left">
+                               <small>
+                               -- <b>Manga:</b>Corta<br>
+                               -- <b>Cuello:</b> Redondo <br>
+                               -- <b>Material:</b> Algodon Jersey Ring <br>
+                               -- <b>Peso de la franela:</b> <br>
+                                --- Talla S: 75 gr.<br>
+                                --- Talla M: 82 gr.<br>
+                                --- Talla L: 90 gr.<br>
+                                </small>
+                             </div>
+                           </div>
+                         </div>
+                       </div>
+                     </div>
+                   </div>
+                   </div>
+                 </div>
+               </div>
+              </div>
+
+            </div>
           </div>
         </div>
       </div>
     </div>
   <?php } ?>
     <section class="container details my-5 pb-3">
-    <div class="container p-3">
-       <h1 class="text-dark text-center">
-         Detalles del Producto
-       </h1>
-       <hr class="my-4">
-    </div>
-      <div class="container">
-        <div class="row justify-content-center">
-        <div class="col-10 text-center">
-         <div class="accordion" id="accordionExample">
-           <div class="card">
-             <div class="card-header" id="hone">
-               <h5 class="mb-0">
-                 <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#one" aria-expanded="true" aria-controls="collapseOne">
-                   Descripción
-                 </button>
-               </h5>
-             </div>
-             <div id="one" class="collapse" aria-labelledby="hone" data-parent="#accordionExample">
-               <div class="card-body">
-                 <div class="container">
-                   <div class="row">
-                     <div class="col-12">
-                       Excelente para un paseo por la ciudad o el parque. Ir al gimnasio y salir a trotar.<br>
-                       Modelo Deportivo - Casual.<br>
-                       Totalmente fresca y cómoda, ajustable al cuerpo.
-                     </div>
-                   </div>
-                 </div>
-               </div>
-             </div>
-           </div>
-           <div class="card">
-             <div class="card-header" id="htwo">
-               <h5 class="mb-0">
-                 <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#two" aria-expanded="false" aria-controls="collapseTwo">
-                   Características
-                 </button>
-               </h5>
-             </div>
-             <div id="two" class="collapse" aria-labelledby="htwo" data-parent="#accordionExample">
-               <div class="card-body">
-                 <div class="container">
-                   <div class="row">
-                     <div class="col-6">
 
-                     </div>
-                   </div>
-                 </div>
-               </div>
-             </div>
-           </div>
-           </div>
-         </div>
-       </div>
-      </div>
     </div>
     </section>
     <?php include_once '../common/footer2.php';?>
