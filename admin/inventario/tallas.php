@@ -14,17 +14,13 @@ if(isset($_GET['delete']) & !empty($_GET['delete'])){
     $idinventario=$_GET['delete'];
     $sql ="DELETE FROM INVENTARIO WHERE IDINVENTARIO='$idinventario'";
        if ($conn->query($sql) === TRUE) {
-           } else {
-             echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';
-        }
+           }else{ echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>'; }
 }
 #paginacion de tallas bien aqui..
 $perpage  = 5;
 if(isset($_GET['page']) & !empty($_GET['page'])){
 	$curpage = $_GET['page'];
-}else{
-	$curpage = 1;
-}
+}else{ $curpage = 1;}
 $start = ($curpage * $perpage) - $perpage;
 #necesito el total de elementos
 $PageSql = "SELECT * FROM INVENTARIO";
@@ -34,12 +30,12 @@ $endpage = ceil($totalres/$perpage);
 $startpage = 1;
 $nextpage = $curpage + 1;
 $previouspage = $curpage - 1;
-if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'], $_POST['peso'] )){
+if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'], $_POST['peso'])){
         $idmodelo=$_POST['modelo'];
         $talla=$_POST['talla'];
         $cantidad=$_POST['cantidad'];
         $peso=$_POST['peso'];
-    if ($idmodelo!=NULL && $talla!=NULL  && $cantidad!=NULL  ){
+    if ($idmodelo!=NULL && $talla!=NULL && $cantidad!=NULL){
           $encontro=false;
           $sql="SELECT CANTIDAD, IDINVENTARIO FROM INVENTARIO WHERE IDMODELO='$idmodelo' AND TALLA='$talla' LIMIT 1;";
             $result = $conn->query($sql);
@@ -144,29 +140,29 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'], $_POST['peso'] )){
                       INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
                       ";
                       $result = $conn->query($sql);
-                      if ($result->num_rows > 0) {
-                          while($row = $result->fetch_assoc()) {
+                      if ($result->num_rows > 0){
+                          while($row = $result->fetch_assoc()){
                             $idcolor1 = $row['COLOR1'];
                             $idcolor2 = $row['COLOR2'];
                             $sql1="SELECT * FROM COLOR WHERE IDCOLOR='$idcolor1' LIMIT 1";
                             $sql2="SELECT * FROM COLOR WHERE IDCOLOR='$idcolor2' LIMIT 1";
                             #color 1
                             $result1 = $conn->query($sql1);
-                            if ($result1->num_rows > 0) {
-                                while($row1 = $result1->fetch_assoc()) {
+                            if ($result1->num_rows > 0){
+                                while($row1 = $result1->fetch_assoc()){
                                    $color1= $row1['COLOR'];
                                    $hex1=  $row1['HEX'];
                                 }
                             }
                             #color 2
                             $result2 = $conn->query($sql2);
-                            if ($result2->num_rows > 0) {
-                                while($row2 = $result2->fetch_assoc()) {
+                            if($result2->num_rows > 0){
+                                while($row2 = $result2->fetch_assoc()){
                                    $color2= $row2['COLOR'];
                                    $hex2=  $row2['HEX'];
                                 }
                             }
-                            switch($row['GENERO']) {
+                            switch($row['GENERO']){
                                 case 1: $genero= 'Dama';
                                     break;
                                 case 2: $genero= 'Caballero';
@@ -246,30 +242,30 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'], $_POST['peso'] )){
                              INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
                              LIMIT $start, $perpage";
                              $result = $conn->query($sql);
-                             if ($result->num_rows > 0) {
+                             if($result->num_rows > 0){
                              // output data of each row
-                                while($row = $result->fetch_assoc()) {
+                                while($row = $result->fetch_assoc()){
                                     $idcolor1 = $row['COLOR1'];
                                     $idcolor2 = $row['COLOR2'];
                                     $sql1="SELECT * FROM COLOR WHERE IDCOLOR='$idcolor1' LIMIT 1";
                                     $sql2="SELECT * FROM COLOR WHERE IDCOLOR='$idcolor2' LIMIT 1";
                                     #color 1
                                     $result1 = $conn->query($sql1);
-                                    if ($result1->num_rows > 0) {
-                                        while($row1 = $result1->fetch_assoc()) {
+                                    if($result1->num_rows > 0){
+                                        while($row1 = $result1->fetch_assoc()){
                                            $color1= $row1['COLOR'];
                                            $hex1=  $row1['HEX'];
                                         }
                                     }
                                     #color 2
                                     $result2 = $conn->query($sql2);
-                                    if ($result2->num_rows > 0) {
-                                        while($row2 = $result2->fetch_assoc()) {
+                                    if($result2->num_rows > 0){
+                                        while($row2 = $result2->fetch_assoc()){
                                            $color2= $row2['COLOR'];
                                            $hex2=  $row2['HEX'];
                                         }
                                     }
-                                     switch($row['GENERO']) {
+                                     switch($row['GENERO']){
                                           case 1: $genero= 'Dama';
                                               break;
                                           case 2: $genero= 'Caballero';
@@ -290,9 +286,50 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'], $_POST['peso'] )){
                                     <td><?=$row['CANTIDAD']?></td>
                                     <td><?php echo number_format($row['PRECIO'], 2, ',', '.'); ?></td>
                                     <td><?=number_format($row['PESO'], 2,',', '.')?></td>
-                                    <td><a href="tallas.php?add=<?=$row['IDINVENTARIO']?>" class="btn btn-outline-success btn-sm">Añadir</a>
+                                    <td><a href="javascript:void(0)" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#ag<?php echo $row['IDINVENTARIO'];?>">Agregar</a>
                                         <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eli<?php echo $row['IDINVENTARIO'];?>">Eliminar</a></td>
                                   </tr>
+                                  <div class="modal fade" id="ag<?php echo $row['IDINVENTARIO']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h5 class="modal-title">¿Desea Agregar o Sustraer cantidades de este modelo?</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                          </button>
+                                        </div>
+                                        <div class="modal-body">
+                                          <div class="container">
+                                            <div class="row">
+                                            </div>
+                                            <div class="row align-items-center">
+                                              <div class="col-1">
+                                                <img src="../../imagen/<?php echo $row['IMAGEN'];?>" alt="" width="25px"/>
+                                              </div>
+                                              <div class="col-3">
+                                                <span>Talla <?=$row['TALLA']?></span>
+                                              </div>
+                                              <div class="col-3">
+                                                <select class="" name="talla">
+                                                  <option value="1">Agregar</option>
+                                                </select>
+                                              </div>
+                                              <div class="col-3">
+                                                <input type="number" name="cant" value="">
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </br>
+                                          Tenga en cuenta que se modifacarán las cantidades de esta talla que se encuentran registrados en el sistema.</br>
+                                          Consulte con su supervisor antes de realizar esta acción.
+                                        </div>
+                                        <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                          <a href="tallas.php?add=<?=$row['IDINVENTARIO']?>" class="btn btn-primary">Aceptar</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
                                   <div class="modal fade" id="eli<?php echo $row['IDINVENTARIO']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                       <div class="modal-content">
