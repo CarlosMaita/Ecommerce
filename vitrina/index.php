@@ -197,7 +197,7 @@ $url= $_SERVER["REQUEST_URI"];
                         <?php
                     }
                 }
-              ?>            
+              ?>
           </div>
           <hr>
         </div>
@@ -229,30 +229,30 @@ $url= $_SERVER["REQUEST_URI"];
         $numProd=4;
         $rand=rand();
          while(!$void){
-          $sql = "SELECT * FROM MODELOS m
+          $sql = "SELECT  *, m.IMAGEN as IMA  FROM MODELOS m
           INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
           ORDER BY Rand($rand) LIMIT $numProd OFFSET $offset";
           #Busqueda por genero
            if (isset($_GET['genero'])){
                if (!empty($genero)){
-                   $sql = "SELECT * FROM MODELOS m 
+                   $sql = "SELECT *, m.IMAGEN as IMA FROM MODELOS m
                    INNER JOIN PRODUCTOS p ON p.GENERO=$genero AND p.IDPRODUCTO=m.IDPRODUCTO
                    ORDER BY Rand($rand) LIMIT $numProd OFFSET $offset";
                }
            }
-           #busqueda por Tipo de prenda     
+           #busqueda por Tipo de prenda
            if( isset($_GET['tipo'])){
                if (!empty($tipo)){
-               $sql = "SELECT * FROM MODELOS m 
-               INNER JOIN PRODUCTOS p ON p.TIPO='$tipo' AND p.IDPRODUCTO=m.IDPRODUCTO 
+               $sql = "SELECT *, m.IMAGEN as IMA  FROM MODELOS m
+               INNER JOIN PRODUCTOS p ON p.TIPO='$tipo' AND p.IDPRODUCTO=m.IDPRODUCTO
                ORDER BY Rand($rand) LIMIT $numProd OFFSET $offset";
                }
            }
            #busqueda por color
            if( isset($_GET['color'])){
                if (!empty($color)){
-               $sql = "SELECT * FROM MODELOS m
-              INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO   
+               $sql = "SELECT *, m.IMAGEN as IMA  FROM MODELOS m
+              INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
               WHERE COLOR1=$color OR COLOR2=$color
               ORDER BY Rand($rand) LIMIT $numProd OFFSET $offset";
                }
@@ -260,11 +260,11 @@ $url= $_SERVER["REQUEST_URI"];
            #busqueda por marca
            if( isset($_GET['marca'])){
                if (!empty($marca)){
-               $sql = "SELECT * FROM MODELOS m
-              INNER JOIN PRODUCTOS p ON p.MARCA='$marca' AND p.IDPRODUCTO=m.IDPRODUCTO   
+               $sql = "SELECT  *, m.IMAGEN as IMA FROM MODELOS m
+              INNER JOIN PRODUCTOS p ON p.MARCA='$marca' AND p.IDPRODUCTO=m.IDPRODUCTO
               ORDER BY Rand($rand) LIMIT $numProd OFFSET $offset";
                }
-           }  
+           }
         $result = $conn->query($sql);
         $cant=$result->num_rows;
         if ($cant > 0) {
@@ -275,10 +275,10 @@ $url= $_SERVER["REQUEST_URI"];
            while($row = $result->fetch_assoc()){
               ?>
           <div class="card" >
-            <a href="../compra/index.php?idproducto=<?php echo $row['IDPRODUCTO']; ?>&idmodelo=<?php echo $row['IDMODELO']; ?>"><img class="card-img-top img-fluid vitrina" src="../imagen/<?php echo $row['IMAGEN']; ?>" alt="<?php echo $row['NOMBRE_P']; ?>"></a>
+            <a href="../compra/index.php?idproducto=<?php echo $row['IDPRODUCTO']; ?>&idmodelo=<?php echo $row['IDMODELO']; ?>"><img class="card-img-top img-fluid vitrina" src="../imagen/<?php echo $row['IMA']; ?>" alt="<?php echo $row['NOMBRE_P']; ?>"></a>
             <div class="card-body">
               <h5 class="card-title"><?php echo $row['NOMBRE_P']; ?></h5>
-              <p class="text-muted">Franela ajustable al cuerpo, fresca y comoda.</p>
+              <p class="text-muted"><?php echo $row['DESCRIPCION']; ?></p>
               <p class="card-text"><small class="text-secondary">Precio: <?php echo number_format($row['PRECIO']*$tasa_usd, 2, ',', '.'); ?>  Bs</small></p>
             </div>
           </div>
