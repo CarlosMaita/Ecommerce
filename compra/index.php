@@ -208,9 +208,10 @@ and open the template in the editor.
       </div>
     </div>
   <?php } ?>
-    <section class="container details my-5 pb-3">
 
-    </div>
+  <!-- Div de Detalles
+  <section class="container details my-5 pb-3"></div>
+    -->
     </section>
     <?php include_once '../common/footer2.php';?>
     <script type="text/javascript">
