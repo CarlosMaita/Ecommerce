@@ -50,7 +50,7 @@ and open the template in the editor.
       $res= $conn->query($sql);
       while($f=$res->fetch_assoc()){
     ?>
-    <div class="container-fluid">
+    <div class="container-fluid my-5">
       <div class="row mt-5">
         <div class="col-1">
           <div class="row justify-content-center">
@@ -208,11 +208,9 @@ and open the template in the editor.
       </div>
     </div>
   <?php } ?>
-
   <!-- Div de Detalles
   <section class="container details my-5 pb-3"></div>
-    -->
-    </section>
+    </section>-->
     <?php include_once '../common/footer2.php';?>
     <script type="text/javascript">
     function imageZoom(imgID, resultID) {
