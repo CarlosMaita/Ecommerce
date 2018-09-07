@@ -7,20 +7,24 @@ if(isset($_GET['idproducto'], $_GET['idmodelo'])){
         $idmodelo=$_GET['idmodelo'];
         $sql= 'SELECT * FROM INVENTARIO i INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO WHERE i.IDMODELO='.$idmodelo;
             $res= $conn->query($sql);
-            $arreglo[] = NULL;
+            $arreglo[] = array();
+            unset($arreglo[0]);
            if ($res->num_rows > 0){
             while($f=$res->fetch_assoc()){
+
                 $lista_tallas=$lista_tallas.'<option value="'.$f['TALLA'].'">'.$f['TALLA'].'</option>';
-                $newarreglo=array('Talla'=>$f['TALLA'], 'Cantidad'=> $f['CANTIDAD'], 'Idinventario'=>$f['IDINVENTARIO']);
+                $newarreglo=array('Talla'=>$f['TALLA'], 'Cantidad'=> $f['CANTIDAD'], 'Idinventario'=>$f['IDINVENTARIO'], 'Peso'=>$f['PESO']);
                 array_push($arreglo,$newarreglo);
-            }
+          }
            }else{
                $lista_tallas='<option value="N/D">N/D</option>';
-                 $newarreglo=array('Talla'=>'N/D', 'Cantidad'=>'0', 'Idinventario'=>'-1');
+                 $newarreglo=array('Talla'=>'N/D', 'Cantidad'=>'0', 'Idinventario'=>'-1', 'Peso'=>'No disponible');
                  array_push($arreglo,$newarreglo);
             }
-            #seleccion de Características
-        $sql ="SELECT * FROM PRODUCTOS p WHERE IDPRODUCTO=$idproducto";
+        #seleccion de Características
+        $sql ="SELECT p.NOMBRE_P, p.PRECIO, p.TIPO, p.GENERO, p.DESCRIPCION, m.IMAGEN ,p.MANGA, p.CUELLO,p.MATERIAL FROM MODELOS m
+        INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
+        WHERE m.IDMODELO=$idmodelo";
         $res= $conn->query($sql);
         if ($res->num_rows > 0){
          while($f=$res->fetch_assoc()){
@@ -29,7 +33,9 @@ if(isset($_GET['idproducto'], $_GET['idmodelo'])){
            $tipo=$f['TIPO'];
            $genero=$f['GENERO'];
            $descripcion=$f['DESCRIPCION'];
-           $imagen=$f['IMAGEN'];
+           $imagen= $f['IMAGEN'];
+           $material=$f['MATERIAL'];
+
            switch ($f['MANGA']) {
              case '0':
                $manga='No Aplica';
@@ -254,10 +260,19 @@ and open the template in the editor.
                              <div class="col-12 text-left">
                                <p>
                                 <b>Prenda: </b><?=ucfirst ($tipo)?>,  <b>Manga: </b><?=ucfirst ($manga)?>,  <b>Cuello: </b><?=ucfirst($cuello)?><br>
-                                <b>Material: </b>Algodon Jersey Ring <br>
+                                <b>Material: </b><?=$material?> <br>
                                 <br>
                                 <b>Peso de la franela:</b>
-                                  Talla S (75 gr),  Talla M (82 gr),  Talla L (90 gr).
+                                <?php
+                                if ($arreglo[1]['Talla']!='N/D') {
+                                  foreach ($arreglo as $key) {
+                                      echo 'Talla: '.$key["Talla"].' ('.$key["Peso"].' gr) ';
+                                  }
+                                }else{
+                                  echo 'No disponible';
+                                }
+
+                                 ?>
                                 </p>
                              </div>
                            </div>
