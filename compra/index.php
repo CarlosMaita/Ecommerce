@@ -271,7 +271,6 @@ and open the template in the editor.
                                 }else{
                                   echo 'No disponible';
                                 }
-
                                  ?>
                                 </p>
                              </div>
