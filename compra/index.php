@@ -7,18 +7,75 @@ if(isset($_GET['idproducto'], $_GET['idmodelo'])){
         $idmodelo=$_GET['idmodelo'];
         $sql= 'SELECT * FROM INVENTARIO i INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO WHERE i.IDMODELO='.$idmodelo;
             $res= $conn->query($sql);
-            $arreglo[] = NULL;
+            $arreglo[] = array();
+            unset($arreglo[0]);
            if ($res->num_rows > 0){
             while($f=$res->fetch_assoc()){
+
                 $lista_tallas=$lista_tallas.'<option value="'.$f['TALLA'].'">'.$f['TALLA'].'</option>';
-                $newarreglo=array('Talla'=>$f['TALLA'], 'Cantidad'=> $f['CANTIDAD']);
+                $newarreglo=array('Talla'=>$f['TALLA'], 'Cantidad'=> $f['CANTIDAD'], 'Idinventario'=>$f['IDINVENTARIO'], 'Peso'=>$f['PESO']);
                 array_push($arreglo,$newarreglo);
-            }
+          }
            }else{
                $lista_tallas='<option value="N/D">N/D</option>';
-                 $newarreglo=array('Talla'=>'N/D', 'Cantidad'=>'0');
+                 $newarreglo=array('Talla'=>'N/D', 'Cantidad'=>'0', 'Idinventario'=>'-1', 'Peso'=>'No disponible');
                  array_push($arreglo,$newarreglo);
             }
+        #seleccion de Características
+        $sql ="SELECT p.NOMBRE_P, p.PRECIO, p.TIPO, p.GENERO, p.DESCRIPCION, m.IMAGEN ,p.MANGA, p.CUELLO,p.MATERIAL FROM MODELOS m
+        INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
+        WHERE m.IDMODELO=$idmodelo";
+        $res= $conn->query($sql);
+        if ($res->num_rows > 0){
+         while($f=$res->fetch_assoc()){
+           $nombre_p=$f['NOMBRE_P'];
+           $precio= $f['PRECIO'];
+           $tipo=$f['TIPO'];
+           $genero=$f['GENERO'];
+           $descripcion=$f['DESCRIPCION'];
+           $imagen= $f['IMAGEN'];
+           $material=$f['MATERIAL'];
+
+           switch ($f['MANGA']) {
+             case '0':
+               $manga='No Aplica';
+               break;
+               case '1':
+                 $manga='Modificar';
+                 break;
+                 case '2':
+                   $manga='Modificar';
+                   break;
+                   case '3':
+                     $manga='Modificar';
+                     break;
+
+             default:
+               // code...
+               break;
+           }
+
+           switch ($f['CUELLO']) {
+             case '0':
+               $cuello='No Aplica';
+               break;
+               case '1':
+               $cuello='Modificar';
+               break;
+               case '2':
+               $cuello='Modificar';
+               break;
+               case '3':
+               $cuello='Modificar';
+                 break;
+             default:
+               // code...
+               break;
+           }
+
+
+         }
+        }
 }
 ?>
 <!DOCTYPE html>
@@ -40,6 +97,26 @@ and open the template in the editor.
     <link rel="icon" type="image/jpg" sizes="16x16" href="../imagen/favicon.jpg">
     <link href="../admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
+    <script>
+    function talla_dis(){
+        var talla = document.getElementById('search').value;
+        switch(talla){
+             <?php
+              for($i=1; $i<count($arreglo);$i++){ ?>
+                 case '<?php echo $arreglo[$i]['Talla'];?>':
+                    /*Segundo objetivo - cantidad max ajustadas*/
+                    if(<?php echo $arreglo[$i]['Cantidad'];?> <11){
+                            document.getElementById('cant').max='<?php echo $arreglo[$i]['Cantidad'];?>';
+                    }else{
+                      document.getElementById('cant').max='10';
+                    }
+                    /*Segundo objetivo - modificar Idinv*/
+                    document.getElementById('idinv').value='<?php echo $arreglo[$i]['Idinventario'];?>';
+                break;
+                <?php   }  ?>
+            }
+    }
+    </script>
     <title>Rouxa</title>
     </head>
     <body>
@@ -50,7 +127,7 @@ and open the template in the editor.
       $res= $conn->query($sql);
       while($f=$res->fetch_assoc()){
     ?>
-    <div class="container-fluid">
+    <div class="container-fluid my-5">
       <div class="row mt-5">
         <div class="col-1">
           <div class="row justify-content-center">
@@ -59,7 +136,7 @@ and open the template in the editor.
           </div>
         </div>
         <div class="col-6 text-center">
-            <img src="../imagen/19ca14e7ea6328a42e0eb13d585e4c22.jpg" class="container-imagen" width="600px" height="650px" id="myimage"/>
+            <img src="../imagen/<?=$imagen?>" class="container-imagen" width="600px" height="650px" id="myimage"/>
             <!--<div class="text-block">
               <div id="myresult" class="img-zoom-result"></div>
             </div>-->
@@ -68,11 +145,28 @@ and open the template in the editor.
           <div class="container-fluid">
             <div class="row">
               <div class="col-12">
-                <p class="text-muted">Franela de Dama</p>
-                <h2><b>Franela De Dama Nike</b></h2>
+                <p class="text-muted"><?=ucfirst($tipo)?> de <?php
+                switch ($genero) {
+                  case '1':
+                    echo 'Dama';
+                    break;
+                    case '2':
+                      echo 'Caballero';
+                      break;
+                      case '3':
+                        echo 'Niña';
+                        break;
+                        case '4':
+                          echo 'Niño';
+                          break;
+                  default:
+                    echo 'Otro';
+                    break;
+                }?></p>
+                <h2><b><?=$nombre_p?></b></h2>
               </div>
               <div class="col-12 mb-4">
-                <h3 class="lead">200,00 Bs.S</h3>
+                <h3 class="lead"><?=number_format($precio, '2', ',', '.')?> Bs.S</h3>
               </div>
             </div>
             <div class="row">
@@ -83,58 +177,43 @@ and open the template in the editor.
                 Cantidad
               </div>
             </div>
-            <div class="row">
-              <div class="col-5">
-                <select class="lista-talla" name="talla">
-                  <option value="s">S</option>
-                  <option value="m">M</option>
-                  <option value="l">L</option>
-                  <option value="xl">XL</option>
-                  <option value="xxl">XXL</option>
-                </select>
+            <form class="" action="carrito.php" method="post" onsubmit="return validacion()">
+              <div class="row">
+                <div class="col-5">
+                  <select class="lista-talla" name="talla" id="search" onchange="talla_dis()" required>
+                    <?php echo $lista_tallas;?>
+                  </select>
+                </div>
+                <div class="col-2 offset-3">
+                  <!--<select class="lista-talla-2" name="cantidad">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                  </select>-->
+                  <input  type="number" max="<?php
+                      if($arreglo[1]['Cantidad']<11){
+                        echo $arreglo[1]['Cantidad'];
+                      }else{
+                        echo '10';
+                      }
+                    ?>" min="1" maxlength="4" value="1" name="cantidad"
+                   id="cant" required>
+                </div>
               </div>
-              <div class="col-2 offset-3">
-                <select class="lista-talla-2" name="talla">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                </select>
-              </div>
-            </div>
+              <input type="hidden" name="id" id='idinv' value="<?php echo $arreglo[1]['Idinventario'];?>">
             <div class="row mt-3">
               <div class="col-12">
-                <a class="btn btn-outline-dark" href="#">AÑADIR AL CARRITO</a>
+                <button class="btn btn-outline-dark" type="submit" >AÑADIR AL CARRITO</button>
               </div>
             </div>
-            <hr class="my-4">
-            <div class="row">
-              <div class="col-12">
-                <small class="text-muted"><span class="text-dark">¿Deseas comprar mas de 12 piezas?</span><br>
-                  Ve a compras <a href="../vitrina/index.php?genero=4">Al Mayor</a>, y aprovecha las mejores ofertas.</small>
-              </div>
-            </div>
-            <div class="row mt-3">
-              <div class="col-12">
-                <small class="text-muted"><span class="text-dark">¿No encuentras las tallas que deseas?</span><br>
-                  Ve a <a href="../vitrina.php?genero=4">solicitud de pedido</a>, y consulta por las otras tallas.</small>
-              </div>
-            </div>
-            <hr class="my-3">
-            <div class="row mt-3">
-              <div class="col-12">
-                <small class="text-muted"><b>¿Como hacemos los envíos?</b> <br>
-                  Los Envíos lo hacemos mediante agencias de encomiendas. <a href="../faq/index.php?id=2" target="_blank">Ver más</a></small>
-              </div>
-            </div>
-            <hr class="mt-3">
+          </form>
             <div class="row">
               <div class="container-fluid mt-4">
                  <h5 class="text-white text-center bg-dark py-2 lead">
@@ -159,10 +238,7 @@ and open the template in the editor.
                            <div class="row">
                              <div class="col-12 text-left">
                                <small>
-                               Excelente para un paseo por la ciudad o el parque.
-                               <br>Ir al gimnasio y salir a trotar.<br>
-                               Modelo Deportivo - Casual.<br>
-                               Totalmente fresca y cómoda, ajustable al cuerpo.</small>
+                                 <?=$descripcion?>
                              </div>
                            </div>
                          </div>
@@ -182,15 +258,21 @@ and open the template in the editor.
                          <div class="container-fluid">
                            <div class="row">
                              <div class="col-12 text-left">
-                               <small>
-                               -- <b>Manga:</b>Corta<br>
-                               -- <b>Cuello:</b> Redondo <br>
-                               -- <b>Material:</b> Algodon Jersey Ring <br>
-                               -- <b>Peso de la franela:</b> <br>
-                                --- Talla S: 75 gr.<br>
-                                --- Talla M: 82 gr.<br>
-                                --- Talla L: 90 gr.<br>
-                                </small>
+                               <p>
+                                <b>Prenda: </b><?=ucfirst ($tipo)?>,  <b>Manga: </b><?=ucfirst ($manga)?>,  <b>Cuello: </b><?=ucfirst($cuello)?><br>
+                                <b>Material: </b><?=$material?> <br>
+                                <br>
+                                <b>Peso de la franela:</b>
+                                <?php
+                                if ($arreglo[1]['Talla']!='N/D') {
+                                  foreach ($arreglo as $key) {
+                                      echo 'Talla: '.$key["Talla"].' ('.$key["Peso"].' gr) ';
+                                  }
+                                }else{
+                                  echo 'No disponible';
+                                }
+                                 ?>
+                                </p>
                              </div>
                            </div>
                          </div>
@@ -203,15 +285,36 @@ and open the template in the editor.
               </div>
 
             </div>
+            <hr>
+            <div class="row">
+              <div class="col-12">
+                <small class="text-muted"><span class="text-dark">¿Deseas comprar mas de 12 piezas?</span><br>
+                  Ve a compras <a href="../vitrina/index.php?genero=4">Al Mayor</a>, y aprovecha las mejores ofertas.</small>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-12">
+                <small class="text-muted"><span class="text-dark">¿No encuentras las tallas que deseas?</span><br>
+                  Ve a <a href="../vitrina.php?genero=4">solicitud de pedido</a>, y consulta por las otras tallas.</small>
+              </div>
+            </div>
+            <hr class="my-3">
+            <div class="row mt-3">
+              <div class="col-12">
+                <small class="text-muted"><b>¿Como hacemos los envíos?</b> <br>
+                  Los Envíos lo hacemos mediante agencias de encomiendas. <a href="../faq/index.php?id=2" target="_blank">Ver más</a></small>
+              </div>
+            </div>
+            <hr class="mt-3">
+
           </div>
         </div>
       </div>
     </div>
   <?php } ?>
-    <section class="container details my-5 pb-3">
-
-    </div>
-    </section>
+  <!-- Div de Detalles
+  <section class="container details my-5 pb-3"></div>
+    </section>-->
     <?php include_once '../common/footer2.php';?>
     <script type="text/javascript">
     function imageZoom(imgID, resultID) {

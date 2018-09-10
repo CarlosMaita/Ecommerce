@@ -30,7 +30,7 @@ if (isset($_SESSION['carrito'])){
         $nombre ="";
         $precio=0;
         $imagen="";
-        $sql= 'select * from PRODUCTO where IDPRODUCTO='.$_POST['id'];
+        $sql= 'select * from PRODUCTOS where IDPRODUCTO='.$_POST['id'];
         $res = $conn->query($sql);
         while($f = $res->fetch_assoc()){
                 $nombre=$f["NOMBRE_P"];
@@ -55,7 +55,7 @@ if (isset($_SESSION['carrito'])){
         if(!$band){
             $cantidad=1;
         }
-        $sql= 'select * from PRODUCTO where IDPRODUCTO='.$_POST["id"];
+        $sql= 'SELECT * from PRODUCTOS where IDPRODUCTO='.$_POST["id"];
         $res = $conn->query($sql);
         while($f = $res->fetch_assoc()){
                 $nombre=$f["NOMBRE_P"];
