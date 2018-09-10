@@ -33,13 +33,11 @@
                 echo  '<div class="container">
                  <p>Contraseña incorrecta</p>
                 </div>';
-               session_destroy();
            }
        }else{//No existe Usuario registrado con este correo
         echo  '<div class="container">
               <p>Usuario no Registrado</p>
           </div>';
-        session_destroy();
        }
       }
   }
