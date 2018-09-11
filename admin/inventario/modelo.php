@@ -102,7 +102,7 @@ $previouspage = $curpage - 1;
                       if ($result->num_rows > 0) {
                           while($row = $result->fetch_assoc()) {
                             ?>
-                    <option value="<?=$row['IDPRODUCTO']?>"><?=$row['NOMBRE_P']?></option>
+                    <option value="<?=$row['IDPRODUCTO']?>" ><?=$row['NOMBRE_P']?></option>
                             <?php
                        }
                       }
@@ -208,13 +208,22 @@ $previouspage = $curpage - 1;
                                   <tr>
                                     <td scope="row"><img src="../../imagen/<?php echo $row['IMAGEN'];?>" alt="" width="25px"/></td>
                                     <td><?php echo $row['NOMBRE_P']; ?></td>
-                                    <td><?php switch($row['GENERO']){case '1': echo 'Dama'; break; case '2': echo 'Caballero'; break; default: echo 'Otro'; break; }?></td>
+                                    <td><?php switch($row['GENERO']){
+                                      case '1': echo 'Dama';
+                                       break;
+                                      case '2': echo 'Caballero';
+                                       break;
+                                       case '3': echo 'Niño';
+                                        break;
+                                        case '4': echo 'Niña';
+                                        break;
+                                        default: echo 'Otro'; break; }?></td>
                                     <td><?=ucwords($row['TIPO'])?></td>
                                     <td><?=ucwords($row['MARCA'])?></td>
                                     <td><?php echo number_format($row['PRECIO'], 2, ',', '.'); ?></td>
                                     <td><span class="dot2" style="background-color:<?=$hex1?>;"></span><?=$color1?></td>
                                     <td><span class="dot2" style="background-color:<?=$hex2?>;"></span><?=$color2?></td>
-                                    <td><a href="modificar.php?id=<?php echo $row['IDMODELO']; ?>" class="btn btn-outline-success btn-sm">Editar</a>
+                                    <td><a href="editModelo.php?idmodelo=<?php echo $row['IDMODELO']; ?>" class="btn btn-outline-success btn-sm">Editar</a>
                                       <a  href="javascript:void(0)" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eli<?php echo $row['IDMODELO']; ?>">Eliminar</a>
                                     </td>
                                   </tr>

@@ -241,7 +241,7 @@ $previouspage = $curpage - 1;
                                     <td><?=ucwords($row['MARCA'])?></td>
                                     <td><?=ucwords($row['MATERIAL']);?></td>
                                     <td><?php echo number_format($row['PRECIO'], 2, ',', '.'); ?></td>
-                                    <td><a href="modificar.php?idproducto=<?=$row['IDPRODUCTO']?>" class="btn btn-outline-success btn-sm">Editar</a>
+                                    <td><a href="editProducto.php?idproducto=<?=$row['IDPRODUCTO']?>" class="btn btn-outline-success btn-sm">Editar</a>
                                       <a  href="javascript:void(0)"class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eli<?=$row['IDPRODUCTO']?>">Eliminar</a>
                                     </td>
                                   </tr>

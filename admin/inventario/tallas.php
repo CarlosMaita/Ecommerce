@@ -2,12 +2,16 @@
 include_once('../common/sesion2.php');
 require('../../common/conexion.php');
 #Añadir elemento
-if(isset($_GET['add']) & !empty($_GET['add'])){
-    $idinventario=$_GET['add'];
-    $sql = "UPDATE INVENTARIO SET CANTIDAD=CANTIDAD+1 WHERE IDINVENTARIO = '$idinventario';";
+if(isset($_POST['add'],$_POST['cant']) & !empty($_POST['add'])){
+    $idinventario=$_POST['add'];
+    $cantidad=$_POST['cant'];
+    $sql = "UPDATE INVENTARIO SET CANTIDAD=CANTIDAD+$cantidad WHERE IDINVENTARIO = '$idinventario';";
                    if ($conn->query($sql) === TRUE) {
-                        echo '<script> alert("Inventario Actualizado"); </script>';
-                      } else { echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>'; }
+                        #echo '<script> alert("Inventario Actualizado"); </script>';
+                        header('Location: ./tallas.php');
+                      } else {
+                         echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';
+                        }
 }
 #eliminar elemento
 if(isset($_GET['delete']) & !empty($_GET['delete'])){
@@ -291,6 +295,7 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'], $_POST['peso'])){
                                   </tr>
                                   <div class="modal fade" id="ag<?php echo $row['IDINVENTARIO']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
+                                      <form class="" action="" method="POST">
                                       <div class="modal-content">
                                         <div class="modal-header">
                                           <h5 class="modal-title">¿Desea Agregar o Sustraer cantidades de este modelo?</h5>
@@ -306,28 +311,30 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'], $_POST['peso'])){
                                               <div class="col-1">
                                                 <img src="../../imagen/<?php echo $row['IMAGEN'];?>" alt="" width="25px"/>
                                               </div>
-                                              <div class="col-3">
-                                                <span>Talla <?=$row['TALLA']?></span>
+                                              <div class="col-5">
+                                                <span>Cantidad en Talla <?=$row['TALLA']?></span>
                                               </div>
-                                              <div class="col-3">
-                                                <select class="" name="talla">
-                                                  <option value="1">Agregar</option>
-                                                </select>
+                                              <div class="col-2">
                                               </div>
-                                              <div class="col-3">
-                                                <input type="number" name="cant" value="">
+                                              <div class="col-4">
+
+                                                <input class="form-control" type="number" name="cant" value="0">
+                                                <input type="hidden" name="add" value="<?=$row['IDINVENTARIO']?>">
                                               </div>
                                             </div>
                                           </div>
-                                        </br>
-                                          Tenga en cuenta que se modifacarán las cantidades de esta talla que se encuentran registrados en el sistema.</br>
+                                          <hr>
+                                          <small>Si desea Añadir, la cantidad debe ser positiva (+). Si desea sustraer, la cantidad debe ser negativa (-).</small>
+                                          <hr>
+                                          Tenga en cuenta que se modifacará la cantidad de articulos de la talla seleccionada que se encuentran registrados en el sistema.</br>
                                           Consulte con su supervisor antes de realizar esta acción.
                                         </div>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                          <a href="tallas.php?add=<?=$row['IDINVENTARIO']?>" class="btn btn-primary">Aceptar</a>
+                                          <button type="submit"  class="btn btn-primary">Aceptar</a>
                                         </div>
                                       </div>
+                                    </form>
                                     </div>
                                   </div>
                                   <div class="modal fade" id="eli<?php echo $row['IDINVENTARIO']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

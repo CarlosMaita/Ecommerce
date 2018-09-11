@@ -23,6 +23,43 @@ if (isset($_GET['idproducto']) and !empty($_GET['idproducto'])){
      }
   }
 }
+
+#consulta de la existencia de los post
+if (isset($_POST['idproducto'], $_POST['nombre_p'], $_POST['descripcion'], $_POST['genero'], $_POST['tipo'], $_POST['precio'], $_POST['cuello'], $_POST['manga'], $_POST['material'], $_POST['marca'])){
+//LECTURA DE VARIABLES
+$idproducto=$_POST['idproducto'];
+$nombre_p = $_POST['nombre_p'];
+$descripcion =  $_POST['descripcion'];
+$genero= $_POST['genero'];
+$tipo=$_POST['tipo'];
+$precio =  $_POST['precio']; //double
+/*Tipos de cuello
+(0) - No aplica
+(1) - Redondo
+(2) - En V
+(3) - Mao
+(4) - Chemise
+*/
+$cuello=$_POST['cuello']; //entero
+/*Tipo de manga
+(0) - No aplica
+(1) - Corta
+(2) - Tres Cuarto
+(3) - Larga
+(4) - Sin Manga
+*/
+$manga=$_POST['manga']; //Entero
+$material=$_POST['material'];
+$marca=$_POST['marca'];
+//ESCRIBE EL COMANDO SQL para actualizar
+$sql="UPDATE `PRODUCTOS` SET `NOMBRE_P`='$nombre_p',`DESCRIPCION`='$descripcion',`GENERO`=$genero,`TIPO`='$tipo',`PRECIO`='$precio',`MATERIAL`='$material',`MARCA`='$marca',`MANGA`=$manga,`CUELLO`=$cuello WHERE IDPRODUCTO=$idproducto";
+if ($conn->query($sql) === TRUE) {
+    #echo "<p>PRODUCTO Modificado</p>";
+    header('Location: ./producto.php');
+   } else {
+      echo "Error: " . $sql . "<br>" . $conn->error;
+    }
+}
  ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -81,7 +118,7 @@ if (isset($_GET['idproducto']) and !empty($_GET['idproducto'])){
               <div class="row justify-content-center mt-1 bg-white py-2">
                 <h3>Modifique las caracteristicas</h3>
               </div>
-              <form class="" action="modificaProducto.php" method="POST">
+              <form class="" action="" method="POST">
                 <input type="hidden" name="idproducto" value="<?=$idproducto?>">
               <div class="row mt-3">
                 <div class="input-group mb-3 col-6">
@@ -305,3 +342,6 @@ if (isset($_GET['idproducto']) and !empty($_GET['idproducto'])){
     <script src="../dist/js/custom.min.js"></script>
 </body>
 </html>
+<?php
+$conn->close();
+?>
