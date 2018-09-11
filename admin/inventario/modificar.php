@@ -1,6 +1,28 @@
 <?php
 include_once('../common/sesion2.php');
 require('../../common/conexion.php');
+#Recoleccion de caracteristicas
+if (isset($_GET['idproducto']) and !empty($_GET['idproducto'])){
+  $idproducto=$_GET['idproducto'];
+  #lectura de producto
+  $sql="SELECT * FROM PRODUCTOS WHERE IDPRODUCTO='$idproducto'";
+  $result = $conn->query($sql);
+  if ($result->num_rows > 0) {
+  // output data of each row
+     while($row = $result->fetch_assoc()) {
+       $nombre_p=$row['NOMBRE_P'];
+       $prenda=$row['TIPO'];
+       $genero=$row['GENERO'];
+       $marca=$row['MARCA'];
+       $material=$row['MATERIAL'];
+       $cuello=$row['CUELLO'];
+       $manga=$row['MANGA'];
+       $precio=$row['PRECIO'];
+       $descripcion=$row['DESCRIPCION'];
+       $image=$row['IMAGEN'];
+     }
+  }
+}
  ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -59,23 +81,58 @@ require('../../common/conexion.php');
               <div class="row justify-content-center mt-1 bg-white py-2">
                 <h3>Modifique las caracteristicas</h3>
               </div>
-              <form class="" action=".php" method="post">
+              <form class="" action="modificaProducto.php" method="POST">
+                <input type="hidden" name="idproducto" value="<?=$idproducto?>">
               <div class="row mt-3">
                 <div class="input-group mb-3 col-6">
                   <div class="input-group-append">
                     <span class="input-group-text"><b>Nombre del Producto</b></span>
                   </div>
-                  <input type="text" name="nombre_p" class="form-control text-secondary" placeholder="Ingrese el nombre">
+                  <input type="text" name="nombre_p" class="form-control text-secondary" placeholder="Ingrese el nombre" value="<?=$nombre_p?>">
                 </div>
                 <div class="input-group mb-3 col-3">
                   <div class="input-group-prepend">
                     <label class="input-group-text"><b>Prenda</b></label>
                   </div>
                   <select name="tipo" class="custom-select text-secondary">
-                    <option value="franela">Franela</option>
-                    <option value="chemise">Chemise</option>
-                    <option value="pantalón">Pantalón</option>
-                    <option value="camisa">Camisa</option>
+                    <?PHP
+                      #franela
+                      if($prenda=='franela'){
+                        echo '<option value="franela" selected>Franela</option>';
+                      }else{
+                        echo '<option value="franela">Franela</option>';
+                      }
+                      #chemises
+                      if($prenda=='chemise'){
+                        echo '<option value="chemise" selected>Chemise</option>';
+                      }else{
+                        echo '<option value="chemise">Chemise</option>';
+                      }
+                      #Pantalon
+                      if($prenda=='pantalon'){
+                        echo '<option value="pantalon" selected>Pantalón</option>';
+                      }else{
+                        echo '<option value="pantalon">Pantalón</option>';
+                      }
+                      #camisa
+                      if($prenda=='camisa'){
+                        echo '  <option value="camisa" selected>Camisa</option>';
+                      }else{
+                        echo '  <option value="camisa">Camisa</option>';
+                      }
+                      #Zapato
+                      if($prenda=='zapato'){
+                        echo '<option value="zapato" selected>Zapato</option>';
+                      }else{
+                        echo '<option value="zapato">Zapato</option>';
+                      }
+                      #Gorra
+                      if($prenda=='gorra'){
+                        echo '<option value="gorra" selected>Gorra</option>';
+                      }else{
+                        echo '<option value="gorra">Gorra</option>';
+                      }
+                    ?>
                   </select>
                 </div>
                 <div class="input-group mb-3 col-3">
@@ -83,37 +140,104 @@ require('../../common/conexion.php');
                     <label class="input-group-text"><b>Genero</b></label>
                   </div>
                   <select name="genero" class="custom-select text-secondary">
-                    <option value="dama">Dama</option>
-                    <option value="Caballero">Caballero</option>
-                    <option value="Niño">Niño</option>
-                    <option value="Niña">Niña</option>
+                    <?php
+                    #dama
+                    if ($genero=='1'){
+                      echo '<option value="1" selected>Dama</option>';
+                    }else{
+                      echo '<option value="1">Dama</option>';
+                    }
+                    #Caballero
+                    if($genero=='2'){
+                      echo '<option value="2" selected>Caballero</option>';
+                    }else{
+                      echo '<option value="2">Caballero</option>';
+                    }
+                    #niño
+                    if($genero=='3'){
+                      echo '<option value="3" selected>Niño</option>';
+                    }else{
+                      echo '<option value="3">Niño</option>';
+                    }
+                    #niña
+                    if($genero=='4'){
+                      echo '<option value="4" selected>Niña</option>';
+                    }else{
+                      echo '<option value="4">Niña</option>';
+                    }
+                  ?>
                   </select>
                 </div>
                 <div class="input-group mb-3 col-3">
                   <div class="input-group-prepend">
                     <label class="input-group-text"><b>Marca</b></label>
                   </div>
-                  <select class="custom-select text-secondary">
-                    <option value="Rouxa">Rouxa</option>
-                    <option value="Nike">Nike</option>
-                    <option value="Polo">Polo</option>
-                    <option value="Adidas">Adidas</option>
+                  <select class="custom-select text-secondary" name="marca">
+                    <?php
+                    #rouxa
+                    if ($marca=='Rouxa'){
+                      echo '<option value="Rouxa" selected>Rouxa</option>';
+                    }else{
+                      echo '<option value="Rouxa">Rouxa</option>';
+                    }
+                    #nike
+                    if($marca=='Nike'){
+                      echo '  <option value="Nike" selected>Nike</option>';
+                    }else{
+                      echo '  <option value="Nike">Nike</option>';
+                    }
+                    #Polo
+                    if($marca=='Polo'){
+                      echo '<option value="Polo" selected>Polo</option>';
+                    }else{
+                      echo '<option value="Polo">Polo</option>';
+                    }
+                    if($marca=='Adidas'){
+                      echo '<option value="Adidas" selected>Adidas</option>';
+                    }else{
+                      echo '<option value="Adidas">Adidas</option>';
+                    }
+                     ?>
                   </select>
                 </div>
                 <div class="input-group mb-3 col-3">
                   <div class="input-group-append">
                     <span class="input-group-text"><b>Material</b></span>
                   </div>
-                  <input type="text" name="material" class="form-control text-secondary" placeholder="Ej: Algodon">
+                  <input type="text" name="material" class="form-control text-secondary" placeholder="Ej: Algodon" value="<?=$material?>">
                 </div>
                 <div class="input-group mb-3 col-3">
                   <div class="input-group-prepend">
                     <label class="input-group-text"><b>Cuello</b></label>
                   </div>
                   <select name="cuello" class="custom-select text-secondary">
-                    <option value="Redondo">Redondo</option>
-                    <option value="En V">En V</option>
-                    <option value="No Aplica">No Aplica</option>
+                    <?php
+                      if ($cuello=='0') {
+                        echo '<option value="0" selected>No Aplica</option>';
+                      }else{
+                        echo '<option value="0">No Aplica</option>';
+                      }
+                      if($cuello=='1'){
+                        echo '<option value="1" selected>Redondo</option>';
+                      }else{
+                        echo '<option value="1">Redondo</option>';
+                      }
+                      if($cuello=='2'){
+                        echo '<option value="2" selected>En V</option>';
+                      }else{
+                        echo '<option value="2">En V</option>';
+                      }
+                      if($cuello=='3'){
+                        echo ' <option value="3" selected>Mao</option>';
+                      }else{
+                        echo ' <option value="3">Mao</option>';
+                      }
+                      if($cuello=='4'){
+                        echo '<option value="4" selected>Chemise</option>';
+                      }else{
+                        echo '<option value="4">Chemise</option>';
+                      }
+                     ?>
                   </select>
                 </div>
                 <div class="input-group mb-3 col-3">
@@ -121,32 +245,51 @@ require('../../common/conexion.php');
                     <label class="input-group-text"><b>Manga</b></label>
                   </div>
                   <select name="manga" class="custom-select text-secondary">
-                    <option value="Corta">Corta</option>
-                    <option value="3/4">3/4</option>
-                    <option value="Larga">Larga</option>
-                    <option value="Sin Manga">Sin Manga</option>
-                    <option value="No Aplica">No Aplica</option>
+                    <?php
+                      if ($manga=='0') {
+                        echo '<option value="0" selected>No Aplica</option>';
+                      }else{
+                        echo '<option value="0">No Aplica</option>';
+                      }
+                      if($manga=='1'){
+                        echo '<option value="1" selected>Corta</option>';
+                      }else{
+                        echo '<option value="1">Corta</option>';
+                      }
+                      if($manga=='2'){
+                        echo '<option value="2" selected>3/4</option>';
+                      }else{
+                        echo '<option value="2">3/4</option>';
+                      }
+                      if($manga=='3'){
+                        echo ' <option value="3" selected>Larga</option>';
+                      }else{
+                        echo ' <option value="3">Larga</option>';
+                      }
+                      if($manga=='4'){
+                        echo '<option value="4" selected>Sin Manga</option>';
+                      }else{
+                        echo '<option value="4">Sin Manga</option>';
+                      }
+                     ?>
                   </select>
                 </div>
                 <div class="input-group mb-3 col-3">
                   <div class="input-group-append">
                     <span class="input-group-text"><b>Precio</b></span>
                   </div>
-                  <input type="number" name="precio" class="form-control text-secondary" placeholder="Precio al detal">
+                  <input type="number" name="precio" class="form-control text-secondary" placeholder="Precio al detal" value="<?=$precio?>">
                 </div>
                 <div class="input-group mb-3 col-9">
                   <div class="input-group-append">
                     <span class="input-group-text"><b>Descripción</b></span>
                   </div>
-                  <input type="text" name="descripcion" class="form-control text-secondary" placeholder="Describa el producto, esta descripcion será visible por el cliente">
-                </div>
-                <div class="col-12">
-                  <input class="form-group" name="archivo" type="file"/>
+                  <input type="text" name="descripcion" class="form-control text-secondary" placeholder="Describa el producto, esta descripcion será visible por el cliente" value="<?=$descripcion?>">
                 </div>
               </div>
-              <div class="row justify-content-center mb-3">
-                <a class="btn btn-outline-danger col-auto" href="producto.php">Cancelar</a>
-                <button type="submit" class="btn btn-outline-primary col-auto">Modificar</button>
+              <div class="row justify-content-center mb-3 my-3" >
+                <a class="btn btn-outline-danger col-auto m-2" href="producto.php">Cancelar</a>
+                <button type="submit" class="btn btn-outline-primary col-auto m-2">Modificar</button>
               </div>
               </form>
             </div>

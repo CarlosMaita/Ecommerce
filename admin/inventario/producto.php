@@ -117,7 +117,7 @@ $previouspage = $curpage - 1;
                   <select name="tipo" class="custom-select text-secondary">
                     <option value="franela">Franela</option>
                     <option value="chemise">Chemise</option>
-                    <option value="pantalón">Pantalón</option>
+                    <option value="pantalon">Pantalón</option>
                     <option value="camisa">Camisa</option>
                     <option value="zapato">Zapato</option>
                     <option value="gorra">Gorra</option>
@@ -142,7 +142,7 @@ $previouspage = $curpage - 1;
                     <option value="Rouxa">Rouxa</option>
                     <option value="Nike">Nike</option>
                     <option value="Polo">Polo</option>
-                    <option value="Addidas">Addidas</option>
+                    <option value="Adidas">Adidas</option>
                   </select>
                 </div>
                 <div class="input-group mb-3 col-3">
@@ -208,8 +208,8 @@ $previouspage = $curpage - 1;
                           <tr>
                             <th scope="col">Producto</th>
                             <th scope="col">Nombre</th>
-                            <th scope="col">Genero</th>
                             <th scope="col">Prenda</th>
+                            <th scope="col">Genero</th>
                             <th scope="col">Marca</th>
                             <th scope="col">Material</th>
                             <th scope="col">Precio</th>
@@ -228,11 +228,20 @@ $previouspage = $curpage - 1;
                                     <td class="text-center"><img src="../../imagen/<?php echo $row['IMAGEN']; ?>" width="20px" alt=""></td>
                                     <td><?php echo $row['NOMBRE_P']; ?></td>
                                     <td><?=ucwords($row['TIPO']);?></td>
-                                    <td><?php switch($row['GENERO']){case '1': echo 'Dama'; break; case '2': echo 'Caballero'; break; default: echo 'Otro'; break; }?></td>
+                                    <td><?php switch($row['GENERO']){
+                                      case '1': echo 'Dama';
+                                       break;
+                                      case '2': echo 'Caballero';
+                                       break;
+                                       case '3': echo 'Niño';
+                                        break;
+                                        case '4': echo 'Niña';
+                                        break;
+                                        default: echo 'Otro'; break; }?></td>
                                     <td><?=ucwords($row['MARCA'])?></td>
                                     <td><?=ucwords($row['MATERIAL']);?></td>
                                     <td><?php echo number_format($row['PRECIO'], 2, ',', '.'); ?></td>
-                                    <td><a href="modificar.php?id=<?=$row['IDPRODUCTO']?>" class="btn btn-outline-success btn-sm">Editar</a>
+                                    <td><a href="modificar.php?idproducto=<?=$row['IDPRODUCTO']?>" class="btn btn-outline-success btn-sm">Editar</a>
                                       <a  href="javascript:void(0)"class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eli<?=$row['IDPRODUCTO']?>">Eliminar</a>
                                     </td>
                                   </tr>
