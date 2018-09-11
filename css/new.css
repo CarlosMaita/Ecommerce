@@ -76,3 +76,14 @@ color: white;
 padding-left: 20px;
 padding-right: 20px;
 }
+.enlace2{
+  background-color: transparent;
+  border: 0 solid rgba(0, 0, 0, 0.5);
+  color: #000;
+}
+.enlace2:hover{
+  color: #888;
+  text-decoration: underline;
+  cursor:pointer;
+  cursor: hand;
+}

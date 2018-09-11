@@ -13,7 +13,6 @@ require('../../common/conexion.php');
     <link rel="icon" type="image/jpg" sizes="16x16" href="../../imagen/favicon.jpg">
     <title>Rouxa - Administración</title>
     <link href="../dist/css/style.min.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -29,97 +28,118 @@ require('../../common/conexion.php');
     </div>
     <div id="main-wrapper" data-navbarbg="skin6" data-theme="light" data-layout="vertical" data-sidebartype="full" data-boxed-layout="full">
         <?php include('../common/navbar2.php'); ?>
-        <!-- ============================================================== -->
-        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Page wrapper  -->
-        <!-- ============================================================== -->
         <div class="page-wrapper">
-            <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <div class="page-breadcrumb">
-                <div class="row">
-                    <div class="col-5 align-self-center">
-                        <h4 class="page-title">Starter Page</h4>
-                    </div>
-                    <div class="col-7 align-self-center">
-                        <div class="d-flex align-items-center justify-content-end">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-                                        <a href="#">Home</a>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Starter Page</li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
-            <div class="container-fluid">
-                <!-- ============================================================== -->
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                This is some text within a card block.
+          <div class="page-breadcrumb">
+              <div class="row">
+                  <div class="col-5 align-self-center">
+                      <h4 class="page-title">Despacho</h4>
+                  </div>
+                  <div class="col-7 align-self-center">
+                      <div class="d-flex align-items-center justify-content-end">
+                          <nav aria-label="breadcrumb">
+                              <ol class="breadcrumb">
+                                  <li class="breadcrumb-item">
+                                      <a href="../principal.php">Inicio</a>
+                                  </li>
+                                  <li class="breadcrumb-item active" aria-current="page">Despacho</li>
+                              </ol>
+                          </nav>
+                      </div>
+                  </div>
+              </div>
+          </div>
+                <div class="container-fluid">
+                  <div class="row justify-content-around mb-3">
+                      <div class="col-4 text-center">
+                        <a class="btn btn-link text-success" href="buscador_pedido.php">Busqueda de Pedidos</a>
+                      </div>
+                      <div class="col-4 text-center">
+                        <a class="btn btn-link text-success" href="empaquetado.php">Empaquetado</a>
+                      </div>
+                      <div class="col-4 text-center">
+                        <a class="btn btn-link text-success" href="envios.php">Envíos</a>
+                      </div>
+                  </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th class="border-top-0">Cliente</th>
+                                                <th class="border-top-0">Estatus</th>
+                                                <th class="border-top-0">Fecha</th>
+                                                <th class="border-top-0">Articulos</th>
+                                                <th class="border-top-0">Total</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="txt-oflo">Pablo Marmol</td>
+                                                <td><span class="label label-success label-rounded">A Enviar</span> </td>
+                                                <td class="txt-oflo">Enero 18, 2018</td>
+                                                <td><span class="font-medium">Franelas Dama, Chemise Caballero</span></td>
+                                                <td><span class="font-medium">$24</span></td>
+                                                <td><a href="#"><i title="Revisar" data-toggle="tooltip" class="ti-pencil-alt"></i></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="txt-oflo">Ali Baba</td>
+                                                <td><span class="label label-info label-rounded">Empaquetado</span></td>
+                                                <td class="txt-oflo">Abril 19, 2018</td>
+                                                <td><span class="font-medium">Franelas Dama, Chemise Caballero</span></td>
+                                                <td><span class="font-medium">$1250</span></td>
+                                                <td><a href="#"><i title="Revisar" data-toggle="tooltip" class="ti-pencil-alt"></i></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="txt-oflo">Peter Parker</td>
+                                                <td><span class="label label-purple label-rounded">Busqueda de Pedido</span></td>
+                                                <td class="txt-oflo">April 19, 2017</td>
+                                                <td><span class="font-medium">Franelas Dama, Chemise Caballero</span></td>
+                                                <td><span class="font-medium">$1250</span></td>
+                                                <td><a href="#"><i title="Revisar" data-toggle="tooltip" class="ti-pencil-alt"></i></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="txt-oflo">Alex Gonzalez</td>
+                                                <td><span class="label label-success label-rounded">A Enviar</span></td>
+                                                <td class="txt-oflo">Diciembre 20, 2018</td>
+                                                <td><span class="font-medium">Franelas Dama, Chemise Caballero</span></td>
+                                                <td><span class="font-medium">-$24</span></td>
+                                                <td><a href="#"><i title="Revisar" data-toggle="tooltip" class="ti-pencil-alt"></i></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="txt-oflo">Pedro Picapiedra</td>
+                                                <td><span class="label label-success label-rounded">A Enviar</span></td>
+                                                <td class="txt-oflo">April 21, 2017</td>
+                                                <td><span class="font-medium">Franelas Dama, Chemise Caballero</span></td>
+                                                <td><span class="font-medium">$24</span></td>
+                                                <td><a href="#"><i title="Revisar" data-toggle="tooltip" class="ti-pencil-alt"></i></a></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="txt-oflo">Juana la Iguana</td>
+                                                <td><span class="label label-danger label-rounded">Falla</span> </td>
+                                                <td class="txt-oflo">April 23, 2017</td>
+                                                <td><span class="font-medium">Franelas Dama, Chemise Caballero</span></td>
+                                                <td><span class="font-medium">-$14</span></td>
+                                                <td><a href="#"><i title="Revisar" data-toggle="tooltip" class="ti-pencil-alt"></i></a></td>
+                                              </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- ============================================================== -->
-                <!-- End PAge Content -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Right sidebar -->
-                <!-- ============================================================== -->
-                <!-- .right-sidebar -->
-                <!-- ============================================================== -->
-                <!-- End Right sidebar -->
-                <!-- ============================================================== -->
-            </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
             <?php include('../common/footer.php'); ?>
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
         </div>
-        <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
     </div>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
     <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
     <script src="../assets/extra-libs/sparkline/sparkline.js"></script>
-    <!--Wave Effects -->
     <script src="../dist/js/waves.js"></script>
-    <!--Menu sidebar -->
     <script src="../dist/js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
     <script src="../dist/js/custom.min.js"></script>
 </body>
 </html>
