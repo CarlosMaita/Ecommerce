@@ -86,8 +86,6 @@ if (isset($_SESSION['carrito'])){
   <body>
   <?php include_once '../common/menu2.php';
         include_once '../common/2domenu2.php';
-        //<div  style="min-height: 100vh; width:auto" class="mt-3">
-      </thead>
         if(isset($_SESSION['carrito'])){
               ?>
               <div class="container mt-3">
