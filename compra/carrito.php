@@ -86,70 +86,185 @@ if (isset($_SESSION['carrito'])){
   <body>
   <?php include_once '../common/menu2.php';
         include_once '../common/2domenu2.php';
-        //<div  style="min-height: 100vh; width:auto" class="mt-3">
-  ?>
-   <?php
-       if(isset($_SESSION['carrito'])){
+        if(isset($_SESSION['carrito'])){
               ?>
-      <table class="table" style="font-size:0.9em;">
-      <thead class="thead-dark ">
-        <tr>
-          <th scope="col">Producto</th>
-          <th scope="col">Talla</th>
-          <th scope="col">Precio[Bs]</th>
-          <th scope="col">Cantidad</th>
-        </tr>
-      </thead>
-           <?php
-           $datos=$_SESSION['carrito'];
-           $total=0;
-           for($i=0;$i<count($datos);$i++){
-               ?>
-      <tbody>
-        <tr>
-          <td><?php echo $datos[$i]['Nombre'];?></td>
-          <td><?php echo $datos[$i]['Talla']?></td>
-          <td><?php echo number_format($datos[$i]['Precio'],2,',','.');?></td>
-          <td><?php echo $datos[$i]['Cantidad'];?></td>
-        </tr>
-         <?php
-          $total=$datos[$i]['Cantidad']*$datos[$i]['Precio'] + $total;
-           }
-              ?>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>
-    <table  class="table">
-      <tbody>
-         <tr>
-          <th scope="row">Total</th>
-          <td><?php echo number_format($total,2,',','.');?> [Bs]</td>
-        </tr>
-      </tbody>
-    </table>
-     <ul class="grupo-botones">
-        <li class="expand">
-          <form action="datos_compra.php">
-            <input class="boton-exp" type="submit" value="Comprar">
-          </form>
-        </li>
-        <li class="expand">
-            <form action="../vitrina/index.php">
-              <input  class="boton-exp" type="submit" value="Añadir otro producto">
-            </form>
-        </li>
-        <li class="expand">
-              <form action="../index.php">
-                <input type="hidden" name="reset" value="">
-                <input class="boton-exp" type="submit" value="Limpiar carrito">
-               </form>
-        </li>
-      </ul>
+              <div class="container mt-3">
+                <div class="row">
+                  <div class="col-12 breadcrumb text-muted">
+                    Realiza todas tus compras de manera segura, pagando via Mercado Pago.
+                  </div>
+                </div>
+              </div>
+              <div class="container">
+                <div class="row justify-content-between">
+                  <div class="col-7 mt-2">
+                    <div class="row justify-content-between bg-light py-2">
+                      <div class="col-auto">
+                        <h5 id="title"></h5>
+                      </div>
+                        <div class="col-auto">
+                          <a href="../vitrina/index.php">Seguir Comprando</a>
+                        </div>
+                    </div>
+                    <?php
+                    $datos=$_SESSION['carrito'];
+                    $total=0;
+                    $cantidad_total=0;
+                    for($i=0;$i<count($datos);$i++){
+                        $total_modelo=$datos[$i]['Cantidad']*$datos[$i]['Precio'];
+                        $cantidad_total+=$datos[$i]['Cantidad'];
+                      ?>
+                    <div class="row">
+                      <div class="col-3 text-center">
+                        <img class="img-fluid" src="../imagen/<?php echo $datos[$i]['Imagen']; ?>" width="100px" height="100px">
+                      </div>
+                      <div class="col-9 my-2">
+                        <div class="row">
+                            <small><a class="enlace2" href="#"><?php echo $datos[$i]['Nombre'];?></a></small>
+                            <span class="ml-auto"><?php echo number_format($total_modelo,2,',','.');?> Bs.S</span>
+                        </div>
+                        <div class="row">
+                          <small>TALLA: <span class="text-muted"><?php echo " ".$datos[$i]['Talla']?></span></small>
+                        </div>
+                        <div class="row">
+                          <small>Color(es): <span class="text-muted">Azul / Verde</span></small>
+                        </div>
+                        <div class="row">
+                          <small>CANTIDAD: <span class="text-muted"><?php echo " ".$datos[$i]['Cantidad'];?></span></small>
+                        </div>
+                        <div class="row mt-2">
+                          <button type="button" class="enlace2 mr-4" href="javascript:void(0)" data-toggle="modal" data-target="#edit<?php echo $datos[$i]['Id'];?>">Editar</button>
+                          <button type="button" class="enlace2" href="javascript:void(0)" data-toggle="modal" data-target="#del<?php echo $datos[$i]['Id'];?>">Eliminar</button>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Large modal -->
+                    <div class="modal" id="del<?php echo $datos[$i]['Id'];?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="closeSesionLabel">Eliminar Producto</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            ¿Seguro que desea eliminar este articulo(s) del carrito?
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
+                            <a href="common/salir_sesion.php" class="btn btn-outline-danger">Eliminar</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Large modal -->
+                    <div class="modal fade bd-example-modal-lg" id="edit<?php echo $datos[$i]['Id'];?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="closeSesionLabel">Editar Producto</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="container-fluid">
+                              <div class="row">
+                                <div class="col-7 text-center">
+                                  <img class="img-fluid" src="../imagen/<?php echo $datos[$i]['Imagen']; ?>" width="300px" height="300px">
+                                </div>
+                                <div class="col-4">
+                                  <div class="container-fluid">
+                                    <div class="row">
+                                      <div class="col-12">
+                                        <p class="text-muted">Franela de Dama</p>
+                                        <h2><b><?php echo $datos[$i]['Nombre'];?></b></h2>
+                                      </div>
+                                      <div class="col-12 mb-4">
+                                        <h3 class="lead">200,00 Bs.S</h3>
+                                      </div>
+                                    </div>
+                                    <div class="row">
+                                      <div class="col-8 mb-2">
+                                        Talla
+                                      </div>
+                                      <div class="col-4 mb-2">
+                                        Cantidad
+                                      </div>
+                                    </div>
+                                    <form class="" action="carrito.php" method="post" onsubmit="return validacion()">
+                                      <div class="row">
+                                        <div class="col-5">
+                                          <select class="lista-talla" name="talla" id="search" onchange="talla_dis()" required>
+                                            <option value="">S</option>
+                                            <option value="">M</option>
+                                            <option value="">L</option>
+                                            <option value="">XL</option>
+                                          </select>
+                                        </div>
+                                        <div class="col-2 offset-3">
+                                          <input  type="number" max="10" min="1" maxlength="4" value="1" name="cantidad"
+                                           id="cant" required>
+                                        </div>
+                                      </div>
+                                      <input type="hidden" name="id" id='idinv' value="1">
+                                      <div class="row mt-3">
+                                        <div class="col-12">
+                                          <button class="btn btn-outline-dark" type="submit">Actualizar artículo</button>
+                                        </div>
+                                      </div>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <hr>
+                    <?php
+                    $total=$datos[$i]['Cantidad']*$datos[$i]['Precio'] + $total;
+                    } ?>
+                    <div class="text-secondary text-center">
+                      <form action="../index.php">
+                        <input type="hidden" name="reset" value="">
+                        <input class="enlace2" type="submit" value="Vaciar carrito">
+                       </form>
+                    </div>
+                    <hr>
+                  </div>
+                  <div class="col-sm-4 mt-2">
+                    <div class="container bg-dark">
+                      <div class="row my-3 py-3 pl-2">
+                        <h5 class="text-white">Resumen</h5>
+                      </div>
+                      <hr class="hr">
+                      <div class="row text-white my-2 justify-content-between">
+                        <p class="col-6"><b>SubTotal:</b></p>
+                        <p class="col-auto"><b><?php echo number_format($total,2,',','.');?> Bs.S</b></p>
+                      </div>
+                      <div class="row text-white mt-2 justify-content-between">
+                        <p class="col-6"><b>IVA:</b></p>
+                        <p class="col-auto mb-0"><b>0,00 Bs.S</b></p>
+                        <p class="col-12 text-white-50"><small>El impuesto declarado por los productos corresponden a las leyes de la República Bolivariana de Venezuela. <a href="../faq/index.php?id=2" target="_blank">Ver más.</a> </small> </p>
+                        <!--<p class="col-12 text-white-50"><small>Estos costos se basan en las agencias de encomiendas con las que trabajamos. <a href="../faq/index.php?id=2" target="_blank">Ver más.</a> </small> </p>-->
+                      </div>
+                      <hr class="hr">
+                      <div class="row text-white my-2 justify-content-between">
+                        <p class="col-6"><b>Total:</b></p>
+                        <p class="col-auto"><b><?php echo number_format($total,2,',','.');?> Bs.S</b></p>
+                      </div>
+                      <div class="row justify-content-center">
+                        <form action="datos_compra.php">
+                          <input class="btn btn-link btn-lg" type="submit" value="Comprar">
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
    <?php
             }else{
 ?>
@@ -202,14 +317,18 @@ if (isset($_SESSION['carrito'])){
             }
             //</div>
     ?>
-    <div class="jumbotron mb-0" >
+    <div class="jumbotron mb-0 mt-5">
       <h1 class="display-4">¡Se un Vendedor Rouxa!</h1>
       <p class="lead">Podrás vender nuestros productos sin tener que realizar alguna inversión.</p>
       <hr class="my-4">
       <p>Solo tendrás que dar tu código de Vendedor Rouxa a tu cliente, y este comprará a tu nombre los articúlos que desee.</p>
-      <a class="btn btn-secondary btn-lg disabled mt-3" href="" role="button">Proximamente</a>
+      <a class="btn btn-secondary btn-lg disabled mt-3" href="" role="button">Próximamente</a>
     </div>
 <?php include_once '../common/footer2.php';?>
+<script type="text/javascript">
+  var cantidad = <?php echo $cantidad_total; ?>;
+  document.getElementById("title").innerHTML = "Tu Carrito ("+cantidad+")";
+</script>
     <script src="../admin/assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="../admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="../admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

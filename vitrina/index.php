@@ -173,7 +173,7 @@ $url= $_SERVER["REQUEST_URI"];
             <div class="col-12"><small><a href="?genero=2">Caballero</a></small></div>
             <div class="col-12"><small><a href="?genero=3">Niña</a></small></div>
             <div class="col-12"><small><a href="?genero=3">Niño</a></small></div>
-            <div class="col-12"><small><a href="?genero=4">Al Mayor</a></small></div>
+            <!--<div class="col-12"><small><a href="?genero=4">Al Mayor</a></small></div>-->
           </div>
           <hr>
           <div class="row">

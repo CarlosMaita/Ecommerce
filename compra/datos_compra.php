@@ -5,7 +5,6 @@
 <!doctype html>
 <html lang="es">
   <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta name="desciption" content="Rouxa, Tienda virtual de Ropa para Damas, Caballeros y Niños.">
@@ -13,13 +12,15 @@
     <meta name="author" content="Eutuxia, C.A.">
     <meta name="application-name" content="Tienda Virtual de Ropa, Rouxa."/>
     <link rel="icon" type="image/jpg" sizes="16x16" href="../imagen/favicon.jpg">
-     <link rel="stylesheet" href="../css/style-main.css">
+    <link rel="stylesheet" href="../css/style-main.css">
+    <link rel="stylesheet" href="../css/new.css">
     <link href="../admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
-<script src='https://www.google.com/recaptcha/api.js'></script>
-    <title>Rouxa-Carrrito de Compras</title>
-  </head>
-<script  type="text/javascript">
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <title>Rouxa</title>
+      </head>
+    <script  type="text/javascript">
 function Factura(){
                    // Get the checkbox
           var checkBox = document.getElementById("isfacture");
@@ -46,98 +47,68 @@ function Factura(){
     <?php include_once '../common/menu2.php';
           include_once '../common/2domenu2.php';
     ?>
-<!-- Inicio de codigo. !-->
-  <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h2 class="display-4">Solicitud de Compra</h2>
-    <p class="lead">Usted ha realizado la solicitud del siguiente carrito de compra. Por favor, verifique, complete los campos de datos solicitados  y confirme su compra.</p>
+    <div class="row justify-content-between align-items-center">
+      <div class="col-6">
+        <h2 class="display-4" style="font-family: 'Playfair Display', serif;">Solicitud de Compra</h2>
+      </div>
+      <div class="col-4">
+        <a href="../index.php" target="_blank"><img src="../imagen/logo.png" alt="" width="400px" height="auto"></a>
+      </div>
+    </div>
+    <div class="row">
+      <p class="lead text-muted">Ingresa los siguientes datos para poder realizar el envío de tus productos. Ten en cuenta que algún dato incorrecto generará problemas para enviar
+        los productos al lugar y persona correcta.</p>
+    </div>
   </div>
-  <div style="min-height: 10vh; width:auto">
+  <hr class="mb-4">
    <?php
-        // put your code here
        if(isset($_SESSION['carrito'])){
               ?>
-      <table class="table" style="font-size:0.9em;">
-      <thead class="thead-dark ">
-        <tr>
-          <th scope="col">Producto</th>
-          <th scope="col">Talla</th>
-          <th scope="col">Precio[Bs]</th>
-          <th scope="col">Cantidad</th>
-        </tr>
-      </thead>
-           <?php
-           $datos=$_SESSION['carrito'];
-           $total=0;
-           for($i=0;$i<count($datos);$i++){
-               ?>
-      <tbody>
-        <tr>
-          <td><?php echo $datos[$i]['Nombre'];?></td>
-          <td><?php echo $datos[$i]['Talla']?></td>
-          <td><?php echo number_format($datos[$i]['Precio'],2,',','.');?></td>
-          <td><?php echo $datos[$i]['Cantidad'];?></td>
-        </tr>
-         <?php
-          $total=$datos[$i]['Cantidad']*$datos[$i]['Precio'] + $total;
-           }
-              ?>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-      </tbody>
-    </table>
-    <table  class="table">
-      <tbody>
-         <tr>
-          <th scope="row">Total</th>
-          <td><?php echo number_format($total,2,',','.');?> [Bs]</td>
-        </tr>
-      </tbody>
-    </table>
-   <?php
-           $_SESSION['total']=$total;
-            ?>
-</div>
-  </div>
     <form action="cuentas_bancarias.php" method="POST" onsubmit="return validacion() && captch()">
     <div class="container">
       <div class="row justify-content-center">
-        <h3 class="text-center">Datos del Cliente</h3>
+        <h3 class="ml-5 pl-5">Datos del Cliente</h3>
+        <button type="button" class="enlace2 ml-auto" href="javascript:void(0)" data-toggle="modal" data-target="#ver">Ver productos seleccionados</button>
       </div>
       <div class="row my-3">
-        <div class="input-group col-4">
+        <div class="input-group mb-2 col-6">
           <input type="text" placeholder="Nombre de cliente" name="nombre-cliente" class="form-control" required>
         </div>
-        <div class="input-group col-4">
+        <div class="input-group mb-2 col-6">
+          <select name="type-identidad-client" style="border: 1px solid #ddd; width:20%; border-radius: 4px 0 0 4px;">
+            <option>V</option>
+            <option>E</option>
+            <option>Passaporte</option>
+          </select>
+          <input type="text" placeholder="Documento de identidad del que recibe [Ej: 20184765]" name="doc-identidad-receptor" maxlength="30" class="form-control" required>
+        </div>
+        <div class="input-group mb-2 col-6">
           <input type="text" placeholder="Número telefonico del Cliente" name="telf-cliente" class="form-control" required>
         </div>
-        <div class="input-group col-4">
-          <input type="email" placeholder="E-mail del Cliente" name="email-cliente" class="form-control" required>
+        <div class="input-group mb-2 col-6">
+          <input type="email" placeholder="E-mail" name="email-cliente" class="form-control" required>
         </div>
       </div>
       <div class="row">
         <div class="col-12 mb-2">
-          <h3 class="text-center">Datos necesarios para el Envío</h3>
+          <h3 class="ml-5 pl-5">Datos necesarios para el Envío</h3>
         </div>
-        <div class="input-group mb-2 col-4">
+        <div class="input-group mb-2 col-6">
           <input type="text" placeholder="Nombre y apellido del que recibe" name="receptor" class="form-control">
         </div>
-        <div class="input-group mb-2 col-4">
+        <div class="input-group mb-2 col-6">
           <select name="type-identidad-receptor" style="border: 1px solid #ddd; width:20%; border-radius: 4px 0 0 4px;">
             <option>V</option>
             <option>E</option>
             <option>Passaporte</option>
           </select>
-          <input type="text" placeholder="Documento de identidad del que recibe [ejemplo: 20184765]" name="doc-identidad-receptor" maxlength="30" class="form-control" required>
+          <input type="text" placeholder="Documento de identidad del que recibe [Ej: 20184765]" name="doc-identidad-receptor" maxlength="30" class="form-control" required>
         </div>
-        <div class="input-group mb-2 col-4">
-          <input type="text" placeholder="Telefono del que recibe. Ej: 04149990000" name="telf-receptor" class="form-control" required>
+        <div class="input-group mb-2 col-6">
+          <input type="text" placeholder="Telefono del que recibe. [Ej: 04149990000]" name="telf-receptor" class="form-control" required>
         </div>
-        <div class="input-group mb-2 col-3">
+        <div class="input-group mb-2 col-6">
           <div class="input-group-prepend">
             <label class="input-group-text" for="pais">Pais</label>
           </div>
@@ -147,32 +118,36 @@ function Factura(){
             <option value="Panama">Panamá</option>
           </select>
         </div>
-        <div class="input-group mb-2 col-4">
+        <div class="input-group mb-2 col-6">
           <input type="text" placeholder="Estado | Departamento | Provincia" name="estado" maxlength="30" class="form-control" required>
         </div>
-        <div class="input-group mb-2 col-2">
+        <div class="input-group mb-2 col-6">
           <input type="text" placeholder="Ciudad" name="ciudad" maxlength="30" class="form-control" required>
         </div>
-        <div class="input-group mb-2 col-3">
+        <div class="input-group mb-2 col-6">
           <input type="text" placeholder="Municipio | Localidad" name="municipio" maxlength="30" class="form-control" required>
         </div>
-        <div class="input-group mb-2 col-3">
+        <div class="input-group mb-2 col-6">
           <input type="text" placeholder="Parroquia" name="parroquia" maxlength="30" class="form-control">
         </div>
         <div class="input-group mb-2 col-6">
           <input type="text" placeholder="Direccion -  Barrio | Zona | Sector | Casa | Apartamento | local | Edificio" name="direccion" maxlength="200" class="form-control" >
         </div>
-        <div class="input-group mb-2 col-3">
-          <input type="text" placeholder="Código Postal" name="codigo-postal" maxlength="20" class="form-control">
-        </div>
-        <div class="input-group mb-2 col-5">
+        <div class="input-group mb-2 col-6">
           <input type="text" placeholder="Referencia" name="ref" maxlength="200" class="form-control">
         </div>
-        <div class="input-group mb-2 col-3">
-          <select name="type-identidad-receptor" class="form-control">
-            <option value="domesa">Domesa</option>
-            <option value="zoom">Zoom</option>
-            <option value="mrw">MRW</option>
+        <div class="input-group mb-2 col-6">
+          <input type="text" placeholder="Código Postal" name="codigo-postal" maxlength="20" class="form-control">
+        </div>
+        <div class="input-group mb-2 col-6">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="pais">Agencia de Encomienda</label>
+          </div>
+          <select name="encomienda" class="custom-select" required>
+            <option value="Domesa">Domesa</option>
+            <option value="MRW">MRW</option>
+            <option value="Tealca">Tealca</option>
+            <option value="Zoom">Zoom</option>
           </select>
         </div>
         <div class="input-group mb-2 col-12">
@@ -199,7 +174,7 @@ function Factura(){
         </div>
       </div>
       <div class="row my-3">
-        <p><input type="checkbox" required> Yo, declaro haber leido y entendido los <a href="../faq/index.php">términos, condiciones y politicas</a> que regulan esta tienda virtual. De igual manera declaro que la informacion suministrada mediante este fomulario es correcta.</p>
+        <p><input type="checkbox" required> Yo, declaro haber leido y entendido los <a href="../faq/index.php" target="_blank">términos, condiciones y politicas</a> que regulan esta tienda virtual. De igual manera declaro que la informacion suministrada mediante este fomulario es correcta.</p>
       </div>
       <div class="row my-4 justify-content-center">
         <div class="col-2">
@@ -210,7 +185,59 @@ function Factura(){
         </div>
       </div>
     </div>
-  </form>
+    </form>
+  <div class="modal fade bd-example-modal-lg" id="ver" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="closeSesionLabel">¡Estos son los productos que seleccionaste!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container-fluid">
+                 <?php
+                 $datos=$_SESSION['carrito'];
+                 $total=0;
+                 for($i=0;$i<count($datos);$i++){
+                     ?>
+            <div class="row">
+              <div class="col-2 text-center">
+                <img class="img-fluid" src="../imagen/<?php echo $datos[$i]['Imagen']; ?>" width="70px" height="70px">
+              </div>
+              <div class="col-8">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-auto">
+                      <b><?php echo $datos[$i]['Nombre'];?></b>
+                    </div>
+                    <div class="col-12">
+                      <div class="row">
+                        <div class="col-8">
+                          <small class="d-block">TALLA: <span class="text-muted"><?php echo $datos[$i]['Talla']?></span></small>
+                          <small class="d-block">CANTIDAD: <span class="text-muted"><?php echo $datos[$i]['Cantidad'];?></span></small>
+                        </div>
+                        <div class="col-4">
+                          <small><?php echo number_format($datos[$i]['Precio'],2,',','.');?> Bs.</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr>
+            <?php
+            $total=$datos[$i]['Cantidad']*$datos[$i]['Precio'] + $total;
+              }
+              $_SESSION['total']=$total;
+            ?>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 <?php }else{ ?>
   <div class="container">
     <div class="row justify-content-center py-5">
@@ -223,14 +250,12 @@ function Factura(){
   <?php } ?>
 <?php include_once '../common/footer2.php';?>
     <script>
-  function captch() {
+  function captch(){
     var response = grecaptcha.getResponse();
     if(response.length == 0){
       alert("Captcha no verificado")
       return false;
-    } else {
-      return true;
-    }
+    }else{ return true; }
   }
 </script>
 <script src="../admin/assets/libs/jquery/dist/jquery.min.js"></script>

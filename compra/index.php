@@ -35,27 +35,23 @@ if(isset($_GET['idproducto'], $_GET['idmodelo'])){
            $descripcion=$f['DESCRIPCION'];
            $imagen= $f['IMAGEN'];
            $material=$f['MATERIAL'];
-
            switch ($f['MANGA']) {
              case '0':
                $manga='No Aplica';
                break;
-               case '1':
-                 $manga='Modificar';
-                 break;
-                 case '2':
-                   $manga='Modificar';
-                   break;
-                   case '3':
-                     $manga='Modificar';
-                     break;
-
-             default:
-               // code...
+            case '1':
+               $manga='Modificar';
+               break;
+            case '2':
+               $manga='Modificar';
+               break;
+            case '3':
+               $manga='Modificar';
+               break;
+            default:
                break;
            }
-
-           switch ($f['CUELLO']) {
+           switch ($f['CUELLO']){
              case '0':
                $cuello='No Aplica';
                break;
@@ -69,11 +65,8 @@ if(isset($_GET['idproducto'], $_GET['idmodelo'])){
                $cuello='Modificar';
                  break;
              default:
-               // code...
                break;
            }
-
-
          }
         }
 }
@@ -113,7 +106,7 @@ and open the template in the editor.
                     /*Segundo objetivo - modificar Idinv*/
                     document.getElementById('idinv').value='<?php echo $arreglo[$i]['Idinventario'];?>';
                 break;
-                <?php   }  ?>
+                <?php } ?>
             }
     }
     </script>
@@ -185,18 +178,6 @@ and open the template in the editor.
                   </select>
                 </div>
                 <div class="col-2 offset-3">
-                  <!--<select class="lista-talla-2" name="cantidad">
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                  </select>-->
                   <input  type="number" max="<?php
                       if($arreglo[1]['Cantidad']<11){
                         echo $arreglo[1]['Cantidad'];
@@ -208,22 +189,43 @@ and open the template in the editor.
                 </div>
               </div>
               <input type="hidden" name="id" id='idinv' value="<?php echo $arreglo[1]['Idinventario'];?>">
-            <div class="row mt-3">
+              <div class="row mt-3">
+                <div class="col-12">
+                  <button class="btn btn-outline-dark" type="submit" >AÑADIR AL CARRITO</button>
+                </div>
+              </div>
+            </form>
+            <hr>
+            <div class="row">
               <div class="col-12">
-                <button class="btn btn-outline-dark" type="submit" >AÑADIR AL CARRITO</button>
+                <small class="text-muted"><span class="text-dark">¿Deseas comprar mas de 12 piezas?</span><br>
+                  Ve a compras <a href="../vitrina/index.php?genero=4">Al Mayor</a>, y aprovecha las mejores ofertas.</small>
               </div>
             </div>
-          </form>
+            <div class="row mt-3">
+              <div class="col-12">
+                <small class="text-muted"><span class="text-dark">¿No encuentras las tallas que deseas?</span><br>
+                  Ve a <a href="../vitrina.php?genero=4">solicitud de pedido</a>, y consulta por las otras tallas.</small>
+              </div>
+            </div>
+            <hr class="my-3">
+            <div class="row mt-3">
+              <div class="col-12">
+                <small class="text-muted"><b>¿Como hacemos los envíos?</b> <br>
+                  Los Envíos lo hacemos mediante agencias de encomiendas. <a href="../faq/index.php?id=2" target="_blank">Ver más</a></small>
+              </div>
+            </div>
+            <hr class="mt-3">
             <div class="row">
-              <div class="container-fluid mt-4">
-                 <h5 class="text-white text-center bg-dark py-2 lead">
+              <div class="container mt-4">
+                 <h5 class="text-white text-center bg-dark py-3 lead">
                    Detalles del Producto
                  </h5>
               </div>
               <div class="container">
                 <div class="row justify-content-center">
-                <div class="col-12 text-center">
-                 <div class="accordion" id="accordionExample">
+                  <div class="col-12 text-center">
+                    <div class="accordion" id="accordionExample">
                    <div class="card">
                      <div class="card-header container-fluid bg-dark" id="hone">
                        <h5 class="mb-0">
@@ -279,43 +281,17 @@ and open the template in the editor.
                        </div>
                      </div>
                    </div>
-                   </div>
-                 </div>
+                  </div>
+                  </div>
                </div>
               </div>
-
             </div>
-            <hr>
-            <div class="row">
-              <div class="col-12">
-                <small class="text-muted"><span class="text-dark">¿Deseas comprar mas de 12 piezas?</span><br>
-                  Ve a compras <a href="../vitrina/index.php?genero=4">Al Mayor</a>, y aprovecha las mejores ofertas.</small>
-              </div>
-            </div>
-            <div class="row mt-3">
-              <div class="col-12">
-                <small class="text-muted"><span class="text-dark">¿No encuentras las tallas que deseas?</span><br>
-                  Ve a <a href="../vitrina.php?genero=4">solicitud de pedido</a>, y consulta por las otras tallas.</small>
-              </div>
-            </div>
-            <hr class="my-3">
-            <div class="row mt-3">
-              <div class="col-12">
-                <small class="text-muted"><b>¿Como hacemos los envíos?</b> <br>
-                  Los Envíos lo hacemos mediante agencias de encomiendas. <a href="../faq/index.php?id=2" target="_blank">Ver más</a></small>
-              </div>
-            </div>
-            <hr class="mt-3">
-
           </div>
         </div>
       </div>
     </div>
-  <?php } ?>
-  <!-- Div de Detalles
-  <section class="container details my-5 pb-3"></div>
-    </section>-->
-    <?php include_once '../common/footer2.php';?>
+  <?php }
+    include_once '../common/footer2.php';?>
     <script type="text/javascript">
     function imageZoom(imgID, resultID) {
     var img, lens, result, cx, cy;
@@ -372,8 +348,6 @@ and open the template in the editor.
       return {x : x, y : y};
     }
     }
-    </script>
-    <script>
     imageZoom("myimage", "myresult");
     </script>
     <script src="../admin/assets/libs/jquery/dist/jquery.min.js"></script>
