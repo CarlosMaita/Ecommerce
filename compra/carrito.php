@@ -229,8 +229,9 @@ if (isset($_SESSION['carrito'])){
                     } ?>
                     <div class="text-secondary text-center">
                       <form action="../index.php">
-                        <button type="reset">Vaciar el Carrito</button>
-                      </form>
+                        <input type="hidden" name="reset" value="">
+                        <input class="enlace2" type="submit" value="Vaciar carrito">
+                       </form>
                     </div>
                     <hr>
                   </div>
