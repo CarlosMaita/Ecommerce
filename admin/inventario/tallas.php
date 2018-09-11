@@ -290,7 +290,7 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'], $_POST['peso'])){
                                     <td><?=$row['CANTIDAD']?></td>
                                     <td><?php echo number_format($row['PRECIO'], 2, ',', '.'); ?></td>
                                     <td><?=number_format($row['PESO'], 2,',', '.')?></td>
-                                    <td><a href="javascript:void(0)" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#ag<?php echo $row['IDINVENTARIO'];?>">Agregar</a>
+                                    <td><a href="javascript:void(0)" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#ag<?php echo $row['IDINVENTARIO'];?>">Modificar</a>
                                         <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eli<?php echo $row['IDINVENTARIO'];?>">Eliminar</a></td>
                                   </tr>
                                   <div class="modal fade" id="ag<?php echo $row['IDINVENTARIO']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
