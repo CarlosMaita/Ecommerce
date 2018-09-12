@@ -1,68 +1,77 @@
 <?php
     session_start();
     include '../common/conexion.php';
-include_once '../common/TasaUSD2.php';
+    include_once '../common/TasaUSD2.php';
 if (isset($_SESSION['carrito'])){
-    $band =false;
-    if(isset($_POST['cantidad'])){
+      $arreglo=$_SESSION['carrito'];
+      if(isset($_POST["id"], $_POST["cantidad"], $_POST["talla"] )){
         $cantidad=$_POST['cantidad'];
-        $band =true;
-    }
-    if(isset($_POST['id'])){
-    $arreglo=$_SESSION['carrito'];
-    $encontro=FALSE;
-    $numero=0;
-    if(!$band){
-        $cantidad=1;
-    }
-    for($i=0;$i<count($arreglo);$i++){
-        if($arreglo[$i]['Id']==$_POST['id']){
-            if($arreglo[$i]['Talla']==$_POST['talla']){
-            $encontro =TRUE;
-            $numero=$i;
-            }
+        $idinventario=$_POST["id"];
+        $talla=$_POST["talla"];
+        #consulta si el articulo se repite.
+        $encontro=false;
+        foreach($arreglo as &$a){
+          if($a['Id']==$idinventario){
+              if($a['Talla']==$talla){
+              $encontro=true;
+              $a['Cantidad']= $a['Cantidad']+$cantidad;
+              }
+          }
         }
-    }
-    if($encontro==true){
-        $arreglo[$numero]['Cantidad']= $arreglo[$numero]['Cantidad']+$cantidad;
-        $_SESSION['carrito']=$arreglo;
-    }else{
-        $nombre ="";
-        $precio=0;
-        $imagen="";
-        $sql= 'select * from PRODUCTOS where IDPRODUCTO='.$_POST['id'];
-        $res = $conn->query($sql);
-        while($f = $res->fetch_assoc()){
-                $nombre=$f["NOMBRE_P"];
-                $precio=$f["PRECIO"]*$tasa_usd;
-                $imagen=$f["IMAGEN"];
-            }
-        $newarreglo=array('Id'=>$_POST["id"],'Nombre'=>$nombre, 'Precio'=>$precio, 'Imagen'=> $imagen, 'Cantidad'=>$cantidad, 'Talla'=>$_POST['talla']);
-        array_push($arreglo,$newarreglo);
-        $_SESSION['carrito']=$arreglo;
-    }
-    }
-}else {
-    $band=false;
-    if (isset($_POST["cantidad"])){
-        $cantidad=$_POST["cantidad"];
-        $band=true;
+        if($encontro==true){
+            $_SESSION['carrito']=$arreglo;
+        }else{
+          $sql="SELECT  *, m.IMAGEN AS IMAGEN FROM INVENTARIO i
+          INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO
+          INNER JOIN PRODUCTOS p ON  p.IDPRODUCTO=m.IDPRODUCTO
+          WHERE IDINVENTARIO=$idinventario";
+            $res = $conn->query($sql);
+            while($f = $res->fetch_assoc()){
+                    $nombre=$f["NOMBRE_P"];
+                    $precio=$f["PRECIO"]*$tasa_usd;
+                    $imagen=$f["IMAGEN"];
+                }
+            $newarreglo=array('Id'=>$idinventario,'Nombre'=>$nombre, 'Precio'=>$precio, 'Imagen'=> $imagen, 'Cantidad'=>$cantidad, 'Talla'=>$talla);
+            array_push($arreglo,$newarreglo);
+            $_SESSION['carrito']=$arreglo;
+        }
       }
-    if (isset($_POST["id"])){
-        $nombre ="";
-        $precio=0;
-        $imagen="";
-        if(!$band){
-            $cantidad=1;
-        }
-        $sql= 'SELECT * from PRODUCTOS where IDPRODUCTO='.$_POST["id"];
+      if(isset($_GET['delete'],$_GET['talla']) and !empty($_GET['delete']) and !empty($_GET['talla'])){
+          $iddelete=$_GET['delete'];
+          $talladelete=$_GET['talla'];
+          $i=0;
+          foreach ($arreglo as $a) {
+
+            if(($a['Id']==$iddelete) and ($a['Talla']==$talladelete)){
+                $catch=$i;
+            }
+              $i++;
+          }
+          if(isset($catch)){
+            unset($arreglo[$catch]);
+            $arreglo= array_values($arreglo);
+            $_SESSION['carrito']=$arreglo;
+          }
+          header('Location: carrito.php');
+      }
+
+}else {
+    if (isset($_POST["id"], $_POST["cantidad"], $_POST["talla"] )){
+        $idinventario=$_POST["id"];
+        $cantidad=$_POST["cantidad"];
+        $talla=$_POST["talla"];
+        #llamado SQL
+        $sql="SELECT  *, m.IMAGEN AS IMAGEN FROM INVENTARIO i
+        INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO
+        INNER JOIN PRODUCTOS p ON  p.IDPRODUCTO=m.IDPRODUCTO
+        WHERE IDINVENTARIO=$idinventario";
         $res = $conn->query($sql);
         while($f = $res->fetch_assoc()){
                 $nombre=$f["NOMBRE_P"];
                 $precio=$f["PRECIO"]*$tasa_usd;
                 $imagen=$f["IMAGEN"];
             }
-        $arreglo[]=array('Id'=>$_POST["id"],'Nombre'=>$nombre, 'Precio'=>$precio, 'Imagen'=> $imagen, 'Cantidad'=>$cantidad, 'Talla'=>$_POST['talla']);
+        $arreglo[]=array('Id'=>$idinventario,'Nombre'=>$nombre, 'Precio'=>$precio, 'Imagen'=> $imagen, 'Cantidad'=>$cantidad, 'Talla'=>$talla);
         $_SESSION['carrito']=$arreglo;
     }
 }
@@ -110,36 +119,36 @@ if (isset($_SESSION['carrito'])){
                     $datos=$_SESSION['carrito'];
                     $total=0;
                     $cantidad_total=0;
-                    for($i=0;$i<count($datos);$i++){
-                        $total_modelo=$datos[$i]['Cantidad']*$datos[$i]['Precio'];
-                        $cantidad_total+=$datos[$i]['Cantidad'];
+                    foreach($datos as $d){
+                        $total_modelo=$d['Cantidad']*$d['Precio'];
+                        $cantidad_total+=$d['Cantidad'];
                       ?>
                     <div class="row">
                       <div class="col-3 text-center">
-                        <img class="img-fluid" src="../imagen/<?php echo $datos[$i]['Imagen']; ?>" width="100px" height="100px">
+                        <img class="img-fluid" src="../imagen/<?php echo $d['Imagen']; ?>" width="100px" height="100px">
                       </div>
                       <div class="col-9 my-2">
                         <div class="row">
-                            <small><a class="enlace2" href="#"><?php echo $datos[$i]['Nombre'];?></a></small>
+                            <small><a class="enlace2" href="#"><?php echo $d['Nombre'];?></a></small>
                             <span class="ml-auto"><?php echo number_format($total_modelo,2,',','.');?> Bs.S</span>
                         </div>
                         <div class="row">
-                          <small>TALLA: <span class="text-muted"><?php echo " ".$datos[$i]['Talla']?></span></small>
+                          <small>TALLA: <span class="text-muted"><?php echo " ".$d['Talla']?></span></small>
                         </div>
                         <div class="row">
                           <small>Color(es): <span class="text-muted">Azul / Verde</span></small>
                         </div>
                         <div class="row">
-                          <small>CANTIDAD: <span class="text-muted"><?php echo " ".$datos[$i]['Cantidad'];?></span></small>
+                          <small>CANTIDAD: <span class="text-muted"><?php echo " ".$d['Cantidad'];?></span></small>
                         </div>
                         <div class="row mt-2">
-                          <button type="button" class="enlace2 mr-4" href="javascript:void(0)" data-toggle="modal" data-target="#edit<?php echo $datos[$i]['Id'];?>">Editar</button>
-                          <button type="button" class="enlace2" href="javascript:void(0)" data-toggle="modal" data-target="#del<?php echo $datos[$i]['Id'];?>">Eliminar</button>
+                          <button type="button" class="enlace2 mr-4" href="javascript:void(0)" data-toggle="modal" data-target="#edit<?php echo $d['Id'];?>">Editar</button>
+                          <button type="button" class="enlace2" href="javascript:void(0)" data-toggle="modal" data-target="#del<?php echo $d['Id'];?>">Eliminar</button>
                         </div>
                       </div>
                     </div>
                     <!-- Large modal -->
-                    <div class="modal" id="del<?php echo $datos[$i]['Id'];?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal" id="del<?php echo $d['Id'];?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -153,13 +162,13 @@ if (isset($_SESSION['carrito'])){
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cancelar</button>
-                            <a href="common/salir_sesion.php" class="btn btn-outline-danger">Eliminar</a>
+                            <a href="carrito.php?delete=<?php echo $d['Id'];?>&talla=<?php echo $d['Talla'];?>" class="btn btn-outline-danger">Eliminar</a>
                           </div>
                         </div>
                       </div>
                     </div>
                     <!-- Large modal -->
-                    <div class="modal fade bd-example-modal-lg" id="edit<?php echo $datos[$i]['Id'];?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                    <div class="modal fade bd-example-modal-lg" id="edit<?php echo $d['Id'];?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                       <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -172,14 +181,14 @@ if (isset($_SESSION['carrito'])){
                             <div class="container-fluid">
                               <div class="row">
                                 <div class="col-7 text-center">
-                                  <img class="img-fluid" src="../imagen/<?php echo $datos[$i]['Imagen']; ?>" width="300px" height="300px">
+                                  <img class="img-fluid" src="../imagen/<?php echo $d['Imagen']; ?>" width="300px" height="300px">
                                 </div>
                                 <div class="col-4">
                                   <div class="container-fluid">
                                     <div class="row">
                                       <div class="col-12">
                                         <p class="text-muted">Franela de Dama</p>
-                                        <h2><b><?php echo $datos[$i]['Nombre'];?></b></h2>
+                                        <h2><b><?php echo $d['Nombre'];?></b></h2>
                                       </div>
                                       <div class="col-12 mb-4">
                                         <h3 class="lead">200,00 Bs.S</h3>
@@ -225,7 +234,7 @@ if (isset($_SESSION['carrito'])){
                     </div>
                     <hr>
                     <?php
-                    $total=$datos[$i]['Cantidad']*$datos[$i]['Precio'] + $total;
+                    $total=$d['Cantidad']*$d['Precio'] + $total;
                     } ?>
                     <div class="text-secondary text-center">
                       <form action="../index.php">
