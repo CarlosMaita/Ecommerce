@@ -103,6 +103,12 @@ require('../../common/conexion.php');
                                       case 5:
                                           echo 'Visitante';
                                           break;
+                                      case 6:
+                                          echo 'Desarrollador';
+                                          break;
+                                      case 7:
+                                          echo 'Almacenista';
+                                          break;
                                   }?></td>
                           </tr>
                               <?php
@@ -130,7 +136,7 @@ require('../../common/conexion.php');
                         </thead>
                         <tbody>
                           <?php
-                          $sql="SELECT * FROM COLOR LIMIT 3;";
+                          $sql="SELECT * FROM COLOR LIMIT 5;";
                           $result = $conn->query($sql);
                           if ($result->num_rows > 0){
                           // output data of each row

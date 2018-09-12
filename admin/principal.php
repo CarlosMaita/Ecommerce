@@ -1,5 +1,6 @@
 <?php
   include('common/sesion.php');
+  include('../common/conexion.php');
  ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">

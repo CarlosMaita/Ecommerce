@@ -199,7 +199,7 @@ and open the template in the editor.
             <div class="row">
               <div class="col-12">
                 <small class="text-muted"><span class="text-dark">¿Deseas comprar mas de 12 piezas?</span><br>
-                  Ve a compras <a href="../vitrina/index.php?genero=4">Al Mayor</a>, y aprovecha las mejores ofertas.</small>
+                  Ve a compras <a href="../vitrina/index.php?genero=4" target="_blank">Al Mayor</a>, y aprovecha las mejores ofertas.</small>
               </div>
             </div>
             <div class="row mt-3">

@@ -297,7 +297,7 @@ if (isset($_SESSION['carrito'])){
                       <p class="col-auto"><b>0,00$</b></p>
                     </div>
                     <div class="row text-white mt-2 justify-content-between">
-                      <p class="col-6"><b>Costos de Envio:</b></p>
+                      <p class="col-6"><b>IVA:</b></p>
                       <p class="col-auto mb-0"><b>0,00$</b></p>
                       <p class="col-12 text-white-50"><small>Estos costos se basan en las agencias de encomiendas con las que trabajamos. <a href="../faq/index.php?id=2">Ver más.</a> </small> </p>
                     </div>
