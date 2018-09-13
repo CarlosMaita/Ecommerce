@@ -27,7 +27,7 @@
       $clave=$_POST['clave'];
        $sql="select * from USUARIOS where CORREO='$user'";
        $res=$conn->query($sql);
-       if($row=$res->fetch_assoc()) {//usuario registrado
+       if($row=$res->fetch_assoc()){//usuario registrado
            $clave=md5($clave);
            if($clave==$row['CLAVE']){//usuario loggeado
              session_start();

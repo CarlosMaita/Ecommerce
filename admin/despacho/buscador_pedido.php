@@ -136,43 +136,39 @@
                                               </tr>
                                           </thead>
                                           <?php
-                                             if($result->num_rows > 0){
-                                                  while($row = $result->fetch_assoc()){
-                                                      $id=$row['IDPEDIDO'];
+                                            while($row = $result->fetch_assoc()){
+                                              $id=$row['IDPEDIDO'];
                                           ?>
                                           <tbody>
                                             <?php
-                                            $sql2="SELECT `IDINVENTARIO`, `CANTIDAD` FROM `ITEMS` WHERE `IDPEDIDO`='$id'";
+                                            $sql2="SELECT `IDINVENTARIO`, `CANTIDAD` FROM `ITEMS` WHERE `IDPEDIDO`='$id'";//encuentro los articulos del pedido
                                             $result2 = $conn->query($sql2);
                                                 if ($result2->num_rows > 0){
-                                                     while($row2 = $result2->fetch_assoc()){
-                                                         $idinventario=$row2['IDINVENTARIO'];
-                                                          $cantidad=$row2['CANTIDAD'];
-                                                         $sql3="SELECT p.NOMBRE_P, i.TALLA FROM `INVENTARIO` i INNER JOIN `PRODUCTO` p ON i.idproducto=p.idproducto WHERE i.idinventario='$idinventario' LIMIT 1";
-                                                           $result3 = $conn->query($sql3);
-                                                         if ($result3->num_rows > 0){
-                                                     while($row3 = $result3->fetch_assoc()){
-                                                       $nombre=$row3['NOMBRE_P'];
+                                                  while($row2 = $result2->fetch_assoc()){
+                                                    $idinventario=$row2['IDINVENTARIO'];
+                                                    $cantidad=$row2['CANTIDAD'];
+                                                    $sql3="SELECT p.NOMBRE_P, i.TALLA FROM `INVENTARIO` i INNER JOIN `PRODUCTOS` p ON i.idproducto=p.idproducto WHERE i.idinventario='$idinventario' LIMIT 1";
+                                                    $result3 = $conn->query($sql3);
+                                                    if ($result3->num_rows > 0){
+                                                      while($row3 = $result3->fetch_assoc()){
+                                                        $nombre=$row3['NOMBRE_P'];
                                                         $talla=$row3['TALLA'];
-                                                     }}
+                                                      }
+                                                    }
                                                          ?>
-                                                   <ul id="line-item">
-                                                      <li><?php echo $idinventario;?></li>
-                                                      <li><?php echo $nombre;?></li>
-                                                       <li></li>
-                                                      <li></li>
-                                                   </ul>
                                               <tr>
-                                                  <td class="txt-oflo">Peter Parker</td>
+                                                  <td class="txt-oflo"><?php echo $idinventario;?> Peter Parker</td>
                                                   <td><span class="label label-purple label-rounded">Busqueda de Pedido</span></td>
-                                                  <td class="txt-oflo">April 19, 2017</td>
+                                                  <td class="txt-oflo">April 19, 2017 <?php echo $id;?></td>
                                                   <td><span class="font-medium"><?php echo $nombre;?></span></td>
                                                   <td><span class="font-medium"><?php echo $talla;?></span></td>
                                                   <td><span class="font-medium"><?php echo $cantidad;?></span></td>
                                                   <td><a href="#"><i title="Revisar" data-toggle="tooltip" class="ti-pencil-alt"></i></a></td>
+                                                  <td><a href="buscador_pedido.php?orden=good&id=<?php echo $id;?>" id="good" onclick="return confirma()">LISTO</a>
+                                                      <a onclick="ven()" id="bad">Reportar FALLA</a></td>
                                               </tr>
                                               <?php
-                                                }
+                                              }
                                                   }
                                                   ?>
                                           </tbody>
@@ -183,40 +179,20 @@
                           </div>
                       </div>
                   </div>
-      </div>
-            <div class="pedido">
-              <p id="idpedido">Pedido: <?php echo $id;?></p>
-              <ul class="items">
-                <li>
-                </li>
-                <li>
-                    <ul id="line-botones">
-                        <li>
-                          <a href="buscador_pedido.php?orden=good&id=<?php echo $id;?>" id="good" onclick="return confirma()">LISTO</a>
-                        </li>
-                        <li>
-                            <a onclick="ven()" id="bad">Reportar FALLA</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <div id="falla-comentario" style="display:none">
-                               <form action="buscador_pedido.php" method="get">
-                                   <input type="text" value="bad" name="orden" style="display: none">
-                                   <input type="text" value="<?php echo $id;?>" name="id" style="display: none">
-                                   <input type="text" name="comentario" id="comentario" maxlength="200" placeholder="Detalle la falla con un comentario">
-                                   <input type="submit" value="Enviar" id="boton-enviar" onclick="return confirma()">
-                               </form>
-                    </div>
-                </li>
-              </ul>
+                  <div id="falla-comentario" style="display:none">
+                    <form action="buscador_pedido.php" method="get">
+                      <input type="text" value="bad" name="orden" style="display: none">
+                      <input type="text" value="<?php echo $id;?>" name="id" style="display: none">
+                      <input type="text" name="comentario" id="comentario" maxlength="200" placeholder="Detalle la falla con un comentario">
+                      <input type="submit" value="Enviar" id="boton-enviar" onclick="return confirma()">
+                    </form>
+                  </div>
             </div>
             <?php
-            }
               }
                 $conn->close();
-    include('../common/footer.php'); ?>
-  </div>
+                include('../common/footer.php'); ?>
+      </div>
         <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
         <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
         <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
