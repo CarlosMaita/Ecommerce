@@ -6,7 +6,7 @@
         </a>
         <div class="navbar-brand">
             <a href="principal.php" class="logo">
-                Rouxa - Administración
+                Rouxa - Principal
             </a>
         </div>
         <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -45,50 +45,68 @@
     </div>
 </nav>
 </header>
+<?php
+$email=$_SESSION['USUARIO'];
+$sql="SELECT NIVEL FROM USUARIOS WHERE CORREO='$email'";
+$result = $conn->query($sql);
+if($row=$result->fetch_assoc()){
+ ?>
 <aside class="left-sidebar" data-sidebarbg="skin5">
     <div class="scroll-sidebar">
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
+              <?php if($row["NIVEL"]==1){ ?>
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="administracion/index.php" aria-expanded="false">
                         <i class="mdi mdi-av-timer"></i>
                         <span class="hide-menu">Administración</span>
                     </a>
                 </li>
+                <?php }
+                if($row["NIVEL"]==6 || $row["NIVEL"]==1){ ?>
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="desarrollo/" aria-expanded="false">
                         <i class="mdi mdi-account-network"></i>
-                        <span class="hide-menu">Desarrollo</span>
+                        <span class="hide-menu">Desarrollo </span>
                     </a>
                 </li>
-                 <li class="sidebar-item">
+                <?php }
+                if($row["NIVEL"]==7 || $row["NIVEL"]==1){ ?>
+                <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="inventario/" aria-expanded="false">
                         <i class="mdi mdi-arrange-bring-forward"></i>
                         <span class="hide-menu">Inventario</span>
                     </a>
                 </li>
+                <?php }
+                if($row["NIVEL"]==3 || $row["NIVEL"]==1){ ?>
                 <li class="sidebar-item">
                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ventas/" aria-expanded="false">
                        <i class="mdi mdi-cart"></i>
                        <span class="hide-menu">Ventas</span>
                    </a>
                </li>
+             <?php }
+                  if ($row["NIVEL"]==4 || $row["NIVEL"]==1) {
+                ?>
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="despacho/" aria-expanded="false">
                         <i class="mdi mdi-truck"></i>
                         <span class="hide-menu">Despacho</span>
                     </a>
                 </li>
+                <?php } ?>
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="common/configuracion.php" aria-expanded="false">
                         <i class="mdi mdi-wrench"></i>
-                        <span class="hide-menu">Configuracion</span>
+                        <span class="hide-menu">Configuración</span>
                     </a>
                 </li>
             </ul>
         </nav>
     </div>
 </aside>
+<?php } ?>
 <div class="modal fade" id="closeSesion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
