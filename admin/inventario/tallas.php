@@ -274,11 +274,11 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'], $_POST['peso'])){
                                               break;
                                           case 2: $genero= 'Caballero';
                                               break;
-                                          case 3: $genero= 'Niña';
+                                          case 3: $genero= 'Niño';
                                               break;
-                                          case 4: $genero= 'Niño';
+                                          case 4: $genero= 'Niña';
                                               break;
-                                          default: $genero= 'Unisex';
+                                          default: $genero= 'Otro';
                                               break;
                                       }
                                    ?>

@@ -1,67 +1,40 @@
 <?php
 include_once('../common/sesion2.php');
 require('../../common/conexion.php');
-
 if(isset($_GET['nombre'],$_GET['apellido'],$_GET['email'], $_GET['clave'], $_GET['nivel'] )){
-    
     $nombre= $_GET['nombre'].' '.  $_GET['apellido'];
     $correo= $_GET['email'];
     $clave= md5($_GET['clave']);
     $nivel= $_GET['nivel'];
-    
    $sql = "INSERT INTO `USUARIOS`(`NOMBRE`, `CORREO`, `CLAVE`, `NIVEL`) VALUES ('$nombre','$correo','$clave', '$nivel')";
-    
 if ($conn->query($sql) === TRUE) {
     echo "<center>Nuevo USUARIO registrado</center>";
     header('Location: ./usuarios.php');
    } else { echo "Error: " . $sql . "<br>" . $conn->error;}
-    
-    
 }
-
-
 #paginacion y eliinacion de productos
-
 if(isset($_GET['delete']) & !empty($_GET['delete'])){
-    
     $idusuario=$_GET['delete'];
-        
-        
     #eliminar USURIO
     $sql ="DELETE FROM USUARIOS WHERE IDUSUARIO='$idusuario'";
-    
-       if ($conn->query($sql) === TRUE) {
-           } else {
-             echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';
-        }
-    
-    
-} 
-
-$perpage  = 3;
-
-
+       if($conn->query($sql) === TRUE){
+           } else { echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>'; }
+}
+$perpage  = 10;
 if(isset($_GET['page']) & !empty($_GET['page'])){
 	$curpage = $_GET['page'];
 }else{
 	$curpage = 1;
 }
-
 $start = ($curpage * $perpage) - $perpage;
-
 #necesito el total de elementos
-
 $PageSql = "SELECT * FROM USUARIOS";
 $pageres = mysqli_query($conn, $PageSql);
 $totalres = mysqli_num_rows($pageres);
-
 $endpage = ceil($totalres/$perpage);
 $startpage = 1;
 $nextpage = $curpage + 1;
 $previouspage = $curpage - 1;
-
-
-
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -132,7 +105,6 @@ $previouspage = $curpage - 1;
                     <div class="row justify-content-center mt-1 bg-white py-2">
                       <h3>Agregue el nuevo usuario</h3>
                     </div>
-                    
                     <form class="" action="" method="GET">
                     <div class="row mt-3">
                       <div class="input-group mb-3 col-4">
@@ -157,6 +129,8 @@ $previouspage = $curpage - 1;
                           <option value="3">Vendedor</option>
                           <option value="4">Despachador</option>
                            <option value="5">Visitante</option>
+                           <option value="6">Desarrollador</option>
+                           <option value="7">Almacenista</option>
                         </select>
                       </div>
                       <div class="input-group mb-3 col-6">
@@ -192,10 +166,7 @@ $previouspage = $curpage - 1;
                           </tr>
                         </thead>
                         <tbody>
-                        
                          <?php
-                                
-                            
                              $sql = "SELECT * FROM USUARIOS LIMIT $start, $perpage";
                              $result = $conn->query($sql);
                              if ($result->num_rows > 0) {
@@ -221,21 +192,21 @@ $previouspage = $curpage - 1;
                                                   break;
                                               case 5:
                                                   echo 'Visitante';
-                                                  break;      
+                                                  break;
+                                              case 6:
+                                                  echo 'Desarrollador';
+                                                  break;
+                                              case 7:
+                                                  echo 'Almacenista';
+                                                  break;
                                           }?></td>
-                                     <td><a class="btn btn-outline-danger btn-sm" href="?delete=<?=$row['IDUSUARIO']?>" >Eliminar</a></td>      
+                                     <td><a class="btn btn-outline-danger btn-sm" href="?delete=<?=$row['IDUSUARIO']?>" >Eliminar</a></td>
                               </tr>
-                                   
                                 <?php
                                     }
-                                } else{
-                                    echo "Sin USUARIOS";
-                                }?>
-                                
-                         
+                                }else{ echo "Sin USUARIOS";} ?>
                         </tbody>
                       </table>
-                      
                          <center>
                         <nav aria-label="Page navigation example">
                           <ul class="pagination justify-content-center">
@@ -246,19 +217,15 @@ $previouspage = $curpage - 1;
                         <span class="sr-only">firts</span>
                       </a>
                     </li>
-                    <?php } ?>
-
-                          <?php if($curpage >=2){ ?>
+                    <?php }
+                           if($curpage >=2){ ?>
                             <li class="page-item"><a class="page-link" href="?page=<?php echo $previouspage ?>"><?php echo $previouspage ?></a></li>
                             <?php }  ?>
-                            
                             <li class="page-item active"><a class="page-link" href="?page=<?php echo $curpage ?>"><?php echo $curpage ?></a></li>
-                            
                             <?php if($curpage != $endpage){ ?>
                             <li class="page-item"><a class="page-link" href="?page=<?php echo $nextpage ?>"><?php echo $nextpage ?></a></li>
-                        <?php } ?>
-                          
-                         <?php if($curpage != $endpage){ ?>
+                        <?php }
+                          if($curpage != $endpage){ ?>
                         <li class="page-item">
                           <a class="page-link" href="?page=<?php echo $endpage ?>" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
@@ -269,7 +236,6 @@ $previouspage = $curpage - 1;
                           </ul>
                         </nav>
                      </center>
-                      
                     </div>
                 </div>
               </div>

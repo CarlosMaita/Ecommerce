@@ -11,7 +11,6 @@ if(isset($_GET['idproducto'], $_GET['idmodelo'])){
             unset($arreglo[0]);
            if ($res->num_rows > 0){
             while($f=$res->fetch_assoc()){
-
                 $lista_tallas=$lista_tallas.'<option value="'.$f['TALLA'].'">'.$f['TALLA'].'</option>';
                 $newarreglo=array('Talla'=>$f['TALLA'], 'Cantidad'=> $f['CANTIDAD'], 'Idinventario'=>$f['IDINVENTARIO'], 'Peso'=>$f['PESO']);
                 array_push($arreglo,$newarreglo);
@@ -199,7 +198,7 @@ and open the template in the editor.
             <div class="row">
               <div class="col-12">
                 <small class="text-muted"><span class="text-dark">¿Deseas comprar mas de 12 piezas?</span><br>
-                  Ve a compras <a href="../vitrina/index.php?genero=4">Al Mayor</a>, y aprovecha las mejores ofertas.</small>
+                  Ve a compras <a href="../vitrina/index.php?genero=4" target="_blank">Al Mayor</a>, y aprovecha las mejores ofertas.</small>
               </div>
             </div>
             <div class="row mt-3">
