@@ -14,7 +14,7 @@ if(isset($_GET['idproducto'], $_GET['idmodelo'])){
                 $lista_tallas=$lista_tallas.'<option value="'.$f['TALLA'].'">'.$f['TALLA'].'</option>';
                 $newarreglo=array('Talla'=>$f['TALLA'], 'Cantidad'=> $f['CANTIDAD'], 'Idinventario'=>$f['IDINVENTARIO'], 'Peso'=>$f['PESO']);
                 array_push($arreglo,$newarreglo);
-          }
+              }
            }else{
                $lista_tallas='<option value="N/D">N/D</option>';
                  $newarreglo=array('Talla'=>'N/D', 'Cantidad'=>'0', 'Idinventario'=>'-1', 'Peso'=>'No disponible');

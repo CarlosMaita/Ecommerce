@@ -3,9 +3,6 @@ session_start();
 
     include_once 'Common/conexion.php';
 
-
-    
-    
     $pago_ok='Pago Exitoso';
     $pago_pen='Pago Pendiente';
     $pago_falla='Pago Fallido';
@@ -17,8 +14,8 @@ session_start();
     $msn_falla='El pago ha sido cancelado, esperamos que pronto este de vuelta. Gracias por visitarnos.';
 
     $msn_seguimiento='Recuerda que puedes hacerle seguimiento a tu pedido a través del IDCOMPRA. Solo debes dirigirte a "Compras" en el menu principal, añadir tu ID y ¡Listo!. Muchas Gracias por tu Compra, Te queremos.';
-   ?> 
-   
+   ?>
+
   <!doctype html>
 <html lang="es">
   <head>
@@ -52,7 +49,7 @@ session_start();
     window.location.hash="no-back-button";
     window.location.hash="Again-No-back-button" //chrome
     window.onhashchange=function(){window.location.hash="no-back-button";}
-            }   
+            }
     </script>
   <body onload="deshabilitaRetroceso()">
    <?php include_once 'menu.php';?>
@@ -61,17 +58,17 @@ session_start();
 
 <!--
  Inicio de codigo.
- !--> 
+ !-->
 
-          
-           <?php  
-          
+
+           <?php
+
         if (isset($_GET['back']) and isset($_GET['id'])){
             $back=$_GET['back'];
             $id=md5($_GET['id']);
-            
+
             switch($back){
-                //success    
+                //success
                 case '1':
                     ?>
      <div class="jumbotron mb-0" style="min-height:100vh">
@@ -79,37 +76,37 @@ session_start();
       <p  class="lead"><?php echo $msn_ok;?></p>
        <hr class="my-4">
         <p  ><?php echo $msn_seguimiento;?>
-    </div>    
-    
-                   
+    </div>
+
+
                     <?php
-                    
+
                     break;
-                case '2': 
+                case '2':
                      ?>
-                   
+
     <div class="jumbotron mb-0" style="min-height:100vh">
       <h1 class="display-4"  style="color:#00d"><?php echo $pago_pen;?></h1>
       <p  class="lead"><?php echo $msn_pen;?></p>
        <hr class="my-4">
         <p  ><?php echo $msn_seguimiento;?>
-    </div>    
-                                          
+    </div>
+
                     <?php
-                  
-                    
+
+
                     break;
                 case '3':
                      ?>
-                     
+
   <div class="jumbotron mb-0" style="min-height:100vh">
       <h1 class="display-4"  style="color:#d00"><?php echo $pago_falla;?></h1>
        <hr class="my-4">
       <p  class="lead"><?php echo $msn_falla;?></p>
-    </div>  
-                      
+    </div>
+
                     <?php
-                    
+
                       $sql0="
                         DELETE FROM ENVIOS WHERE IDPEDIDO='$id'";
                         if ($conn->query($sql0) === TRUE) {
@@ -124,29 +121,29 @@ session_start();
                         } else {
                         echo "Error: " . $sql0 . "<br>" . $conn->error;
                         }
-                    
+
                         $sql0="UPDATE `PEDIDOS` SET `ESTATUS`='1' WHERE  `IDPEDIDO`='$id'";
-                    
+
                         if ($conn->query($sql0) === TRUE) {
 
                         } else {
                         echo "Error: " . $sql0 . "<br>" . $conn->error;
                         }
-                    
+
                     break;
-                    
+
             }}
             session_destroy();
                ?>
-       
-  
+
+
 <!--
 Fin  de codigo.
- !-->  
-   
+ !-->
+
 <!--
 Pie de Pagina
- !-->     
+ !-->
 <?php include_once 'Pie.php';?>
 
     <!-- Optional JavaScript -->

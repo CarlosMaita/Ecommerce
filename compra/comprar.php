@@ -36,7 +36,7 @@ if ($conn->query($sqlb) === TRUE) {
    } else {
     echo "Error: " . $sql0 . "<br>" . $conn->error;
 }
-$sqlc="SELECT `IDPEDIDO` FROM `pedidos` WHERE `EMAIL`='$email_cliente' AND `ESTATUS`='$STATUS_START'";
+$sqlc="SELECT `IDPEDIDO` FROM `PEDIDOS` WHERE `EMAIL`='$email_cliente' AND `ESTATUS`='$STATUS_START'";
 $result = $conn->query($sqlc);
 if ($result->num_rows > 0) {
     // output data of each row
@@ -81,10 +81,11 @@ if ($conn->query($sql2) === TRUE) {
         $dato2=  $datos[$i]['Talla'];
         $dato3=  $datos[$i]['Cantidad'];
         $dato4=  $datos[$i]['Precio'];
-        $sql3="SELECT IDINVENTARIO FROM INVENTARIO  WHERE IDPRODUCTO= '$dato1' AND TALLA= '$dato2' ; ";
-        $res = $conn->query($sql3);
-        $f = $res->fetch_assoc();
-        $id_inv=$f["IDINVENTARIO"];
+    #    $sql3="SELECT IDINVENTARIO FROM INVENTARIO  WHERE IDPRODUCTO= '$dato1' AND TALLA= '$dato2' ; ";
+  #      $res = $conn->query($sql3);
+    #    $f = $res->fetch_assoc();
+    #    $id_inv=$f["IDINVENTARIO"];
+        $id_inv=$dato1;
         $sql4="INSERT INTO `ITEMS`(`IDPEDIDO`, `IDINVENTARIO`, `CANTIDAD`, `PRECIO`) VALUES (MD5('$md5'),'$id_inv' ,'$dato3', '$dato4');";
        if ($conn->query($sql4) === TRUE) {
            } else {
