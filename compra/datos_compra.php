@@ -219,7 +219,7 @@ function Factura(){
                           <small class="d-block">CANTIDAD: <span class="text-muted"><?php echo $datos[$i]['Cantidad'];?></span></small>
                         </div>
                         <div class="col-4">
-                          <small><?php echo number_format($datos[$i]['Precio'],2,',','.');?> Bs.</small>
+                          <small><?php echo number_format($datos[$i]['Precio'],2,',','.');?> BsS</small>
                         </div>
                       </div>
                     </div>
@@ -231,9 +231,17 @@ function Factura(){
             <?php
             $total=$datos[$i]['Cantidad']*$datos[$i]['Precio'] + $total;
               }
+              $subtotal=$total;
+              $iva=$subtotal*0.16;
+              $total=$subtotal+$iva;
               $_SESSION['total']=$total;
             ?>
           </div>
+
+            <h5 class="text-center text-muted">Subtotal: <?=number_format($subtotal,2,',','.') ?> BsS</h5>
+            <h6 class="text-center">IVA(16%): <?=number_format($iva,2,',','.')?> BsS</h6>
+          <hr>
+          <h2 class="text-center">Total: <?=number_format($total,2,',','.')?> BsS</h2>
         </div>
       </div>
     </div>

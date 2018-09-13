@@ -26,11 +26,15 @@ $_SESSION['ciudad']=str_replace("'","",$_POST['ciudad']);
 $_SESSION['municipio']=str_replace("'","",$_POST['municipio']);
 $_SESSION['parroquia']=str_replace("'","",$_POST['parroquia']);
 $_SESSION['direccion']=str_replace("'","",$_POST['direccion']);
+$_SESSION['encomienda']=str_replace("'","",$_POST['encomienda']);
 $_SESSION['ref']=str_replace("'","",$_POST['ref']);
 $_SESSION['codigo-postal']=str_replace("'","",$_POST['codigo-postal']);
 $_SESSION['observaciones']=str_replace("'",".",$_POST['observaciones']);
 
 include 'comprar.php';
+
+
+
  if (isset($_SESSION['total'])){
     $total=$_SESSION['total'];
   }
