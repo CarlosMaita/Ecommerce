@@ -58,8 +58,8 @@
         (una vez que se envia el paquete) e información de la compra realizada. ¡La llave es enviada a su correo! <a href="faq/index.php">Ver más</a>
       </small>
     </div>
-   <article class="container my-5">
-     <div class="card-deck">
+   <article class="container my-4">
+     <div class="card-deck row">
        <?php
      $sql = "SELECT *, m.IMAGEN as IMA FROM MODELOS m
      INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
@@ -69,14 +69,16 @@
      // output data of each row
         while($row = $result->fetch_assoc()) {
            ?>
-       <div class="card" style="max-width: 100%; height: auto;">
-         <a href="compra/index.php?idproducto=<?php echo $row['IDPRODUCTO']; ?>&idmodelo=<?php echo $row['IDMODELO']; ?>"><img class="vitrina card-img-top img-fluid" src="imagen/<?php echo $row['IMA']; ?>" alt="<?php echo $row['NOMBRE_P']; ?>"></a>
-         <div class="card-body">
-           <h5 class="card-title"><?php echo $row['NOMBRE_P']; ?></h5>
-           <p class="card-text"><?php echo $row['DESCRIPCION']; ?></p>
-           <p class="card-text"><small class="text-muted">Precio: <?php echo number_format($row['PRECIO']*$tasa_usd, 2, ',', '.'); ?>  Bs.</small></p>
-         </div>
-       </div>
+           <div class="col-sm-12 col-md-6 col-lg-3 my-3">
+             <div class="card" style="max-width: 100%; height: auto;">
+               <a href="compra/index.php?idproducto=<?php echo $row['IDPRODUCTO']; ?>&idmodelo=<?php echo $row['IDMODELO']; ?>"><img class="vitrina card-img-top img-fluid" src="imagen/<?php echo $row['IMA']; ?>" alt="<?php echo $row['NOMBRE_P']; ?>"></a>
+               <div class="card-body">
+                 <h5 class="card-title"><?php echo $row['NOMBRE_P']; ?></h5>
+                 <p class="card-text"><?php echo $row['DESCRIPCION']; ?></p>
+                 <p class="card-text"><small class="text-muted">Precio: <?php echo number_format($row['PRECIO']*$tasa_usd, 2, ',', '.'); ?>  Bs.</small></p>
+               </div>
+             </div>
+           </div>
         <?php
             }
         }else{ echo " <p>Aun no existen productos en Vitrina</p>"; }?>
