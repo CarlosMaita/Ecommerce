@@ -33,9 +33,7 @@ if ($result->num_rows > 0) {
 $CS=$CS+1;
 $sqlb="UPDATE `VARIABLES` SET `VALUE`='$CS' WHERE `NOMBRE`='CS';";
 if ($conn->query($sqlb) === TRUE) {
-   } else {
-    echo "Error: " . $sql0 . "<br>" . $conn->error;
-}
+   }else{ echo "Error: " . $sql0 . "<br>" . $conn->error; }
 $sqlc="SELECT `IDPEDIDO` FROM `PEDIDOS` WHERE `EMAIL`='$email_cliente' AND `ESTATUS`='$STATUS_START'";
 $result = $conn->query($sqlc);
 if ($result->num_rows > 0) {
@@ -53,27 +51,19 @@ if ($result->num_rows > 0) {
           ON e.idpedido=p.idpedido
         WHERE p.idpedido = '$id';";
           if ($conn->query($sqld) === TRUE) {
-               } else {
-                echo "Error: " . $sqld . "<br>" . $conn->error;
-            }
+               }else{ echo "Error: " . $sqld . "<br>" . $conn->error; }
         }
     }
 $sql0="DELETE FROM PEDIDOS WHERE ESTATUS=0 AND EMAIL='$email_cliente';";
 if ($conn->query($sql0) === TRUE) {
-   } else {
-    echo "Error: " . $sql0 . "<br>" . $conn->error;
-}
+   } else { echo "Error: " . $sql0 . "<br>" . $conn->error; }
 $md5= md5($CS);
 $sql1 = "INSERT INTO PEDIDOS (IDPEDIDO,CLIENTE,TELEFONO,EMAIL,ESTATUS, FECHAPEDIDO) VALUES ( MD5('$md5'),'$nombre_cliente', '$telf_cliente', '$email_cliente', '$STATUS_START', CURRENT_DATE());";
 if ($conn->query($sql1) === TRUE) {
-   } else {
-    echo "Error: " . $sql1 . "<br>" . $conn->error;
-}
+   } else { echo "Error: " . $sql1 . "<br>" . $conn->error; }
 $sql2="INSERT INTO `COMPRAS`( `IDPEDIDO`, `MONTO`, `RAZONSOCIAL`, `RIFCI`, `DIRFISCAL`) VALUES (MD5('$md5'), '$monto', '$razon',' $identidad','$dir_fiscal');";
 if ($conn->query($sql2) === TRUE) {
-   } else {
-    echo "Error: " . $sql0 . "<br>" . $conn->error;
-}
+   } else { echo "Error: " . $sql0 . "<br>" . $conn->error; }
    if(isset($_SESSION['carrito'])){
         $datos=$_SESSION['carrito'];
            for($i=0;$i<count($datos);$i++){

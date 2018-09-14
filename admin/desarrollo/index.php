@@ -143,7 +143,7 @@ require('../../common/conexion.php');
                           while($row = $result->fetch_assoc()){
                               ?>
                           <tr class="text-center">
-                              <td><span class="dot" style="background-color:<?=$row['HEX']?>"></span></td>
+                              <td><span class="dot3" style="background-color:<?=$row['HEX']?>"></span></td>
                              <td><?=$row['COLOR']?></td>
                           </tr>
 

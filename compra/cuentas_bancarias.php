@@ -2,8 +2,6 @@
  if(!isset($_SESSION)){
    session_start();
  }
-  ?>
- <?php
 require_once ('../common/mercadopago.php');
 $mp = new MP('1153047962046613', 'i3RGdgCvJXrKT1ceMNOHs4YLNHdgZ9Mj');
 if ($_POST){
@@ -32,9 +30,6 @@ $_SESSION['codigo-postal']=str_replace("'","",$_POST['codigo-postal']);
 $_SESSION['observaciones']=str_replace("'",".",$_POST['observaciones']);
 
 include 'comprar.php';
-
-
-
  if (isset($_SESSION['total'])){
     $total=$_SESSION['total'];
   }
@@ -42,7 +37,6 @@ include 'comprar.php';
 $cliente_mail=$_SESSION['nombre-cliente'];
 $destino=$_SESSION['email-cliente'];
 $titulo="Compra en Rouxa";
-
 $contenido = '<html>
 <head>
 <title>Rouxa</title>
@@ -56,11 +50,9 @@ $contenido = '<html>
 <h4> IDCOMPRA: '. md5($CS).'</h4>
 </body>
 </html>';
-
 $headers = "MIME-Version: 1.0" . "\r\n";
 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
-
     mail($destino, $titulo, $contenido, $headers);
 }
 ?>
@@ -73,8 +65,10 @@ $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
     <meta name="keywords" content="Rouxa, Ropa, Damas, Caballeros, Zapatos, Tienda Virtual">
     <meta name="author" content="Eutuxia, C.A.">
     <meta name="application-name" content="Tienda Virtual de Ropa, Rouxa."/>
+    <link rel="icon" type="image/jpg" sizes="16x16" href="../imagen/favicon.jpg">
     <link rel="stylesheet" href="../css/style-main.css">
     <link href="../admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
     <title>Rouxa</title>
   </head>
@@ -100,24 +94,37 @@ $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
              return r;
          }
     </script>
-  <body  onload="deshabilitaRetroceso()">
-<!-- Inicio de codigo. !-->
-     <div class="jumbotron mb-0">
-      <h1 class="display-4">¡Felicidades por tu Compra! </h1>
-      <p class="lead">Usted ha realizado la compra de manera existosa. Para continuar, realice el pago total del carrito de compras a traves de la plataforma de cobranza Mercado pago. <br><br> Su llave digital es la siguiente:</p>
-        <div class="p-3 mb-2 bg-info text-white">
-           <p class="text-center mt-3"><?PHP
-                 if($_POST){
-                     echo md5($CS);
-                 }else{
-                     echo 'Error: ID No generado';
-                 }
-                 ?></p>
+  <body onload="deshabilitaRetroceso()">
+    <div class="container my-4">
+      <div class="row mt-3">
+        <h1 style="font-family: 'Playfair Display', serif;">¡Felicidades por tu Compra!</h1>
       </div>
-    <small>¡Importante!, El seguimiento de su pedido lo podrá realizar con la llave digital entregada, asegurese de guardar la llave en un lugar que pueda recordar. Ademas, le hemos enviado a su correo la llave digital de compra.</small>
+      <div class="row">
+        <p class="lead">Usted ha realizado la compra de manera existosa. Para continuar, realice el pago total del carrito de compras a tráves de la plataforma de pago de Mercado Pago.</p>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row text-dark mb-3">
+        Su llave digital es la siguiente:
+      </div>
+      <div class="row p-3 mb-2 justify-content-center">
+        <div class="col-6 breadcrumb text-center">
+          <p class="text-center mt-3"><b><?PHP
+          if($_POST){
+            echo md5($CS);
+          }else{ echo 'Error: ID No generado'; }
+          ?></b></p><br/>
+        </div>
+        <small class="text-muted">¿Que es una <a href="../faq/index.php?id=5">llave digital</a>?</small>
+      </div>
+      <div class="row">
+        <p class="text-muted"><b>¡Importante!</b> <br/>El seguimiento de su pedido lo podrá realizar con la llave digital entregada.<br>
+          <b class="text-dark">¡No te preocupes!</b> Te estaremos enviando un correo con todos los datos de su pedido, envío y la llave digital.<br/>
+        </p>
+      </div>
       <hr class="my-4">
     <?php
-            if (!empty($CS) and isset($_POST['nombre-cliente'])){
+        if (!empty($CS) and isset($_POST['nombre-cliente'])){
                   $id_mp=md5($CS);
                   $cliente_mp=$_POST['nombre-cliente'];
             }
@@ -144,21 +151,21 @@ $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
                 "external_reference"=>"$id_mp"
             );
             $preference = $mp->create_preference($preference_data);
-            ?>
-          <center>
-                  <a href="<?php echo $preference['response']['init_point']; ?>" id="boton-mercadopago" class="boton-exp" style="background:#0ff022; border:none;" >Ir pagar</a>
-              </center>
-              <center>
-                  <p>OR</p>
-              </center>
-               <center>
-                  <a href="index.php?reset=" id="boton-mercadopago" class="boton-exp" style="background:#e00e0e;  border:none;"  >Vaciar carrito</a>
-              </center>
-         </div>
+                    ?>
+    </div>
+            <div class="continer">
+              <div class="row justify-content-around">
+                <div class="col-auto">
+                  <a href="<?php echo $preference['response']['init_point']; ?>" id="boton-mercadopago" class="btn-outline-success">Pagar</a>
+                </div>
+                <div class="col-auto">
+                  <a href="index.php?reset=" id="boton-mercadopago" class="btn btn-outline-danger">Cancelar compra</a>
+                </div>
+              </div>
+            </div>
             <?php
             }
             ?>
-<?php include_once '../common/footer2.php'; ?>
     <script src="../admin/assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="../admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="../admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
