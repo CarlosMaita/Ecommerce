@@ -1,7 +1,7 @@
 <?php
   include_once('../common/sesion2.php');
   require('../../common/conexion.php');
-    if(isset($_GET['orden']) and isset($_GET['id']) ){
+    if(isset($_GET['orden'], $_GET['id']) ){
         $newid=$_GET['id'];
         if ($_GET['orden']=='good'){
         $sql="UPDATE `PEDIDOS` SET `ESTATUS`='4' WHERE  `IDPEDIDO`='$newid'";
@@ -63,11 +63,9 @@
              return r;
          }
     </script>
-    <body onload="deshabilitaRetroceso()">
-      <?php
-        $sql="SELECT `IDPEDIDO` FROM `PEDIDOS` WHERE `ESTATUS`='3'";
-        $result = $conn->query($sql);
-      ?>
+   <!--<body onload="deshabilitaRetroceso()">-->
+   <body>
+
       <div class="preloader">
           <div class="lds-ripple">
               <div class="lds-pos"></div>
@@ -111,13 +109,10 @@
                           <a class="btn btn-link text-success" href="envios.php">Envios</a>
                         </div>
                     </div>
-                    <?php if ($result->num_rows == 0){
-                      ?>
-                    <div class="row my-3 text-danger justify-content-center">
-                      <h5>¡No hay pedidos para sacar!</h5>
-                    </div>
-                        <?php
-                      }else{
+                    <?php
+                        $sql="SELECT `IDPEDIDO` FROM `PEDIDOS` WHERE `ESTATUS`=3";
+                        $result = $conn->query($sql);
+                        if ($result->num_rows > 0){
                       ?>
                       <div class="row">
                           <div class="col-12">
@@ -126,20 +121,20 @@
                                       <table class="table table-hover">
                                           <thead>
                                               <tr>
-                                                <th class="border-top-0">Cliente</th>
+                                                <th class="border-top-0">IDPedido</th>
                                                 <th class="border-top-0">Estatus</th>
                                                 <th class="border-top-0">Fecha</th>
                                                 <th class="border-top-0">Articulos</th>
-                                                <th class="border-top-0">Talla</th>
-                                                <th class="border-top-0">Cantidad</th>
-                                                <th></th>
+                                                <th>...</th>
+                                                <th>...</th>
+
                                               </tr>
                                           </thead>
-                                          <?php
-                                            while($row = $result->fetch_assoc()){
-                                              $id=$row['IDPEDIDO'];
-                                          ?>
                                           <tbody>
+                                            <?php
+                                              while($row = $result->fetch_assoc()){
+                                                $id=$row['IDPEDIDO'];
+                                            ?>
                                             <?php
                                             $sql2="SELECT `IDINVENTARIO`, `CANTIDAD` FROM `ITEMS` WHERE `IDPEDIDO`='$id'";//encuentro los articulos del pedido
                                             $result2 = $conn->query($sql2);
@@ -147,7 +142,10 @@
                                                   while($row2 = $result2->fetch_assoc()){
                                                     $idinventario=$row2['IDINVENTARIO'];
                                                     $cantidad=$row2['CANTIDAD'];
-                                                    $sql3="SELECT p.NOMBRE_P, i.TALLA FROM `INVENTARIO` i INNER JOIN `PRODUCTOS` p ON i.idproducto=p.idproducto WHERE i.idinventario='$idinventario' LIMIT 1";
+                                                    $sql3="SELECT p.NOMBRE_P, i.TALLA FROM `INVENTARIO` i
+                                                    INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO
+                                                    INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
+                                                    WHERE i.IDINVENTARIO='$idinventario' LIMIT 1";
                                                     $result3 = $conn->query($sql3);
                                                     if ($result3->num_rows > 0){
                                                       while($row3 = $result3->fetch_assoc()){
@@ -157,15 +155,12 @@
                                                     }
                                                          ?>
                                               <tr>
-                                                  <td class="txt-oflo"><?php echo $idinventario;?> Peter Parker</td>
-                                                  <td><span class="label label-purple label-rounded">Busqueda de Pedido</span></td>
-                                                  <td class="txt-oflo">April 19, 2017 <?php echo $id;?></td>
-                                                  <td><span class="font-medium"><?php echo $nombre;?></span></td>
-                                                  <td><span class="font-medium"><?php echo $talla;?></span></td>
-                                                  <td><span class="font-medium"><?php echo $cantidad;?></span></td>
-                                                  <td><a href="#"><i title="Revisar" data-toggle="tooltip" class="ti-pencil-alt"></i></a></td>
-                                                  <td><a href="buscador_pedido.php?orden=good&id=<?php echo $id;?>" id="good" onclick="return confirma()">LISTO</a>
-                                                      <a onclick="ven()" id="bad">Reportar FALLA</a></td>
+                                                  <td class="txt-oflo"> <small><?php echo $id;?></small> </td>
+                                                  <td><span class="label label-purple label-rounded">Por Buscar</span></td>
+                                                  <td class="txt-oflo"><?=date('d/m, Y') ?></td>
+                                                  <td><span class="font-medium"><a href="#">Ver articulos</a> </span></td>
+                                                  <td><a href="buscador_pedido.php?orden=good&id=<?php echo $id;?>" id="good" onclick="return confirma()">LISTO</a></td>
+                                                  <td><a onclick="ven()" id="bad">FALLA</a></td>
                                               </tr>
                                               <?php
                                               }
@@ -177,6 +172,12 @@
                                   </div>
                               </div>
                           </div>
+                      </div>
+                    <?php
+                    }else{
+                    ?>
+                      <div class="row my-3 text-danger justify-content-center">
+                        <h5>¡No hay pedidos para sacar!</h5>
                       </div>
                   </div>
                   <div id="falla-comentario" style="display:none">
