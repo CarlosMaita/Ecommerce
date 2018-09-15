@@ -66,7 +66,6 @@ $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
     <meta name="author" content="Eutuxia, C.A.">
     <meta name="application-name" content="Tienda Virtual de Ropa, Rouxa."/>
     <link rel="icon" type="image/jpg" sizes="16x16" href="../imagen/favicon.jpg">
-    <link rel="stylesheet" href="../css/style-main.css">
     <link href="../admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
@@ -107,18 +106,22 @@ $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
       <div class="row text-dark mb-3">
         Su llave digital es la siguiente:
       </div>
-      <div class="row p-3 mb-2 justify-content-center">
-        <div class="col-6 breadcrumb text-center">
-          <p class="text-center mt-3"><b><?PHP
-          if($_POST){
-            echo md5($CS);
-          }else{ echo 'Error: ID No generado'; }
-          ?></b></p><br/>
+      <div class="row justify-content-center">
+        <div class="col-4 breadcrumb">
+          <b>
+            <?PHP
+            if($_POST){
+              echo md5($CS);
+            }else{ echo 'Error: ID No generado'; }
+            ?>
+          </b>
         </div>
+      </div>
+      <div class="row mb-3 justify-content-center">
         <small class="text-muted">¿Que es una <a href="../faq/index.php?id=5">llave digital</a>?</small>
       </div>
       <div class="row">
-        <p class="text-muted"><b>¡Importante!</b> <br/>El seguimiento de su pedido lo podrá realizar con la llave digital entregada.<br>
+        <p class="text-muted"><b>¡Importante!</b><br/>El seguimiento de su pedido lo podrá realizar con la llave digital entregada.<br>
           <b class="text-dark">¡No te preocupes!</b> Te estaremos enviando un correo con todos los datos de su pedido, envío y la llave digital.<br/>
         </p>
       </div>
@@ -153,11 +156,9 @@ $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
             $preference = $mp->create_preference($preference_data);
                     ?>
     </div>
-            <div class="continer">
+            <div class="continer mb-3">
               <div class="row justify-content-around">
-                <div class="col-auto">
-                  <a href="<?php echo $preference['response']['init_point']; ?>" id="boton-mercadopago" class="btn-outline-success">Pagar</a>
-                </div>
+                  <a href="<?php echo $preference['response']['init_point']; ?>" id="boton-mercadopago" class="btn btn-outline-success col-4">Pagar</a>
                 <div class="col-auto">
                   <a href="index.php?reset=" id="boton-mercadopago" class="btn btn-outline-danger">Cancelar compra</a>
                 </div>
@@ -166,6 +167,11 @@ $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
             <?php
             }
             ?>
+            <div class="container mt-2">
+             <div class="row justify-content-center">
+               <a href="../index.php" target="_blank"><img src="../imagen/logo.png" alt="" width="90px"></a>
+             </div>
+            </div>
     <script src="../admin/assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="../admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="../admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

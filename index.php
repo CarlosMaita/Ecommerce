@@ -65,9 +65,9 @@
      INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
      ORDER BY Rand() LIMIT 4";
      $result = $conn->query($sql);
-     if ($result->num_rows > 0) {
+     if ($result->num_rows > 0){
      // output data of each row
-        while($row = $result->fetch_assoc()) {
+        while($row = $result->fetch_assoc()){
            ?>
            <div class="col-sm-12 col-md-6 col-lg-3 my-3">
              <div class="card" style="max-width: 100%; height: auto;">

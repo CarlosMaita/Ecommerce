@@ -14,12 +14,16 @@ if(isset($_GET['genero'])){
               $publicidad="¡Compra los mejores productos para Caballeros!";
               $publicidad2="¡Compra lo mejor para Caballeros!";
             break;
+        case '3':
+              $publicidad="¡Compra los mejores productos para los mas pequeños!";
+              $publicidad2="¡Compra lo mejor para Niños!";
+            break;
         case '4':
              $publicidad="¡Compra Al Mayor y obtén excelentes descuentos!";
              $publicidad2="¡Compra Al Mayor y obtén excelentes descuentos!";
             break;
     }
-}else{$genero=3;}
+}else{$genero=5;}
 #busqueda por tipo de prenda
 if(isset($_GET['tipo'])){
     $tipo=$_GET['tipo'];
@@ -250,18 +254,90 @@ $url= $_SERVER["REQUEST_URI"];
           <hr class="d-none d-sm-block">
           <div class="row">
             <div class="col-12 d-none d-sm-block"><b>Genero</b></div>
-            <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=1">Dama</a></small></div>
-            <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=2">Caballero</a></small></div>
-            <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=3">Niña</a></small></div>
-            <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=3">Niño</a></small></div>
+            <?php
+                  switch($genero){
+                      case '1':
+                          ?>
+                          <div class="col-12 d-none d-sm-block active2"><small><a class="enlace2" href="?genero=1">Dama</a></small></div>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=2">Caballero</a></small></div>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=3">Niña</a></small></div>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=3">Niño</a></small></div>
+                          <?php
+                          break;
+                      case '2':
+                           ?>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=1">Dama</a></small></div>
+                           <div class="col-12 d-none d-sm-block active2"><small><a class="enlace2" href="?genero=2">Caballero</a></small></div>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=3">Niña</a></small></div>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=3">Niño</a></small></div>
+                          <?php
+                          break;
+                      case '3':
+                           ?>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=1">Dama</a></small></div>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=2">Caballero</a></small></div>
+                           <div class="col-12 d-none d-sm-block active2"><small><a class="enlace2" href="?genero=3">Niña</a></small></div>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=3">Niño</a></small></div>
+                          <?php
+                          break;
+                      default:
+                          ?>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=1">Dama</a></small></div>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=2">Caballero</a></small></div>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=3">Niña</a></small></div>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=3">Niño</a></small></div>
+                          <?php
+                          break;
+                  }
+                   ?>
           </div>
           <hr class="d-none d-sm-block">
           <div class="row">
             <div class="col-12 d-none d-sm-block"><b>Marca</b></div>
-            <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=rouxa">Rouxa</a></small></div>
-            <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=nike">Nike</a></small></div>
-            <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=adidas">Adidas</a></small></div>
-            <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=puma">Puma</a></small></div>
+            <?php
+                  switch($marca){
+                      case 'rouxa':
+                          ?>
+                          <div class="col-12 d-none d-sm-block active2"><small><a class="enlace2" href="?marca=rouxa">Rouxa</a></small></div>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=nike">Nike</a></small></div>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=adidas">Adidas</a></small></div>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=puma">Puma</a></small></div>
+                          <?php
+                          break;
+                      case 'nike':
+                          ?>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=rouxa">Rouxa</a></small></div>
+                          <div class="col-12 d-none d-sm-block active2"><small><a class="enlace2" href="?marca=nike">Nike</a></small></div>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=adidas">Adidas</a></small></div>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=puma">Puma</a></small></div>
+                          <?php
+                          break;
+                      case 'adidas':
+                           ?>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=rouxa">Rouxa</a></small></div>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=nike">Nike</a></small></div>
+                           <div class="col-12 d-none d-sm-block active2"><small><a class="enlace2" href="?marca=adidas">Adidas</a></small></div>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=puma">Puma</a></small></div>
+                           <?php
+                          break;
+                      case 'puma':
+                           ?>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=rouxa">Rouxa</a></small></div>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=nike">Nike</a></small></div>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=adidas">Adidas</a></small></div>
+                           <div class="col-12 d-none d-sm-block active2"><small><a class="enlace2" href="?marca=puma">Puma</a></small></div>
+                           <?php
+                           break;
+                      default:
+                           ?>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=rouxa">Rouxa</a></small></div>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=nike">Nike</a></small></div>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=adidas">Adidas</a></small></div>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=puma">Puma</a></small></div>
+                           <?php
+                           break;
+                  }
+                   ?>
           </div>
           <hr class="d-none d-sm-block">
           <div class="row">

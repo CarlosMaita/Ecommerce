@@ -174,7 +174,7 @@ function Factura(){
         </div>
       </div>
       <div class="row my-3">
-        <p><input type="checkbox" required> Yo, declaro haber leido y entendido los <a href="../faq/index.php" target="_blank">términos, condiciones y politicas</a> que regulan esta tienda virtual. De igual manera declaro que la informacion suministrada mediante este fomulario es correcta.</p>
+        <p><input type="checkbox" required> Yo, declaro haber leido y entendido los <a href="../info/terminos.php" target="_blank">términos, condiciones y politicas</a> que regulan esta tienda virtual. De igual manera declaro que la informacion suministrada mediante este fomulario es correcta.</p>
       </div>
       <div class="row my-4 justify-content-center">
         <div class="col-2">

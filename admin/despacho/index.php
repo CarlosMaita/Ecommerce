@@ -50,14 +50,17 @@ require('../../common/conexion.php');
           </div>
                 <div class="container-fluid">
                   <div class="row justify-content-around mb-3">
-                      <div class="col-4 text-center">
+                      <div class="col-3 text-center">
                         <a class="btn btn-link text-success" href="buscador_pedido.php">Busqueda de Pedidos</a>
                       </div>
-                      <div class="col-4 text-center">
+                      <div class="col-3 text-center">
                         <a class="btn btn-link text-success" href="empaquetado.php">Empaquetado</a>
                       </div>
-                      <div class="col-4 text-center">
+                      <div class="col-3 text-center">
                         <a class="btn btn-link text-success" href="envios.php">Envíos</a>
+                      </div>
+                      <div class="col-3 text-center">
+                        <a class="btn btn-link text-danger" href="fallas.php">Fallas</a>
                       </div>
                   </div>
                   <?php
@@ -75,7 +78,6 @@ require('../../common/conexion.php');
                                               <th class="border-top-0">IDPedido</th>
                                               <th class="border-top-0">Estatus</th>
                                               <th class="border-top-0">Fecha</th>
-                                              <th class="border-top-0">Articulos</th>
                                               <th></th>
                                             </tr>
                                         </thead>
@@ -125,9 +127,6 @@ require('../../common/conexion.php');
                                                               ?>
                                                            </td>
                                                            <td class="txt-oflo"><?=date('d/m, Y') ?></td>
-                                                           <td><span class="font-medium"><a href="#">Ver articulos</a> </span></td>
-                                                           <td><a href="buscador_pedido.php?orden=good&id=<?php echo $id;?>" id="good" onclick="return confirma()">LISTO</a></td>
-                                                           <td><a onclick="ven()" id="bad">FALLA</a></td>
                                                        </tr>
                                                        <?php
                                                        }

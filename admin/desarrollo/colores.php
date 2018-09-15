@@ -157,7 +157,7 @@ $previouspage = $curpage - 1;
                                       <tr class="text-center">
                                         <td><span class="dot3" style="background-color:<?=$row['HEX']?>"></span></td>
                                         <td><?=$row['COLOR']?></td>
-                                        <td><a  href="javascript:void(0)" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eli<?php echo $row['IDCOLOR']; ?>">Eliminar</a></td>
+                                        <td><a href="javascript:void(0)" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eli<?php echo $row['IDCOLOR']; ?>">Eliminar</a></td>
                                     </tr>
                                     <div class="modal fade" id="eli<?php echo $row['IDCOLOR']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                       <div class="modal-dialog" role="document">
