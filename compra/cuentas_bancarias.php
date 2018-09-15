@@ -2,12 +2,15 @@
  if(!isset($_SESSION)){
    session_start();
  }
+
   ?>
  <?php
 require_once ('../common/mercadopago.php');
 $mp = new MP('1153047962046613', 'i3RGdgCvJXrKT1ceMNOHs4YLNHdgZ9Mj');
 if ($_POST){
 $_SESSION['nombre-cliente']=str_replace("'","",$_POST['nombre-cliente']);
+$_SESSION['type-identidad-cliente']=str_replace("'","",$_POST['type-identidad-cliente']);
+$_SESSION['doc-identidad-cliente']=str_replace("'","",$_POST['doc-identidad-cliente']);
 $_SESSION['telf-cliente']=str_replace("'","",$_POST['telf-cliente']);
 $_SESSION['email-cliente']=str_replace("'","",$_POST['email-cliente']);
 $_SESSION['razon-social']=str_replace("'","",$_POST['razon-social']);
@@ -32,17 +35,14 @@ $_SESSION['codigo-postal']=str_replace("'","",$_POST['codigo-postal']);
 $_SESSION['observaciones']=str_replace("'",".",$_POST['observaciones']);
 
 include 'comprar.php';
-
-
-
- if (isset($_SESSION['total'])){
+if (isset($_SESSION['total'])){
     $total=$_SESSION['total'];
   }
+
 //Enviar mail
 $cliente_mail=$_SESSION['nombre-cliente'];
 $destino=$_SESSION['email-cliente'];
 $titulo="Compra en Rouxa";
-
 $contenido = '<html>
 <head>
 <title>Rouxa</title>
@@ -53,7 +53,7 @@ $contenido = '<html>
 <br>Agradecemos tu compra realizada en nuestra tienda virtual Rouxa, Recuerda que puedes hacerles seguimiento a traves del siguiente ID.
 <br>Que tengas un Feliz Dia.
 </p>
-<h4> IDCOMPRA: '. md5($CS).'</h4>
+<h4> IDCOMPRA: '.$Llave.'</h4>
 </body>
 </html>';
 
@@ -108,7 +108,9 @@ $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
         <div class="p-3 mb-2 bg-info text-white">
            <p class="text-center mt-3"><?PHP
                  if($_POST){
-                     echo md5($CS);
+                     #echo md5($CS); //Cadena del Id completa
+                     #cadena de $Ncadena caracteres de la cadena
+                     echo $Llave;
                  }else{
                      echo 'Error: ID No generado';
                  }
@@ -117,8 +119,8 @@ $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
     <small>¡Importante!, El seguimiento de su pedido lo podrá realizar con la llave digital entregada, asegurese de guardar la llave en un lugar que pueda recordar. Ademas, le hemos enviado a su correo la llave digital de compra.</small>
       <hr class="my-4">
     <?php
-            if (!empty($CS) and isset($_POST['nombre-cliente'])){
-                  $id_mp=md5($CS);
+            if (isset($_POST['nombre-cliente'])){
+                  $id_mp=$Llave;
                   $cliente_mp=$_POST['nombre-cliente'];
             }
             if (!empty($total) and isset($_POST['nombre-cliente']) and isset($_POST['email-cliente'])){

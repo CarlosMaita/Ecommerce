@@ -76,12 +76,12 @@ function Factura(){
           <input type="text" placeholder="Nombre de cliente" name="nombre-cliente" class="form-control" required>
         </div>
         <div class="input-group mb-2 col-6">
-          <select name="type-identidad-client" style="border: 1px solid #ddd; width:20%; border-radius: 4px 0 0 4px;">
-            <option>V</option>
-            <option>E</option>
-            <option>Passaporte</option>
+          <select name="type-identidad-cliente" style="border: 1px solid #ddd; width:20%; border-radius: 4px 0 0 4px;">
+            <option value="V">V</option>
+            <option value="E">E</option>
+            <option value="P">Pasaporte</option>
           </select>
-          <input type="text" placeholder="Documento de identidad del que recibe [Ej: 20184765]" name="doc-identidad-receptor" maxlength="30" class="form-control" required>
+          <input type="text" placeholder="Documento de identidad del cliente [Ej: 20184765]" name="doc-identidad-cliente" maxlength="30" class="form-control" required>
         </div>
         <div class="input-group mb-2 col-6">
           <input type="text" placeholder="Número telefonico del Cliente" name="telf-cliente" class="form-control" required>
@@ -99,9 +99,9 @@ function Factura(){
         </div>
         <div class="input-group mb-2 col-6">
           <select name="type-identidad-receptor" style="border: 1px solid #ddd; width:20%; border-radius: 4px 0 0 4px;">
-            <option>V</option>
-            <option>E</option>
-            <option>Passaporte</option>
+            <option value="V">V</option>
+            <option value="E">E</option>
+            <option value="P">Passaporte</option>
           </select>
           <input type="text" placeholder="Documento de identidad del que recibe [Ej: 20184765]" name="doc-identidad-receptor" maxlength="30" class="form-control" required>
         </div>
