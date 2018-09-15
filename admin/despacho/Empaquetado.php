@@ -34,6 +34,7 @@
       <link rel="icon" type="image/jpg" sizes="16x16" href="../../imagen/favicon.jpg">
       <title>Rouxa - Administración</title>
       <link href="../dist/css/style.min.css" rel="stylesheet">
+      <link href="../../css/new.css" rel="stylesheet">
       <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
       <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -62,11 +63,8 @@
              return r;
          }
     </script>
-    <body onload="deshabilitaRetroceso()">
-      <?php
-      $sql="SELECT `IDPEDIDO` FROM `PEDIDOS` WHERE `ESTATUS`='4'";
-      $result = $conn->query($sql);
-       ?>
+<!-- <body onload="deshabilitaRetroceso()"> -->
+<body>
       <div class="preloader">
           <div class="lds-ripple">
               <div class="lds-pos"></div>
@@ -98,97 +96,165 @@
                     </div>
                 </div>
             </div>
-                  <div class="container-fluid">
-                    <div class="row justify-content-around mb-3">
-                        <div class="col-4 text-center">
-                          <a class="btn btn-link text-success" href="buscador_pedido.php">Busqueda de Pedidos</a>
-                        </div>
-                        <div class="col-4 text-center">
-                          <a class="btn btn-link text-success" href="empaquetado.php">Empaquetado</a>
-                        </div>
-                        <div class="col-4 text-center">
-                          <a class="btn btn-link text-success" href="envios.php">Envios</a>
-                        </div>
-                    </div>
-                    <?php if($result->num_rows == 0){
-                      ?>
-                    <div class="row my-3 text-danger justify-content-center">
-                      <h5>¡No hay pedidos para empaquetar!</h5>
-                    </div>
-                        <?php
-                      }else{
-                      ?>
-                      <div class="row">
-                        <div class="col-12">
-                          <div class="card">
+            <div class="container-fluid">
+              <div class="row justify-content-around mb-3">
+                <div class="col-3 text-center">
+                  <a class="btn btn-link text-success" href="buscador_pedido.php">Busqueda de Pedidos</a>
+                </div>
+                <div class="col-3 text-center">
+                  <a class="btn btn-link text-success" href="empaquetado.php">Empaquetado</a>
+                </div>
+                <div class="col-3 text-center">
+                  <a class="btn btn-link text-success" href="envios.php">Envíos</a>
+                </div>
+                <div class="col-3 text-center">
+                  <a class="btn btn-link text-danger" href="fallas.php">Fallas</a>
+                </div>
+              </div>
+              <?php
+                  $sql="SELECT `IDPEDIDO` FROM `PEDIDOS` WHERE `ESTATUS`=4";
+                  $result = $conn->query($sql);
+                  if ($result->num_rows > 0){
+                ?>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
                             <div class="table-responsive">
-                              <table class="table table-hover">
-                                <?php
-                                 if($result->num_rows > 0){
-                                  while($row = $result->fetch_assoc()){
-                                    $id=$row['IDPEDIDO'];
-                                ?>
-                                  <thead>
-                                    <tr>
-                                      <th class="border-top-0">Id</th>
-                                      <th class="border-top-0">Cliente</th>
-                                      <th class="border-top-0">Estatus</th>
-                                      <th class="border-top-0">Fecha</th>
-                                      <th class="border-top-0">Articulos</th>
-                                      <th class="border-top-0">Talla</th>
-                                      <th class="border-top-0">Cantidad</th>
-                                      <th></th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                  <?php
-                                   $sql2="SELECT `IDINVENTARIO`, `CANTIDAD` FROM `ITEMS` WHERE `IDPEDIDO`='$id'";
-                                   $result2 = $conn->query($sql2);
-                                   if($result2->num_rows > 0){
-                                     while($row2 = $result2->fetch_assoc()){
-                                       $idinventario=$row2['IDINVENTARIO'];
-                                       $cantidad=$row2['CANTIDAD'];
-                                       $sql3="SELECT p.NOMBRE_P, i.TALLA FROM `INVENTARIO` i INNER JOIN `PRODUCTO` p ON i.idproducto=p.idproducto WHERE i.idinventario='$idinventario' LIMIT 1";
-                                       $result3 = $conn->query($sql3);
-                                       if($result3->num_rows > 0){
-                                         while($row3 = $result3->fetch_assoc()){
-                                           $nombre=$row3['NOMBRE_P'];
-                                           $talla=$row3['TALLA'];
-                                         }
-                                       } ?>
-                                    <tr>
-                                      <td><?php echo $id;?></td>
-                                      <td class="txt-oflo"><?php echo $nombre;?></td>
-                                      <td><span class="label label-info label-rounded">Empaquetado</span></td>
-                                      <td class="txt-oflo">Abril 19, 2018</td>
-                                      <td><span class="font-medium">Franelas Dama, Chemise Caballero</span></td>
-                                      <td><span class="font-medium"><?php echo $talla;?></span></td>
-                                      <td><span class="font-medium"><?php echo $cantidad;?></span></td>
-                                      <td><a href="empaquetado.php?orden=good&id=<?php echo $id;?>" id="good" onclick="return confirma()">LISTO</a>
-                                        <a onclick="ven()" id="bad">Reportar Falla</a></td>
-                                    </tr>
-                                    <div id="falla-comentario" style="display:none">
-                                      <form action="Empaquetado.php" method="get">
-                                        <input type="text" value="bad" name="orden" style="display: none"/>
-                                        <input type="text" value="<?php echo $id;?>" name="id" style="display: none"/>
-                                        <input type="text" name="comentario" id="comentario" maxlength="200" placeholder="Detalle la falla con un comentario"/>
-                                        <input type="submit" value="Enviar" id="boton-enviar" onclick="return confirma()"/>
-                                      </form>
-                                    </div>
-                                  </tbody>
-                                <?php }
-                                  } ?>
-                              </table>
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                          <th class="border-top-0">IDPedido</th>
+                                          <th class="border-top-0">Estatus</th>
+                                          <th class="border-top-0">Fecha</th>
+                                          <th class="border-top-0">Articulos</th>
+                                          <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                      <?php
+                                        while($row = $result->fetch_assoc()){
+                                          $id=$row['IDPEDIDO'];
+                                      ?>
+                                      <?php
+                                      $sql2="SELECT `IDINVENTARIO`, `CANTIDAD` FROM `ITEMS` WHERE `IDPEDIDO`='$id'";//encuentro los articulos del pedido
+                                      $result2 = $conn->query($sql2);
+                                          if ($result2->num_rows > 0){
+                                            while($row2 = $result2->fetch_assoc()){
+                                              $idinventario=$row2['IDINVENTARIO'];
+                                              $cantidad=$row2['CANTIDAD'];
+                                              $sql3="SELECT p.NOMBRE_P, i.TALLA FROM `INVENTARIO` i
+                                              INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO
+                                              INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
+                                              WHERE i.IDINVENTARIO='$idinventario' LIMIT 1";
+                                              $result3 = $conn->query($sql3);
+                                              if ($result3->num_rows > 0){
+                                                while($row3 = $result3->fetch_assoc()){
+                                                  $nombre=$row3['NOMBRE_P'];
+                                                  $talla=$row3['TALLA'];
+                                                }
+                                              }
+                                                   ?>
+                                        <tr>
+                                            <td class="txt-oflo"> <small><?php echo $id;?></small> </td>
+                                            <td><span class="label label-info label-rounded">Por Empaquetar</span></td>
+                                            <td class="txt-oflo"><?=date('d/m, Y') ?></td>
+                                            <td><span class="font-medium"><button type="button" class="enlace2 ml-auto" href="javascript:void(0)" data-toggle="modal" data-target="#ver<?php echo $id;?>">Ver artículos</button></span></td>
+                                            <td><a id="good" class="btn btn-outline-success btn-sm" href="Empaquetado.php?orden=good&id=<?php echo $id;?>" onclick="return confirma()">Listo</a>
+                                            <a onclick="ven()" id="bad" class="btn btn-outline-danger btn-sm" href="javascript:void(0)" data-toggle="modal" data-target="#fal<?php echo $id;?>">Falla</a></td>
+                                        </tr>
+                                        <div class="modal fade bd-example-modal-lg" id="ver<?php echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <h5 class="modal-title" id="closeSesionLabel">Pedido de Pedro Picapiedra</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                                </button>
+                                              </div>
+                                              <div class="modal-body">
+                                                <div class="container-fluid">
+                                                  <div class="row">
+                                                    <div class="col-2 text-center">
+                                                      <img class="img-fluid" src="../../imagen/1cc3633c579a90cfdd895e64021e2163.jpg" width="70px" height="70px">
+                                                    </div>
+                                                    <div class="col-8">
+                                                      <div class="container-fluid">
+                                                        <div class="row">
+                                                          <div class="col-auto">
+                                                            <b>Frenela Nike xxxxxx</b>
+                                                          </div>
+                                                          <div class="col-12">
+                                                            <div class="row">
+                                                              <div class="col-8">
+                                                                <small class="d-block">TALLA: <span class="text-muted">M</span></small>
+                                                                <small class="d-block">CANTIDAD: <span class="text-muted">12</span></small>
+                                                              </div>
+                                                              <div class="col-4">
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                  <hr>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="modal fade" id="fal<?php echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                              <div class="modal-header">
+                                                <h5 class="modal-title">¿Desea reportar una falla o inconveniente?</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                                </button>
+                                              </div>
+                                              <div class="modal-body">
+                                                <div class="container-fluid">
+                                                  <div class="row">
+                                                    <div class="col-12">
+                                                      <form action="buscador_pedido.php" method="get">
+                                                      <input type="hidden" value="bad" name="orden">
+                                                      <input type="hidden" value="<?php echo $id;?>">
+                                                      <textarea rows="4" cols="50" name="comentario" id="comentario" placeholder="Detalle la falla con un comentario"></textarea>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <input type="submit" onclick="return confirma()" id="boton-enviar" class="btn btn-primary" value="Enviar">
+                                              </form>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <?php
+                                        }
+                                            }
+                                            ?>
+                                    </tbody>
+                                    <?php } ?>
+                                </table>
                             </div>
-                          </div>
                         </div>
-                      </div>
-                  </div>
-        <?php     }
-                }
-              }
-          $conn->close();
-          include('../common/footer.php');?>
+                    </div>
+                </div>
+              <?php
+              }else{
+              ?>
+              <div class="row my-3 text-danger justify-content-center">
+                <h5>¡No hay pedidos para sacar!</h5>
+              </div>
+          </div>
+    </div>
+    <?php
+      }
+        $conn->close();
+        include('../common/footer.php'); ?>
           </div>
       </div>
       <script src="../assets/libs/jquery/dist/jquery.min.js"></script>

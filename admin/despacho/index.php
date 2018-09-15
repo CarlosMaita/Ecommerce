@@ -50,16 +50,24 @@ require('../../common/conexion.php');
           </div>
                 <div class="container-fluid">
                   <div class="row justify-content-around mb-3">
-                      <div class="col-4 text-center">
+                      <div class="col-3 text-center">
                         <a class="btn btn-link text-success" href="buscador_pedido.php">Busqueda de Pedidos</a>
                       </div>
-                      <div class="col-4 text-center">
+                      <div class="col-3 text-center">
                         <a class="btn btn-link text-success" href="empaquetado.php">Empaquetado</a>
                       </div>
-                      <div class="col-4 text-center">
+                      <div class="col-3 text-center">
                         <a class="btn btn-link text-success" href="envios.php">Envíos</a>
                       </div>
+                      <div class="col-3 text-center">
+                        <a class="btn btn-link text-danger" href="fallas.php">Fallas</a>
+                      </div>
                   </div>
+                  <?php
+                      $sql="SELECT IDPEDIDO, ESTATUS FROM `PEDIDOS` WHERE `ESTATUS`>2 and `ESTATUS`<6" ;
+                      $result = $conn->query($sql);
+                      if ($result->num_rows > 0){
+                    ?>
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -67,72 +75,82 @@ require('../../common/conexion.php');
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th class="border-top-0">Cliente</th>
-                                                <th class="border-top-0">Estatus</th>
-                                                <th class="border-top-0">Fecha</th>
-                                                <th class="border-top-0">Articulos</th>
-                                                <th class="border-top-0">Total</th>
-                                                <th></th>
+                                              <th class="border-top-0">IDPedido</th>
+                                              <th class="border-top-0">Estatus</th>
+                                              <th class="border-top-0">Fecha</th>
+                                              <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td class="txt-oflo">Pablo Marmol</td>
-                                                <td><span class="label label-success label-rounded">A Enviar</span> </td>
-                                                <td class="txt-oflo">Enero 18, 2018</td>
-                                                <td><span class="font-medium">Franelas Dama, Chemise Caballero</span></td>
-                                                <td><span class="font-medium">$24</span></td>
-                                                <td><a href="#"><i title="Revisar" data-toggle="tooltip" class="ti-pencil-alt"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="txt-oflo">Ali Baba</td>
-                                                <td><span class="label label-info label-rounded">Empaquetado</span></td>
-                                                <td class="txt-oflo">Abril 19, 2018</td>
-                                                <td><span class="font-medium">Franelas Dama, Chemise Caballero</span></td>
-                                                <td><span class="font-medium">$1250</span></td>
-                                                <td><a href="#"><i title="Revisar" data-toggle="tooltip" class="ti-pencil-alt"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="txt-oflo">Peter Parker</td>
-                                                <td><span class="label label-purple label-rounded">Busqueda de Pedido</span></td>
-                                                <td class="txt-oflo">April 19, 2017</td>
-                                                <td><span class="font-medium">Franelas Dama, Chemise Caballero</span></td>
-                                                <td><span class="font-medium">$1250</span></td>
-                                                <td><a href="#"><i title="Revisar" data-toggle="tooltip" class="ti-pencil-alt"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="txt-oflo">Alex Gonzalez</td>
-                                                <td><span class="label label-success label-rounded">A Enviar</span></td>
-                                                <td class="txt-oflo">Diciembre 20, 2018</td>
-                                                <td><span class="font-medium">Franelas Dama, Chemise Caballero</span></td>
-                                                <td><span class="font-medium">-$24</span></td>
-                                                <td><a href="#"><i title="Revisar" data-toggle="tooltip" class="ti-pencil-alt"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="txt-oflo">Pedro Picapiedra</td>
-                                                <td><span class="label label-success label-rounded">A Enviar</span></td>
-                                                <td class="txt-oflo">April 21, 2017</td>
-                                                <td><span class="font-medium">Franelas Dama, Chemise Caballero</span></td>
-                                                <td><span class="font-medium">$24</span></td>
-                                                <td><a href="#"><i title="Revisar" data-toggle="tooltip" class="ti-pencil-alt"></i></a></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="txt-oflo">Juana la Iguana</td>
-                                                <td><span class="label label-danger label-rounded">Falla</span> </td>
-                                                <td class="txt-oflo">April 23, 2017</td>
-                                                <td><span class="font-medium">Franelas Dama, Chemise Caballero</span></td>
-                                                <td><span class="font-medium">-$14</span></td>
-                                                <td><a href="#"><i title="Revisar" data-toggle="tooltip" class="ti-pencil-alt"></i></a></td>
-                                              </tr>
+                                          <?php
+                                            while($row = $result->fetch_assoc()){
+                                              $id=$row['IDPEDIDO'];
+                                              $estatus=$row['ESTATUS'];
+                                          ?>
+                                          <?php
+                                          $sql2="SELECT `IDINVENTARIO`, `CANTIDAD` FROM `ITEMS` WHERE `IDPEDIDO`='$id'";//encuentro los articulos del pedido
+                                          $result2 = $conn->query($sql2);
+                                              if ($result2->num_rows > 0){
+                                                while($row2 = $result2->fetch_assoc()){
+                                                  $idinventario=$row2['IDINVENTARIO'];
+                                                  $cantidad=$row2['CANTIDAD'];
+                                                  $sql3="SELECT p.NOMBRE_P, i.TALLA FROM `INVENTARIO` i
+                                                  INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO
+                                                  INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
+                                                  WHERE i.IDINVENTARIO='$idinventario' LIMIT 1";
+                                                  $result3 = $conn->query($sql3);
+                                                  if ($result3->num_rows > 0){
+                                                    while($row3 = $result3->fetch_assoc()){
+                                                      $nombre=$row3['NOMBRE_P'];
+                                                      $talla=$row3['TALLA'];
+                                                    }
+                                                  }
+                                                       ?>
+                                                       <tr>
+                                                           <td class="txt-oflo"> <small><?php echo $id;?></small> </td>
+                                                           <td>
+                                                             <?php
+                                                                  switch ($estatus) {
+                                                                    case '3':
+                                                                      echo '<span class="label label-purple label-rounded">Por Buscar</span>';
+                                                                      break;
+                                                                      case '4':
+                                                                        echo '<span class="label label-info label-rounded">Por Empaquetar</span>';
+                                                                        break;
+                                                                      case '5':
+                                                                          echo '<span class="label label-warning label-rounded">Por Enviar</span>';
+                                                                          break;
+                                                                    default:
+                                                                      // code...
+                                                                      break;
+                                                                  }
+                                                              ?>
+                                                           </td>
+                                                           <td class="txt-oflo"><?=date('d/m, Y') ?></td>
+                                                       </tr>
+                                                       <?php
+                                                       }
+                                                           }
+                                                           ?>
                                         </tbody>
+                                            <?php } ?>
                                     </table>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <?php
+                    }else{
+                    ?>
+                      <div class="row my-3 text-danger justify-content-center">
+                        <h5>¡No hay pedidos para sacar!</h5>
+                      </div>
                 </div>
-            <?php include('../common/footer.php'); ?>
         </div>
+        <?php
+          }
+            $conn->close();
+            include('../common/footer.php'); ?>
     </div>
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>

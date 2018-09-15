@@ -2,9 +2,6 @@
  if(!isset($_SESSION)){
    session_start();
  }
-
-  ?>
- <?php
 require_once ('../common/mercadopago.php');
 $mp = new MP('1153047962046613', 'i3RGdgCvJXrKT1ceMNOHs4YLNHdgZ9Mj');
 if ($_POST){
@@ -35,6 +32,7 @@ $_SESSION['codigo-postal']=str_replace("'","",$_POST['codigo-postal']);
 $_SESSION['observaciones']=str_replace("'",".",$_POST['observaciones']);
 
 include 'comprar.php';
+
 if (isset($_SESSION['total'])){
     $total=$_SESSION['total'];
   }
@@ -56,11 +54,9 @@ $contenido = '<html>
 <h4> IDCOMPRA: '.$Llave.'</h4>
 </body>
 </html>';
-
 $headers = "MIME-Version: 1.0" . "\r\n";
 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
-
     mail($destino, $titulo, $contenido, $headers);
 }
 ?>
@@ -73,8 +69,9 @@ $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
     <meta name="keywords" content="Rouxa, Ropa, Damas, Caballeros, Zapatos, Tienda Virtual">
     <meta name="author" content="Eutuxia, C.A.">
     <meta name="application-name" content="Tienda Virtual de Ropa, Rouxa."/>
-    <link rel="stylesheet" href="../css/style-main.css">
+    <link rel="icon" type="image/jpg" sizes="16x16" href="../imagen/favicon.jpg">
     <link href="../admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
     <title>Rouxa</title>
   </head>
@@ -100,6 +97,7 @@ $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
              return r;
          }
     </script>
+
   <body  onload="deshabilitaRetroceso()">
 <!-- Inicio de codigo. !-->
      <div class="jumbotron mb-0">
@@ -115,10 +113,11 @@ $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
                      echo 'Error: ID No generado';
                  }
                  ?></p>
+
       </div>
-    <small>¡Importante!, El seguimiento de su pedido lo podrá realizar con la llave digital entregada, asegurese de guardar la llave en un lugar que pueda recordar. Ademas, le hemos enviado a su correo la llave digital de compra.</small>
       <hr class="my-4">
     <?php
+
             if (isset($_POST['nombre-cliente'])){
                   $id_mp=$Llave;
                   $cliente_mp=$_POST['nombre-cliente'];
@@ -146,21 +145,24 @@ $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
                 "external_reference"=>"$id_mp"
             );
             $preference = $mp->create_preference($preference_data);
-            ?>
-          <center>
-                  <a href="<?php echo $preference['response']['init_point']; ?>" id="boton-mercadopago" class="boton-exp" style="background:#0ff022; border:none;" >Ir pagar</a>
-              </center>
-              <center>
-                  <p>OR</p>
-              </center>
-               <center>
-                  <a href="index.php?reset=" id="boton-mercadopago" class="boton-exp" style="background:#e00e0e;  border:none;"  >Vaciar carrito</a>
-              </center>
-         </div>
+                    ?>
+    </div>
+            <div class="continer mb-3">
+              <div class="row justify-content-around">
+                  <a href="<?php echo $preference['response']['init_point']; ?>" id="boton-mercadopago" class="btn btn-outline-success col-4">Pagar</a>
+                <div class="col-auto">
+                  <a href="index.php?reset=" id="boton-mercadopago" class="btn btn-outline-danger">Cancelar compra</a>
+                </div>
+              </div>
+            </div>
             <?php
             }
             ?>
-<?php include_once '../common/footer2.php'; ?>
+            <div class="container mt-2">
+             <div class="row justify-content-center">
+               <a href="../index.php" target="_blank"><img src="../imagen/logo.png" alt="" width="90px"></a>
+             </div>
+            </div>
     <script src="../admin/assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="../admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="../admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

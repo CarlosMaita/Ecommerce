@@ -143,7 +143,6 @@ if (isset($_SESSION['carrito'])){
                         while($f = $res->fetch_assoc()){
                           $color2=$f['COLOR'];
                         }
-
                       ?>
                     <div class="row">
                       <div class="col-3 text-center">
@@ -334,17 +333,14 @@ if (isset($_SESSION['carrito'])){
                       <p class="col-auto"><b>0,00 BsS</b></p>
                     </div>
                     <div class="row text-white mt-2 justify-content-between">
-<<<<<<< HEAD
                       <p class="col-6"><b>IVA(16%):</b></p>
                       <p class="col-auto mb-0"><b>0,00 BsS</b></p>
                       <p class="col-12 text-white-50"><small>El impuesto declarado por los productos corresponden a las leyes de la República Bolivariana de Venezuela.<br> <a href="../faq/index.php?id=2" target="_blank">Ver más.</a> </small> </p>
                     <!--  <p class="col-12 text-white-50"><small>Estos costos se basan en las agencias de encomiendas con las que trabajamos. <a href="../faq/index.php?id=2">Ver más.</a> </small> </p>
-                    -->
-=======
                       <p class="col-6"><b>IVA:</b></p>
                       <p class="col-auto mb-0"><b>0,00$</b></p>
                       <p class="col-12 text-white-50"><small>Estos costos se basan en las agencias de encomiendas con las que trabajamos. <a href="../faq/index.php?id=2">Ver más.</a> </small> </p>
->>>>>>> master
+                  -->
                     </div>
                     <hr class="hr">
                     <div class="row text-white my-2 justify-content-between">

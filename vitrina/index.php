@@ -8,30 +8,41 @@ if(isset($_GET['genero'])){
     switch($genero){
         case '1':
               $publicidad="¡Compra los mejores productos para Damas!";
+              $publicidad2="¡Los mejores productos para Damas!";
             break;
         case '2':
               $publicidad="¡Compra los mejores productos para Caballeros!";
+              $publicidad2="¡Compra lo mejor para Caballeros!";
+            break;
+        case '3':
+              $publicidad="¡Compra los mejores productos para los mas pequeños!";
+              $publicidad2="¡Compra lo mejor para Niños!";
             break;
         case '4':
              $publicidad="¡Compra Al Mayor y obtén excelentes descuentos!";
+             $publicidad2="¡Compra Al Mayor y obtén excelentes descuentos!";
             break;
     }
-}else{$genero=3;}
+}else{$genero=5;}
 #busqueda por tipo de prenda
 if(isset($_GET['tipo'])){
     $tipo=$_GET['tipo'];
     switch($tipo){
         case 'franela':
              $publicidad="¡Las mejores y más cómodas Franelas!";
+             $publicidad2="¡Todas las Franelas!";
             break;
         case 'chemise':
              $publicidad="¡Chemises para todos los gustos!";
+             $publicidad2="¡Chemises para todos!";
             break;
         case 'pantalon':
              $publicidad="¡Pantalones excelentes!";
+             $publicidad2="¡Pantalones excelentes!";
             break;
         case 'zapatos':
              $publicidad="¡Compra Zapatos de diferentes marcas y estilos!";
+             $publicidad2="¡Los Zapatos que buscas!";
             break;
     }
 }else{ $tipo=NULL; }
@@ -158,68 +169,213 @@ $url= $_SERVER["REQUEST_URI"];
     <?php include_once '../common/2domenu2.php';?>
     <div class="container-fluid breadcrumb">
       <div class="container text-center py-2" style="font-family: 'Playfair Display', serif;">
-        <h2 class="display-5"><?php echo $publicidad; ?></h2>
+        <div class="row d-block d-sm-none">
+          <h2 class="display-5"><?php echo $publicidad2;?></h2>
+        </div>
+        <div class="row d-none d-sm-block">
+          <h2 class="display-5"><?php echo $publicidad;?></h2>
+        </div>
       </div>
     </div>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-2">
+        <div class="col-2 ">
           <div class="container">
           <h5 title="Revisar" data-toggle="tooltip">Filtros</h5>
-          <hr>
-          <div class="row">
-            <div class="col-12"><b>Genero</b></div>
-            <div class="col-12"><small><a href="?genero=1">Dama</a></small></div>
-            <div class="col-12"><small><a href="?genero=2">Caballero</a></small></div>
-            <div class="col-12"><small><a href="?genero=3">Niña</a></small></div>
-            <div class="col-12"><small><a href="?genero=3">Niño</a></small></div>
-            <!--<div class="col-12"><small><a href="?genero=4">Al Mayor</a></small></div>-->
+          <div class="d-block d-sm-none" id="accordionExample">
+            <div class="">
+              <div class="" id="headingOne">
+                <p class="mb-0">
+                  <button class="btn enlace2 btn-sm" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <b>Genero</b>
+                  </button>
+                </p>
+              </div>
+              <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="">
+                  <div class="container-fluid">
+                    <div class="row"><small><a class="enlace2" href="?genero=1">Dama</a></small></div>
+                    <div class="row"><small><a class="enlace2" href="?genero=2">Caballero</a></small></div>
+                    <div class="row"><small><a class="enlace2" href="?genero=3">Niña</a></small></div>
+                    <div class="row"><small><a class="enlace2" href="?genero=3">Niño</a></small></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="">
+              <div class="" id="headingTwo">
+                <h5 class="mb-0">
+                  <button class="btn enlace2 btn-sm collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    <b>Marca</b>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="">
+                  <div class="container-fluid">
+                    <div class="row"><small><a class="enlace2" href="?marca=rouxa">Rouxa</a></small></div>
+                    <div class="row"><small><a class="enlace2" href="?marca=nike">Nike</a></small></div>
+                    <div class="row"><small><a class="enlace2" href="?marca=adidas">Adidas</a></small></div>
+                    <div class="row"><small><a class="enlace2" href="?marca=puma">Puma</a></small></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="">
+              <div class="" id="headingThree">
+                <h5 class="mb-0">
+                  <button class="btn enlace2 btn-sm collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    <b>Color</b>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                <div class="card-body">
+                  <div class="container-fluid">
+                    <div class="row">
+                  <?php
+                    $sql="SELECT * FROM COLOR";
+                     $result = $conn->query($sql);
+                      $cant=$result->num_rows;
+                      if($cant > 0){
+                          while($f = $result->fetch_assoc()){
+                              ?>
+                               <div class="col-3 mt-2"><a href="?color=<?=$f['IDCOLOR']?>"><span class="dot2" style="background-color:<?=$f['HEX']?>;"/></a></div>
+                              <?php
+                          }
+                      }
+                    ?>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <hr>
+          <hr class="d-none d-sm-block">
           <div class="row">
-            <div class="col-12"><b>Marca</b></div>
-            <div class="col-12"><small><a href="?marca=rouxa">Rouxa</a></small></div>
-            <div class="col-12"><small><a href="?marca=nike">Nike</a></small></div>
-            <div class="col-12"><small><a href="?marca=adidas">Adidas</a></small></div>
-            <div class="col-12"><small><a href="?marca=puma">Puma</a></small></div>
+            <div class="col-12 d-none d-sm-block"><b>Genero</b></div>
+            <?php
+                  switch($genero){
+                      case '1':
+                          ?>
+                          <div class="col-12 d-none d-sm-block active2"><small><a class="enlace2" href="?genero=1">Dama</a></small></div>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=2">Caballero</a></small></div>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=3">Niña</a></small></div>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=3">Niño</a></small></div>
+                          <?php
+                          break;
+                      case '2':
+                           ?>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=1">Dama</a></small></div>
+                           <div class="col-12 d-none d-sm-block active2"><small><a class="enlace2" href="?genero=2">Caballero</a></small></div>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=3">Niña</a></small></div>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=3">Niño</a></small></div>
+                          <?php
+                          break;
+                      case '3':
+                           ?>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=1">Dama</a></small></div>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=2">Caballero</a></small></div>
+                           <div class="col-12 d-none d-sm-block active2"><small><a class="enlace2" href="?genero=3">Niña</a></small></div>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=3">Niño</a></small></div>
+                          <?php
+                          break;
+                      default:
+                          ?>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=1">Dama</a></small></div>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=2">Caballero</a></small></div>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=3">Niña</a></small></div>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=3">Niño</a></small></div>
+                          <?php
+                          break;
+                  }
+                   ?>
           </div>
-          <hr>
+          <hr class="d-none d-sm-block">
           <div class="row">
-            <div class="col-12"><b>Color</b></div>
+            <div class="col-12 d-none d-sm-block"><b>Marca</b></div>
+            <?php
+                  switch($marca){
+                      case 'rouxa':
+                          ?>
+                          <div class="col-12 d-none d-sm-block active2"><small><a class="enlace2" href="?marca=rouxa">Rouxa</a></small></div>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=nike">Nike</a></small></div>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=adidas">Adidas</a></small></div>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=puma">Puma</a></small></div>
+                          <?php
+                          break;
+                      case 'nike':
+                          ?>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=rouxa">Rouxa</a></small></div>
+                          <div class="col-12 d-none d-sm-block active2"><small><a class="enlace2" href="?marca=nike">Nike</a></small></div>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=adidas">Adidas</a></small></div>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=puma">Puma</a></small></div>
+                          <?php
+                          break;
+                      case 'adidas':
+                           ?>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=rouxa">Rouxa</a></small></div>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=nike">Nike</a></small></div>
+                           <div class="col-12 d-none d-sm-block active2"><small><a class="enlace2" href="?marca=adidas">Adidas</a></small></div>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=puma">Puma</a></small></div>
+                           <?php
+                          break;
+                      case 'puma':
+                           ?>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=rouxa">Rouxa</a></small></div>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=nike">Nike</a></small></div>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=adidas">Adidas</a></small></div>
+                           <div class="col-12 d-none d-sm-block active2"><small><a class="enlace2" href="?marca=puma">Puma</a></small></div>
+                           <?php
+                           break;
+                      default:
+                           ?>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=rouxa">Rouxa</a></small></div>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=nike">Nike</a></small></div>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=adidas">Adidas</a></small></div>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?marca=puma">Puma</a></small></div>
+                           <?php
+                           break;
+                  }
+                   ?>
+          </div>
+          <hr class="d-none d-sm-block">
+          <div class="row">
+            <div class="col-12 d-none d-sm-block"><b>Color</b></div>
             <?php
               $sql="SELECT * FROM COLOR";
                $result = $conn->query($sql);
                 $cant=$result->num_rows;
-                if ($cant > 0) {
+                if($cant > 0){
                     while($f = $result->fetch_assoc()){
                         ?>
-                         <div class="col-3 mt-2"><a href="?color=<?=$f['IDCOLOR']?>" title="Gris" data-toggle="tooltip" ><span class="dot3" style="background-color:<?=$f['HEX']?>;"/></a></div>
+                         <div class="d-none d-sm-inline-block col-xs-3 col-sm-3 mt-2"><a href="?color=<?=$f['IDCOLOR']?>"><span class="dot3" style="background-color:<?=$f['HEX']?>;"/></a></div>
                         <?php
                     }
                 }
               ?>
           </div>
-          <hr>
+          <hr class="d-none d-sm-block">
         </div>
         </div>
         <div class="col-10">
           <div class="container-fluid">
             <div class="row justify-content-between">
-              <div class="col-6 align-self-center">
-                <b>TODOS LOS PRODUCTOS <span class="text-muted">[100]</span></b>
+              <div class="col-auto align-self-center">
+                <b><span class="d-none d-sm-inline-block">TODOS LOS</span> PRODUCTOS <span class="text-muted">[100]</span></b>
               </div>
-              <div class="col-4">
-                <div class="row">
-                  <div class="col-5 text-dark align-self-center">
+              <div class="col-6 align-self-end d-none d-md-inline-block">
+                <div class="row justify-content-end">
+                  <div class="col-auto text-dark align-self-center">
                     <b>ORDENAR POR:</b>
                   </div>
-                  <div class="col-6">
+                  <div class="col-auto">
                     <select name="orden" class="text-secondary">
                       <option value="1"><a href="?precio=bajo">Menor precio</a></option>
                       <option value="2"><a href="?precio=alto">Mayor precio</a></option>
                     </select>
                   </div>
-              </div>
+                </div>
               </div>
             </div>
             <div class="row">
@@ -267,14 +423,14 @@ $url= $_SERVER["REQUEST_URI"];
            }
         $result = $conn->query($sql);
         $cant=$result->num_rows;
-        if ($cant > 0) {
+        if($cant > 0){
             ?>
        <article class="container my-4">
          <div class="card-deck">
                   <?php
            while($row = $result->fetch_assoc()){
               ?>
-          <div class="card" >
+          <div class="card col-md-4">
             <a href="../compra/index.php?idproducto=<?php echo $row['IDPRODUCTO']; ?>&idmodelo=<?php echo $row['IDMODELO']; ?>"><img class="card-img-top img-fluid vitrina" src="../imagen/<?php echo $row['IMA']; ?>" alt="<?php echo $row['NOMBRE_P']; ?>"></a>
             <div class="card-body">
               <h5 class="card-title"><?php echo $row['NOMBRE_P']; ?></h5>
