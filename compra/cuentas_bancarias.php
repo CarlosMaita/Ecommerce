@@ -6,6 +6,8 @@ require_once ('../common/mercadopago.php');
 $mp = new MP('1153047962046613', 'i3RGdgCvJXrKT1ceMNOHs4YLNHdgZ9Mj');
 if ($_POST){
 $_SESSION['nombre-cliente']=str_replace("'","",$_POST['nombre-cliente']);
+$_SESSION['type-identidad-cliente']=str_replace("'","",$_POST['type-identidad-cliente']);
+$_SESSION['doc-identidad-cliente']=str_replace("'","",$_POST['doc-identidad-cliente']);
 $_SESSION['telf-cliente']=str_replace("'","",$_POST['telf-cliente']);
 $_SESSION['email-cliente']=str_replace("'","",$_POST['email-cliente']);
 $_SESSION['razon-social']=str_replace("'","",$_POST['razon-social']);
@@ -30,9 +32,11 @@ $_SESSION['codigo-postal']=str_replace("'","",$_POST['codigo-postal']);
 $_SESSION['observaciones']=str_replace("'",".",$_POST['observaciones']);
 
 include 'comprar.php';
- if (isset($_SESSION['total'])){
+
+if (isset($_SESSION['total'])){
     $total=$_SESSION['total'];
   }
+
 //Enviar mail
 $cliente_mail=$_SESSION['nombre-cliente'];
 $destino=$_SESSION['email-cliente'];
@@ -47,7 +51,7 @@ $contenido = '<html>
 <br>Agradecemos tu compra realizada en nuestra tienda virtual Rouxa, Recuerda que puedes hacerles seguimiento a traves del siguiente ID.
 <br>Que tengas un Feliz Dia.
 </p>
-<h4> IDCOMPRA: '. md5($CS).'</h4>
+<h4> IDCOMPRA: '.$Llave.'</h4>
 </body>
 </html>';
 $headers = "MIME-Version: 1.0" . "\r\n";
@@ -93,42 +97,29 @@ $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
              return r;
          }
     </script>
-  <body onload="deshabilitaRetroceso()">
-    <div class="container my-4">
-      <div class="row mt-3">
-        <h1 style="font-family: 'Playfair Display', serif;">¡Felicidades por tu Compra!</h1>
-      </div>
-      <div class="row">
-        <p class="lead">Usted ha realizado la compra de manera existosa. Para continuar, realice el pago total del carrito de compras a tráves de la plataforma de pago de Mercado Pago.</p>
-      </div>
-    </div>
-    <div class="container">
-      <div class="row text-dark mb-3">
-        Su llave digital es la siguiente:
-      </div>
-      <div class="row justify-content-center">
-        <div class="col-4 breadcrumb">
-          <b>
-            <?PHP
-            if($_POST){
-              echo md5($CS);
-            }else{ echo 'Error: ID No generado'; }
-            ?>
-          </b>
-        </div>
-      </div>
-      <div class="row mb-3 justify-content-center">
-        <small class="text-muted">¿Que es una <a href="../faq/index.php?id=5">llave digital</a>?</small>
-      </div>
-      <div class="row">
-        <p class="text-muted"><b>¡Importante!</b><br/>El seguimiento de su pedido lo podrá realizar con la llave digital entregada.<br>
-          <b class="text-dark">¡No te preocupes!</b> Te estaremos enviando un correo con todos los datos de su pedido, envío y la llave digital.<br/>
-        </p>
+
+  <body  onload="deshabilitaRetroceso()">
+<!-- Inicio de codigo. !-->
+     <div class="jumbotron mb-0">
+      <h1 class="display-4">¡Felicidades por tu Compra! </h1>
+      <p class="lead">Usted ha realizado la compra de manera existosa. Para continuar, realice el pago total del carrito de compras a traves de la plataforma de cobranza Mercado pago. <br><br> Su llave digital es la siguiente:</p>
+        <div class="p-3 mb-2 bg-info text-white">
+           <p class="text-center mt-3"><?PHP
+                 if($_POST){
+                     #echo md5($CS); //Cadena del Id completa
+                     #cadena de $Ncadena caracteres de la cadena
+                     echo $Llave;
+                 }else{
+                     echo 'Error: ID No generado';
+                 }
+                 ?></p>
+
       </div>
       <hr class="my-4">
     <?php
-        if (!empty($CS) and isset($_POST['nombre-cliente'])){
-                  $id_mp=md5($CS);
+
+            if (isset($_POST['nombre-cliente'])){
+                  $id_mp=$Llave;
                   $cliente_mp=$_POST['nombre-cliente'];
             }
             if (!empty($total) and isset($_POST['nombre-cliente']) and isset($_POST['email-cliente'])){

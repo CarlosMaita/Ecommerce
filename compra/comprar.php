@@ -8,6 +8,7 @@
 include_once '../common/conexion.php';
 //LECTURA DE VARIABLES
 $nombre_cliente =$_SESSION['nombre-cliente'];
+$docid_cliente= $_SESSION['type-identidad-cliente'].'-'.$_SESSION['doc-identidad-cliente'];
 $telf_cliente=$_SESSION['telf-cliente'];
 $email_cliente=$_SESSION['email-cliente'];
 $monto =  $_SESSION['total'];
@@ -56,9 +57,18 @@ if ($result->num_rows > 0) {
     }
 $sql0="DELETE FROM PEDIDOS WHERE ESTATUS=0 AND EMAIL='$email_cliente';";
 if ($conn->query($sql0) === TRUE) {
-   } else { echo "Error: " . $sql0 . "<br>" . $conn->error; }
-$md5= md5($CS);
-$sql1 = "INSERT INTO PEDIDOS (IDPEDIDO,CLIENTE,TELEFONO,EMAIL,ESTATUS, FECHAPEDIDO) VALUES ( MD5('$md5'),'$nombre_cliente', '$telf_cliente', '$email_cliente', '$STATUS_START', CURRENT_DATE());";
+
+   } else {
+    echo "Error: " . $sql0 . "<br>" . $conn->error;
+}
+#Llave Digital
+$Ncadena=6;
+$Llave=substr(md5($CS), 0, $Ncadena);
+#echo $Llave;
+$md5=$Llave.$docid_cliente;
+#$md5= md5($CS);
+$sql1 = "INSERT INTO PEDIDOS (IDPEDIDO,CLIENTE,DOCID,TELEFONO,EMAIL,ESTATUS, FECHAPEDIDO) VALUES ( MD5('$md5'),'$nombre_cliente','$docid_cliente', '$telf_cliente', '$email_cliente', '$STATUS_START', CURRENT_DATE());";
+
 if ($conn->query($sql1) === TRUE) {
    } else { echo "Error: " . $sql1 . "<br>" . $conn->error; }
 $sql2="INSERT INTO `COMPRAS`( `IDPEDIDO`, `MONTO`, `RAZONSOCIAL`, `RIFCI`, `DIRFISCAL`) VALUES (MD5('$md5'), '$monto', '$razon',' $identidad','$dir_fiscal');";
@@ -94,8 +104,10 @@ if ($conn->query($sql2) === TRUE) {
     $parroquia=$_SESSION['parroquia'];
     $direccion = $_SESSION['direccion'].', '.$_POST['ref'];
     $codigo_postal=$_SESSION['codigo-postal'];
+    $encomienda=$_SESSION['encomienda'];
     $observaciones=$_SESSION['observaciones'];
-$sql="INSERT INTO `ENVIOS`( `IDPEDIDO`, `PAIS`, `ESTADO`, `CIUDAD`, `MUNICIPIO`, `PARROQUIA`, `DIRECCION`, `CODIGOPOSTAL`, `RECEPTOR`, `CIRECEPTOR`, `TELFRECEPTOR`, `OBSERVACIONES`, `GUIA`) VALUES (MD5('$md5'),'$pais','$estado','$ciudad','$municipio','$parroquia','$direccion', '$codigo_postal','$receptor', '$receptor_ci' , '$receptor_tel','$observaciones', NULL)";
+    $sql="INSERT INTO `ENVIOS`( `IDPEDIDO`, `PAIS`, `ESTADO`, `CIUDAD`, `MUNICIPIO`, `PARROQUIA`, `DIRECCION`, `CODIGOPOSTAL`, `RECEPTOR`, `CIRECEPTOR`, `TELFRECEPTOR`,`ENCOMIENDA`, `OBSERVACIONES`, `GUIA`)
+     VALUES (MD5('$md5'),'$pais','$estado','$ciudad','$municipio','$parroquia','$direccion', '$codigo_postal','$receptor', '$receptor_ci' , '$receptor_tel','$encomienda','$observaciones', NULL)";
  if ($conn->query($sql) === TRUE) {
        } else {
         echo "Error: " .$sql. "<br>" . $conn->error;
