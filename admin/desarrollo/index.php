@@ -1,5 +1,7 @@
 <?php
 include_once('../common/sesion2.php');
+if($_SESSION['nivel']==6 || $_SESSION['nivel']==1){
+}else{ header('Location: ../principal.php'); }
 require('../../common/conexion.php');
  ?>
 <!DOCTYPE html>

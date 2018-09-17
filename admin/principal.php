@@ -1,6 +1,12 @@
 <?php
   include('common/sesion.php');
   include('../common/conexion.php');
+  $email=$_SESSION['USUARIO'];
+  $sql="SELECT NIVEL FROM USUARIOS WHERE CORREO='$email'";
+  $result_nivel = $conn->query($sql);
+  if($row=$result_nivel->fetch_assoc()){
+    $_SESSION['nivel']=$row['NIVEL'];
+  }
  ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -33,7 +39,7 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-5 align-self-center">
-                        <h4 class="page-title">Principal</h4>
+                        <h4 class="page-title">Principal <?php echo $_SESSION['nivel'];?></h4>
                     </div>
                     <div class="col-7 align-self-center">
                         <div class="d-flex align-items-center justify-content-end">

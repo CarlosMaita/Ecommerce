@@ -45,12 +45,6 @@
     </div>
 </nav>
 </header>
-<?php
-$email=$_SESSION['USUARIO'];
-$sql="SELECT NIVEL FROM USUARIOS WHERE CORREO='$email'";
-$result = $conn->query($sql);
-if($row=$result->fetch_assoc()){
- ?>
 <aside class="left-sidebar" data-sidebarbg="skin5">
     <div class="scroll-sidebar">
         <nav class="sidebar-nav">
@@ -106,7 +100,6 @@ if($row=$result->fetch_assoc()){
         </nav>
     </div>
 </aside>
-<?php } ?>
 <div class="modal fade" id="closeSesion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

@@ -20,6 +20,7 @@
 <body>
   <?php
   if(isset($_POST['correo'])){
+    $email=$_SESSION['USUARIO'];
     $pass=0;
     $usua=0;
       if($_POST['correo']!=null && $_POST['clave']!=null){

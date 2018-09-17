@@ -1,5 +1,7 @@
 <?php
   include_once('../common/sesion2.php');
+  if($_SESSION['nivel']==4 || $_SESSION['nivel']==1){
+  }else{ header('Location: ../principal.php'); }
   require('../../common/conexion.php');
     if(isset($_GET['orden']) and isset($_GET['id']) ){
         $newid=$_GET['id'];

@@ -1,7 +1,8 @@
 <?php
 include_once('../common/sesion2.php');
+if($_SESSION['nivel']==6 || $_SESSION['nivel']==1){
+}else{ header('Location: ../principal.php'); }
 require('../../common/conexion.php');
-
 if(isset($_GET['color'],$_GET['color_hex'] )){
         $color=$_GET['color'];
         $hex=$_GET['color_hex'];
