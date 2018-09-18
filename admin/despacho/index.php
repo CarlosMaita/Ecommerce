@@ -15,11 +15,6 @@ require('../../common/conexion.php');
     <link rel="icon" type="image/jpg" sizes="16x16" href="../../imagen/favicon.jpg">
     <title>Rouxa - Administración</title>
     <link href="../dist/css/style.min.css" rel="stylesheet">
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
 </head>
 <body>
     <div class="preloader">
@@ -66,7 +61,7 @@ require('../../common/conexion.php');
                       </div>
                   </div>
                   <?php
-                      $sql="SELECT IDPEDIDO, ESTATUS FROM `PEDIDOS` WHERE `ESTATUS`>2 and `ESTATUS`<6" ;
+                      $sql="SELECT IDPEDIDO, ESTATUS,FECHAPEDIDO FROM `PEDIDOS` WHERE `ESTATUS`>2 and `ESTATUS`<6 ORDER BY 3" ;
                       $result = $conn->query($sql);
                       if ($result->num_rows > 0){
                     ?>
@@ -77,10 +72,9 @@ require('../../common/conexion.php');
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                              <th class="border-top-0">IDPedido</th>
+                                              <th class="border-top-0">Pedido</th>
                                               <th class="border-top-0">Estatus</th>
                                               <th class="border-top-0">Fecha</th>
-                                              <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -88,52 +82,30 @@ require('../../common/conexion.php');
                                             while($row = $result->fetch_assoc()){
                                               $id=$row['IDPEDIDO'];
                                               $estatus=$row['ESTATUS'];
+                                              $fecha=$row['FECHAPEDIDO'];
                                           ?>
-                                          <?php
-                                          $sql2="SELECT `IDINVENTARIO`, `CANTIDAD` FROM `ITEMS` WHERE `IDPEDIDO`='$id'";//encuentro los articulos del pedido
-                                          $result2 = $conn->query($sql2);
-                                              if ($result2->num_rows > 0){
-                                                while($row2 = $result2->fetch_assoc()){
-                                                  $idinventario=$row2['IDINVENTARIO'];
-                                                  $cantidad=$row2['CANTIDAD'];
-                                                  $sql3="SELECT p.NOMBRE_P, i.TALLA FROM `INVENTARIO` i
-                                                  INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO
-                                                  INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
-                                                  WHERE i.IDINVENTARIO='$idinventario' LIMIT 1";
-                                                  $result3 = $conn->query($sql3);
-                                                  if ($result3->num_rows > 0){
-                                                    while($row3 = $result3->fetch_assoc()){
-                                                      $nombre=$row3['NOMBRE_P'];
-                                                      $talla=$row3['TALLA'];
-                                                    }
-                                                  }
-                                                       ?>
-                                                       <tr>
-                                                           <td class="txt-oflo"> <small><?php echo $id;?></small> </td>
-                                                           <td>
-                                                             <?php
-                                                                  switch ($estatus) {
-                                                                    case '3':
-                                                                      echo '<span class="label label-purple label-rounded">Por Buscar</span>';
-                                                                      break;
-                                                                      case '4':
-                                                                        echo '<span class="label label-info label-rounded">Por Empaquetar</span>';
-                                                                        break;
-                                                                      case '5':
-                                                                          echo '<span class="label label-warning label-rounded">Por Enviar</span>';
-                                                                          break;
-                                                                    default:
-                                                                      // code...
-                                                                      break;
-                                                                  }
-                                                              ?>
-                                                           </td>
-                                                           <td class="txt-oflo"><?=date('d/m, Y') ?></td>
-                                                       </tr>
-                                                       <?php
-                                                       }
-                                                           }
-                                                           ?>
+                                           <tr>
+                                               <td class="txt-oflo"> <small><?php echo $id;?></small> </td>
+                                               <td>
+                                                 <?php
+                                                      switch ($estatus) {
+                                                        case '3':
+                                                          echo '<span class="label label-purple label-rounded">Por Buscar</span>';
+                                                          break;
+                                                          case '4':
+                                                            echo '<span class="label label-info label-rounded">Por Empaquetar</span>';
+                                                            break;
+                                                          case '5':
+                                                              echo '<span class="label label-warning label-rounded">Por Enviar</span>';
+                                                              break;
+                                                        default:
+                                                        echo '<span class="label label-danger label-rounded">Error</span>';
+                                                          break;
+                                                      }
+                                                  ?>
+                                               </td>
+                                               <td class="txt-oflo"><?=$fecha?></td>
+                                           </tr>
                                         </tbody>
                                             <?php } ?>
                                     </table>
@@ -152,7 +124,8 @@ require('../../common/conexion.php');
         <?php
           }
             $conn->close();
-            include('../common/footer.php'); ?>
+            include('../common/footer.php');
+            ?>
     </div>
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
