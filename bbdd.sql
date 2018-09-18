@@ -73,6 +73,20 @@ CREATE TABLE COLOR (
 
 /******sistema de compra y envios Rouxa******/
 
+/*
+ESTATUS
+0-'Por Pagar'
+1-'Pago Fallido';
+2-'Pago pendiente';
+3-'Por Buscar';
+4-'Por empaquetar' ;
+5-'Por enviar';
+6-'Enviado';
+7-'Completado';
+10-'Bajo Revisión';
+*/
+
+
 CREATE TABLE PEDIDOS (
     IDPEDIDO VARCHAR(32),
     CLIENTE VARCHAR(50),

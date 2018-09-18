@@ -96,7 +96,7 @@
                           break;
                       case '2': $status='Pago pendiente';
                           break;
-                      case '3': $status='Pagado | Buscando en stock';
+                      case '3': $status='Por buscar';
                           break;
                       case '4': $status='Por empaquetar' ;
                           break;
