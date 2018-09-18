@@ -88,10 +88,7 @@
                                     <li class="breadcrumb-item">
                                         <a href="../principal.php">Inicio</a>
                                     </li>
-                                    <li class="breadcrumb-item">
-                                        <a href="index.php">Despacho</a>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Buscador Pedido</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Fallas</li>
                                 </ol>
                             </nav>
                         </div>
@@ -99,20 +96,7 @@
                 </div>
             </div>
                   <div class="container-fluid">
-                    <div class="row justify-content-around mb-3">
-                      <div class="col-3 text-center">
-                        <a class="btn btn-link text-success" href="buscador_pedido.php">Busqueda de Pedidos</a>
-                      </div>
-                      <div class="col-3 text-center">
-                        <a class="btn btn-link text-success" href="empaquetado.php">Empaquetado</a>
-                      </div>
-                      <div class="col-3 text-center">
-                        <a class="btn btn-link text-success" href="envios.php">Envíos</a>
-                      </div>
-                      <div class="col-3 text-center">
-                        <a class="btn btn-link text-danger" href="fallas.php">Fallas</a>
-                      </div>
-                    </div>
+                    
                     <?php
                         $sql="SELECT `IDPEDIDO` FROM `PEDIDOS` WHERE `ESTATUS`=3";
                         $result = $conn->query($sql);

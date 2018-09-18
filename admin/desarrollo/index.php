@@ -58,6 +58,9 @@ require('../../common/conexion.php');
                       <a class="btn btn-link text-success" href="usuarios.php">Agregar/Eliminar Usuario</a>
                     </div>
                     <div class="col-4 text-center">
+                      <a class="btn btn-link text-success" href="categoria.php">Agregar/Eliminar Tipo de Prenda</a>
+                    </div>
+                    <div class="col-4 text-center">
                       <a class="btn btn-link text-success" href="colores.php">Agregar/Eliminar Color</a>
                     </div>
                 </div>
@@ -122,43 +125,77 @@ require('../../common/conexion.php');
                     </div>
                   </div>
                 </div>
-                  <div class="col-6">
+                <div class="col-6">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title">Colores en Base de Datos</h4>
-                      <h6 class="card-subtitle">Estos colores serviran de filtro en las busquedas de la página</h6>
+                      <h4 class="card-title">Tipos de prendas en Base de Datos</h4>
+                      <h6 class="card-subtitle">Estas son las prendas disponibles para el inventario</h6>
                     </div>
                     <div class="table-responsive">
                       <table class="table table-hover">
                         <thead class="thead-light">
                           <tr class="text-center">
-                            <th scope="col">Color</th>
                             <th scope="col">Nombre</th>
+                            <th scope="col"></th>
                           </tr>
                         </thead>
                         <tbody>
-                          <?php
-                          $sql="SELECT * FROM COLOR LIMIT 5;";
-                          $result = $conn->query($sql);
-                          if ($result->num_rows > 0){
-                          // output data of each row
-                          while($row = $result->fetch_assoc()){
-                              ?>
-                          <tr class="text-center">
-                              <td><span class="dot3" style="background-color:<?=$row['HEX']?>"></span></td>
-                             <td><?=$row['COLOR']?></td>
-                          </tr>
-
-                              <?php
-                           }
-                          }
-                            ?>
-
+                              <tr class="text-center">
+                                <td>Pantalon</td>
+                                <td></td>
+                              </tr>
+                              <tr class="text-center">
+                                <td>Franela</td>
+                                <td></td>
+                              </tr>
+                              <tr class="text-center">
+                                <td>Camisa</td>
+                                <td></td>
+                              </tr>
+                              <tr class="text-center">
+                                <td>Gorras</td>
+                                <td></td>
+                              </tr>
                         </tbody>
                       </table>
                     </div>
                   </div>
                 </div>
+                  <div class="col-6">
+                    <div class="card">
+                      <div class="card-body">
+                        <h4 class="card-title">Colores en Base de Datos</h4>
+                        <h6 class="card-subtitle">Estos colores serviran de filtro en las busquedas de la página</h6>
+                      </div>
+                      <div class="table-responsive">
+                        <table class="table table-hover">
+                          <thead class="thead-light">
+                            <tr class="text-center">
+                              <th scope="col">Color</th>
+                              <th scope="col">Nombre</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <?php
+                            $sql="SELECT * FROM COLOR LIMIT 5;";
+                            $result = $conn->query($sql);
+                            if ($result->num_rows > 0){
+                              // output data of each row
+                              while($row = $result->fetch_assoc()){
+                                ?>
+                                <tr class="text-center">
+                                  <td><span class="dot3" style="background-color:<?=$row['HEX']?>"></span></td>
+                                  <td><?=$row['COLOR']?></td>
+                                </tr>
+                                <?php
+                              }
+                            }
+                            ?>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
                 </div>
             </div>
             <?php include('../common/footer.php'); ?>

@@ -100,17 +100,14 @@
             </div>
                   <div class="container-fluid">
                     <div class="row justify-content-around mb-3">
-                      <div class="col-3 text-center">
+                      <div class="col-4 text-center">
                         <a class="btn btn-link text-success" href="buscador_pedido.php">Busqueda de Pedidos</a>
                       </div>
-                      <div class="col-3 text-center">
+                      <div class="col-4 text-center">
                         <a class="btn btn-link text-success" href="empaquetado.php">Empaquetado</a>
                       </div>
-                      <div class="col-3 text-center">
+                      <div class="col-4 text-center">
                         <a class="btn btn-link text-success" href="envios.php">Envíos</a>
-                      </div>
-                      <div class="col-3 text-center">
-                        <a class="btn btn-link text-danger" href="fallas.php">Fallas</a>
                       </div>
                     </div>
                     <?php
@@ -160,7 +157,7 @@
                                                   <td class="txt-oflo"><?=date('d/m, Y') ?></td>
                                                   <td><span class="font-medium"><button type="button" class="enlace2 ml-auto" href="javascript:void(0)" data-toggle="modal" data-target="#ver<?php echo $id;?>">Ver artículos</button></span></td>
                                                   <td><a id="good" class="btn btn-outline-success btn-sm" href="buscador_pedido.php?orden=good&id=<?php echo $id;?>" onclick="return confirma()">Listo</a>
-                                                  <a onclick="ven()" id="bad" class="btn btn-outline-danger btn-sm" href="javascript:void(0)" data-toggle="modal" data-target="#fal<?php echo $id;?>">Falla</a></td>
+                                                  <a onclick="ven()" id="bad" class="btn btn-outline-danger btn-sm" href="javascript:void(0)" data-toggle="modal" data-target="#fal<?php echo $id;?>"><span title="Reportar Inconveniente" data-toggle="tooltip">Falla</span></a></td>
                                               </tr>
                                               <div class="modal fade bd-example-modal-lg" id="ver<?php echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">

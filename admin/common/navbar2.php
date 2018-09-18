@@ -56,12 +56,12 @@ if($row=$result->fetch_assoc()){
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
               <?php if($row["NIVEL"]==1){ ?>
-                <li class="sidebar-item">
+                <!--<li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../administracion/index.php" aria-expanded="false">
                         <i class="mdi mdi-av-timer"></i>
                         <span class="hide-menu">Administración</span>
                     </a>
-                </li>
+                </li>-->
                 <?php }
                 if($row["NIVEL"]==6 || $row["NIVEL"]==1){ ?>
                 <li class="sidebar-item">
@@ -95,13 +95,22 @@ if($row=$result->fetch_assoc()){
                         <span class="hide-menu">Despacho</span>
                     </a>
                 </li>
-                <?php } ?>
-                <li class="sidebar-item">
+                <?php }
+                if ($row["NIVEL"]==1) {
+              ?>
+              <li class="sidebar-item">
+                  <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../fallas/" aria-expanded="false">
+                      <i class="mdi mdi-alert-box"></i>
+                      <span class="hide-menu">Fallas</span>
+                  </a>
+              </li>
+              <?php } ?>
+                <!--<li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../common/configuracion.php" aria-expanded="false">
                         <i class="mdi mdi-wrench"></i>
                         <span class="hide-menu">Configuración</span>
                     </a>
-                </li>
+                </li>-->
             </ul>
         </nav>
     </div>

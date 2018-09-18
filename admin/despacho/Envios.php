@@ -80,17 +80,14 @@ require('../../common/conexion.php');
                   </div>
                         <div class="container-fluid">
                           <div class="row justify-content-around mb-3">
-                            <div class="col-3 text-center">
+                            <div class="col-4 text-center">
                               <a class="btn btn-link text-success" href="buscador_pedido.php">Busqueda de Pedidos</a>
                             </div>
-                            <div class="col-3 text-center">
+                            <div class="col-4 text-center">
                               <a class="btn btn-link text-success" href="empaquetado.php">Empaquetado</a>
                             </div>
-                            <div class="col-3 text-center">
+                            <div class="col-4 text-center">
                               <a class="btn btn-link text-success" href="envios.php">Envíos</a>
-                            </div>
-                            <div class="col-3 text-center">
-                              <a class="btn btn-link text-danger" href="fallas.php">Fallas</a>
                             </div>
                           </div>
                           <?php
@@ -150,7 +147,7 @@ require('../../common/conexion.php');
                                                           <td>
                                                             <button type="submit" id="Enviado" class="btn btn-outline-success btn-sm" onclick="return confirma()">Enviado</button>
                                                         </form>
-                                                          <a onclick="ven()" id="bad" class="btn btn-outline-danger btn-sm" href="javascript:void(0)" data-toggle="modal" data-target="#fal<?php echo $id;?>">Falla</a></td>
+                                                          <a onclick="ven()" id="bad" class="btn btn-outline-danger btn-sm" href="javascript:void(0)" data-toggle="modal" data-target="#fal<?php echo $id;?>"><span title="Reportar Inconveniente" data-toggle="tooltip">Falla</span></a></td>
                                                         </td>
                                                     </tr>
                                                     <div class="modal fade bd-example-modal-lg" id="ver<?php echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
