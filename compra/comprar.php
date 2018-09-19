@@ -17,9 +17,9 @@ if(isset($_POST['isfacture'])){
     $identidad=$_SESSION['type-identidad'].'-'.$_SESSION['doc-identidad'];
     $dir_fiscal=$_SESSION['dir-fiscal'];
 }else{
-    $razon='NULL';
-    $identidad='NULL';
-    $dir_fiscal='NULL';
+    $razon='';
+    $identidad='';
+    $dir_fiscal='';
 }
 $STATUS_START=0;
 //ESCRIBE Los COMANDOS SQLs
@@ -102,7 +102,12 @@ if ($conn->query($sql2) === TRUE) {
     $ciudad=$_SESSION['ciudad'];
     $municipio=$_SESSION['municipio'];
     $parroquia=$_SESSION['parroquia'];
-    $direccion = $_SESSION['direccion'].', '.$_POST['ref'];
+    if(!empty($_POST['ref'])){
+      $direccion = $_SESSION['direccion'].', '.$_POST['ref'];
+    }else{
+      $direccion = $_SESSION['direccion'];
+    }
+
     $codigo_postal=$_SESSION['codigo-postal'];
     $encomienda=$_SESSION['encomienda'];
     $observaciones=$_SESSION['observaciones'];

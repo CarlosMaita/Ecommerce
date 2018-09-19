@@ -94,9 +94,9 @@ require('../../common/conexion.php');
                             </div>
                           </div>
                           <?php
-                              $sql="SELECT `IDPEDIDO` FROM `PEDIDOS` WHERE `ESTATUS`=5";
-                              $result = $conn->query($sql);
-                              if ($result->num_rows > 0){
+                        $sql="SELECT `IDPEDIDO` FROM `PEDIDOS` WHERE `ESTATUS`=5";
+                        $result = $conn->query($sql);
+                        if ($result->num_rows > 0){
                             ?>
                             <div class="row">
                                 <div class="col-12">
@@ -105,7 +105,7 @@ require('../../common/conexion.php');
                                             <table class="table table-hover">
                                                 <thead>
                                                     <tr>
-                                                      <th class="border-top-0">IDPedido</th>
+                                                      <th class="border-top-0">Pedido</th>
                                                       <th class="border-top-0">Estatus</th>
                                                       <th class="border-top-0">Fecha</th>
                                                       <th class="border-top-0" title="Dirección de Envío" data-toggle="tooltip">Dirección</th>
@@ -118,30 +118,62 @@ require('../../common/conexion.php');
                                                   <?php
                                                     while($row = $result->fetch_assoc()){
                                                       $id=$row['IDPEDIDO'];
-                                                  $sql2="SELECT `IDINVENTARIO`, `CANTIDAD` FROM `ITEMS` WHERE `IDPEDIDO`='$id'";//encuentro los articulos del pedido
-                                                  $result2 = $conn->query($sql2);
+                                                      $sql2="SELECT *  FROM PEDIDOS p
+                                                      INNER JOIN ENVIOS e ON e.IDPEDIDO=p.IDPEDIDO
+                                                      INNER JOIN COMPRAS c ON c.IDPEDIDO=p.IDPEDIDO
+                                                      WHERE p.IDPEDIDO='$id' and ESTATUS=5  ORDER BY 3 "; //encuentro los articulos del pedido
+                                                      $result2 = $conn->query($sql2);
                                                       if ($result2->num_rows > 0){
                                                         while($row2 = $result2->fetch_assoc()){
-                                                          $idinventario=$row2['IDINVENTARIO'];
-                                                          $cantidad=$row2['CANTIDAD'];
-                                                          $sql3="SELECT p.NOMBRE_P, i.TALLA FROM `INVENTARIO` i
-                                                          INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO
-                                                          INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
-                                                          WHERE i.IDINVENTARIO='$idinventario' LIMIT 1";
-                                                          $result3 = $conn->query($sql3);
-                                                          if ($result3->num_rows > 0){
-                                                            while($row3 = $result3->fetch_assoc()){
-                                                              $nombre=$row3['NOMBRE_P'];
-                                                              $talla=$row3['TALLA'];
-                                                            }
-                                                          }
-                                                               ?>
+                                                          #GET VALUES
+                                                          $estatus=$row2['ESTATUS'];
+                                                          $fecha=$row2['FECHAPEDIDO'];
+                                                          #cliente
+                                                          $cliente=$row2['CLIENTE'];
+                                                           #Direccion
+                                                           $pais=$row2['PAIS'];
+                                                           $estado=$row2['ESTADO'];
+                                                           $ciudad=$row2['CIUDAD'];
+                                                           $municipio=$row2['MUNICIPIO'];
+                                                           $parroquia=$row2['PARROQUIA'];
+                                                           $direccion=$row2['DIRECCION'];
+                                                           $codigopostal=$row2['CODIGOPOSTAL'];
+                                                           $encomienda=$row2['ENCOMIENDA'];
+                                                           $observaciones=$row2['OBSERVACIONES'];
+                                                           #receptor
+                                                           $receptor=$row2['RECEPTOR'];
+                                                           $ci_receptor=$row2['CIRECEPTOR'];
+                                                           $telf_receptor=$row2['TELFRECEPTOR'];
+                                                           #Factura
+                                                           $isfactura=false;
+                                                           if(!empty($row2['RAZONSOCIAL']) and !empty($row2['RIFCI']) and !empty($row2['DIRFISCAL'])){
+                                                             $isfactura=true;
+                                                             $razon_social=$row2['RAZONSOCIAL'];
+                                                             $rif=$row2['RIFCI'];
+                                                             $dir_fiscal=$row2['DIRFISCAL'];
+                                                           }
+
+                                                           #Peso
+                                                           $sql8="SELECT i.PESO as PESO, it.CANTIDAD as CANTIDAD FROM ITEMS it
+                                                           INNER JOIN INVENTARIO i ON i.IDINVENTARIO=it.IDINVENTARIO
+                                                           WHERE it.IDPEDIDO='$id'";
+                                                           $res12= $conn->query($sql8);
+                                                           if ($res12->num_rows > 0){
+                                                             $peso=0;
+                                                             while($row9 = $res12->fetch_assoc()){
+                                                                $peso=$peso+$row9['PESO']*$row9['CANTIDAD'];
+                                                             }
+                                                           }
+
+
+
+                                                        ?>
                                                     <tr>
                                                         <td class="txt-oflo"> <small><?php echo $id;?></small></td>
                                                         <td><span class="label label-warning label-rounded">Por Enviar</span></td>
-                                                        <td class="txt-oflo"><?=date('d/m, Y') ?></td>
+                                                        <td class="txt-oflo"><?=$fecha?></td>
                                                         <td><span class="font-medium"><button type="button" class="enlace2 ml-auto" href="javascript:void(0)" data-toggle="modal" data-target="#ver<?php echo $id;?>">Ver dirección</button></span></td>
-                                                        <td>450</td>
+                                                        <td><?=number_format($peso,2,',','.')?></td>
                                                         <form action="Envios.php" method="get">
                                                           <input type="text" value="<?php echo $id;?>" name="id" style="display: none">
                                                           <td>
@@ -157,7 +189,7 @@ require('../../common/conexion.php');
                                                       <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
                                                           <div class="modal-header">
-                                                            <h5 class="modal-title" id="closeSesionLabel">A Enviar por Domesa</h5>
+                                                            <h5 class="modal-title" id="closeSesionLabel">A Enviar por <?=$encomienda?></h5>
                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                               <span aria-hidden="true">&times;</span>
                                                             </button>
@@ -169,26 +201,25 @@ require('../../common/conexion.php');
                                                                   <div class="container-fluid">
                                                                     <div class="row">
                                                                       <div class="col-auto">
-                                                                        <b>Compra de Peter Parker</b>
+                                                                        <b>Compra de <?=$cliente?></b>
                                                                       </div>
                                                                       <div class="col-12">
                                                                         <div class="row">
                                                                           <div class="col-6">
-                                                                            <small class="d-block">Enviar a: <span class="text-muted">Clark Kent</span></small>
-                                                                            <small class="d-block">Teléfono: <span class="text-muted">0416-3425456</span></small>
-                                                                            <small class="d-block">País: <span class="text-muted">Zimbawe</span></small>
-                                                                            <small class="d-block">Municipio: <span class="text-muted">Naguanagua</span></small>
-                                                                            <small class="d-block">Dirección: <span class="text-muted">Naguanagua</span></small>
-                                                                            <small class="d-block">Código Postal: <span class="text-muted">2013</span></small>
+                                                                            <small class="d-block">Enviar a: <span class="text-muted"><?=$receptor?></span></small>
+                                                                            <small class="d-block">Teléfono: <span class="text-muted"><?=$telf_receptor?></span></small>
+                                                                            <small class="d-block">País: <span class="text-muted"><?=$pais?></span></small>
+                                                                            <small class="d-block">Municipio: <span class="text-muted"><?=$municipio?></span></small>
+                                                                            <small class="d-block">Código Postal: <span class="text-muted"><?=$codigopostal?></span></small>
                                                                           </div>
                                                                           <div class="col-6">
-                                                                            <small class="d-block">Cedula: <span class="text-muted">500.000.000</span></small>
-                                                                            <small class="d-block">Estado: <span class="text-muted">Moscu</span></small>
-                                                                            <small class="d-block">Parroquia: <span class="text-muted">Moscu</span></small>
-                                                                            <small class="d-block">Referencia: <span class="text-muted">Cerca de mi casa</span></small>
+                                                                            <small class="d-block">Cedula: <span class="text-muted"><?=$ci_receptor?></span></small>
+                                                                            <small class="d-block">Estado: <span class="text-muted"><?=$estado?></span></small>
+                                                                            <small class="d-block">Parroquia: <span class="text-muted"><?=$parroquia?></span></small>
+                                                                            <small class="d-block">Dirección: <span class="text-muted"><?=$direccion?></span></small>
                                                                           </div>
-                                                                          <div class="col-12">
-                                                                            <small class="d-block">Observaciones: <span class="text-muted">Vienes por aca, cruzas por alla y llegas hasta aqui</span></small>
+                                                                          <div class="col-12 mt-2">
+                                                                            <small class="d-block">Observaciones: <span class="text-muted"><?php if(!empty($observaciones)){ echo $observaciones;}else{ echo 'Sin observaciones';} ?></span></small>
                                                                           </div>
                                                                         </div>
                                                                       </div>
@@ -196,16 +227,20 @@ require('../../common/conexion.php');
                                                                   </div>
                                                                 </div>
                                                               </div>
+                                                            <?php if($isfactura==true){
+                                                              ?>
                                                               <hr>
                                                               <div class="co-12">
                                                                 <b>Factura Fiscal:</b>
-                                                                <small class="d-block">Razon Social: <span class="text-muted">Rouxa</span></small>
-                                                                <small class="d-block">Rif: <span class="text-muted">G-123456789</span></small>
-                                                                <small class="d-block">Direccion Fiscal: <span class="text-muted">por aqui estoy, y aqui esta la empresa.</span></small>
+                                                                <small class="d-block">Razon Social: <span class="text-muted"><?=$razon_social?></span></small>
+                                                                <small class="d-block">Rif: <span class="text-muted"><?=$rif?></span></small>
+                                                                <small class="d-block">Direccion Fiscal: <span class="text-muted"><?=$dir_fiscal?></span></small>
                                                               </div>
+                                                              <?php
+                                                            } ?>
                                                             </div>
                                                             <hr>
-                                                            <h2 class="text-center">Peso: 450 gr</h2>
+                                                            <h2 class="text-center">Peso: <?=number_format($peso,2,',','.')?> gr</h2>
                                                           </div>
                                                         </div>
                                                       </div>
@@ -239,17 +274,18 @@ require('../../common/conexion.php');
                                                         </div>
                                                       </div>
                                                     </div>
-                                                    <?php }
-                                                        } ?>
+                                                  <?php  }
+                                                   ?>
                                                 </tbody>
-                                                <?php } ?>
+                                              <?php
+                                            } }?>
                                             </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                           <?php
-                          }else{
+                        } else{
                           ?>
                             <div class="row my-3 text-danger justify-content-center">
                               <h5>¡No hay pedidos para Enviar!</h5>

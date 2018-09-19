@@ -125,13 +125,13 @@
                                       <table class="table table-hover">
                                           <thead>
                                               <tr>
-                                                <th class="border-top-0">IDPedido</th>
+                                                <th class="border-top-0">Pedido</th>
                                                 <th class="border-top-0">Estatus</th>
                                                 <th class="border-top-0">Fecha de Compra</th>
                                                 <th class="border-top-0">Articulos</th>
                                                 <th></th>
                                               </tr>
-                                          </thead>
+                                        </thead>
                                           <tbody>
                                             <?php
                                               while($row = $result->fetch_assoc()){
