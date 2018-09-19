@@ -136,65 +136,140 @@
                                             <?php
                                               while($row = $result->fetch_assoc()){
                                                 $id=$row['IDPEDIDO'];
-                                            $sql2="SELECT `IDINVENTARIO`, `CANTIDAD` FROM `ITEMS` WHERE `IDPEDIDO`='$id'";//encuentro los articulos del pedido
-                                            $result2 = $conn->query($sql2);
+                                                $sql2="SELECT `IDPEDIDO`, `ESTATUS`, `FECHAPEDIDO` FROM `PEDIDOS` WHERE `IDPEDIDO`='$id' and ESTATUS=3  ORDER BY 3 "; //encuentro los articulos del pedido
+                                              #$sql2="SELECT `IDINVENTARIO`, `CANTIDAD`, `FECHAPEDIDO` FROM `ITEMS` WHERE `IDPEDIDO`='$id'";//encuentro los articulos del pedido
+                                                $result2 = $conn->query($sql2);
                                                 if ($result2->num_rows > 0){
                                                   while($row2 = $result2->fetch_assoc()){
-                                                    $idinventario=$row2['IDINVENTARIO'];
-                                                    $cantidad=$row2['CANTIDAD'];
-                                                    $sql3="SELECT p.NOMBRE_P, i.TALLA FROM `INVENTARIO` i
-                                                    INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO
-                                                    INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
-                                                    WHERE i.IDINVENTARIO='$idinventario' LIMIT 1";
-                                                    $result3 = $conn->query($sql3);
-                                                    if ($result3->num_rows > 0){
-                                                      while($row3 = $result3->fetch_assoc()){
-                                                        $nombre=$row3['NOMBRE_P'];
-                                                        $talla=$row3['TALLA'];
-                                                      }
-                                                    }
-                                                         ?>
+                                                    #GET VALUES
+                                                    $estatus=$row2['ESTATUS'];
+                                                    $fecha=$row2['FECHAPEDIDO'];
+                                                    ?>
                                               <tr>
                                                   <td class="txt-oflo"> <small><?php echo $id;?></small> </td>
                                                   <td><span class="label label-purple label-rounded">Por Buscar</span></td>
-                                                  <td class="txt-oflo"><?=date('d/m, Y') ?></td>
+                                                  <td class="txt-oflo"><?=$fecha?></td>
                                                   <td><span class="font-medium"><button type="button" class="enlace2 ml-auto" href="javascript:void(0)" data-toggle="modal" data-target="#ver<?php echo $id;?>">Ver artículos</button></span></td>
                                                   <td><a id="good" class="btn btn-outline-success btn-sm" href="buscador_pedido.php?orden=good&id=<?php echo $id;?>" onclick="return confirma()">Listo</a>
                                                   <a onclick="ven()" id="bad" class="btn btn-outline-danger btn-sm" href="javascript:void(0)" data-toggle="modal" data-target="#fal<?php echo $id;?>">Falla</a></td>
                                               </tr>
+
                                               <div class="modal fade bd-example-modal-lg" id="ver<?php echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                   <div class="modal-content">
                                                     <div class="modal-header">
-                                                      <h5 class="modal-title" id="closeSesionLabel">Pedido de Pedro Picapiedra</h5>
+                                                      <h5 class="modal-title" id="closeSesionLabel"><small>Pedido - <?php echo $id;?></small> </h5>
                                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                       </button>
                                                     </div>
                                                     <div class="modal-body">
+                                                      <?php
+                                                          $sql8="SELECT *, m.IMAGEN AS IMA FROM ITEMS it
+                                                          INNER JOIN INVENTARIO i ON i.IDINVENTARIO=it.IDINVENTARIO
+                                                          INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO
+                                                          INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
+                                                          WHERE it.IDPEDIDO='$id'";
+                                                          $res12= $conn->query($sql8);
+                                                          if ($res12->num_rows > 0){
+                                                            while($row9 = $res12->fetch_assoc()){
+                                                              #items
+                                                              $idinventario=$row9['IDINVENTARIO'];
+                                                              $cantidad=$row9['CANTIDAD'];
+                                                              #inventario
+                                                              $talla=$row9['TALLA'];
+                                                              $peso=$row9['PESO'];
+                                                              #modelos
+                                                              $idcolor1=$row9['COLOR1'];
+                                                              $idcolor2=$row9['COLOR2'];
+                                                              $imagen=$row9['IMA'];
+                                                              #productos
+                                                              $nombre=$row9['NOMBRE_P'];
+                                                              #genero
+                                                              switch($row9['GENERO']){
+                                                                case '1': $genero='Dama';
+                                                                 break;
+                                                                case '2': $genero='Caballero';
+                                                                 break;
+                                                                 case '3': $genero='Niño';
+                                                                  break;
+                                                                  case '4': $genero='Niña';
+                                                                  break;
+                                                                  default: $genero='Otro';
+                                                                   break;
+                                                                }
+
+                                                              $marca=ucwords($row9['MARCA']);
+                                                              $material=ucwords($row9['MATERIAL']);
+                                                              #MANGA
+                                                              switch($row9['MANGA']){
+                                                                case '1': $manga='Redondo';
+                                                                 break;
+                                                                case '2': $manga='En V';
+                                                                 break;
+                                                                 case '3': $manga='Mao';
+                                                                  break;
+                                                                  case '4': $manga='Chemise';
+                                                                  break;
+                                                                  default: $manga='No Aplica';
+                                                                   break;
+                                                                }
+                                                                #MANGA
+                                                                switch($row9['CUELLO']){
+                                                                  case '1': $cuello='Corta';
+                                                                   break;
+                                                                  case '2': $cuello='3/4';
+                                                                   break;
+                                                                   case '3': $cuello='Larga';
+                                                                    break;
+                                                                    case '4': $cuello='Sin Manga';
+                                                                    break;
+                                                                    default: $cuello='No Aplica';
+                                                                     break;
+                                                                  }
+                                                              #nombre de color
+                                                              $sql1="SELECT COLOR FROM COLOR WHERE IDCOLOR=$idcolor1";
+                                                              $sql2="SELECT COLOR FROM COLOR WHERE IDCOLOR=$idcolor2";
+                                                              #COLOR 1
+                                                              $res1= $conn->query($sql1);
+                                                              if ($res1->num_rows > 0){
+                                                                  while($row1 = $res1->fetch_assoc()){
+                                                                    #COLOR
+                                                                    $color1=$row1['COLOR'];
+                                                                  }
+                                                              }
+                                                              #COLOR 2
+                                                              $res2= $conn->query($sql2);
+                                                              if ($res2->num_rows > 0){
+                                                                  while($row2 = $res2->fetch_assoc()){
+                                                                    #COLOR
+                                                                    $color2=$row2['COLOR'];
+                                                                  }
+                                                              }
+                                                       ?>
                                                       <div class="container-fluid">
                                                         <div class="row">
                                                           <div class="col-2 text-center">
-                                                            <img class="img-fluid" src="../../imagen/1cc3633c579a90cfdd895e64021e2163.jpg" width="70px" height="70px">
+                                                            <img class="img-fluid" src="../../imagen/<?=$imagen?>" width="70px" height="70px">
                                                           </div>
                                                           <div class="col-10">
                                                             <div class="container-fluid">
                                                               <div class="row">
                                                                 <div class="col-auto">
-                                                                  <b>Frenela Nike xxxxxx</b>
+                                                                  <b><?=$nombre?> de <?=$genero?></b>
                                                                 </div>
                                                                 <div class="col-12">
                                                                   <div class="row">
                                                                     <div class="col-6">
-                                                                      <small class="d-block">CANTIDAD: <span class="text-muted">12</span></small>
-                                                                      <small class="d-block">TALLA: <span class="text-muted">M</span></small>
-                                                                      <small class="d-block">COLOR(es): <span class="text-muted">Azul/Negro</span></small>
-                                                                      <small class="d-block">MANGA: <span class="text-muted">Corta</span></small>
+                                                                      <small class="d-block">CANTIDAD: <span class="text-muted"><?=$cantidad?></span></small>
+                                                                      <small class="d-block">TALLA: <span class="text-muted"><?=$talla?></span></small>
+                                                                      <small class="d-block">COLOR(es): <span class="text-muted"><?=$color1?> / <?=$color2?></span></small>
+                                                                      <small class="d-block">MANGA: <span class="text-muted"><?=$manga?></span></small>
                                                                     </div>
                                                                     <div class="col-6">
-                                                                      <small class="d-block">MARCA: <span class="text-muted">Polo</span></small>
-                                                                      <small class="d-block">MATERIAL: <span class="text-muted">Algodón</span></small>
-                                                                      <small class="d-block">CUELLO: <span class="text-muted">Redondo</span></small>
+                                                                      <small class="d-block">MARCA: <span class="text-muted"><?=$marca?></span></small>
+                                                                      <small class="d-block">MATERIAL: <span class="text-muted"><?=$material?></span></small>
+                                                                      <small class="d-block">CUELLO: <span class="text-muted"><?=$cuello?></span></small>
                                                                     </div>
                                                                   </div>
                                                                 </div>
@@ -204,10 +279,12 @@
                                                         </div>
                                                         <hr>
                                                       </div>
+                                                    <?php }} ?>
                                                     </div>
                                                   </div>
                                                 </div>
                                               </div>
+
                                               <div class="modal fade" id="fal<?php echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                   <div class="modal-content">
@@ -261,7 +338,7 @@
               }
                 $conn->close();
                 include('../common/footer.php'); ?>
-      </div>
+        </div>
         <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
         <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
         <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
