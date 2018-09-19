@@ -168,6 +168,9 @@ require('../../common/conexion.php');
                                                                       <div class="col-auto">
                                                                         <b>Compra de Peter Parker</b>
                                                                       </div>
+                                                                      <div class="col-auto ml-auto">
+                                                                        <b>12/5/2018</b>
+                                                                      </div>
                                                                       <div class="col-12">
                                                                         <div class="row">
                                                                           <div class="col-6">

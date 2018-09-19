@@ -109,15 +109,12 @@ $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
                      #echo md5($CS); //Cadena del Id completa
                      #cadena de $Ncadena caracteres de la cadena
                      echo $Llave;
-                 }else{
-                     echo 'Error: ID No generado';
-                 }
+                 }else{ echo 'Error: ID No generado'; }
                  ?></p>
 
       </div>
       <hr class="my-4">
     <?php
-
             if (isset($_POST['nombre-cliente'])){
                   $id_mp=$Llave;
                   $cliente_mp=$_POST['nombre-cliente'];
