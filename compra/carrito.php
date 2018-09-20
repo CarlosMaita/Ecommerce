@@ -41,7 +41,6 @@ if (isset($_SESSION['carrito'])){
           $talladelete=$_GET['talla'];
           $i=0;
           foreach ($arreglo as $a) {
-
             if(($a['Id']==$iddelete) and ($a['Talla']==$talladelete)){
                 $catch=$i;
             }
@@ -54,7 +53,6 @@ if (isset($_SESSION['carrito'])){
           }
           header('Location: carrito.php');
       }
-
 }else {
     if (isset($_POST["id"], $_POST["cantidad"], $_POST["talla"] )){
         $idinventario=$_POST["id"];
@@ -125,13 +123,14 @@ if (isset($_SESSION['carrito'])){
                         $total_modelo=$d['Cantidad']*$d['Precio'];
                         $cantidad_total+=$d['Cantidad'];
                         $idinv=$d['Id'];
-                        $sql="SELECT m.COLOR1, m.COLOR2 FROM INVENTARIO i
+                        $sql="SELECT m.COLOR1, m.COLOR2, m.IDMODELO FROM INVENTARIO i
                         INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO
                         WHERE i.IDINVENTARIO=$idinv";
                         $res = $conn->query($sql);
                         while($f = $res->fetch_assoc()){
                           $idcolor1=$f['COLOR1'];
                           $idcolor2=$f['COLOR2'];
+                          $idmodelo=$f['IDMODELO'];
                         }
                         $sql="SELECT COLOR FROM COLOR WHERE IDCOLOR=$idcolor1";
                         $res = $conn->query($sql);
@@ -150,7 +149,7 @@ if (isset($_SESSION['carrito'])){
                       </div>
                       <div class="col-9 my-2">
                         <div class="row">
-                            <small><a class="enlace2" href="#"><?php echo $d['Nombre'];?></a></small>
+                            <small><a class="enlace2" href="index.php?idproducto=<?php echo $idinv;?>&idmodelo=<?php echo $idmodelo;?>" target="_blank"><?php echo $d['Nombre'];?></a></small>
                             <span class="ml-auto"><?php echo number_format($total_modelo,2,',','.');?> Bs.S</span>
                         </div>
                         <div class="row">
