@@ -136,7 +136,7 @@
                                             <?php
                                               while($row = $result->fetch_assoc()){
                                                 $id=$row['IDPEDIDO'];
-                                                $sql2="SELECT `IDPEDIDO`, `ESTATUS`, `FECHAPEDIDO` FROM `PEDIDOS` WHERE `IDPEDIDO`='$id' and ESTATUS=3  ORDER BY 3 "; //encuentro los articulos del pedido
+                                                $sql2="SELECT `IDPEDIDO`, `ESTATUS`, `FECHAPEDIDO` FROM `PEDIDOS` WHERE `IDPEDIDO`='$id' and ESTATUS=3  ORDER BY 3 ASC "; //encuentro los articulos del pedido
                                               #$sql2="SELECT `IDINVENTARIO`, `CANTIDAD`, `FECHAPEDIDO` FROM `ITEMS` WHERE `IDPEDIDO`='$id'";//encuentro los articulos del pedido
                                                 $result2 = $conn->query($sql2);
                                                 if ($result2->num_rows > 0){

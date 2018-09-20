@@ -61,7 +61,7 @@ require('../../common/conexion.php');
                       </div>
                   </div>
                   <?php
-                      $sql="SELECT IDPEDIDO, ESTATUS,FECHAPEDIDO FROM `PEDIDOS` WHERE `ESTATUS`>2 and `ESTATUS`<6 ORDER BY 3" ;
+                      $sql="SELECT IDPEDIDO, ESTATUS,FECHAPEDIDO FROM `PEDIDOS` WHERE `ESTATUS`>2 and `ESTATUS`<6  ORDER BY FECHAPEDIDO ASC " ;
                       $result = $conn->query($sql);
                       if ($result->num_rows > 0){
                     ?>

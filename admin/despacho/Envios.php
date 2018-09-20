@@ -94,7 +94,7 @@ require('../../common/conexion.php');
                             </div>
                           </div>
                           <?php
-                        $sql="SELECT `IDPEDIDO` FROM `PEDIDOS` WHERE `ESTATUS`=5";
+                        $sql="SELECT `IDPEDIDO` FROM `PEDIDOS` WHERE `ESTATUS`=5 ORDER BY FECHAPEDIDO ASC";
                         $result = $conn->query($sql);
                         if ($result->num_rows > 0){
                             ?>
@@ -121,7 +121,7 @@ require('../../common/conexion.php');
                                                       $sql2="SELECT *  FROM PEDIDOS p
                                                       INNER JOIN ENVIOS e ON e.IDPEDIDO=p.IDPEDIDO
                                                       INNER JOIN COMPRAS c ON c.IDPEDIDO=p.IDPEDIDO
-                                                      WHERE p.IDPEDIDO='$id' and ESTATUS=5  ORDER BY 3 "; //encuentro los articulos del pedido
+                                                      WHERE p.IDPEDIDO='$id' and ESTATUS=5"; //encuentro los articulos del pedido
                                                       $result2 = $conn->query($sql2);
                                                       if ($result2->num_rows > 0){
                                                         while($row2 = $result2->fetch_assoc()){
@@ -164,9 +164,6 @@ require('../../common/conexion.php');
                                                                 $peso=$peso+$row9['PESO']*$row9['CANTIDAD'];
                                                              }
                                                            }
-
-
-
                                                         ?>
                                                     <tr>
                                                         <td class="txt-oflo"> <small><?php echo $id;?></small></td>
