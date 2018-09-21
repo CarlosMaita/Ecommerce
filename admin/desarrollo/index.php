@@ -128,34 +128,33 @@ require('../../common/conexion.php');
                 <div class="col-6">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title">Tipos de prendas en Base de Datos</h4>
-                      <h6 class="card-subtitle">Estas son las prendas disponibles para el inventario</h6>
+                      <h4 class="card-title">Tipos de Categorias en Base de Datos</h4>
+                      <h6 class="card-subtitle">Estas son las Categorias disponibles para el inventario</h6>
                     </div>
                     <div class="table-responsive">
                       <table class="table table-hover">
                         <thead class="thead-light">
                           <tr class="text-center">
                             <th scope="col">Nombre</th>
-                            <th scope="col"></th>
+                            <th scope="col">Categoria padre</th>
                           </tr>
                         </thead>
                         <tbody>
-                              <tr class="text-center">
-                                <td>Pantalon</td>
-                                <td></td>
-                              </tr>
-                              <tr class="text-center">
-                                <td>Franela</td>
-                                <td></td>
-                              </tr>
-                              <tr class="text-center">
-                                <td>Camisa</td>
-                                <td></td>
-                              </tr>
-                              <tr class="text-center">
-                                <td>Gorras</td>
-                                <td></td>
-                              </tr>
+                              <?php
+                              $sql="SELECT c.NOMBRE AS NOMBRE  FROM CATEGORIAS c
+                              WHERE c.PADRE=0 LIMIT 5;";
+                              $result = $conn->query($sql);
+                              if ($result->num_rows > 0){
+                                while($row = $result->fetch_assoc()){
+                                  ?>
+                                  <tr class="text-center">
+                                    <td><?=$row['NOMBRE']?></td>
+                                    <td>Principal</td>
+                                  </tr>
+                                  <?php
+                                }
+                              }
+                              ?>
                         </tbody>
                       </table>
                     </div>
