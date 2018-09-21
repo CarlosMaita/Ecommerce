@@ -73,8 +73,8 @@ $previouspage = $curpage - 1;
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="container-fluid">
+          </div>
+          <div class="container-fluid">
               <div class="row">
                 <div class="col-4 text-center">
                   <a class="btn btn-link text-success" href="producto.php">Agregar/Eliminar Producto</a>
@@ -89,7 +89,7 @@ $previouspage = $curpage - 1;
               <div class="row justify-content-center mt-1 bg-white py-2">
                 <h3>Agregue las caracteristicas del modelo</h3>
               </div>
-              <form class="" action="addModelo.php" method="POST" enctype="multipart/form-data">
+            <form class="" action="addModelo.php" method="POST" enctype="multipart/form-data">
               <div class="row mt-3">
                 <div class="input-group mb-3 col-6">
                   <div class="input-group-prepend">
@@ -110,22 +110,22 @@ $previouspage = $curpage - 1;
                   </select>
                 </div>
                 <div class="input-group mb-3 col-3">
-                  <div class="input-group-prepend">
-                    <label class="input-group-text"><b>Color principal</b></label>
-                  </div>
-                  <select name="color1" class="custom-select text-secondary">
-                     <?php
-                       $sql="SELECT * FROM COLOR";
-                       $result = $conn->query($sql);
-                      if ($result->num_rows > 0) {
-                          while($row = $result->fetch_assoc()) {
-                            ?>
-                        <option value="<?=$row['IDCOLOR']?>"><?=$row['COLOR']?></option>
-                            <?php
-                       }
-                      }
-                      ?>
-                  </select>
+                    <div class="input-group-prepend">
+                      <label class="input-group-text"><b>Color principal</b></label>
+                    </div>
+                    <select name="color1" class="custom-select text-secondary">
+                       <?php
+                         $sql="SELECT * FROM COLOR";
+                         $result = $conn->query($sql);
+                        if ($result->num_rows > 0) {
+                            while($row = $result->fetch_assoc()) {
+                              ?>
+                          <option value="<?=$row['IDCOLOR']?>"><?=$row['COLOR']?></option>
+                              <?php
+                         }
+                        }
+                        ?>
+                    </select>
                 </div>
                 <div class="input-group mb-3 col-3">
                   <div class="input-group-prepend">
@@ -152,14 +152,22 @@ $previouspage = $curpage - 1;
               <div class="row justify-content-center mb-3">
                 <button type="submit" class="btn btn-outline-primary">Agregar</button>
               </div>
-              </form>
+            </form>
+
                 <div class="row mt-3">
                   <div class="col-12">
                   <div class="card">
                     <div class="card-body">
                       <h4 class="card-title">Productos en Inventario</h4>
-                      <h6 class="card-subtitle">Aca podras ver los productos que se encuentran en el inventario.</h6>
+                      <h6 class="card-subtitle">Aca podras ver los Modelos de los Productos que se encuentran en el inventario.</h6>
                     </div>
+                    <?php
+                    $sql = "SELECT m.IDMODELO, m.IMAGEN, m.COLOR1, m.COLOR2, p.NOMBRE_P, p.GENERO, p.TIPO, p.PRECIO, p.MARCA
+                    FROM MODELOS m INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
+                    LIMIT $start, $perpage";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0){
+                      ?>
                     <div class="table-responsive">
                       <table class="table table-hover">
                         <thead class="thead-light">
@@ -176,13 +184,7 @@ $previouspage = $curpage - 1;
                           </tr>
                         </thead>
                         <tbody>
-                             <?php
-                             $sql = "SELECT m.IDMODELO, m.IMAGEN, m.COLOR1, m.COLOR2, p.NOMBRE_P, p.GENERO, p.TIPO, p.PRECIO, p.MARCA
-                             FROM MODELOS m INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
-                             LIMIT $start, $perpage";
-                             $result = $conn->query($sql);
-                             if ($result->num_rows > 0){
-                             // output data of each row
+                          <?php
                                 while($row = $result->fetch_assoc()){
                                     $idcolor1 = $row['COLOR1'];
                                     $idcolor2 = $row['COLOR2'];
@@ -263,7 +265,7 @@ $previouspage = $curpage - 1;
                                   </div>
                                 <?php
                                     }
-                                } else{ echo "Sin Modelos"; }?>
+                              ?>
                         </tbody>
                       </table>
                         <center>
@@ -296,13 +298,22 @@ $previouspage = $curpage - 1;
                         </nav>
                      </center>
                     </div>
+                    <?php   } else{
+                      ?>
+                      <div class="card">
+                        <div class="card-title text-center">
+                          <h5>Sin Modelos de Productos en Inventarios</h5>
+                        </div>
+                      </div>
+                      <?php
+                     } ?>
                   </div>
                 </div>
                 </div>
             </div>
             <div class="container">
               <div class="container">
-                <small>Todos los colores disponibles se eentran registrados en el sistema. Si desea agregar otros colores que no aparecen como opciones
+                <small>Todos los colores disponibles se entran registrados en el sistema. Si desea agregar otros colores que no aparecen como opciones
                   de selección, ponte en contacto con el departamento de desarrollo y hazle llegar tu solicitud.</small>
               </div>
             </div>
