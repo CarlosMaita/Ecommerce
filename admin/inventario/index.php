@@ -104,13 +104,21 @@ $previouspage = $curpage - 1;
                       <tbody>
 													 		<?php
                               while($row = $result->fetch_assoc()) {
+																$IDCAT=$row['TIPO'];
+																$sql2="SELECT NOMBRE FROM CATEGORIAS WHERE IDCATEGORIA=$IDCAT";
+																$result2 = $conn->query($sql2);
+																if ($result2->num_rows > 0) {
+																		while($row2 = $result2->fetch_assoc()) {
+																			$nombre=$row2['NOMBRE'];
+																		}
+																}
                               ?>
                                  <tr>
                                   <td class="text-center"><img src="../../imagen/<?php echo $row['IMAGEN']; ?>" width="30px" alt=""></td>
                                   <td><?php echo $row['NOMBRE_P']; ?></td>
                                   <td><?php switch($row['GENERO']){case '1': echo 'Dama'; break; case '2': echo 'Caballero'; break; default: echo 'Otro'; break; }?></td>
                                   <td><?=ucwords($row['MARCA'])?></td>
-																	<td><?=ucwords($row['TIPO'])?></td>
+																	<td><?=ucwords($nombre)?></td>
 																	<td><?=ucwords($row['MATERIAL'])?></td>
                                   <td><?php echo number_format($row['PRECIO'], 2, ',', '.'); ?></td>
                                 </tr>
