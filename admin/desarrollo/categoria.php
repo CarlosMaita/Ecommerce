@@ -106,8 +106,18 @@ $previouspage = $curpage - 1;
                   <div class="col-12">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title">Tipos de Prenda en Base de Datos</h4>
-                      <h6 class="card-subtitle">Estas son las prendas que habrán disponibles al momento de agregar productos en el sistema</h6>
+                      <h4 class="card-title">Categorias</h4>
+                      <h6 class="card-subtitle">Representa las prendas y sus derivados, engloba una variable que maneja los productos con jerarquias.</h6>
+                      <hr>
+                      <h4 class="card-title">Tipos de Prenda</h4>
+                      <h6 class="card-subtitle">Representa las prendas con jerarquia mayor en las categorias, engloba todas las categorias añadias con la categoria padre <i>Principal</i>.</h6>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-body">
+
+                      <h4 class="card-title">Categorias en Base de Datos</h4>
+                      <h6 class="card-subtitle">Estas son las categorias que habrán disponibles al momento de agregar productos en el sistema</h6>
                     </div>
                     <div class="row justify-content-center mt-1 bg-white py-2">
                       <h3>Agregar nueva categoria</h3>

@@ -128,8 +128,8 @@ require('../../common/conexion.php');
                 <div class="col-6">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title">Tipos de Categorias en Base de Datos</h4>
-                      <h6 class="card-subtitle">Estas son las Categorias disponibles para el inventario</h6>
+                      <h4 class="card-title">Tipos de prendas en Base de Datos</h4>
+                      <h6 class="card-subtitle">Estas son los tipos de prendas disponibles para el inventario</h6>
                     </div>
                     <div class="table-responsive">
                       <table class="table table-hover">
