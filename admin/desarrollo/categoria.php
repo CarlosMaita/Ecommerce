@@ -117,9 +117,17 @@ $previouspage = $curpage - 1;
                     <div class="row mt-3 justify-content-center">
                       <div class="input-group mb-3 col-6">
                         <div class="input-group-append">
-                          <span class="input-group-text"><b>Nombre de la prenda</b></span>
+                          <span class="input-group-text"><b>Nombre de categoria</b></span>
                         </div>
-                        <input type="text" name="color" class="form-control text-secondary" placeholder="Ej: Franela" required>
+                        <input type="text" name="nombre" class="form-control text-secondary" placeholder="Ej: Franela" required>
+                      </div>
+                      <div class="input-group mb-3 col-6">
+                        <div class="input-group-append">
+                          <span class="input-group-text"><b>Categoria Padre</b></span>
+                        </div>
+                        <select class="form-control text-secondary" name="padre" required>
+                          <option value="0">Principal</option>
+                        </select>
                       </div>
                     </div>
                     <div class="row justify-content-center mb-3">
