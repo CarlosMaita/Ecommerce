@@ -206,6 +206,16 @@ $previouspage = $curpage - 1;
                                            $hex2=  $row2['HEX'];
                                         }
                                     }
+                                    #tipo de prendas
+                                    $IDCAT=$row['TIPO'];
+                                    $sql4="SELECT NOMBRE FROM CATEGORIAS WHERE IDCATEGORIA=$IDCAT";
+                                    $result4 = $conn->query($sql4);
+                                    if ($result4->num_rows > 0) {
+                                        while($row4 = $result4->fetch_assoc()) {
+                                            $prenda=$row4['NOMBRE'];
+                                        }
+                                      }
+
                                    ?>
                                   <tr>
                                     <td scope="row"><img src="../../imagen/<?php echo $row['IMAGEN'];?>" alt="" width="25px"/></td>
@@ -220,7 +230,7 @@ $previouspage = $curpage - 1;
                                         case '4': echo 'Niña';
                                         break;
                                         default: echo 'Otro'; break; }?></td>
-                                    <td><?=ucwords($row['TIPO'])?></td>
+                                    <td><?=ucwords($prenda)?></td>
                                     <td><?=ucwords($row['MARCA'])?></td>
                                     <td><?php echo number_format($row['PRECIO'], 2, ',', '.'); ?></td>
                                     <td><span class="dot2" style="background-color:<?=$hex1?>;"></span><?=$color1?></td>

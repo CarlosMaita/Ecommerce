@@ -115,12 +115,19 @@ $previouspage = $curpage - 1;
                     <label class="input-group-text"><b>Prenda</b></label>
                   </div>
                   <select name="tipo" class="custom-select text-secondary">
-                    <option value="franela">Franela</option>
-                    <option value="chemise">Chemise</option>
-                    <option value="pantalon">Pantalón</option>
-                    <option value="camisa">Camisa</option>
-                    <option value="zapato">Zapato</option>
-                    <option value="gorra">Gorra</option>
+                  <?php
+                  $sql="SELECT IDCATEGORIA, NOMBRE FROM CATEGORIAS WHERE PADRE=0";
+                  $result = $conn->query($sql);
+                  if ($result->num_rows > 0) {
+                      while($row = $result->fetch_assoc()) {
+                        $id=$row['IDCATEGORIA'];
+                        $nombre=$row['NOMBRE'];
+                        ?>
+                          <option value="<?php echo $id; ?>"><?php echo $nombre; ?></option>
+                        <?php
+                      }
+                  }
+                   ?>
                   </select>
                 </div>
                 <div class="input-group mb-3 col-3">
@@ -223,11 +230,19 @@ $previouspage = $curpage - 1;
                         <tbody>
                             <?php
                                 while($row = $result->fetch_assoc()) {
+                                  $IDCAT=$row['TIPO'];
+                                  $sql2="SELECT NOMBRE FROM CATEGORIAS WHERE IDCATEGORIA=$IDCAT";
+                                  $result2 = $conn->query($sql2);
+                                  if ($result2->num_rows > 0) {
+                                      while($row2 = $result2->fetch_assoc()) {
+                                        $nombre=$row2['NOMBRE'];
+                                      }
+                                  }
                                    ?>
                                    <tr>
                                     <td class="text-center"><img src="../../imagen/<?php echo $row['IMAGEN']; ?>" width="20px" alt=""></td>
                                     <td><?php echo $row['NOMBRE_P']; ?></td>
-                                    <td><?=ucwords($row['TIPO']);?></td>
+                                    <td><?=ucwords($nombre);?></td>
                                     <td><?php switch($row['GENERO']){
                                       case '1': echo 'Dama';
                                        break;
