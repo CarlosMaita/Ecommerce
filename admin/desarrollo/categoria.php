@@ -3,19 +3,18 @@ include_once('../common/sesion2.php');
 if($_SESSION['nivel']==6 || $_SESSION['nivel']==1){
 }else{ header('Location: ../principal.php'); }
 require('../../common/conexion.php');
-if(isset($_GET['color'],$_GET['color_hex'] )){
-        $color=$_GET['color'];
-        $hex=$_GET['color_hex'];
+if(isset($_GET['nombre'],$_GET['padre']) and !empty($_GET['nombre'])){
+    $nombre=$_GET['nombre'];
+    $padre=$_GET['padre'];
 
-         $sql = "INSERT INTO `COLOR`(`HEX`, `COLOR`) VALUES ('$hex','$color')";
-
-        if ($conn->query($sql) === TRUE) {
-            echo "<center>Nuevo COLOR registrado</center>";
-            header('Location: ./colores.php');
-           } else { //echo "Error: " . $sql . "<br>" . $conn->error;
-                    echo '<script>alert("Error: Color Ya existe")</script>';
-                    }
+    $sql = "INSERT INTO `CATEGORIAS`(`NOMBRE`, `PADRE`) VALUES ('$nombre','$padre')";
+    if ($conn->query($sql) === TRUE) {
+        header('Location: ./categoria.php');
+       } else { //echo "Error: " . $sql . "<br>" . $conn->error;
+        echo '<script>alert("Error: CATEGORIA Ya existe")</script>';
+        }
 }
+
 #paginacion y eliinacion de productos
 if(isset($_GET['delete']) & !empty($_GET['delete'])){
     $idcolor=$_GET['delete'];
