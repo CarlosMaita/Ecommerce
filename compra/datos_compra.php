@@ -237,7 +237,6 @@ function Factura(){
               $_SESSION['total']=$total;
             ?>
           </div>
-
             <h5 class="text-center text-muted">Subtotal: <?=number_format($subtotal,2,',','.') ?> BsS</h5>
             <h6 class="text-center">IVA(16%): <?=number_format($iva,2,',','.')?> BsS</h6>
           <hr>
