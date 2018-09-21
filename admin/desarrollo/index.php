@@ -53,17 +53,17 @@ require('../../common/conexion.php');
                 </div>
             </div>
             <div class="container-fluid">
-                <div class="row justify-content-around">
-                    <div class="col-4 text-center">
-                      <a class="btn btn-link text-success" href="usuarios.php">Agregar/Eliminar Usuario</a>
-                    </div>
-                    <div class="col-4 text-center">
-                      <a class="btn btn-link text-success" href="categoria.php">Agregar/Eliminar Tipo de Prenda</a>
-                    </div>
-                    <div class="col-4 text-center">
-                      <a class="btn btn-link text-success" href="colores.php">Agregar/Eliminar Color</a>
-                    </div>
-                </div>
+              <div class="row justify-content-around">
+                  <div class="col-4 text-center">
+                    <a class="btn btn-link text-success" href="usuarios.php">Agregar/Eliminar Usuario</a>
+                  </div>
+                  <div class="col-4 text-center">
+                    <a class="btn btn-link text-success" href="categoria.php">Agregar/Eliminar Categoria</a>
+                  </div>
+                  <div class="col-4 text-center">
+                    <a class="btn btn-link text-success" href="colores.php">Agregar/Eliminar Color</a>
+                  </div>
+              </div>
                 <div class="row mt-3">
                   <div class="col-6">
                   <div class="card">
