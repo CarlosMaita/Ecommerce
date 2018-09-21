@@ -51,6 +51,11 @@ require('../../common/conexion.php');
                 </div>
             </div>
             <div class="container-fluid">
+              <?php
+                  $sql="SELECT `IDPEDIDO` FROM `PEDIDOS` ORDER BY FECHAPEDIDO DESC ";
+                  $result = $conn->query($sql);
+                  if ($result->num_rows > 0){
+                ?>
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
@@ -67,68 +72,242 @@ require('../../common/conexion.php');
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="txt-oflo">Ali Baba</td>
-                                            <td><span class="label label-info label-rounded">Por Empaquetar</span></td>
-                                            <td class="txt-oflo">Abril 19, 2018</td>
-                                            <td><span class="font-medium"><button type="button" class="enlace2 ml-auto" href="javascript:void(0)" data-toggle="modal" data-target="#ver_id2">Ver artículos</button></span></td>
-                                            <td><span class="font-medium">1.250,00</span></td>
-                                            <td><a href="javascript:void(0)" data-toggle="modal" data-target="#edit_id"><i title="Revisar" data-toggle="tooltip" class="ti-pencil-alt"></i></a></td>
+                                        <?php
+                                        while($row = $result->fetch_assoc()) {
+                                          $id=$row['IDPEDIDO'];
+                                          $sql2="SELECT *  FROM PEDIDOS p
+                                          INNER JOIN ENVIOS e ON e.IDPEDIDO=p.IDPEDIDO
+                                          INNER JOIN COMPRAS c ON c.IDPEDIDO=p.IDPEDIDO
+                                          WHERE p.IDPEDIDO='$id' "; //encuentro los articulos del pedido
+                                          $result2 = $conn->query($sql2);
+                                          if ($result2->num_rows > 0){
+                                            while($row2 = $result2->fetch_assoc()){
+                                              #GET VALUES
+                                              $estatus=$row2['ESTATUS'];
+                                              $fecha=$row2['FECHAPEDIDO'];
+                                              #cliente
+                                              $cliente=$row2['CLIENTE'];
+                                              $ci_cliente=$row2['DOCID'];
+                                              $telf_cliente=$row2['TELEFONO'];
+                                              $correo_cliente=$row2['EMAIL'];
+                                              $monto=$row2['MONTO'];
+                                               #Direccion
+                                               $pais=$row2['PAIS'];
+                                               $estado=$row2['ESTADO'];
+                                               $ciudad=$row2['CIUDAD'];
+                                               $municipio=$row2['MUNICIPIO'];
+                                               $parroquia=$row2['PARROQUIA'];
+                                               $direccion=$row2['DIRECCION'];
+                                               $codigopostal=$row2['CODIGOPOSTAL'];
+                                               $encomienda=$row2['ENCOMIENDA'];
+                                               $observaciones=$row2['OBSERVACIONES'];
+                                               #receptor
+                                               $receptor=$row2['RECEPTOR'];
+                                               $ci_receptor=$row2['CIRECEPTOR'];
+                                               $telf_receptor=$row2['TELFRECEPTOR'];
+                                               #Factura
+                                               $isfactura=false;
+                                               if(!empty($row2['RAZONSOCIAL']) and !empty($row2['RIFCI']) and !empty($row2['DIRFISCAL'])){
+                                                 $isfactura=true;
+                                                 $razon_social=$row2['RAZONSOCIAL'];
+                                                 $rif=$row2['RIFCI'];
+                                                 $dir_fiscal=$row2['DIRFISCAL'];
+                                               }
+
+                                               #Peso
+                                               $sql8="SELECT i.PESO as PESO, it.CANTIDAD as CANTIDAD FROM ITEMS it
+                                               INNER JOIN INVENTARIO i ON i.IDINVENTARIO=it.IDINVENTARIO
+                                               WHERE it.IDPEDIDO='$id'";
+                                               $res12= $conn->query($sql8);
+                                               if ($res12->num_rows > 0){
+                                                 $peso=0;
+                                                 while($row9 = $res12->fetch_assoc()){
+                                                    $peso=$peso+$row9['PESO']*$row9['CANTIDAD'];
+                                                 }
+                                               }
+                                            ?>
+                                          <tr>
+                                            <td class="txt-oflo"><?=$cliente?></td>
+                                            <td>
+                                              <?php
+                                                   switch ($estatus) {
+                                                     case '3':
+                                                       echo '<span class="label label-purple label-rounded">Por Buscar</span>';
+                                                       break;
+                                                       case '4':
+                                                         echo '<span class="label label-info label-rounded">Por Empaquetar</span>';
+                                                         break;
+                                                       case '5':
+                                                           echo '<span class="label label-warning label-rounded">Por Enviar</span>';
+                                                           break;
+                                                     default:
+                                                     echo '<span class="label label-danger label-rounded">Error</span>';
+                                                       break;
+                                                   }
+                                               ?> </td>
+                                            <td class="txt-oflo"><?=$fecha?></td>
+                                            <td><span class="font-medium"><button type="button" class="enlace2 ml-auto" href="javascript:void(0)" data-toggle="modal" data-target="#ver_<?=$id?>">Ver artículos</button></span></td>
+                                            <td><span class="font-medium"><?=number_format($monto,2,',','.')?></span></td>
+                                            <td><a href="javascript:void(0)" data-toggle="modal" data-target="#edit_<?=$id?>"><i title="Revisar" data-toggle="tooltip" class="ti-pencil-alt"></i></a></td>
                                         </tr>
-                                        <div class="modal fade bd-example-modal-lg" id="ver_id2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                    <div class="modal fade bd-example-modal-lg" id="ver_<?=$id?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                           <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                               <div class="modal-header">
-                                                <h5 class="modal-title" id="closeSesionLabel">Pedido de Pedro Picapiedra</h5>
+                                                <h5 class="modal-title" id="closeSesionLabel">Articulos de <?=$cliente?></h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                   <span aria-hidden="true">&times;</span>
                                                 </button>
                                               </div>
                                               <div class="modal-body">
                                                 <div class="container-fluid">
-                                                  <div class="row">
-                                                    <div class="col-2 text-center">
-                                                      <img class="img-fluid" src="../../imagen/1cc3633c579a90cfdd895e64021e2163.jpg" width="70px" height="70px">
-                                                    </div>
-                                                    <div class="col-8">
-                                                      <div class="container-fluid">
-                                                        <div class="row">
-                                                          <div class="col-auto">
-                                                            <b>Frenela Nike xxxxxx</b>
-                                                          </div>
-                                                          <div class="col-12">
-                                                            <div class="row">
-                                                              <div class="col-8">
-                                                                <small class="d-block">TALLA: <span class="text-muted">M</span></small>
-                                                                <small class="d-block">CANTIDAD: <span class="text-muted">12</span></small>
-                                                              </div>
-                                                              <div class="col-4">
-                                                              </div>
-                                                            </div>
-                                                          </div>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                  <hr>
+                                                <?php
+                                                    $sql8="SELECT *, m.IMAGEN AS IMA FROM ITEMS it
+                                                    INNER JOIN INVENTARIO i ON i.IDINVENTARIO=it.IDINVENTARIO
+                                                    INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO
+                                                    INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
+                                                    WHERE it.IDPEDIDO='$id'";
+                                                    $res12= $conn->query($sql8);
+                                                    if ($res12->num_rows > 0){
+                                                      while($row9 = $res12->fetch_assoc()){
+                                                        #items
+                                                        $idinventario=$row9['IDINVENTARIO'];
+                                                        $cantidad=$row9['CANTIDAD'];
+                                                        #inventario
+                                                        $talla=$row9['TALLA'];
+                                                        $peso=$row9['PESO'];
+                                                        #modelos
+                                                        $idcolor1=$row9['COLOR1'];
+                                                        $idcolor2=$row9['COLOR2'];
+                                                        $imagen=$row9['IMA'];
+                                                        #productos
+                                                        $nombre=$row9['NOMBRE_P'];
+                                                        #genero
+                                                        switch($row9['GENERO']){
+                                                          case '1': $genero='Dama';
+                                                           break;
+                                                          case '2': $genero='Caballero';
+                                                           break;
+                                                           case '3': $genero='Niño';
+                                                            break;
+                                                            case '4': $genero='Niña';
+                                                            break;
+                                                            default: $genero='Otro';
+                                                             break;
+                                                          }
+                                                        $marca=ucwords($row9['MARCA']);
+                                                        $material=ucwords($row9['MATERIAL']);
+                                                        #MANGA
+                                                        switch($row9['MANGA']){
+                                                          case '1': $manga='Redondo';
+                                                           break;
+                                                          case '2': $manga='En V';
+                                                           break;
+                                                           case '3': $manga='Mao';
+                                                            break;
+                                                            case '4': $manga='Chemise';
+                                                            break;
+                                                            default: $manga='No Aplica';
+                                                             break;
+                                                          }
+                                                          #MANGA
+                                                          switch($row9['CUELLO']){
+                                                            case '1': $cuello='Corta';
+                                                             break;
+                                                            case '2': $cuello='3/4';
+                                                             break;
+                                                             case '3': $cuello='Larga';
+                                                              break;
+                                                              case '4': $cuello='Sin Manga';
+                                                              break;
+                                                              default: $cuello='No Aplica';
+                                                               break;
+                                                            }
+                                                        #nombre de color
+                                                        $sql1="SELECT COLOR FROM COLOR WHERE IDCOLOR=$idcolor1";
+                                                        $sql2="SELECT COLOR FROM COLOR WHERE IDCOLOR=$idcolor2";
+                                                        #COLOR 1
+                                                        $res1= $conn->query($sql1);
+                                                        if ($res1->num_rows > 0){
+                                                            while($row1 = $res1->fetch_assoc()){
+                                                              #COLOR
+                                                              $color1=$row1['COLOR'];
+                                                            }
+                                                        }
+                                                        #COLOR 2
+                                                        $res2= $conn->query($sql2);
+                                                        if ($res2->num_rows > 0){
+                                                            while($row2 = $res2->fetch_assoc()){
+                                                              #COLOR
+                                                              $color2=$row2['COLOR'];
+                                                            }
+                                                        }
+                                                 ?>
+
+                                                 <div class="row">
+                                                     <div class="col-2 text-center">
+                                                       <img class="img-fluid" src="../../imagen/<?=$imagen?>" width="70px" height="70px">
+                                                     </div>
+                                                     <div class="col-10">
+                                                       <div class="container-fluid">
+                                                         <div class="row">
+                                                           <div class="col-auto">
+                                                             <b><?=$nombre?> de <?=$genero?></b>
+                                                           </div>
+                                                           <div class="col-12">
+                                                             <div class="row">
+                                                               <div class="col-6">
+                                                                 <small class="d-block">CANTIDAD: <span class="text-muted"><?=$cantidad?></span></small>
+                                                                 <small class="d-block">TALLA: <span class="text-muted"><?=$talla?></span></small>
+                                                                 <small class="d-block">COLOR(es): <span class="text-muted"><?=$color1?> / <?=$color2?></span></small>
+                                                                 <small class="d-block">MANGA: <span class="text-muted"><?=$manga?></span></small>
+                                                               </div>
+                                                               <div class="col-6">
+                                                                 <small class="d-block">MARCA: <span class="text-muted"><?=$marca?></span></small>
+                                                                 <small class="d-block">MATERIAL: <span class="text-muted"><?=$material?></span></small>
+                                                                 <small class="d-block">CUELLO: <span class="text-muted"><?=$cuello?></span></small>
+                                                               </div>
+                                                             </div>
+                                                           </div>
+                                                         </div>
+                                                       </div>
+                                                     </div>
+                                                 </div>
+                                                   <hr>
+                                                   <?php }} ?>
                                                 </div>
                                               </div>
                                             </div>
                                           </div>
                                         </div>
-                                        <div class="modal fade bd-example-modal-lg" id="edit_id" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                    <div class="modal fade bd-example-modal-lg" id="edit_<?=$id?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                           <div class="modal-dialog" role="document">
                                             <div class="modal-content">
                                               <div class="modal-header">
                                                 <div class="row">
                                                   <div class="col-6">
-                                                    <h5 class="modal-title" id="closeSesionLabel">A Enviar por Domesa</h5>
+                                                    <h5 class="modal-title" id="closeSesionLabel">A Enviar por <?=$encomienda?></h5>
                                                   </div>
                                                   <div class="col-6">
-                                                    <span class="label label-info label-rounded">Por Empaquetar</span>
+                                                    <?php
+                                                         switch ($estatus) {
+                                                           case '3':
+                                                             echo '<span class="label label-purple label-rounded">Por Buscar</span>';
+                                                             break;
+                                                             case '4':
+                                                               echo '<span class="label label-info label-rounded">Por Empaquetar</span>';
+                                                               break;
+                                                             case '5':
+                                                                 echo '<span class="label label-warning label-rounded">Por Enviar</span>';
+                                                                 break;
+                                                           default:
+                                                           echo '<span class="label label-danger label-rounded">Error</span>';
+                                                             break;
+                                                         }
+                                                     ?>
                                                   </div>
                                                 </div>
-                                                <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                   <span aria-hidden="true">&times;</span>
                                                 </button>
                                               </div>
@@ -144,12 +323,12 @@ require('../../common/conexion.php');
                                                           <div class="col-12">
                                                             <div class="row">
                                                               <div class="col-6">
-                                                                <small class="d-block">Nombre: <span class="text-muted">Pablo Marmol</span></small>
-                                                                <small class="d-block">Teléfono: <span class="text-muted">0214-2134567</span></small>
+                                                                <small class="d-block">Nombre: <span class="text-muted"><?=$cliente?></span></small>
+                                                                <small class="d-block">Teléfono: <span class="text-muted"><?php echo $telf_cliente; ?></span></small>
                                                               </div>
                                                               <div class="col-6">
-                                                                <small class="d-block">Cédula: <span class="text-muted">V-23413234</span></small>
-                                                                <small class="d-block">Email: <span class="text-muted">marmol@gmail.com</span></small>
+                                                                <small class="d-block">Cédula: <span class="text-muted"><?php echo $ci_cliente; ?></span></small>
+                                                                <small class="d-block">Email: <span class="text-muted"><?php echo $correo_cliente;  ?></span></small>
                                                               </div>
                                                             </div>
                                                           </div>
@@ -162,21 +341,21 @@ require('../../common/conexion.php');
                                                           <div class="col-12">
                                                             <div class="row">
                                                               <div class="col-6">
-                                                                <small class="d-block">Enviar a: <span class="text-muted">Clark Kent</span></small>
-                                                                <small class="d-block">Teléfono: <span class="text-muted">0416-3425456</span></small>
-                                                                <small class="d-block">País: <span class="text-muted">Zimbawe</span></small>
-                                                                <small class="d-block">Municipio: <span class="text-muted">Naguanagua</span></small>
-                                                                <small class="d-block">Dirección: <span class="text-muted">Naguanagua</span></small>
-                                                                <small class="d-block">Código Postal: <span class="text-muted">2013</span></small>
+                                                                <small class="d-block">Enviar a: <span class="text-muted"><?=$receptor?></span></small>
+                                                                <small class="d-block">Ci: <span class="text-muted"><?=$ci_receptor?></span></small>
+                                                                <small class="d-block">Teléfono: <span class="text-muted"><?php echo $telf_receptor; ?></span></small>
+                                                                <small class="d-block">País: <span class="text-muted">Zimbawe</span><?=$pais?></small>
+                                                                <small class="d-block">Municipio: <span class="text-muted"><?=$municipio?></span></small>
+                                                                <small class="d-block">Código Postal: <span class="text-muted"><?=$codigopostal?></span></small>
                                                               </div>
                                                               <div class="col-6">
-                                                                <small class="d-block">Cedula: <span class="text-muted">500.000.000</span></small>
-                                                                <small class="d-block">Estado: <span class="text-muted">Moscu</span></small>
-                                                                <small class="d-block">Parroquia: <span class="text-muted">Moscu</span></small>
-                                                                <small class="d-block">Referencia: <span class="text-muted">Cerca de mi casa</span></small>
+                                                                <small class="d-block">Cedula: <span class="text-muted"><?=$ci_receptor?></span></small>
+                                                                <small class="d-block">Estado: <span class="text-muted"><?=$estado?></span></small>
+                                                                <small class="d-block">Parroquia: <span class="text-muted"><?=$parroquia?></span></small>
+                                                                <small class="d-block">Dirección: <span class="text-muted"><?=$direccion?></span></small>
                                                               </div>
                                                               <div class="col-12">
-                                                                <small class="d-block">Observaciones: <span class="text-muted">Vienes por aca, cruzas por alla y llegas hasta aqui</span></small>
+                                                                <small class="d-block">Observaciones: <span class="text-muted">$observaciones</span></small>
                                                               </div>
                                                             </div>
                                                           </div>
@@ -184,181 +363,31 @@ require('../../common/conexion.php');
                                                       </div>
                                                     </div>
                                                   </div>
+                                                  <?php if($isfactura==true){
+                                                    ?>
                                                   <hr>
                                                   <div class="co-12">
                                                     <b>Factura Fiscal:</b>
-                                                    <small class="d-block">Razon Social: <span class="text-muted">Rouxa</span></small>
-                                                    <small class="d-block">Rif: <span class="text-muted">G-123456789</span></small>
-                                                    <small class="d-block">Direccion Fiscal: <span class="text-muted">por aqui estoy, y aqui esta la empresa.</span></small>
+                                                    <small class="d-block">Razon Social: <span class="text-muted"><?=$razon_social?></span></small>
+                                                    <small class="d-block">Rif: <span class="text-muted"><?=$rif?></span></small>
+                                                    <small class="d-block">Direccion Fiscal: <span class="text-muted"><?=$dir_fiscal?></span></small>
                                                   </div>
+                                                  <?php } ?>
                                                 </div>
                                                 <hr>
-                                                <h2 class="text-center">Peso: 450 gr</h2>
+                                                <h2 class="text-center">Peso: <?=number_format($peso,2,',','.')?> gr</h2>
                                               </div>
                                             </div>
                                           </div>
-                                        </div>
-                                        <tr>
-                                            <td class="txt-oflo">Peter Parker</td>
-                                            <td><span class="label label-purple label-rounded">Por Buscar</span></td>
-                                            <td class="txt-oflo">April 19, 2017</td>
-                                            <td><span class="font-medium"><button type="button" class="enlace2 ml-auto" href="javascript:void(0)" data-toggle="modal" data-target="#ver_id3">Ver artículos</button></span></td>
-                                            <td><span class="font-medium">1000,00</span></td>
-                                            <td><a href="javascript:void(0)" data-toggle="modal" data-target="#edit_id2"><i title="Revisar" data-toggle="tooltip" class="ti-pencil-alt"></i></a></td>
-                                        </tr>
-                                        <div class="modal fade bd-example-modal-lg" id="ver_id3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                                          <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                              <div class="modal-header">
-                                                <h5 class="modal-title" id="closeSesionLabel">Pedido de Pedro Picapiedra</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                  <span aria-hidden="true">&times;</span>
-                                                </button>
-                                              </div>
-                                              <div class="modal-body">
-                                                <div class="container-fluid">
-                                                  <div class="row">
-                                                    <div class="col-2 text-center">
-                                                      <img class="img-fluid" src="../../imagen/1cc3633c579a90cfdd895e64021e2163.jpg" width="70px" height="70px">
-                                                    </div>
-                                                    <div class="col-8">
-                                                      <div class="container-fluid">
-                                                        <div class="row">
-                                                          <div class="col-auto">
-                                                            <b>Frenela Nike xxxxxx</b>
-                                                          </div>
-                                                          <div class="col-12">
-                                                            <div class="row">
-                                                              <div class="col-8">
-                                                                <small class="d-block">TALLA: <span class="text-muted">M</span></small>
-                                                                <small class="d-block">CANTIDAD: <span class="text-muted">12</span></small>
-                                                              </div>
-                                                              <div class="col-4">
-                                                              </div>
-                                                            </div>
-                                                          </div>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                  <hr>
-                                                </div>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <div class="modal fade bd-example-modal-lg" id="edit_id2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                                          <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                              <div class="modal-header">
-                                                <div class="row">
-                                                  <div class="col-6">
-                                                    <h5 class="modal-title" id="closeSesionLabel">A Enviar por Domesa</h5>
-                                                  </div>
-                                                  <div class="col-6">
-                                                    <span class="label label-info label-rounded">Por Empaquetar</span>
-                                                  </div>
-                                                </div>
-                                                <button type="button" class="close " data-dismiss="modal" aria-label="Close">
-                                                  <span aria-hidden="true">&times;</span>
-                                                </button>
-                                              </div>
-                                              <div class="modal-body">
-                                                <div class="container-fluid">
-                                                  <div class="row">
-                                                    <div class="col-12">
-                                                      <div class="container-fluid">
-                                                        <div class="row">
-                                                          <div class="col-auto">
-                                                            <b>Datos de Cliente</b>
-                                                          </div>
-                                                          <div class="col-12">
-                                                            <div class="row">
-                                                              <div class="col-6">
-                                                                <small class="d-block">Nombre: <span class="text-muted">Pablo Marmol</span></small>
-                                                                <small class="d-block">Teléfono: <span class="text-muted">0214-2134567</span></small>
-                                                              </div>
-                                                              <div class="col-6">
-                                                                <small class="d-block">Cédula: <span class="text-muted">V-23413234</span></small>
-                                                                <small class="d-block">Email: <span class="text-muted">marmol@gmail.com</span></small>
-                                                              </div>
-                                                            </div>
-                                                          </div>
-                                                        </div>
-                                                        <hr>
-                                                        <div class="row">
-                                                          <div class="col-auto">
-                                                            <b>Datos de Envío</b>
-                                                          </div>
-                                                          <div class="col-12">
-                                                            <div class="row">
-                                                              <div class="col-6">
-                                                                <small class="d-block">Enviar a: <span class="text-muted">Clark Kent</span></small>
-                                                                <small class="d-block">Teléfono: <span class="text-muted">0416-3425456</span></small>
-                                                                <small class="d-block">País: <span class="text-muted">Zimbawe</span></small>
-                                                                <small class="d-block">Municipio: <span class="text-muted">Naguanagua</span></small>
-                                                                <small class="d-block">Dirección: <span class="text-muted">Naguanagua</span></small>
-                                                                <small class="d-block">Código Postal: <span class="text-muted">2013</span></small>
-                                                              </div>
-                                                              <div class="col-6">
-                                                                <small class="d-block">Cedula: <span class="text-muted">500.000.000</span></small>
-                                                                <small class="d-block">Estado: <span class="text-muted">Moscu</span></small>
-                                                                <small class="d-block">Parroquia: <span class="text-muted">Moscu</span></small>
-                                                                <small class="d-block">Referencia: <span class="text-muted">Cerca de mi casa</span></small>
-                                                              </div>
-                                                              <div class="col-12">
-                                                                <small class="d-block">Observaciones: <span class="text-muted">Vienes por aca, cruzas por alla y llegas hasta aqui</span></small>
-                                                              </div>
-                                                            </div>
-                                                          </div>
-                                                        </div>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-                                                  <hr>
-                                                  <div class="co-12">
-                                                    <b>Factura Fiscal:</b>
-                                                    <small class="d-block">Razon Social: <span class="text-muted">Rouxa</span></small>
-                                                    <small class="d-block">Rif: <span class="text-muted">G-123456789</span></small>
-                                                    <small class="d-block">Direccion Fiscal: <span class="text-muted">por aqui estoy, y aqui esta la empresa.</span></small>
-                                                  </div>
-                                                </div>
-                                                <hr>
-                                                <h2 class="text-center">Peso: 450 gr</h2>
-                                              </div>
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <tr>
-                                            <td class="txt-oflo">Alex Gonzalez</td>
-                                            <td><span class="label label-warning label-rounded">Por Enviar</span></td>
-                                            <td class="txt-oflo">Diciembre 20, 2018</td>
-                                            <td><span class="font-medium"><button type="button" class="enlace2 ml-auto" href="javascript:void(0)" data-toggle="modal" data-target="#ver_id3">Ver artículos</button></span></td>
-                                            <td><span class="font-medium">450,00</span></td>
-                                            <td><a href="#"><i title="Revisar" data-toggle="tooltip" class="ti-pencil-alt"></i></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="txt-oflo">Pedro Picapiedra</td>
-                                            <td><span class="label label-warning label-rounded">Por Enviar</span></td>
-                                            <td class="txt-oflo">April 21, 2017</td>
-                                            <td><span class="font-medium"><button type="button" class="enlace2 ml-auto" href="javascript:void(0)" data-toggle="modal" data-target="#ver_id3">Ver artículos</button></span></td>
-                                            <td><span class="font-medium">300,00</span></td>
-                                            <td><a href="#"><i title="Revisar" data-toggle="tooltip" class="ti-pencil-alt"></i></a></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="txt-oflo">Juana la Iguana</td>
-                                            <td><span class="label label-danger label-rounded">En Falla</span> </td>
-                                            <td class="txt-oflo">April 23, 2017</td>
-                                            <td><span class="font-medium"><button type="button" class="enlace2 ml-auto" href="javascript:void(0)" data-toggle="modal" data-target="#ver_id3">Ver artículos</button></span></td>
-                                            <td><span class="font-medium">3.000,00</span></td>
-                                            <td><a href="#"><i title="Revisar" data-toggle="tooltip" class="ti-pencil-alt"></i></a></td>
-                                          </tr>
+                                    </div>
+                                    <?php }}} ?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
+              <?php }  ?>
             </div>
             <?php include('../common/footer.php'); ?>
         </div>
