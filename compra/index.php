@@ -5,20 +5,22 @@
 if(isset($_GET['idproducto'], $_GET['idmodelo'])){
         $idproducto=$_GET['idproducto'];
         $idmodelo=$_GET['idmodelo'];
-        $sql= 'SELECT * FROM INVENTARIO i INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO WHERE i.IDMODELO='.$idmodelo;
+        $sql= 'SELECT * FROM INVENTARIO i
+        INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO
+        WHERE i.IDMODELO='.$idmodelo;
             $res= $conn->query($sql);
             $arreglo[] = array();
-            unset($arreglo[0]);
+            #unset($arreglo[0]);
            if ($res->num_rows > 0){
             while($f=$res->fetch_assoc()){
-                $lista_tallas=$lista_tallas.'<option value="'.$f['TALLA'].'">'.$f['TALLA'].'</option>';
-                $newarreglo=array('Talla'=>$f['TALLA'], 'Cantidad'=> $f['CANTIDAD'], 'Idinventario'=>$f['IDINVENTARIO'], 'Peso'=>$f['PESO']);
-                array_push($arreglo,$newarreglo);
+              $lista_tallas=$lista_tallas.'<option value="'.$f['TALLA'].'">'.$f['TALLA'].'</option>';
+              $newarreglo=array('Talla'=>$f['TALLA'], 'Cantidad'=> $f['CANTIDAD'], 'Idinventario'=>$f['IDINVENTARIO'], 'Peso'=>$f['PESO']);
+              array_push($arreglo,$newarreglo);
               }
            }else{
-               $lista_tallas='<option value="N/D">N/D</option>';
-                 $newarreglo=array('Talla'=>'N/D', 'Cantidad'=>'0', 'Idinventario'=>'-1', 'Peso'=>'No disponible');
-                 array_push($arreglo,$newarreglo);
+              $lista_tallas='<option value="N/D">N/D</option>';
+              $newarreglo=array('Talla'=>'N/D', 'Cantidad'=>'0', 'Idinventario'=>'-1', 'Peso'=>'No disponible');
+              array_push($arreglo,$newarreglo);
             }
         #seleccion de Características
         $sql ="SELECT p.NOMBRE_P, p.PRECIO, p.TIPO, p.GENERO, p.DESCRIPCION, m.IMAGEN ,p.MANGA, p.CUELLO,p.MATERIAL FROM MODELOS m
@@ -28,8 +30,17 @@ if(isset($_GET['idproducto'], $_GET['idmodelo'])){
         if ($res->num_rows > 0){
          while($f=$res->fetch_assoc()){
            $nombre_p=$f['NOMBRE_P'];
-           $precio= $f['PRECIO'];
+           $precio=$f['PRECIO'];
+           #TIPO
            $tipo=$f['TIPO'];
+           $sql2="SELECT NOMBRE FROM CATEGORIAS WHERE IDCATEGORIA=$tipo";
+           $result2 = $conn->query($sql2);
+           if ($result2->num_rows > 0) {
+               while($row2 = $result2->fetch_assoc()) {
+                 $tipo = $row2['NOMBRE'];
+               }
+           }
+
            $genero=$f['GENERO'];
            $descripcion=$f['DESCRIPCION'];
            $imagen= $f['IMAGEN'];

@@ -75,7 +75,7 @@ require('../../common/conexion.php');
                                         <?php
                                         while($row = $result->fetch_assoc()) {
                                           $id=$row['IDPEDIDO'];
-                                          $sql2="SELECT *  FROM PEDIDOS p
+                                          $sql2="SELECT *, c.PESO as PESOT  FROM PEDIDOS p
                                           INNER JOIN ENVIOS e ON e.IDPEDIDO=p.IDPEDIDO
                                           INNER JOIN COMPRAS c ON c.IDPEDIDO=p.IDPEDIDO
                                           WHERE p.IDPEDIDO='$id' "; //encuentro los articulos del pedido
@@ -91,6 +91,7 @@ require('../../common/conexion.php');
                                               $telf_cliente=$row2['TELEFONO'];
                                               $correo_cliente=$row2['EMAIL'];
                                               $monto=$row2['MONTO'];
+                                              $peso=$row2['PESOT'];
                                                #Direccion
                                                $pais=$row2['PAIS'];
                                                $estado=$row2['ESTADO'];
@@ -113,43 +114,42 @@ require('../../common/conexion.php');
                                                  $rif=$row2['RIFCI'];
                                                  $dir_fiscal=$row2['DIRFISCAL'];
                                                }
-
-                                               #Peso
-                                               $sql8="SELECT i.PESO as PESO, it.CANTIDAD as CANTIDAD FROM ITEMS it
-                                               INNER JOIN INVENTARIO i ON i.IDINVENTARIO=it.IDINVENTARIO
-                                               WHERE it.IDPEDIDO='$id'";
-                                               $res12= $conn->query($sql8);
-                                               if ($res12->num_rows > 0){
-                                                 $peso=0;
-                                                 while($row9 = $res12->fetch_assoc()){
-                                                    $peso=$peso+$row9['PESO']*$row9['CANTIDAD'];
-                                                 }
-                                               }
                                             ?>
                                           <tr>
                                             <td class="txt-oflo"><?=$cliente?></td>
                                             <td>
                                               <?php
-                                                   switch ($estatus) {
-                                                     case '3':
-                                                       echo '<span class="label label-purple label-rounded">Por Buscar</span>';
-                                                       break;
-                                                       case '4':
-                                                         echo '<span class="label label-info label-rounded">Por Empaquetar</span>';
-                                                         break;
-                                                       case '5':
-                                                           echo '<span class="label label-warning label-rounded">Por Enviar</span>';
-                                                           break;
-                                                     default:
-                                                     echo '<span class="label label-danger label-rounded">Error</span>';
-                                                       break;
-                                                   }
+                                            switch ($estatus) {
+                                                  case '0': echo '<span class="label label-info label-rounded">Por Pagar</span>';
+                                                      break;
+                                                  case '1':  echo '<span class="label label-danger label-rounded">Pago Fallido</span>';
+                                                      break;
+                                                  case '2': echo '<span class="label label-warning  label-rounded">Pago Pendiente</span>';
+                                                      break;
+                                                  case '3':  echo '<span class="label label-purple label-rounded">Por Buscar</span>';
+                                                      break;
+                                                  case '4':  echo '<span class="label label-info label-rounded">Por Empaquetar</span>';
+                                                      break;
+                                                  case '5': echo '<span class="label label-warning label-rounded">Por Enviar</span>';
+                                                      break;
+                                                  case '6': echo '<span class="label label-success label-rounded">Enviado</span>';
+                                                      break;
+                                                  case '7': echo '<span class="label label-success label-rounded">Completado</span>';
+                                                      break;
+                                                  case '10': echo '<span class="label label-danger label-rounded">Bajo Revisión</span>';
+                                                    break;
+                                                  default:
+                                                  echo '<span class="label label-danger label-rounded">Error</span>';
+                                                    break;
+
+                                              }
                                                ?> </td>
                                             <td class="txt-oflo"><?=$fecha?></td>
                                             <td><span class="font-medium"><button type="button" class="enlace2 ml-auto" href="javascript:void(0)" data-toggle="modal" data-target="#ver_<?=$id?>">Ver artículos</button></span></td>
                                             <td><span class="font-medium"><?=number_format($monto,2,',','.')?></span></td>
                                             <td><a href="javascript:void(0)" data-toggle="modal" data-target="#edit_<?=$id?>"><i title="Revisar" data-toggle="tooltip" class="ti-pencil-alt"></i></a></td>
                                         </tr>
+
                                     <div class="modal fade bd-example-modal-lg" id="ver_<?=$id?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                           <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -162,7 +162,7 @@ require('../../common/conexion.php');
                                               <div class="modal-body">
                                                 <div class="container-fluid">
                                                 <?php
-                                                    $sql8="SELECT *, m.IMAGEN AS IMA FROM ITEMS it
+                                                    $sql8="SELECT *, m.IMAGEN AS IMA, it.CANTIDAD as CANTIDAD FROM ITEMS it
                                                     INNER JOIN INVENTARIO i ON i.IDINVENTARIO=it.IDINVENTARIO
                                                     INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO
                                                     INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
@@ -175,7 +175,6 @@ require('../../common/conexion.php');
                                                         $cantidad=$row9['CANTIDAD'];
                                                         #inventario
                                                         $talla=$row9['TALLA'];
-                                                        $peso=$row9['PESO'];
                                                         #modelos
                                                         $idcolor1=$row9['COLOR1'];
                                                         $idcolor2=$row9['COLOR2'];
@@ -210,8 +209,8 @@ require('../../common/conexion.php');
                                                             default: $manga='No Aplica';
                                                              break;
                                                           }
-                                                          #MANGA
-                                                          switch($row9['CUELLO']){
+                                                        #CUELLO
+                                                        switch($row9['CUELLO']){
                                                             case '1': $cuello='Corta';
                                                              break;
                                                             case '2': $cuello='3/4';
@@ -222,7 +221,7 @@ require('../../common/conexion.php');
                                                               break;
                                                               default: $cuello='No Aplica';
                                                                break;
-                                                            }
+                                                          }
                                                         #nombre de color
                                                         $sql1="SELECT COLOR FROM COLOR WHERE IDCOLOR=$idcolor1";
                                                         $sql2="SELECT COLOR FROM COLOR WHERE IDCOLOR=$idcolor2";
@@ -243,8 +242,7 @@ require('../../common/conexion.php');
                                                             }
                                                         }
                                                  ?>
-
-                                                 <div class="row">
+                                                <div class="row">
                                                      <div class="col-2 text-center">
                                                        <img class="img-fluid" src="../../imagen/<?=$imagen?>" width="70px" height="70px">
                                                      </div>
@@ -273,13 +271,13 @@ require('../../common/conexion.php');
                                                        </div>
                                                      </div>
                                                  </div>
-                                                   <hr>
+                                                <hr>
                                                    <?php }} ?>
                                                 </div>
                                               </div>
                                             </div>
                                           </div>
-                                        </div>
+                                    </div>
                                     <div class="modal fade bd-example-modal-lg" id="edit_<?=$id?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                           <div class="modal-dialog" role="document">
                                             <div class="modal-content">
@@ -290,20 +288,30 @@ require('../../common/conexion.php');
                                                   </div>
                                                   <div class="col-6">
                                                     <?php
-                                                         switch ($estatus) {
-                                                           case '3':
-                                                             echo '<span class="label label-purple label-rounded">Por Buscar</span>';
-                                                             break;
-                                                             case '4':
-                                                               echo '<span class="label label-info label-rounded">Por Empaquetar</span>';
-                                                               break;
-                                                             case '5':
-                                                                 echo '<span class="label label-warning label-rounded">Por Enviar</span>';
-                                                                 break;
-                                                           default:
-                                                           echo '<span class="label label-danger label-rounded">Error</span>';
-                                                             break;
-                                                         }
+                                                    switch ($estatus) {
+                                                          case '0': echo '<span class="label label-info label-rounded">Por Pagar</span>';
+                                                              break;
+                                                          case '1':  echo '<span class="label label-danger label-rounded">Pago Fallido</span>';
+                                                              break;
+                                                          case '2': echo '<span class="label label-warning  label-rounded">Pago Pendiente</span>';
+                                                              break;
+                                                          case '3':  echo '<span class="label label-purple label-rounded">Por Buscar</span>';
+                                                              break;
+                                                          case '4':  echo '<span class="label label-info label-rounded">Por Empaquetar</span>';
+                                                              break;
+                                                          case '5': echo '<span class="label label-warning label-rounded">Por Enviar</span>';
+                                                              break;
+                                                          case '6': echo '<span class="label label-success label-rounded">Enviado</span>';
+                                                              break;
+                                                          case '7': echo '<span class="label label-success label-rounded">Completado</span>';
+                                                              break;
+                                                          case '10': echo '<span class="label label-danger label-rounded">Bajo Revisión</span>';
+                                                            break;
+                                                          default:
+                                                          echo '<span class="label label-danger label-rounded">Error</span>';
+                                                            break;
+
+                                                      }
                                                      ?>
                                                   </div>
                                                 </div>

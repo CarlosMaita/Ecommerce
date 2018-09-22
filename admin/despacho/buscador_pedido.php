@@ -162,7 +162,7 @@
                                                     </div>
                                                     <div class="modal-body">
                                                       <?php
-                                                          $sql8="SELECT *, m.IMAGEN AS IMA FROM ITEMS it
+                                                          $sql8="SELECT *, it.CANTIDAD AS CANTIDAD, m.IMAGEN AS IMA FROM ITEMS it
                                                           INNER JOIN INVENTARIO i ON i.IDINVENTARIO=it.IDINVENTARIO
                                                           INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO
                                                           INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
