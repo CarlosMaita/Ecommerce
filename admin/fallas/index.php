@@ -96,7 +96,7 @@
                 </div>
             </div>
                   <div class="container-fluid">
-                    
+
                     <?php
                         $sql="SELECT `IDPEDIDO` FROM `PEDIDOS` WHERE `ESTATUS`=3";
                         $result = $conn->query($sql);
@@ -112,7 +112,7 @@
                                                 <th class="border-top-0">IDPedido</th>
                                                 <th class="border-top-0">Estatus</th>
                                                 <th class="border-top-0">Fecha de Compra</th>
-                                                <th class="border-top-0">Articulos</th>
+                                                <th class="border-top-0">Detalle</th>
                                                 <th></th>
                                               </tr>
                                           </thead>
@@ -142,9 +142,8 @@
                                                   <td class="txt-oflo"> <small><?php echo $id;?></small> </td>
                                                   <td><span class="label label-red label-rounded">En Falla</span></td>
                                                   <td class="txt-oflo"><?=date('d/m, Y') ?></td>
-                                                  <td><span class="font-medium"><button type="button" class="enlace2 ml-auto" href="javascript:void(0)" data-toggle="modal" data-target="#ver<?php echo $id;?>">Ver artículos</button></span></td>
-                                                  <td><a id="good" class="btn btn-outline-success btn-sm" href="buscador_pedido.php?orden=good&id=<?php echo $id;?>" onclick="return confirma()">Solucionar</a>
-                                                  <a onclick="ven()" id="bad" class="btn btn-outline-info btn-sm" href="javascript:void(0)" data-toggle="modal" data-target="#fal<?php echo $id;?>">Listo</a></td>
+                                                  <td><span class="font-medium"><button type="button" class="enlace2 ml-auto" href="javascript:void(0)" data-toggle="modal" data-target="#ver<?php echo $id;?>">Ver Detalle</button></span></td>
+                                                  <td><a onclick="ven()" id="solucionar" class="btn btn-outline-success btn-sm" href="javascript:void(0)" data-toggle="modal" data-target="#fal<?php echo $id;?>">Solucionar</a></td>
                                               </tr>
                                               <div class="modal fade bd-example-modal-lg" id="ver<?php echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
