@@ -352,7 +352,7 @@ require('../../common/conexion.php');
                                                                 <small class="d-block">Enviar a: <span class="text-muted"><?=$receptor?></span></small>
                                                                 <small class="d-block">Ci: <span class="text-muted"><?=$ci_receptor?></span></small>
                                                                 <small class="d-block">Teléfono: <span class="text-muted"><?php echo $telf_receptor; ?></span></small>
-                                                                <small class="d-block">País: <span class="text-muted">Zimbawe</span><?=$pais?></small>
+                                                                <small class="d-block">País: <span class="text-muted"></span><?=$pais?></small>
                                                                 <small class="d-block">Municipio: <span class="text-muted"><?=$municipio?></span></small>
                                                                 <small class="d-block">Código Postal: <span class="text-muted"><?=$codigopostal?></span></small>
                                                               </div>
@@ -361,9 +361,10 @@ require('../../common/conexion.php');
                                                                 <small class="d-block">Estado: <span class="text-muted"><?=$estado?></span></small>
                                                                 <small class="d-block">Parroquia: <span class="text-muted"><?=$parroquia?></span></small>
                                                                 <small class="d-block">Dirección: <span class="text-muted"><?=$direccion?></span></small>
+
                                                               </div>
                                                               <div class="col-12">
-                                                                <small class="d-block">Observaciones: <span class="text-muted">$observaciones</span></small>
+                                                                <small class="d-block">Observaciones: <span class="text-muted"><?=$observaciones?></span></small>
                                                               </div>
                                                             </div>
                                                           </div>

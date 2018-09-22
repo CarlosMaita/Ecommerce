@@ -3,25 +3,24 @@
   if($_SESSION['nivel']==4 || $_SESSION['nivel']==1){
   }else{ header('Location: ../principal.php'); }
   require('../../common/conexion.php');
-    if(isset($_GET['orden'], $_GET['id']) ){
+    if(isset($_GET['orden'], $_GET['id'],$_GET['comentario'],$_GET['Estatus']) ){
         $newid=$_GET['id'];
-        if ($_GET['orden']=='good'){
-        $sql="UPDATE `PEDIDOS` SET `ESTATUS`='4' WHERE  `IDPEDIDO`='$newid'";
-                        if ($conn->query($sql) === TRUE) {
-                        } else { echo "Error: " . $sql. "<br>" . $conn->error; }
+        $solucion=$_GET['comentario'];
+        $estatus=$_GET['Estatus'];
+        if ($_GET['orden']=='solved'){
+
+        $sql="UPDATE `PEDIDOS` SET `ESTATUS`='$estatus' WHERE  `IDPEDIDO`='$newid'";
+              if ($conn->query($sql) === TRUE) {
+              } else {
+                echo "Error: " . $sql. "<br>" . $conn->error;
+              }
+       $sql="UPDATE `FALLAS` SET `ESTATUS`='1', `SOLUCION`='$solucion', `FECHASOLUCION`= NOW()   WHERE  `IDPEDIDO`='$newid'";
+               if ($conn->query($sql) === TRUE) {
+              } else {
+                echo "Error: " . $sql. "<br>" . $conn->error;
+               }
         }
-        else if ($_GET['orden']=='bad'){
-            if (isset($_GET['comentario'])){
-                $comentario=$_GET['comentario'];
-            }
-           $sql="UPDATE `PEDIDOS` SET `ESTATUS`='10' WHERE  `IDPEDIDO`='$newid'";
-            if ($conn->query($sql) === TRUE) {
-            } else { echo "Error: " . $sql. "<br>" . $conn->error; }
-            $sql="INSERT INTO `FALLA`(`IDPEDIDO`, `COMENTARIO`, `FECHAFALLA`) VALUES ('$newid','$comentario', CURRENT_DATE())";
-             if ($conn->query($sql) === TRUE) {
-            } else { echo "Error: " . $sql. "<br>" . $conn->error; }
-        }
-         header ('location:buscador_pedido.php');
+        header ('location: ./');
     }
 ?>
 <!DOCTYPE html>
@@ -50,21 +49,6 @@
     window.location.hash="Again-No-back-button" //chrome
     window.onhashchange=function(){window.location.hash="no-back-button";}
             }
-         var band=false;
-         function ven(){
-             if(!band){
-                 band=!band;
-                 document.getElementById('falla-comentario').style.display='block';
-             }else{
-                 band=!band;
-                  document.getElementById('falla-comentario').style.display='none';
-                  document.getElementById('comentario').value='';
-             }
-         }
-         function confirma(){
-             r=confirm("¿Esta usted seguro?");
-             return r;
-         }
     </script>
    <body>
       <div class="preloader">
@@ -79,7 +63,7 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-5 align-self-center">
-                        <h4 class="page-title">Despacho</h4>
+                        <h4 class="page-title">Fallas</h4>
                     </div>
                     <div class="col-7 align-self-center">
                         <div class="d-flex align-items-center justify-content-end">
@@ -95,13 +79,12 @@
                     </div>
                 </div>
             </div>
+            <?php
+                $sql="SELECT IDPEDIDO,REPORTERO,FECHAFALLA,PROBLEMA,ORIGEN FROM `FALLAS` WHERE `ESTATUS`=0";
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0){
+              ?>
                   <div class="container-fluid">
-
-                    <?php
-                        $sql="SELECT `IDPEDIDO` FROM `PEDIDOS` WHERE `ESTATUS`=3";
-                        $result = $conn->query($sql);
-                        if ($result->num_rows > 0){
-                      ?>
                       <div class="row">
                           <div class="col-12">
                               <div class="card">
@@ -109,123 +92,373 @@
                                       <table class="table table-hover">
                                           <thead>
                                               <tr>
-                                                <th class="border-top-0">IDPedido</th>
+                                                <th class="border-top-0">Pedido</th>
                                                 <th class="border-top-0">Estatus</th>
                                                 <th class="border-top-0">Fecha de Compra</th>
-                                                <th class="border-top-0">Detalle</th>
+                                                <th class="border-top-0">Detalles</th>
+                                                <th class="border-top-0">Articulos</th>
                                                 <th></th>
                                               </tr>
                                           </thead>
                                           <tbody>
                                             <?php
-                                              while($row = $result->fetch_assoc()){
+                                            while($row = $result->fetch_assoc()){
                                                 $id=$row['IDPEDIDO'];
-                                            $sql2="SELECT `IDINVENTARIO`, `CANTIDAD` FROM `ITEMS` WHERE `IDPEDIDO`='$id'";//encuentro los articulos del pedido
-                                            $result2 = $conn->query($sql2);
+                                                $reportero=$row['REPORTERO'];
+                                                $fechafalla=$row['FECHAFALLA'];
+                                                $problema=$row['PROBLEMA'];
+                                                $origen=$row['ORIGEN'];
+                                                $sql2="SELECT *, c.PESO as PESOT  FROM PEDIDOS p
+                                                INNER JOIN ENVIOS e ON e.IDPEDIDO=p.IDPEDIDO
+                                                INNER JOIN COMPRAS c ON c.IDPEDIDO=p.IDPEDIDO
+                                                WHERE p.IDPEDIDO='$id' "; //encuentro los articulos del pedido
+                                                $result2 = $conn->query($sql2);
                                                 if ($result2->num_rows > 0){
                                                   while($row2 = $result2->fetch_assoc()){
-                                                    $idinventario=$row2['IDINVENTARIO'];
-                                                    $cantidad=$row2['CANTIDAD'];
-                                                    $sql3="SELECT p.NOMBRE_P, i.TALLA FROM `INVENTARIO` i
-                                                    INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO
-                                                    INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
-                                                    WHERE i.IDINVENTARIO='$idinventario' LIMIT 1";
-                                                    $result3 = $conn->query($sql3);
-                                                    if ($result3->num_rows > 0){
-                                                      while($row3 = $result3->fetch_assoc()){
-                                                        $nombre=$row3['NOMBRE_P'];
-                                                        $talla=$row3['TALLA'];
-                                                      }
-                                                    }
-                                                         ?>
+                                                    #GET VALUES
+                                                    $estatus=$row2['ESTATUS'];
+                                                    $fecha=$row2['FECHAPEDIDO'];
+                                                    #cliente
+                                                    $cliente=$row2['CLIENTE'];
+                                                    $ci_cliente=$row2['DOCID'];
+                                                    $telf_cliente=$row2['TELEFONO'];
+                                                    $correo_cliente=$row2['EMAIL'];
+                                                    $monto=$row2['MONTO'];
+                                                    $peso=$row2['PESOT'];
+                                                     #Direccion
+                                                     $pais=$row2['PAIS'];
+                                                     $estado=$row2['ESTADO'];
+                                                     $ciudad=$row2['CIUDAD'];
+                                                     $municipio=$row2['MUNICIPIO'];
+                                                     $parroquia=$row2['PARROQUIA'];
+                                                     $direccion=$row2['DIRECCION'];
+                                                     $codigopostal=$row2['CODIGOPOSTAL'];
+                                                     $encomienda=$row2['ENCOMIENDA'];
+                                                     $observaciones=$row2['OBSERVACIONES'];
+                                                     #receptor
+                                                     $receptor=$row2['RECEPTOR'];
+                                                     $ci_receptor=$row2['CIRECEPTOR'];
+                                                     $telf_receptor=$row2['TELFRECEPTOR'];
+                                                     #Factura
+                                                     $isfactura=false;
+                                                     if(!empty($row2['RAZONSOCIAL']) and !empty($row2['RIFCI']) and !empty($row2['DIRFISCAL'])){
+                                                       $isfactura=true;
+                                                       $razon_social=$row2['RAZONSOCIAL'];
+                                                       $rif=$row2['RIFCI'];
+                                                       $dir_fiscal=$row2['DIRFISCAL'];
+                                                     }
+                                            ?>
                                               <tr>
                                                   <td class="txt-oflo"> <small><?php echo $id;?></small> </td>
-                                                  <td><span class="label label-red label-rounded">En Falla</span></td>
-                                                  <td class="txt-oflo"><?=date('d/m, Y') ?></td>
-                                                  <td><span class="font-medium"><button type="button" class="enlace2 ml-auto" href="javascript:void(0)" data-toggle="modal" data-target="#ver<?php echo $id;?>">Ver Detalle</button></span></td>
-                                                  <td><a onclick="ven()" id="solucionar" class="btn btn-outline-success btn-sm" href="javascript:void(0)" data-toggle="modal" data-target="#fal<?php echo $id;?>">Solucionar</a></td>
+                                                  <td><span class="label label-red label-rounded">Bajo Revisión</span></td>
+                                                  <td class="txt-oflo"><?=$fecha ?></td>
+                                                  <td><span class="font-medium"><button type="button" class="enlace2 ml-auto" href="javascript:void(0)" data-toggle="modal" data-target="#verd<?php echo $id;?>">Ver Detalles</button></span></td>
+                                                  <td><span class="font-medium"><button type="button" class="enlace2 ml-auto" href="javascript:void(0)" data-toggle="modal" data-target="#vera<?php echo $id;?>">Ver Articulos</button></span></td>
+                                                  <td><a id="solucionar" class="btn btn-outline-success btn-sm" href="javascript:void(0)" data-toggle="modal" data-target="#sol<?php echo $id;?>">Solucionar</a></td>
                                               </tr>
-                                              <div class="modal fade bd-example-modal-lg" id="ver<?php echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                  <div class="modal-content">
-                                                    <div class="modal-header">
-                                                      <h5 class="modal-title" id="closeSesionLabel">Pedido de Pedro Picapiedra</h5>
-                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                      </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                      <div class="container-fluid">
-                                                        <div class="row">
-                                                          <div class="col-2 text-center">
-                                                            <img class="img-fluid" src="../../imagen/1cc3633c579a90cfdd895e64021e2163.jpg" width="70px" height="70px">
+                                              <div class="modal fade bd-example-modal-lg" id="vera<?=$id?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                      <div class="modal-content">
+                                                        <div class="modal-header">
+                                                          <h5 class="modal-title" id="closeSesionLabel">Articulos de <?=$cliente?></h5>
+                                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                          </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                          <div class="container-fluid">
+                                                          <?php
+                                                              $sql8="SELECT *, m.IMAGEN AS IMA, it.CANTIDAD as CANTIDAD FROM ITEMS it
+                                                              INNER JOIN INVENTARIO i ON i.IDINVENTARIO=it.IDINVENTARIO
+                                                              INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO
+                                                              INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
+                                                              WHERE it.IDPEDIDO='$id'";
+                                                              $res12= $conn->query($sql8);
+                                                              if ($res12->num_rows > 0){
+                                                                while($row9 = $res12->fetch_assoc()){
+                                                                  #items
+                                                                  $idinventario=$row9['IDINVENTARIO'];
+                                                                  $cantidad=$row9['CANTIDAD'];
+                                                                  #inventario
+                                                                  $talla=$row9['TALLA'];
+                                                                  #modelos
+                                                                  $idcolor1=$row9['COLOR1'];
+                                                                  $idcolor2=$row9['COLOR2'];
+                                                                  $imagen=$row9['IMA'];
+                                                                  #productos
+                                                                  $nombre=$row9['NOMBRE_P'];
+                                                                  #genero
+                                                                  switch($row9['GENERO']){
+                                                                    case '1': $genero='Dama';
+                                                                     break;
+                                                                    case '2': $genero='Caballero';
+                                                                     break;
+                                                                     case '3': $genero='Niño';
+                                                                      break;
+                                                                      case '4': $genero='Niña';
+                                                                      break;
+                                                                      default: $genero='Otro';
+                                                                       break;
+                                                                    }
+                                                                  $marca=ucwords($row9['MARCA']);
+                                                                  $material=ucwords($row9['MATERIAL']);
+                                                                  #MANGA
+                                                                  switch($row9['MANGA']){
+                                                                    case '1': $manga='Redondo';
+                                                                     break;
+                                                                    case '2': $manga='En V';
+                                                                     break;
+                                                                     case '3': $manga='Mao';
+                                                                      break;
+                                                                      case '4': $manga='Chemise';
+                                                                      break;
+                                                                      default: $manga='No Aplica';
+                                                                       break;
+                                                                    }
+                                                                  #CUELLO
+                                                                  switch($row9['CUELLO']){
+                                                                      case '1': $cuello='Corta';
+                                                                       break;
+                                                                      case '2': $cuello='3/4';
+                                                                       break;
+                                                                       case '3': $cuello='Larga';
+                                                                        break;
+                                                                        case '4': $cuello='Sin Manga';
+                                                                        break;
+                                                                        default: $cuello='No Aplica';
+                                                                         break;
+                                                                    }
+                                                                  #nombre de color
+                                                                  $sql1="SELECT COLOR FROM COLOR WHERE IDCOLOR=$idcolor1";
+                                                                  $sql2="SELECT COLOR FROM COLOR WHERE IDCOLOR=$idcolor2";
+                                                                  #COLOR 1
+                                                                  $res1= $conn->query($sql1);
+                                                                  if ($res1->num_rows > 0){
+                                                                      while($row1 = $res1->fetch_assoc()){
+                                                                        #COLOR
+                                                                        $color1=$row1['COLOR'];
+                                                                      }
+                                                                  }
+                                                                  #COLOR 2
+                                                                  $res2= $conn->query($sql2);
+                                                                  if ($res2->num_rows > 0){
+                                                                      while($row2 = $res2->fetch_assoc()){
+                                                                        #COLOR
+                                                                        $color2=$row2['COLOR'];
+                                                                      }
+                                                                  }
+                                                           ?>
+                                                          <div class="row">
+                                                               <div class="col-2 text-center">
+                                                                 <img class="img-fluid" src="../../imagen/<?=$imagen?>" width="70px" height="70px">
+                                                               </div>
+                                                               <div class="col-10">
+                                                                 <div class="container-fluid">
+                                                                   <div class="row">
+                                                                     <div class="col-auto">
+                                                                       <b><?=$nombre?> de <?=$genero?></b>
+                                                                     </div>
+                                                                     <div class="col-12">
+                                                                       <div class="row">
+                                                                         <div class="col-6">
+                                                                           <small class="d-block">CANTIDAD: <span class="text-muted"><?=$cantidad?></span></small>
+                                                                           <small class="d-block">TALLA: <span class="text-muted"><?=$talla?></span></small>
+                                                                           <small class="d-block">COLOR(es): <span class="text-muted"><?=$color1?> / <?=$color2?></span></small>
+                                                                           <small class="d-block">MANGA: <span class="text-muted"><?=$manga?></span></small>
+                                                                         </div>
+                                                                         <div class="col-6">
+                                                                           <small class="d-block">MARCA: <span class="text-muted"><?=$marca?></span></small>
+                                                                           <small class="d-block">MATERIAL: <span class="text-muted"><?=$material?></span></small>
+                                                                           <small class="d-block">CUELLO: <span class="text-muted"><?=$cuello?></span></small>
+                                                                         </div>
+                                                                       </div>
+                                                                     </div>
+                                                                   </div>
+                                                                 </div>
+                                                               </div>
+                                                           </div>
+                                                          <hr>
+                                                             <?php }} ?>
                                                           </div>
-                                                          <div class="col-10">
-                                                            <div class="container-fluid">
-                                                              <div class="row">
-                                                                <div class="col-auto">
-                                                                  <b>Frenela Nike xxxxxx</b>
-                                                                </div>
-                                                                <div class="col-12">
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                              </div>
+                                              <div class="modal fade bd-example-modal-lg" id="verd<?=$id?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog" role="document">
+                                                      <div class="modal-content">
+                                                        <div class="modal-header">
+                                                          <div class="row">
+                                                            <div class="col-6">
+                                                              <h5 class="modal-title" id="closeSesionLabel">Detalles de Falla</h5>
+                                                            </div>
+                                                            <div class="col-6">
+                                                              <?php
+                                                              switch ($estatus) {
+                                                                    case '0': echo '<span class="label label-info label-rounded">Por Pagar</span>';
+                                                                        break;
+                                                                    case '1':  echo '<span class="label label-danger label-rounded">Pago Fallido</span>';
+                                                                        break;
+                                                                    case '2': echo '<span class="label label-warning  label-rounded">Pago Pendiente</span>';
+                                                                        break;
+                                                                    case '3':  echo '<span class="label label-purple label-rounded">Por Buscar</span>';
+                                                                        break;
+                                                                    case '4':  echo '<span class="label label-info label-rounded">Por Empaquetar</span>';
+                                                                        break;
+                                                                    case '5': echo '<span class="label label-warning label-rounded">Por Enviar</span>';
+                                                                        break;
+                                                                    case '6': echo '<span class="label label-success label-rounded">Enviado</span>';
+                                                                        break;
+                                                                    case '7': echo '<span class="label label-success label-rounded">Completado</span>';
+                                                                        break;
+                                                                    case '10': echo '<span class="label label-danger label-rounded">Bajo Revisión</span>';
+                                                                      break;
+                                                                    default:
+                                                                    echo '<span class="label label-danger label-rounded">Error</span>';
+                                                                      break;
+                                                                }
+                                                               ?>
+                                                            </div>
+                                                          </div>
+                                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                          </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                          <div class="container-fluid">
+                                                            <div class="row">
+                                                              <div class="col-12">
+                                                                <div class="container-fluid">
                                                                   <div class="row">
-                                                                    <div class="col-6">
-                                                                      <small class="d-block">CANTIDAD: <span class="text-muted">12</span></small>
-                                                                      <small class="d-block">TALLA: <span class="text-muted">M</span></small>
-                                                                      <small class="d-block">COLOR(es): <span class="text-muted">Azul/Negro</span></small>
-                                                                      <small class="d-block">MANGA: <span class="text-muted">Corta</span></small>
+                                                                    <div class="col-auto">
+                                                                      <b>Datos de Falla</b>
                                                                     </div>
-                                                                    <div class="col-6">
-                                                                      <small class="d-block">MARCA: <span class="text-muted">Polo</span></small>
-                                                                      <small class="d-block">MATERIAL: <span class="text-muted">Algodón</span></small>
-                                                                      <small class="d-block">CUELLO: <span class="text-muted">Redondo</span></small>
+                                                                    <div class="col-12">
+                                                                      <div class="row">
+                                                                        <div class="col-12 ">
+                                                                          <small class="d-block">Reportero: <span class="text-muted"><?=$reportero?></span></small>
+                                                                          <small class="d-block">Tiempo de la Falla: <span class="text-muted"><?php echo $fechafalla; ?></span></small>
+                                                                          <small class="d-block">Origen de la Falla: <span class="text-muted"><?php echo $origen; ?></span></small>
+                                                                          <small class="d-block">Reporte de Falla: <span class="text-muted"><?php echo $problema; ?></span></small>
+                                                                        </div>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                  <hr>
+                                                                  <div class="row">
+                                                                    <div class="col-auto">
+                                                                      <b>Datos de Cliente</b>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                      <div class="row">
+                                                                        <div class="col-6">
+                                                                          <small class="d-block">Nombre: <span class="text-muted"><?=$cliente?></span></small>
+                                                                          <small class="d-block">Teléfono: <span class="text-muted"><?php echo $telf_cliente; ?></span></small>
+                                                                        </div>
+                                                                        <div class="col-6">
+                                                                          <small class="d-block">Cédula: <span class="text-muted"><?php echo $ci_cliente; ?></span></small>
+                                                                          <small class="d-block">Email: <span class="text-muted"><?php echo $correo_cliente;  ?></span></small>
+                                                                        </div>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
+                                                                  <hr>
+                                                                  <div class="row">
+                                                                    <div class="col-auto">
+                                                                      <b>Datos de Envío</b>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                      <div class="row">
+                                                                        <div class="col-6">
+                                                                          <small class="d-block">Enviar a: <span class="text-muted"><?=$receptor?></span></small>
+                                                                          <small class="d-block">Ci: <span class="text-muted"><?=$ci_receptor?></span></small>
+                                                                          <small class="d-block">Teléfono: <span class="text-muted"><?php echo $telf_receptor; ?></span></small>
+                                                                          <small class="d-block">País: <span class="text-muted"></span><?=$pais?></small>
+                                                                          <small class="d-block">Municipio: <span class="text-muted"><?=$municipio?></span></small>
+                                                                          <small class="d-block">Código Postal: <span class="text-muted"><?=$codigopostal?></span></small>
+                                                                        </div>
+                                                                        <div class="col-6">
+                                                                          <small class="d-block">Cedula: <span class="text-muted"><?=$ci_receptor?></span></small>
+                                                                          <small class="d-block">Estado: <span class="text-muted"><?=$estado?></span></small>
+                                                                          <small class="d-block">Parroquia: <span class="text-muted"><?=$parroquia?></span></small>
+                                                                          <small class="d-block">Dirección: <span class="text-muted"><?=$direccion?></span></small>
+                                                                          <small class="d-block">Encomienda: <span class="text-muted"><?=$encomienda?></span></small>
+                                                                          <small class="d-block">Peso: <span class="text-muted"> <?=number_format($peso,2,',','.')?> gr</span></small>
+                                                                        </div>
+                                                                        <div class="col-12">
+                                                                          <small class="d-block">Observaciones: <span class="text-muted"><?=$observaciones?></span></small>
+                                                                        </div>
+                                                                      </div>
                                                                     </div>
                                                                   </div>
                                                                 </div>
                                                               </div>
                                                             </div>
+                                                            <?php if($isfactura==true){
+                                                              ?>
+                                                            <hr>
+                                                            <div class="co-12">
+                                                              <b>Factura Fiscal:</b>
+                                                              <small class="d-block">Razon Social: <span class="text-muted"><?=$razon_social?></span></small>
+                                                              <small class="d-block">Rif: <span class="text-muted"><?=$rif?></span></small>
+                                                              <small class="d-block">Direccion Fiscal: <span class="text-muted"><?=$dir_fiscal?></span></small>
+                                                            </div>
+                                                            <?php } ?>
                                                           </div>
+                                                          <hr>
                                                         </div>
-                                                        <hr>
                                                       </div>
                                                     </div>
-                                                  </div>
-                                                </div>
                                               </div>
-                                              <div class="modal fade" id="fal<?php echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                              <div class="modal fade" id="sol<?php echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                   <div class="modal-content">
-                                                    <div class="modal-header">
-                                                      <h5 class="modal-title">¿Desea reportar una falla o inconveniente?</h5>
+                                                    <form action="" method="GET">
+                                                      <div class="modal-header">
+                                                      <h5 class="modal-title">¡Reporte la solucion de la Falla!</h5>
                                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                       </button>
                                                     </div>
-                                                    <div class="modal-body">
-                                                      <div class="container-fluid">
-                                                        <div class="row">
-                                                          <div class="col-12">
-                                                            <form action="buscador_pedido.php" method="get">
-                                                            <input type="hidden" value="bad" name="orden">
-                                                            <input type="hidden" value="<?php echo $id;?>">
-                                                            <textarea rows="4" cols="50" name="comentario" id="comentario" placeholder="Detalle la falla con un comentario"></textarea>
+                                                      <div class="modal-body">
+                                                        <div class="container-fluid">
+                                                          <div class="row">
+                                                            <div class="col-6">
+                                                              <h5><b>Enviar el Pedido a: </b></h5>
+                                                            </div>
+                                                            <div class="col-6">
+                                                              <select class="d-block" name="Estatus">
+                                                              <!--  <option value="1">Por pagar</option>
+                                                                <option value="1">Pago Fallido</option>
+                                                                <option value="2">Pago pendiente</option> -->
+                                                                <option value="3">Por Buscar</option>
+                                                                <option value="4">Por Empaquetar</option>
+                                                                <option value="5">Por Enviar</option>
+                                                                <option value="6">Enviado</option>
+                                                                <option value="7">Completado</option>
+                                                              </select>
+                                                            </div>
+                                                            <div class="col-12">
+                                                              <input type="hidden" value="solved" name="orden">
+                                                              <input type="hidden" name="id" value="<?php echo $id;?>">
+                                                              <hr>
+                                                              <textarea rows="4" cols="50" name="comentario" id="comentario" placeholder="Detalle la solucion de la Falla" required></textarea>
+                                                            </div>
                                                           </div>
                                                         </div>
                                                       </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                      <input type="submit" onclick="return confirma()" id="boton-enviar" class="btn btn-primary" value="Enviar">
-                                                    </form>
-                                                    </div>
+                                                      <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                        <input type="submit" id="boton-enviar" class="btn btn-primary" value="Enviar">
+                                                      </div>
+                                                   </form>
                                                   </div>
                                                 </div>
                                               </div>
-                                              <?php
-                                              }
-                                                  }
-                                                  ?>
+                                            <?php
+                                          }}}
+                                            ?>
                                           </tbody>
-                                          <?php } ?>
                                       </table>
                                   </div>
                               </div>
@@ -235,7 +468,7 @@
                     }else{
                     ?>
                       <div class="row my-3 text-danger justify-content-center">
-                        <h5>¡No hay pedidos para sacar!</h5>
+                        <h5>¡No hay fallas que revisar!</h5>
                       </div>
                   </div>
 
