@@ -83,6 +83,11 @@ $previouspage = $curpage - 1;
                       <h4 class="card-title">Productos en Inventario</h4>
                       <h6 class="card-subtitle">Aca podras ver algunos de los productos que se encuentran en el inventario.</h6>
                     </div>
+										<?php
+												$sql = "SELECT * FROM PRODUCTOS  LIMIT $start, $perpage";
+												$result = $conn->query($sql);
+												if ($result->num_rows > 0) {
+												?>
                     <div class="table-responsive">
                       <table class="table table-hover">
                         <thead class="thead-light">
@@ -96,60 +101,73 @@ $previouspage = $curpage - 1;
                             <th scope="col">Precio(Bs.)</th>
                           </tr>
                         </thead>
-                        <tbody>
-                         <?php
-                             $sql = "SELECT * FROM PRODUCTOS  LIMIT $start, $perpage";
-                             $result = $conn->query($sql);
-                             if ($result->num_rows > 0) {
-                             // output data of each row
-                                while($row = $result->fetch_assoc()) {
-                                   ?>
-                                   <tr>
-                                    <td class="text-center"><img src="../../imagen/<?php echo $row['IMAGEN']; ?>" width="30px" alt=""></td>
-                                    <td><?php echo $row['NOMBRE_P']; ?></td>
-                                    <td><?php switch($row['GENERO']){case '1': echo 'Dama'; break; case '2': echo 'Caballero'; break; default: echo 'Otro'; break; }?></td>
-                                    <td><?=ucwords($row['MARCA'])?></td>
-																		<td><?=ucwords($row['TIPO'])?></td>
-																		<td><?=ucwords($row['MATERIAL'])?></td>
-                                    <td><?php echo number_format($row['PRECIO'], 2, ',', '.'); ?></td>
-                                  </tr>
-                                <?php
-                                    }
-                                } else{
-                                    echo "Sin Productos";
-                                }?>
-                        </tbody>
+                      <tbody>
+													 		<?php
+                              while($row = $result->fetch_assoc()) {
+																$IDCAT=$row['TIPO'];
+																$sql2="SELECT NOMBRE FROM CATEGORIAS WHERE IDCATEGORIA=$IDCAT";
+																$result2 = $conn->query($sql2);
+																if ($result2->num_rows > 0) {
+																		while($row2 = $result2->fetch_assoc()) {
+																			$nombre=$row2['NOMBRE'];
+																		}
+																}
+                              ?>
+                                 <tr>
+                                  <td class="text-center"><img src="../../imagen/<?php echo $row['IMAGEN']; ?>" width="30px" alt=""></td>
+                                  <td><?php echo $row['NOMBRE_P']; ?></td>
+                                  <td><?php switch($row['GENERO']){case '1': echo 'Dama'; break; case '2': echo 'Caballero'; break; default: echo 'Otro'; break; }?></td>
+                                  <td><?=ucwords($row['MARCA'])?></td>
+																	<td><?=ucwords($nombre)?></td>
+																	<td><?=ucwords($row['MATERIAL'])?></td>
+                                  <td><?php echo number_format($row['PRECIO'], 2, ',', '.'); ?></td>
+                                </tr>
+                              <?php
+                                  }
+															 ?>
+                      </tbody>
                       </table>
                       <center>
                         <nav aria-label="Page navigation example">
                           <ul class="pagination justify-content-center">
-                  <?php if($curpage != $startpage){ ?>
-                    <li class="page-item">
-                      <a class="page-link" href="?page=<?php echo $startpage ?>" tabindex="-1" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">firts</span>
-                      </a>
-                    </li>
-                    <?php } ?>
-                          <?php if($curpage >=2){ ?>
-                            <li class="page-item"><a class="page-link" href="?page=<?php echo $previouspage ?>"><?php echo $previouspage ?></a></li>
-                            <?php }  ?>
-                            <li class="page-item active"><a class="page-link" href="?page=<?php echo $curpage ?>"><?php echo $curpage ?></a></li>
-                            <?php if($curpage != $endpage){ ?>
-                            <li class="page-item"><a class="page-link" href="?page=<?php echo $nextpage ?>"><?php echo $nextpage ?></a></li>
-                        <?php } ?>
-                         <?php if($curpage != $endpage){ ?>
-                        <li class="page-item">
-                          <a class="page-link" href="?page=<?php echo $endpage ?>" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                            <span class="sr-only">Last</span>
-                          </a>
-                        </li>
-                        <?php } ?>
-                          </ul>
-                        </nav>
+				                	<?php if($curpage != $startpage){ ?>
+				                  <li class="page-item">
+				                    <a class="page-link" href="?page=<?php echo $startpage ?>" tabindex="-1" aria-label="Previous">
+				                      <span aria-hidden="true">&laquo;</span>
+				                      <span class="sr-only">firts</span>
+				                    </a>
+				                  </li>
+				                  <?php } ?>
+				                        <?php if($curpage >=2){ ?>
+				                          <li class="page-item"><a class="page-link" href="?page=<?php echo $previouspage ?>"><?php echo $previouspage ?></a></li>
+				                          <?php }  ?>
+				                          <li class="page-item active"><a class="page-link" href="?page=<?php echo $curpage ?>"><?php echo $curpage ?></a></li>
+				                          <?php if($curpage != $endpage){ ?>
+				                          <li class="page-item"><a class="page-link" href="?page=<?php echo $nextpage ?>"><?php echo $nextpage ?></a></li>
+				                      <?php } ?>
+				                       <?php if($curpage != $endpage){ ?>
+				                      <li class="page-item">
+				                        <a class="page-link" href="?page=<?php echo $endpage ?>" aria-label="Next">
+				                          <span aria-hidden="true">&raquo;</span>
+				                          <span class="sr-only">Last</span>
+				                        </a>
+				                      </li>
+				                      <?php } ?>
+				                        </ul>
+				                      </nav>
                      </center>
                     </div>
+										<?php
+											} else{
+												?>
+												<div class="card">
+													<div class="card-title text-center">
+														<h5>Sin Productos en Inventario</h5>
+													</div>
+												</div>
+												<?php
+											}
+										 ?>
                   </div>
                 </div>
                 </div>

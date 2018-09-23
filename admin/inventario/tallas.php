@@ -223,8 +223,16 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'], $_POST['peso'])){
                   <div class="card">
                     <div class="card-body">
                       <h4 class="card-title">Productos en Inventario</h4>
-                      <h6 class="card-subtitle">Aca podras ver los productos que se encuentran en el inventario.</h6>
+                      <h6 class="card-subtitle">Aca podras ver los productos que se encuentran en el inventario con sus tallas y cantidades.</h6>
                     </div>
+                    <?php
+                        $sql = "SELECT i.IDINVENTARIO, i.TALLA, i.CANTIDAD, m.IDMODELO, m.IMAGEN, m.COLOR1, m.COLOR2, p.NOMBRE_P, p.GENERO, p.TIPO, p.PRECIO, p.MARCA, i.PESO
+                        FROM INVENTARIO i INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO
+                        INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
+                        LIMIT $start, $perpage";
+                        $result = $conn->query($sql);
+                        if($result->num_rows > 0){
+                     ?>
                     <div class="table-responsive">
                       <table class="table table-hover">
                         <thead class="thead-light">
@@ -241,13 +249,6 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'], $_POST['peso'])){
                         </thead>
                         <tbody>
                          <?php
-                             $sql = "SELECT i.IDINVENTARIO, i.TALLA, i.CANTIDAD, m.IDMODELO, m.IMAGEN, m.COLOR1, m.COLOR2, p.NOMBRE_P, p.GENERO, p.TIPO, p.PRECIO, p.MARCA, i.PESO
-                             FROM INVENTARIO i INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO
-                             INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
-                             LIMIT $start, $perpage";
-                             $result = $conn->query($sql);
-                             if($result->num_rows > 0){
-                             // output data of each row
                                 while($row = $result->fetch_assoc()){
                                     $idcolor1 = $row['COLOR1'];
                                     $idcolor2 = $row['COLOR2'];
@@ -376,39 +377,48 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'], $_POST['peso'])){
                                   </div>
                                 <?php
                                     }
-                                }else{ echo "Sin Inventario"; } ?>
+                                ?>
                         </tbody>
                       </table>
                       <center>
                         <nav aria-label="Page navigation example">
                           <ul class="pagination justify-content-center">
-                  <?php if($curpage != $startpage){ ?>
-                    <li class="page-item">
-                      <a class="page-link" href="?page=<?php echo $startpage ?>" tabindex="-1" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">firts</span>
-                      </a>
-                    </li>
-                    <?php }
-                           if($curpage >=2){ ?>
-                            <li class="page-item"><a class="page-link" href="?page=<?php echo $previouspage ?>"><?php echo $previouspage ?></a></li>
-                            <?php }  ?>
-                            <li class="page-item active"><a class="page-link" href="?page=<?php echo $curpage ?>"><?php echo $curpage ?></a></li>
-                            <?php if($curpage != $endpage){ ?>
-                            <li class="page-item"><a class="page-link" href="?page=<?php echo $nextpage ?>"><?php echo $nextpage ?></a></li>
-                        <?php } ?>
-                         <?php if($curpage != $endpage){ ?>
-                        <li class="page-item">
-                          <a class="page-link" href="?page=<?php echo $endpage ?>" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                            <span class="sr-only">Last</span>
-                          </a>
-                        </li>
-                        <?php } ?>
+                        <?php if($curpage != $startpage){ ?>
+                          <li class="page-item">
+                            <a class="page-link" href="?page=<?php echo $startpage ?>" tabindex="-1" aria-label="Previous">
+                              <span aria-hidden="true">&laquo;</span>
+                              <span class="sr-only">firts</span>
+                            </a>
+                          </li>
+                          <?php }
+                                 if($curpage >=2){ ?>
+                                  <li class="page-item"><a class="page-link" href="?page=<?php echo $previouspage ?>"><?php echo $previouspage ?></a></li>
+                                  <?php }  ?>
+                                  <li class="page-item active"><a class="page-link" href="?page=<?php echo $curpage ?>"><?php echo $curpage ?></a></li>
+                                  <?php if($curpage != $endpage){ ?>
+                                  <li class="page-item"><a class="page-link" href="?page=<?php echo $nextpage ?>"><?php echo $nextpage ?></a></li>
+                              <?php } ?>
+                               <?php if($curpage != $endpage){ ?>
+                              <li class="page-item">
+                                <a class="page-link" href="?page=<?php echo $endpage ?>" aria-label="Next">
+                                  <span aria-hidden="true">&raquo;</span>
+                                  <span class="sr-only">Last</span>
+                                </a>
+                              </li>
+                              <?php } ?>
                           </ul>
                         </nav>
                      </center>
                     </div>
+                    <?php }else{
+                      ?>
+                      <div class="card">
+                        <div class="card-title text-center">
+                          <h5>Sin Productos Con Tallas y Cantidades</h5>
+                        </div>
+                      </div>
+                      <?php
+                    }  ?>
                   </div>
                 </div>
                 </div>

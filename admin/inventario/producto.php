@@ -14,6 +14,7 @@ if(isset($_GET['delete']) & !empty($_GET['delete'])){
               $imagen=$row['IMAGEN'];
                #elimina archivo
               unlink('../imagen/productos/'.$imagen);
+
            }
           }
     #eliminar producto
@@ -21,6 +22,7 @@ if(isset($_GET['delete']) & !empty($_GET['delete'])){
        if ($conn->query($sql) === TRUE) {
            } else { echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>'; }
 }
+#paginacion
 $perpage  = 5;
 if(isset($_GET['page']) & !empty($_GET['page'])){
 	$curpage = $_GET['page'];
@@ -30,7 +32,6 @@ $start = ($curpage * $perpage) - $perpage;
 $PageSql = "SELECT * FROM PRODUCTOS";
 $pageres = mysqli_query($conn, $PageSql);
 $totalres = mysqli_num_rows($pageres);
-
 $endpage = ceil($totalres/$perpage);
 $startpage = 1;
 $nextpage = $curpage + 1;
@@ -101,9 +102,8 @@ $previouspage = $curpage - 1;
               <div class="row justify-content-center mt-1 bg-white py-2">
                 <h3>Agregue las caracteristicas del producto</h3>
               </div>
-
               <form class="" action="addProducto.php" method="POST" enctype="multipart/form-data">
-              <div class="row mt-3">
+                <div class="row mt-3">
                 <div class="input-group mb-3 col-6">
                   <div class="input-group-append">
                     <span class="input-group-text"><b>Nombre del Producto</b></span>
@@ -115,12 +115,19 @@ $previouspage = $curpage - 1;
                     <label class="input-group-text"><b>Prenda</b></label>
                   </div>
                   <select name="tipo" class="custom-select text-secondary">
-                    <option value="franela">Franela</option>
-                    <option value="chemise">Chemise</option>
-                    <option value="pantalon">Pantalón</option>
-                    <option value="camisa">Camisa</option>
-                    <option value="zapato">Zapato</option>
-                    <option value="gorra">Gorra</option>
+                  <?php
+                  $sql="SELECT IDCATEGORIA, NOMBRE FROM CATEGORIAS WHERE PADRE=0";
+                  $result = $conn->query($sql);
+                  if ($result->num_rows > 0) {
+                      while($row = $result->fetch_assoc()) {
+                        $id=$row['IDCATEGORIA'];
+                        $nombre=$row['NOMBRE'];
+                        ?>
+                          <option value="<?php echo $id; ?>"><?php echo $nombre; ?></option>
+                        <?php
+                      }
+                  }
+                   ?>
                   </select>
                 </div>
                 <div class="input-group mb-3 col-3">
@@ -191,9 +198,9 @@ $previouspage = $curpage - 1;
                   <input class="form-group" name="archivo" type="file"/ required>
                 </div>
               </div>
-              <div class="row justify-content-center mb-3">
-                <button type="submit" class="btn btn-outline-primary">Agregar</button>
-              </div>
+                <div class="row justify-content-center mb-3">
+                  <button type="submit" class="btn btn-outline-primary">Agregar</button>
+                </div>
               </form>
                 <div class="row mt-3">
                   <div class="col-12">
@@ -201,7 +208,11 @@ $previouspage = $curpage - 1;
                     <div class="card-body">
                       <h4 class="card-title">Productos en Inventario</h4>
                       <h6 class="card-subtitle">Aca podras ver los productos que se encuentran en el inventario.</h6>
-                    </div>
+                    </div><?php
+                    $sql = "SELECT * FROM PRODUCTOS  LIMIT $start, $perpage";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {
+                   ?>
                     <div class="table-responsive">
                       <table class="table table-hover">
                         <thead class="thead-light">
@@ -217,17 +228,21 @@ $previouspage = $curpage - 1;
                           </tr>
                         </thead>
                         <tbody>
-                             <?php
-                             $sql = "SELECT * FROM PRODUCTOS  LIMIT $start, $perpage";
-                             $result = $conn->query($sql);
-                             if ($result->num_rows > 0) {
-                             // output data of each row
+                            <?php
                                 while($row = $result->fetch_assoc()) {
+                                  $IDCAT=$row['TIPO'];
+                                  $sql2="SELECT NOMBRE FROM CATEGORIAS WHERE IDCATEGORIA=$IDCAT";
+                                  $result2 = $conn->query($sql2);
+                                  if ($result2->num_rows > 0) {
+                                      while($row2 = $result2->fetch_assoc()) {
+                                        $nombre=$row2['NOMBRE'];
+                                      }
+                                  }
                                    ?>
                                    <tr>
                                     <td class="text-center"><img src="../../imagen/<?php echo $row['IMAGEN']; ?>" width="20px" alt=""></td>
                                     <td><?php echo $row['NOMBRE_P']; ?></td>
-                                    <td><?=ucwords($row['TIPO']);?></td>
+                                    <td><?=ucwords($nombre);?></td>
                                     <td><?php switch($row['GENERO']){
                                       case '1': echo 'Dama';
                                        break;
@@ -281,7 +296,7 @@ $previouspage = $curpage - 1;
                                   </div>
                                 <?php
                                     }
-                                }else{ echo "Sin Productos"; } ?>
+                              ?>
                         </tbody>
                       </table>
                           <center>
@@ -316,6 +331,15 @@ $previouspage = $curpage - 1;
                         </nav>
                      </center>
                     </div>
+                  <?php }else{
+                    ?>
+                    <div class="card">
+                      <div class="card-title text-center">
+                        <h5>Sin Productos en Inventario</h5>
+                      </div>
+                    </div>
+                    <?php
+                     }  ?>
                   </div>
                 </div>
                 </div>

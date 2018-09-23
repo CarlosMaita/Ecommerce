@@ -24,14 +24,15 @@ if (isset($_SESSION['carrito'])){
           $sql="SELECT  *, m.IMAGEN AS IMAGEN FROM INVENTARIO i
           INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO
           INNER JOIN PRODUCTOS p ON  p.IDPRODUCTO=m.IDPRODUCTO
-          WHERE IDINVENTARIO=$idinventario";
+          WHERE IDINVENTARIO=$idinventario LIMIT 1";
             $res = $conn->query($sql);
             while($f = $res->fetch_assoc()){
                     $nombre=$f["NOMBRE_P"];
                     $precio=$f["PRECIO"]*$tasa_usd;
                     $imagen=$f["IMAGEN"];
+                    $peso=$f["PESO"];
                 }
-            $newarreglo=array('Id'=>$idinventario,'Nombre'=>$nombre, 'Precio'=>$precio, 'Imagen'=> $imagen, 'Cantidad'=>$cantidad, 'Talla'=>$talla);
+            $newarreglo=array('Id'=>$idinventario,'Nombre'=>$nombre, 'Precio'=>$precio, 'Imagen'=> $imagen, 'Cantidad'=>$cantidad, 'Talla'=>$talla, 'Peso'=>$peso);
             array_push($arreglo,$newarreglo);
             $_SESSION['carrito']=$arreglo;
         }
@@ -62,14 +63,15 @@ if (isset($_SESSION['carrito'])){
         $sql="SELECT  *, m.IMAGEN AS IMAGEN FROM INVENTARIO i
         INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO
         INNER JOIN PRODUCTOS p ON  p.IDPRODUCTO=m.IDPRODUCTO
-        WHERE IDINVENTARIO=$idinventario";
+        WHERE IDINVENTARIO=$idinventario LIMIT 1";
         $res = $conn->query($sql);
         while($f = $res->fetch_assoc()){
                 $nombre=$f["NOMBRE_P"];
                 $precio=$f["PRECIO"]*$tasa_usd;
                 $imagen=$f["IMAGEN"];
+                $peso=$f["PESO"];
             }
-        $arreglo[]=array('Id'=>$idinventario,'Nombre'=>$nombre, 'Precio'=>$precio, 'Imagen'=> $imagen, 'Cantidad'=>$cantidad, 'Talla'=>$talla);
+        $arreglo[]=array('Id'=>$idinventario,'Nombre'=>$nombre, 'Precio'=>$precio, 'Imagen'=> $imagen, 'Cantidad'=>$cantidad, 'Talla'=>$talla, 'Peso'=>$peso);
         $_SESSION['carrito']=$arreglo;
     }
 }
@@ -116,6 +118,7 @@ if (isset($_SESSION['carrito'])){
                     <?php
                     $datos=$_SESSION['carrito'];
                     $subtotal=0;
+                    $peso=0;
                     $cantidad_total=0;
                     $i=0;
                     foreach($datos as $d){
@@ -151,6 +154,9 @@ if (isset($_SESSION['carrito'])){
                         <div class="row">
                             <small><a class="enlace2" href="index.php?idproducto=<?php echo $idinv;?>&idmodelo=<?php echo $idmodelo;?>" target="_blank"><?php echo $d['Nombre'];?></a></small>
                             <span class="ml-auto"><?php echo number_format($total_modelo,2,',','.');?> Bs.S</span>
+                        </div>
+                        <div class="row">
+                          <small>IDINVENTARIO: <span class="text-muted"><?php echo " ".$d['Id']?></span></small>
                         </div>
                         <div class="row">
                           <small>TALLA: <span class="text-muted"><?php echo " ".$d['Talla']?></span></small>
@@ -260,8 +266,10 @@ if (isset($_SESSION['carrito'])){
                     </div>
                     <hr>
                     <?php
+                    #MONTO
                     $subtotal=$d['Cantidad']*$d['Precio'] + $subtotal;
-                    } ?>
+                    }
+                    ?>
                     <div class="text-secondary text-center">
                       <form action="../index.php">
                         <input type="hidden" name="reset" value="">

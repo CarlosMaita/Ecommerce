@@ -1,4 +1,4 @@
- <?php
+<?php
  if(!isset($_SESSION)){
    session_start();
  }
@@ -12,6 +12,9 @@ $docid_cliente= $_SESSION['type-identidad-cliente'].'-'.$_SESSION['doc-identidad
 $telf_cliente=$_SESSION['telf-cliente'];
 $email_cliente=$_SESSION['email-cliente'];
 $monto =  $_SESSION['total'];
+#PESO
+$pesot=$_SESSION['peso'];
+
 if(isset($_POST['isfacture'])){
     $razon=$_SESSION['razon-social'];
     $identidad=$_SESSION['type-identidad'].'-'.$_SESSION['doc-identidad'];
@@ -55,9 +58,9 @@ if ($result->num_rows > 0) {
                }else{ echo "Error: " . $sqld . "<br>" . $conn->error; }
         }
     }
-$sql0="DELETE FROM PEDIDOS WHERE ESTATUS=0 AND EMAIL='$email_cliente';";
-if ($conn->query($sql0) === TRUE) {
-
+$sql0="DELETE FROM PEDIDOS WHERE ESTATUS=0 AND EMAIL='$email_cliente' ";
+if ($conn->query($sql0) == TRUE) {
+  #Eliminado
    } else {
     echo "Error: " . $sql0 . "<br>" . $conn->error;
 }
@@ -71,32 +74,28 @@ $sql1 = "INSERT INTO PEDIDOS (IDPEDIDO,CLIENTE,DOCID,TELEFONO,EMAIL,ESTATUS, FEC
 
 if ($conn->query($sql1) === TRUE) {
    } else { echo "Error: " . $sql1 . "<br>" . $conn->error; }
-$sql2="INSERT INTO `COMPRAS`( `IDPEDIDO`, `MONTO`, `RAZONSOCIAL`, `RIFCI`, `DIRFISCAL`) VALUES (MD5('$md5'), '$monto', '$razon',' $identidad','$dir_fiscal');";
+$sql2="INSERT INTO `COMPRAS`( `IDPEDIDO`, `MONTO`, `PESO` ,  `RAZONSOCIAL`, `RIFCI`, `DIRFISCAL`) VALUES (MD5('$md5'), '$monto','$pesot',  '$razon',' $identidad','$dir_fiscal');";
 if ($conn->query($sql2) === TRUE) {
    } else { echo "Error: " . $sql0 . "<br>" . $conn->error; }
    if(isset($_SESSION['carrito'])){
         $datos=$_SESSION['carrito'];
-           for($i=0;$i<count($datos);$i++){
-        $dato1=  $datos[$i]['Id'];
-        $dato2=  $datos[$i]['Talla'];
-        $dato3=  $datos[$i]['Cantidad'];
-        $dato4=  $datos[$i]['Precio'];
-    #    $sql3="SELECT IDINVENTARIO FROM INVENTARIO  WHERE IDPRODUCTO= '$dato1' AND TALLA= '$dato2' ; ";
-  #      $res = $conn->query($sql3);
-    #    $f = $res->fetch_assoc();
-    #    $id_inv=$f["IDINVENTARIO"];
-        $id_inv=$dato1;
-        $sql4="INSERT INTO `ITEMS`(`IDPEDIDO`, `IDINVENTARIO`, `CANTIDAD`, `PRECIO`) VALUES (MD5('$md5'),'$id_inv' ,'$dato3', '$dato4');";
-       if ($conn->query($sql4) === TRUE) {
-           } else {
-            echo "Error: " . $sql4 . "<br>" . $conn->error;
+        foreach ($datos as $d){
+          $id_item=  $d['Id'];
+          $cantidad_item=  $d['Cantidad'];
+          $precio_item=  $d['Precio'];
+          #insercion
+          $sql_item="INSERT INTO `ITEMS`(`IDPEDIDO`, `IDINVENTARIO`, `CANTIDAD`, `PRECIO`) VALUES (MD5('$md5'),'$id_item' ,'$cantidad_item', '$precio_item')";
+          if ($conn->query($sql_item) == TRUE) {
+            #good
+              } else {
+               echo "Error: " . $sql4 . "<br>" . $conn->error;
+             }
         }
-           }
    }
     $receptor=$_SESSION['receptor'];
     $receptor_ci = $_SESSION['type-identidad-receptor'].'-'.$_SESSION['doc-identidad-receptor'] ;
     $receptor_tel=$_SESSION['telf-receptor'];
-//direccion
+    //direccion
     $pais=$_SESSION['pais'];
     $estado=$_SESSION['estado'];
     $ciudad=$_SESSION['ciudad'];

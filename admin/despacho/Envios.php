@@ -3,17 +3,43 @@ include_once('../common/sesion2.php');
 if($_SESSION['nivel']==4 || $_SESSION['nivel']==1){
 }else{ header('Location: ../principal.php'); }
 require('../../common/conexion.php');
+if(isset($_GET['orden'], $_GET['id']) ){
+  $newid=$_GET['id'] ;
+  if ($_GET['orden']=='good'){
     if(isset($_GET['id'], $_GET['guia']) and $_GET['guia']!=NULL){
-        $newid=$_GET['id'] ;
-        $guia=$_GET['guia'];
-        $sql="UPDATE `ENVIOS` SET `GUIA`='$guia' WHERE `IDPEDIDO`='$newid'";
-        if ($conn->query($sql) === TRUE) {
-                        $sql2="UPDATE `PEDIDOS` SET `ESTATUS`='6' WHERE  `IDPEDIDO`='$newid'";
-                        if ($conn->query($sql2) === TRUE) {
-                        } else { echo "Error: " . $sql2. "<br>" . $conn->error; }
-        } else { echo "Error: " . $sql. "<br>" . $conn->error; }
-         header ('location: Envios.php');
+            $guia=$_GET['guia'];
+            $sql="UPDATE `ENVIOS` SET `GUIA`='$guia' WHERE `IDPEDIDO`='$newid'";
+            if ($conn->query($sql) === TRUE) {
+                $sql2="UPDATE `PEDIDOS` SET `ESTATUS`='6' WHERE  `IDPEDIDO`='$newid'";
+                if ($conn->query($sql2) === TRUE) {
+                }else {
+                   echo "Error: " . $sql2. "<br>" . $conn->error;
+                }
+            }else{
+               echo "Error: " . $sql. "<br>" . $conn->error;
+             }
     }
+  }else if ($_GET['orden']=='bad'){
+          if (isset($_GET['comentario'])){
+              $comentario=$_GET['comentario'];
+          }
+          #resportero de falla
+         $reportero=$_SESSION['USUARIO'];
+         #estatus 0-Por resolver  1-Resuelta
+         $estatus=0;
+         #ORIGEN
+         $origen='Envios';
+
+         $sql="UPDATE `PEDIDOS` SET `ESTATUS`='10' WHERE  `IDPEDIDO`='$newid'";
+          if ($conn->query($sql) === TRUE) {
+          } else { echo "Error: " . $sql. "<br>" . $conn->error; }
+          $sql="INSERT INTO `FALLAS`(`IDPEDIDO`,`REPORTERO`,`ESTATUS`, `PROBLEMA`, `FECHAFALLA`,`ORIGEN` ) VALUES ('$newid','$reportero','$estatus','$comentario', NOW(),'$origen' )";
+           if ($conn->query($sql) === TRUE) {
+          } else { echo "Error: " . $sql. "<br>" . $conn->error; }
+          $conn->close();
+        }
+        header ('location: Envios.php');
+ }
 ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -40,10 +66,6 @@ require('../../common/conexion.php');
     window.location.hash="Again-No-back-button" //chrome
     window.onhashchange=function(){window.location.hash="no-back-button";}
             }
-         function confirma(){
-             r=confirm("¿Esta usted seguro?");
-             return r;
-         }
     </script>
     <!-- onload="deshabilitaRetroceso()"-->
     <body>
@@ -163,21 +185,22 @@ require('../../common/conexion.php');
                                                            }
                                                         ?>
                                                     <tr>
+                                                      <form action="Envios.php" method="get">
                                                         <td class="txt-oflo"> <small><?php echo $id;?></small></td>
                                                         <td><span class="label label-warning label-rounded">Por Enviar</span></td>
                                                         <td class="txt-oflo"><?=$fecha?></td>
                                                         <td><span class="font-medium"><button type="button" class="enlace2 ml-auto" href="javascript:void(0)" data-toggle="modal" data-target="#ver<?php echo $id;?>">Ver dirección</button></span></td>
                                                         <td><?=number_format($peso,2,',','.')?></td>
-                                                        <form action="Envios.php" method="get">
+                                                          <input type="hidden" value="good" name="orden">
                                                           <input type="text" value="<?php echo $id;?>" name="id" style="display: none">
-                                                          <td>
+                                                        <td>
                                                             <input class="form-control" type="text" placeholder="Código de Seguimiento" id="guia" name="guia">
-                                                          </td>
-                                                          <td>
-                                                            <button type="submit" id="Enviado" class="btn btn-outline-success btn-sm" onclick="return confirma()">Enviado</button>
-                                                        </form>
-                                                          <a onclick="ven()" id="bad" class="btn btn-outline-danger btn-sm" href="javascript:void(0)" data-toggle="modal" data-target="#fal<?php echo $id;?>"><span title="Reportar Inconveniente" data-toggle="tooltip">Falla</span></a></td>
                                                         </td>
+                                                        <td>
+                                                          <button type="submit" id="Enviado" class="btn btn-outline-success btn-sm" >Enviado</button>
+                                                          <a id="bad" class="btn btn-outline-danger btn-sm" href="javascript:void(0)" data-toggle="modal" data-target="#fal<?php echo $id;?>"><span title="Reportar Inconveniente" data-toggle="tooltip">Falla</span></a></td>
+                                                        </td>
+                                                        </form>
                                                     </tr>
                                                     <div class="modal fade bd-example-modal-lg" id="ver<?php echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                                       <div class="modal-dialog" role="document">
@@ -245,6 +268,7 @@ require('../../common/conexion.php');
                                                     <div class="modal fade" id="fal<?php echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                       <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
+                                                          <form action="Envios.php" method="get">
                                                           <div class="modal-header">
                                                             <h5 class="modal-title">¿Desea reportar una falla o inconveniente?</h5>
                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -255,9 +279,8 @@ require('../../common/conexion.php');
                                                             <div class="container-fluid">
                                                               <div class="row">
                                                                 <div class="col-12">
-                                                                  <form action="buscador_pedido.php" method="get">
                                                                   <input type="hidden" value="bad" name="orden">
-                                                                  <input type="hidden" value="<?php echo $id;?>">
+                                                                  <input type="hidden" name="id" value="<?php echo $id;?>">
                                                                   <textarea rows="4" cols="50" name="comentario" id="comentario" placeholder="Detalle la falla con un comentario"></textarea>
                                                                 </div>
                                                               </div>
@@ -265,9 +288,9 @@ require('../../common/conexion.php');
                                                           </div>
                                                           <div class="modal-footer">
                                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                            <input type="submit" onclick="return confirma()" id="boton-enviar" class="btn btn-primary" value="Enviar">
-                                                          </form>
+                                                            <input type="submit"  id="boton-enviar" class="btn btn-primary" value="Enviar">
                                                           </div>
+                                                         </form>
                                                         </div>
                                                       </div>
                                                     </div>
