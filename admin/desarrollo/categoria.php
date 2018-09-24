@@ -6,7 +6,6 @@ require('../../common/conexion.php');
 if(isset($_GET['color'],$_GET['color_hex'] )){
         $color=$_GET['color'];
         $hex=$_GET['color_hex'];
-
          $sql = "INSERT INTO `COLOR`(`HEX`, `COLOR`) VALUES ('$hex','$color')";
 
         if ($conn->query($sql) === TRUE) {
@@ -52,7 +51,6 @@ $previouspage = $curpage - 1;
     <title>Rouxa - Administración</title>
     <link href="../dist/css/style.min.css" rel="stylesheet">
     <link href="../../css/new.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -74,7 +72,7 @@ $previouspage = $curpage - 1;
                     <div class="col-5 align-self-center">
                         <h4 class="page-title">Desarrollo</h4>
                     </div>
-                    <div class="col-7 align-self-center">
+                    <div class="col-auto ml-auto align-self-center">
                         <div class="d-flex align-items-center justify-content-end">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
@@ -93,13 +91,13 @@ $previouspage = $curpage - 1;
             </div>
             <div class="container-fluid">
                 <div class="row justify-content-around">
-                    <div class="col-4 text-center">
+                    <div class="col-sm-4 text-center">
                       <a class="btn btn-link text-success" href="usuarios.php">Agregar/Eliminar Usuario</a>
                     </div>
-                    <div class="col-4 text-center">
+                    <div class="col-sm-4 text-center">
                       <a class="btn btn-link text-success" href="categoria.php">Agregar/Eliminar Tipo de Prenda</a>
                     </div>
-                    <div class="col-4 text-center">
+                    <div class="col-sm-4 text-center">
                       <a class="btn btn-link text-success" href="colores.php">Agregar/Eliminar Color</a>
                     </div>
                 </div>
@@ -220,9 +218,6 @@ $previouspage = $curpage - 1;
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../assets/extra-libs/sparkline/sparkline.js"></script>
-    <script src="../dist/js/waves.js"></script>
-    <script src="../dist/js/sidebarmenu.js"></script>
     <script src="../dist/js/custom.min.js"></script>
 </body>
 </html>

@@ -39,17 +39,14 @@
         <div class="input-group mb-3 col">
           <input type="text" class="form-control" placeholder="Inserte su Llave digital" aria-label="Inserte su Llave digital" aria-describedby="basic-addon2"  name="idcompra" maxlength="32">
           </div>
-
       <!--  <div class="g-recaptcha col" data-sitekey="6LezMGIUAAAAAK7US9I7C9wD2OV9Hufqb8V5whVY"></div>
       -->
       <input type="hidden" name="g-recaptcha-response" value="">
         <div class="input-group-append mt-3 col-5">
           <button class="btn btn-outline-secondary" type="submit">Buscar</button>
         </div>
-
     </form>
     </div>
-
 <div style="min-height:55vh">
  <?php
  /* if (isset($_GET['g-recaptcha-response'],$_GET['idcompra'], $_GET['type-identidad-cliente'], $_GET['doc-identidad-cliente'])){

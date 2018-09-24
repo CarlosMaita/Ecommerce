@@ -30,8 +30,7 @@
     <?php include_once '../common/menu2.php';
           include_once '../common/2domenu2.php';
     ?>
-<!-- Inicio de codigo. !-->
-   <div style="min-height:100vh;  background: #ddd;">
+   <div style="min-height:100vh; background: #fff;">
     <?php
         if($_GET){
              switch($_GET['id']){
@@ -840,30 +839,30 @@
              }
         }else{
               ?>
-       <div class="container p-3">
-     <h1 id="letrap" class="text-center text-primary">Preguntas Frecuentes(FAQ)</h1>
-       <hr class="my-4">
+        <div class="container p-3">
+         <h1 id="letrap" class="text-center text-primary">Preguntas Frecuentes(FAQ)</h1>
+         <hr class="my-4">
          <ul class="faq-column">
-             <li id="faq-li" class="bg-dark">
-                 <ul class="faq-row">
-                    <li><a href="index.php?id=9" class="bg-dark text-white">Información de Rouxa</a></li>
-                    <li><a href="index.php?id=2" class="bg-dark text-white">Envíos</a></li>
-                    <li><a href="index.php?id=3" class="bg-dark text-white">Devoluciones y Reembolsos</a></li>
-                    <li><a href="index.php?id=4" class="bg-dark text-white">Métodos de pago</a></li>
-                    <li><a href="index.php?id=8" class="bg-dark text-white">Retiros en tienda</a></li>
-                </ul>
-             </li>
-             <li id="faq-li" class="bg-dark">
-                <ul class="faq-row bg-dark">
-                     <li><a href="index.php?id=1" class="bg-dark text-white">Al Mayor</a></li>
-                     <li><a href="index.php?id=5" class="bg-dark text-white">Seguimiento de Pedidos</a></li>
-                     <li><a href="index.php?id=6" class="bg-dark text-white">Vendedores</a ></li>
-                     <li><a href="index.php?id=7" class="bg-dark text-white">Promociones</a></li>
-                     <li><a href="index.php?id=10" class="bg-dark text-white">Publicar Ropa en Rouxa</a></li>
-                 </ul>
-             </li>
-         </ul>
-        </div>
+           <li id="faq-li" style="background: #aaa;">
+             <ul class="faq-row">
+               <li><a href="index.php?id=9" class="text-white">Información de Rouxa</a></li>
+               <li><a href="index.php?id=2" class="text-white">Envíos</a></li>
+               <li><a href="index.php?id=3" class="text-white">Devoluciones y Reembolsos</a></li>
+               <li><a href="index.php?id=4" class="text-white">Métodos de pago</a></li>
+               <li><a href="index.php?id=8" class="text-white">Retiros en tienda</a></li>
+             </ul>
+           </li>
+           <li id="faq-li" style="background: #aaa;">
+             <ul class="faq-row">
+               <li><a href="index.php?id=1" class="text-white">Al Mayor</a></li>
+               <li><a href="index.php?id=5" class="text-white">Seguimiento de Pedidos</a></li>
+               <li><a href="index.php?id=6" class="text-white">Vendedores</a ></li>
+               <li><a href="index.php?id=7" class="text-white">Promociones</a></li>
+               <li><a href="index.php?id=10" class="text-white">Publicar Ropa en Rouxa</a></li>
+             </ul>
+           </li>
+        </ul>
+      </div>
          <?php
         }
         ?>

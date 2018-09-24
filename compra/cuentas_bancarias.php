@@ -30,13 +30,10 @@ $_SESSION['encomienda']=str_replace("'","",$_POST['encomienda']);
 $_SESSION['ref']=str_replace("'","",$_POST['ref']);
 $_SESSION['codigo-postal']=str_replace("'","",$_POST['codigo-postal']);
 $_SESSION['observaciones']=str_replace("'",".",$_POST['observaciones']);
-
 include 'comprar.php';
-
 if (isset($_SESSION['total'])){
     $total=$_SESSION['total'];
   }
-
 //Enviar mail
 $cliente_mail=$_SESSION['nombre-cliente'];
 $destino=$_SESSION['email-cliente'];
@@ -48,8 +45,8 @@ $contenido = '<html>
 <body>
 <h1>Compra en rouxa</h1>
 <p style="color:black">Un saludo cordial '.$cliente_mail.',
-<br>Agradecemos tu compra realizada en nuestra tienda virtual Rouxa, Recuerda que puedes hacerles seguimiento a traves del siguiente ID.
-<br>Que tengas un Feliz Dia.
+<br>Agradecemos tu compra realizada en nuestra tienda virtual Rouxa. Recuerda que puedes hacerles seguimiento a traves del siguiente ID.
+<br>¡Que tengas un Feliz Día!.
 </p>
 <h4> IDCOMPRA: '.$Llave.'</h4>
 </body>
@@ -69,9 +66,9 @@ $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
     <meta name="keywords" content="Rouxa, Ropa, Damas, Caballeros, Zapatos, Tienda Virtual">
     <meta name="author" content="Eutuxia, C.A.">
     <meta name="application-name" content="Tienda Virtual de Ropa, Rouxa."/>
-    <link rel="icon" type="image/jpg" sizes="16x16" href="../imagen/favicon.jpg">
-    <link href="../admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+    <link rel="icon" type="image/jpg" sizes="16x16" href="../imagen/favicon.jpg"/>
+    <link href="../admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
     <title>Rouxa</title>
   </head>
@@ -97,27 +94,31 @@ $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
              return r;
          }
     </script>
-
   <body  onload="deshabilitaRetroceso()">
-<!-- Inicio de codigo. !-->
-     <div class="jumbotron mb-0">
-      <h1 class="display-4">¡Felicidades por tu Compra! </h1>
+     <div class="container mt-4">
+      <h2 class="style="font-family: 'Playfair Display', serif;"">¡Felicidades por tu Compra! </h2>
       <p class="lead">Usted ha realizado la compra de manera existosa. Para continuar, realice el pago total del carrito de compras a traves de la plataforma de cobranza Mercado pago. <br><br> Su llave digital es la siguiente:</p>
-        <div class="p-3 mb-2 bg-info text-white">
-           <p class="text-center mt-3"><?PHP
-                 if($_POST){
-                     #echo md5($CS); //Cadena del Id completa
-                     #cadena de $Ncadena caracteres de la cadena
-                     echo $Llave;
-                 }else{
-                     echo 'Error: ID No generado';
-                 }
-                 ?></p>
-
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="p-2 mb-2 bg-success text-white col-5">
+            <p class="text-center mt-3"><?PHP
+            if($_POST){
+              #echo md5($CS); //Cadena del Id completa
+              #cadena de $Ncadena caracteres de la cadena
+              echo $Llave;
+            }else{ echo 'Error: ID No generado'; }
+            ?>
+          </p>
+        </div>
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-4 text-center">
+            <small>¿Que es una <a href="../faq/index.php?id=5" target="_blank">Llave digital</a>?</small>
+          </div>
+        </div>
       </div>
-      <hr class="my-4">
+        <hr class="my-4">
     <?php
-
             if (isset($_POST['nombre-cliente'])){
                   $id_mp=$Llave;
                   $cliente_mp=$_POST['nombre-cliente'];

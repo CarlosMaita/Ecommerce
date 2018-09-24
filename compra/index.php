@@ -9,7 +9,7 @@ if(isset($_GET['idproducto'], $_GET['idmodelo'])){
             $res= $conn->query($sql);
             $arreglo[] = array();
             unset($arreglo[0]);
-           if ($res->num_rows > 0){
+           if($res->num_rows > 0){
             while($f=$res->fetch_assoc()){
                 $lista_tallas=$lista_tallas.'<option value="'.$f['TALLA'].'">'.$f['TALLA'].'</option>';
                 $newarreglo=array('Talla'=>$f['TALLA'], 'Cantidad'=> $f['CANTIDAD'], 'Idinventario'=>$f['IDINVENTARIO'], 'Peso'=>$f['PESO']);
@@ -25,7 +25,7 @@ if(isset($_GET['idproducto'], $_GET['idmodelo'])){
         INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
         WHERE m.IDMODELO=$idmodelo";
         $res= $conn->query($sql);
-        if ($res->num_rows > 0){
+        if($res->num_rows > 0){
          while($f=$res->fetch_assoc()){
            $nombre_p=$f['NOMBRE_P'];
            $precio= $f['PRECIO'];
@@ -99,9 +99,7 @@ and open the template in the editor.
                     /*Segundo objetivo - cantidad max ajustadas*/
                     if(<?php echo $arreglo[$i]['Cantidad'];?> <11){
                             document.getElementById('cant').max='<?php echo $arreglo[$i]['Cantidad'];?>';
-                    }else{
-                      document.getElementById('cant').max='10';
-                    }
+                    }else{ document.getElementById('cant').max='10'; }
                     /*Segundo objetivo - modificar Idinv*/
                     document.getElementById('idinv').value='<?php echo $arreglo[$i]['Idinventario'];?>';
                 break;
@@ -269,9 +267,7 @@ and open the template in the editor.
                                   foreach ($arreglo as $key) {
                                       echo 'Talla: '.$key["Talla"].' ('.$key["Peso"].' gr) ';
                                   }
-                                }else{
-                                  echo 'No disponible';
-                                }
+                                }else{ echo 'No disponible'; }
                                  ?>
                                 </p>
                              </div>

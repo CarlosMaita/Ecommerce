@@ -28,7 +28,6 @@ $previouspage = $curpage - 1;
     <link rel="icon" type="image/jpg" sizes="16x16" href="../../imagen/favicon.jpg">
     <title>Rouxa - Administración</title>
     <link href="../dist/css/style.min.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -66,13 +65,13 @@ $previouspage = $curpage - 1;
             </div>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-4 text-center">
+                    <div class="col-sm-4 text-center">
                       <a class="btn btn-link text-success" href="producto.php">Agregar/Eliminar Producto</a>
                     </div>
-                    <div class="col-4 text-center">
+                    <div class="col-sm-4 text-center">
                       <a class="btn btn-link text-success" href="modelo.php">Agregar/Eliminar Modelo</a>
                     </div>
-                    <div class="col-4 text-center">
+                    <div class="col-sm-4 text-center">
                       <a class="btn btn-link text-success" href="tallas.php">Agregar/Eliminar Talla</a>
                     </div>
                 </div>
@@ -160,9 +159,6 @@ $previouspage = $curpage - 1;
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../assets/extra-libs/sparkline/sparkline.js"></script>
-    <script src="../dist/js/waves.js"></script>
-    <script src="../dist/js/sidebarmenu.js"></script>
     <script src="../dist/js/custom.min.js"></script>
 </body>
 </html>

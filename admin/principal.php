@@ -14,11 +14,10 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Página administrativa de Rouxa">
+    <meta name="author" content="Eutuxia Web">
     <link rel="icon" type="image/jpg" sizes="16x16" href="../imagen/favicon.jpg">
     <title>Rouxa Administración</title>
-    <link href="assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
     <link href="dist/css/style.min.css" rel="stylesheet">
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -39,7 +38,7 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-5 align-self-center">
-                        <h4 class="page-title">Principal <?php echo $_SESSION['nivel'];?></h4>
+                        <h4 class="page-title">Principal</h4>
                     </div>
                     <div class="col-7 align-self-center">
                         <div class="d-flex align-items-center justify-content-end">
@@ -144,15 +143,7 @@
         </div>
     </div>
     <script src="assets/libs/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="assets/extra-libs/sparkline/sparkline.js"></script>
-    <script src="dist/js/waves.js"></script>
-    <script src="dist/js/sidebarmenu.js"></script>
     <script src="dist/js/custom.min.js"></script>
-    <script src="assets/libs/chartist/dist/chartist.min.js"></script>
-    <script src="assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-    <script src="dist/js/pages/dashboards/dashboard1.js"></script>
 </body>
 </html>

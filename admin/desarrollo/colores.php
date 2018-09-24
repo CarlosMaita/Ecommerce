@@ -76,7 +76,7 @@ $previouspage = $curpage - 1;
                     <div class="col-5 align-self-center">
                         <h4 class="page-title">Desarrollo</h4>
                     </div>
-                    <div class="col-7 align-self-center">
+                    <div class="col-auto ml-auto align-self-center">
                         <div class="d-flex align-items-center justify-content-end">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
@@ -94,14 +94,17 @@ $previouspage = $curpage - 1;
                 </div>
             </div>
             <div class="container-fluid">
-                <div class="row justify-content-around">
-                    <div class="col-4 text-center">
-                      <a class="btn btn-link text-success" href="usuarios.php">Agregar/Eliminar Usuario</a>
-                    </div>
-                    <div class="col-4 text-center">
-                      <a class="btn btn-link text-success" href="colores.php">Agregar/Eliminar Color</a>
-                    </div>
-                </div>
+              <div class="row justify-content-around">
+                  <div class="col-sm-4 text-center">
+                    <a class="btn btn-link text-success" href="usuarios.php">Agregar/Eliminar Usuario</a>
+                  </div>
+                  <div class="col-sm-4 text-center">
+                    <a class="btn btn-link text-success" href="categoria.php">Agregar/Eliminar Tipo de Prenda</a>
+                  </div>
+                  <div class="col-sm-4 text-center">
+                    <a class="btn btn-link text-success" href="colores.php">Agregar/Eliminar Color</a>
+                  </div>
+              </div>
                 <div class="row mt-3">
                   <div class="col-12">
                   <div class="card">
@@ -121,7 +124,7 @@ $previouspage = $curpage - 1;
                         <input type="text" name="color" class="form-control text-secondary" placeholder="Ingrese el nombre del color" required>
                       </div>
                       <div class="input-group mb-3 col-1">
-                        <input type="color" name="color_hex"  style="background:#fff; border: #ddd solid 1px;  " required>
+                        <input type="color" name="color_hex"  style="background:#fff; border: #ddd solid 1px;" required>
                       </div>
                     </div>
                     <div class="row justify-content-center mb-3">
@@ -237,9 +240,6 @@ $previouspage = $curpage - 1;
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../assets/extra-libs/sparkline/sparkline.js"></script>
-    <script src="../dist/js/waves.js"></script>
-    <script src="../dist/js/sidebarmenu.js"></script>
     <script src="../dist/js/custom.min.js"></script>
 </body>
 </html>
