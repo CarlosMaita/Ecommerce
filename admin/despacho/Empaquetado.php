@@ -14,12 +14,20 @@
             if (isset($_GET['comentario'])){
                 $comentario=$_GET['comentario'];
             }
+            #resportero de falla
+           $reportero=$_SESSION['USUARIO'];
+           #estatus 0-Por resolver  1-Resuelta
+           $estatus=0;
+           #ORIGEN
+           $origen='Empaquetado';
+
            $sql="UPDATE `PEDIDOS` SET `ESTATUS`='10' WHERE  `IDPEDIDO`='$newid'";
-            if ($conn->query($sql) === TRUE){
-            }else{ echo "Error: " . $sql. "<br>" . $conn->error; }
-            $sql="INSERT INTO `FALLA`(`IDPEDIDO`, `COMENTARIO`, `FECHAFALLA`) VALUES ('$newid','$comentario', CURRENT_DATE())";
-             if ($conn->query($sql) === TRUE){
-            }else{ echo "Error: " . $sql. "<br>" . $conn->error; }
+            if ($conn->query($sql) === TRUE) {
+            } else { echo "Error: " . $sql. "<br>" . $conn->error; }
+            $sql="INSERT INTO `FALLAS`(`IDPEDIDO`,`REPORTERO`,`ESTATUS`, `PROBLEMA`, `FECHAFALLA`,`ORIGEN` ) VALUES ('$newid','$reportero','$estatus','$comentario', NOW(),'$origen' )";
+             if ($conn->query($sql) === TRUE) {
+            } else { echo "Error: " . $sql. "<br>" . $conn->error; }
+            $conn->close();
         }
          header ('location:Empaquetado.php');
     }
@@ -49,21 +57,6 @@
     window.location.hash="Again-No-back-button" //chrome
     window.onhashchange=function(){window.location.hash="no-back-button";}
             }
-         var band=false;
-         function ven(){
-             if(!band){
-                 band=!band;
-                 document.getElementById('falla-comentario').style.display='block';
-             }else{
-                 band=!band;
-                  document.getElementById('falla-comentario').style.display='none';
-                  document.getElementById('comentario').value='';
-             }
-         }
-         function confirma(){
-             r=confirm("¿Esta usted seguro?");
-             return r;
-         }
     </script>
 <!-- <body onload="deshabilitaRetroceso()"> -->
 <body>
@@ -148,8 +141,8 @@
                                             <td><span class="label label-info label-rounded">Por Empaquetar</span></td>
                                             <td class="txt-oflo"><?=$fecha?></td>
                                             <td><span class="font-medium"><button type="button" class="enlace2 ml-auto" href="javascript:void(0)" data-toggle="modal" data-target="#ver<?php echo $id;?>">Ver artículos</button></span></td>
-                                            <td><a id="good" class="btn btn-outline-success btn-sm" href="Empaquetado.php?orden=good&id=<?php echo $id;?>" onclick="return confirma()">Listo</a>
-                                            <a onclick="ven()" id="bad" class="btn btn-outline-danger btn-sm" href="javascript:void(0)" data-toggle="modal" data-target="#fal<?php echo $id;?>"><span title="Reportar Inconveniente" data-toggle="tooltip">Falla</span></a></td>
+                                            <td><a id="good" class="btn btn-outline-success btn-sm" href="Empaquetado.php?orden=good&id=<?php echo $id;?>">Listo</a>
+                                            <a id="bad" class="btn btn-outline-danger btn-sm" href="javascript:void(0)" data-toggle="modal" data-target="#fal<?php echo $id;?>"><span title="Reportar Inconveniente" data-toggle="tooltip">Falla</span></a></td>
                                         </tr>
 
                                         <div class="modal fade bd-example-modal-lg" id="ver<?php echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -163,7 +156,7 @@
                                               </div>
                                               <div class="modal-body">
                                                 <?php
-                                                    $sql8="SELECT *, m.IMAGEN AS IMA FROM ITEMS it
+                                                    $sql8="SELECT *,it.CANTIDAD AS CANTIDAD, m.IMAGEN AS IMA FROM ITEMS it
                                                     INNER JOIN INVENTARIO i ON i.IDINVENTARIO=it.IDINVENTARIO
                                                     INNER JOIN MODELOS m ON m.IDMODELO=i.IDMODELO
                                                     INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
@@ -285,6 +278,7 @@
                                         <div class="modal fade" id="fal<?php echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                           <div class="modal-dialog" role="document">
                                             <div class="modal-content">
+                                            <form action="Empaquetado.php" method="get">
                                               <div class="modal-header">
                                                 <h5 class="modal-title">¿Desea reportar una falla o inconveniente?</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -295,19 +289,18 @@
                                                 <div class="container-fluid">
                                                   <div class="row">
                                                     <div class="col-12">
-                                                      <form action="buscador_pedido.php" method="get">
                                                       <input type="hidden" value="bad" name="orden">
-                                                      <input type="hidden" value="<?php echo $id;?>">
+                                                      <input type="hidden" name="id" value="<?php echo $id;?>">
                                                       <textarea rows="4" cols="50" name="comentario" id="comentario" placeholder="Detalle la falla con un comentario"></textarea>
                                                     </div>
                                                   </div>
                                                 </div>
                                               </div>
-                                              <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                                <input type="submit" onclick="return confirma()" id="boton-enviar" class="btn btn-primary" value="Enviar">
+                                                <div class="modal-footer">
+                                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                  <input type="submit" id="boton-enviar" class="btn btn-primary" value="Enviar">
+                                                </div>
                                               </form>
-                                              </div>
                                             </div>
                                           </div>
                                         </div>

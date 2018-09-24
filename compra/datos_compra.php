@@ -200,6 +200,7 @@ function Factura(){
                  <?php
                  $datos=$_SESSION['carrito'];
                  $total=0;
+                 $pesot=0;
                  for($i=0;$i<count($datos);$i++){
                      ?>
             <div class="row">
@@ -229,15 +230,21 @@ function Factura(){
             </div>
             <hr>
             <?php
-            $total=$datos[$i]['Cantidad']*$datos[$i]['Precio'] + $total;
+            #monto total
+            $total=($datos[$i]['Cantidad']*$datos[$i]['Precio'] ) + $total;
+            #peso Total
+            $pesot=($datos[$i]['Cantidad']*$datos[$i]['Peso']) + $pesot;
               }
+              #total
               $subtotal=$total;
               $iva=$subtotal*0.16;
               $total=$subtotal+$iva;
               $_SESSION['total']=$total;
+              #peso Total
+              $_SESSION['peso']=$pesot;
+
             ?>
           </div>
-
             <h5 class="text-center text-muted">Subtotal: <?=number_format($subtotal,2,',','.') ?> BsS</h5>
             <h6 class="text-center">IVA(16%): <?=number_format($iva,2,',','.')?> BsS</h6>
           <hr>

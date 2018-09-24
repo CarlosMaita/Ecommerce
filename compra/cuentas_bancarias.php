@@ -98,6 +98,7 @@ $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
      <div class="container mt-4">
       <h2 class="style="font-family: 'Playfair Display', serif;"">¡Felicidades por tu Compra! </h2>
       <p class="lead">Usted ha realizado la compra de manera existosa. Para continuar, realice el pago total del carrito de compras a traves de la plataforma de cobranza Mercado pago. <br><br> Su llave digital es la siguiente:</p>
+<<<<<<< HEAD
       <div class="container">
         <div class="row justify-content-center">
           <div class="p-2 mb-2 bg-success text-white col-5">
@@ -116,6 +117,17 @@ $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
             <small>¿Que es una <a href="../faq/index.php?id=5" target="_blank">Llave digital</a>?</small>
           </div>
         </div>
+=======
+        <div class="p-3 mb-2 bg-info text-white">
+           <p class="text-center mt-3"><?PHP
+                 if($_POST){
+                     #echo md5($CS); //Cadena del Id completa
+                     #cadena de $Ncadena caracteres de la cadena
+                     echo $Llave;
+                 }else{ echo 'Error: ID No generado'; }
+                 ?></p>
+
+>>>>>>> a491796608e527a0c5e425b9b55314bad8da6888
       </div>
         <hr class="my-4">
     <?php

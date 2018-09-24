@@ -133,42 +133,21 @@ if ($conn->query($sql) === TRUE) {
                   </div>
                   <select name="tipo" class="custom-select text-secondary">
                     <?PHP
-                      #franela
-                      if($prenda=='franela'){
-                        echo '<option value="franela" selected>Franela</option>';
-                      }else{
-                        echo '<option value="franela">Franela</option>';
-                      }
-                      #chemises
-                      if($prenda=='chemise'){
-                        echo '<option value="chemise" selected>Chemise</option>';
-                      }else{
-                        echo '<option value="chemise">Chemise</option>';
-                      }
-                      #Pantalon
-                      if($prenda=='pantalon'){
-                        echo '<option value="pantalon" selected>Pantalón</option>';
-                      }else{
-                        echo '<option value="pantalon">Pantalón</option>';
-                      }
-                      #camisa
-                      if($prenda=='camisa'){
-                        echo '  <option value="camisa" selected>Camisa</option>';
-                      }else{
-                        echo '  <option value="camisa">Camisa</option>';
-                      }
-                      #Zapato
-                      if($prenda=='zapato'){
-                        echo '<option value="zapato" selected>Zapato</option>';
-                      }else{
-                        echo '<option value="zapato">Zapato</option>';
-                      }
-                      #Gorra
-                      if($prenda=='gorra'){
-                        echo '<option value="gorra" selected>Gorra</option>';
-                      }else{
-                        echo '<option value="gorra">Gorra</option>';
-                      }
+                      $sql="SELECT IDCATEGORIA,NOMBRE FROM CATEGORIAS WHERE PADRE=0";
+                      $result = $conn->query($sql);
+                      if ($result->num_rows > 0) {
+                          while($row = $result->fetch_assoc()) {
+                              if ($prenda==$row['IDCATEGORIA']){
+                                ?>
+                                <option value="<?=$row['IDCATEGORIA']?>" selected><?=$row['NOMBRE']?></option>
+                                <?php
+                              }else{
+                                ?>
+                                <option value="<?=$row['IDCATEGORIA']?>"><?=$row['NOMBRE']?></option>
+                                <?php
+                              }
+                          }
+                        }
                     ?>
                   </select>
                 </div>

@@ -116,10 +116,66 @@ padding-right: 20px;
   color: #888;
   text-decoration: underline;
 }
+<<<<<<< HEAD
 .enlace{
   color: #6E6E6E;
 }
 .enlace:hover{
   text-decoration: none;
   color: #D8D8D8;
+=======
+.status-0{
+  background-color: #ED7575;
+  color: #fff;
+  padding: 3px;
+  border-radius: 2px;
+}
+.status-1{
+  background-color: #EF2121;
+  color: #fff;
+  padding: 3px;
+  border-radius: 2px;
+}
+.status-2{
+  background-color: #ECEF2F;
+  color: #fff;
+  padding: 3px;
+  border-radius: 2px;
+}
+.status-3{
+  background-color: #B443CC;
+  padding: 3px;
+  color: #fff;
+  border-radius: 2px;
+}
+.status-4{
+  background-color: #3268F0;
+  padding: 3px;
+  color: #fff;
+  border-radius: 2px;
+}
+.status-5{
+  background-color: #57EADB;
+  color: #fff;
+  padding: 3px;
+  border-radius: 2px;
+}
+.status-6{
+  background-color: #2DDB30;
+  color: #fff;
+  padding: 3px;
+  border-radius: 2px;
+}
+.status-7{
+  background-color: #0F8B0A;
+  color: #fff;
+  padding: 3px;
+  border-radius: 2px;
+}
+.status-10{
+  background-color: #D71014;
+  color: #fff;
+  padding: 3px;
+  border-radius: 2px;
+>>>>>>> a491796608e527a0c5e425b9b55314bad8da6888
 }
