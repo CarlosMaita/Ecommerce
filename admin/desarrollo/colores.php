@@ -76,7 +76,7 @@ $previouspage = $curpage - 1;
                     <div class="col-5 align-self-center">
                         <h4 class="page-title">Desarrollo</h4>
                     </div>
-                    <div class="col-auto ml-auto align-self-center">
+                    <div class="col-7 align-self-center">
                         <div class="d-flex align-items-center justify-content-end">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
@@ -95,13 +95,13 @@ $previouspage = $curpage - 1;
             </div>
             <div class="container-fluid">
               <div class="row justify-content-around">
-                  <div class="col-sm-4 text-center">
+                  <div class="col-4 text-center">
                     <a class="btn btn-link text-success" href="usuarios.php">Agregar/Eliminar Usuario</a>
                   </div>
-                  <div class="col-sm-4 text-center">
-                    <a class="btn btn-link text-success" href="categoria.php">Agregar/Eliminar Tipo de Prenda</a>
+                  <div class="col-4 text-center">
+                    <a class="btn btn-link text-success" href="categoria.php">Agregar/Eliminar Categoria</a>
                   </div>
-                  <div class="col-sm-4 text-center">
+                  <div class="col-4 text-center">
                     <a class="btn btn-link text-success" href="colores.php">Agregar/Eliminar Color</a>
                   </div>
               </div>
@@ -124,7 +124,7 @@ $previouspage = $curpage - 1;
                         <input type="text" name="color" class="form-control text-secondary" placeholder="Ingrese el nombre del color" required>
                       </div>
                       <div class="input-group mb-3 col-1">
-                        <input type="color" name="color_hex"  style="background:#fff; border: #ddd solid 1px;" required>
+                        <input type="color" name="color_hex"  style="background:#fff; border: #ddd solid 1px;  " required>
                       </div>
                     </div>
                     <div class="row justify-content-center mb-3">
@@ -134,6 +134,11 @@ $previouspage = $curpage - 1;
                   </div>
                 </div>
               </div>
+              <?php
+                $sql = "SELECT * FROM COLOR LIMIT $start, $perpage";
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0) {
+                ?>
                 <div class="row mt-3 justify-content-center">
                   <div class="col-10">
                   <div class="card">
@@ -151,11 +156,7 @@ $previouspage = $curpage - 1;
                           </tr>
                         </thead>
                         <tbody>
-                           <?php
-                             $sql = "SELECT * FROM COLOR LIMIT $start, $perpage";
-                             $result = $conn->query($sql);
-                             if ($result->num_rows > 0) {
-                             // output data of each row
+                             <?php
                                 while($row = $result->fetch_assoc()){
                                    ?>
                                       <tr class="text-center">
@@ -197,20 +198,20 @@ $previouspage = $curpage - 1;
                                       </tr>
                                 <?php
                                     }
-                                }else{ echo "Sin USUARIOS";} ?>
+                               ?>
                         </tbody>
                       </table>
                       <center>
                         <nav aria-label="Page navigation example">
                           <ul class="pagination justify-content-center">
-                  <?php if($curpage != $startpage){ ?>
-                    <li class="page-item">
-                      <a class="page-link" href="?page=<?php echo $startpage ?>" tabindex="-1" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">firts</span>
-                      </a>
-                    </li>
-                    <?php }
+                            <?php if($curpage != $startpage){ ?>
+                              <li class="page-item">
+                                <a class="page-link" href="?page=<?php echo $startpage ?>" tabindex="-1" aria-label="Previous">
+                                  <span aria-hidden="true">&laquo;</span>
+                                  <span class="sr-only">firts</span>
+                                </a>
+                              </li>
+                              <?php }
                           if($curpage >=2){ ?>
                             <li class="page-item"><a class="page-link" href="?page=<?php echo $previouspage ?>"><?php echo $previouspage ?></a></li>
                             <?php }  ?>
@@ -233,6 +234,11 @@ $previouspage = $curpage - 1;
                   </div>
                 </div>
                 </div>
+                <?php   }else{
+                  ?>
+                  <    <h4 class="card-title text-center">Sin Colores en Base de Datos</h4>
+                  <?php
+                } ?>
             </div>
             <?php include('../common/footer.php'); ?>
         </div>
@@ -240,6 +246,9 @@ $previouspage = $curpage - 1;
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../assets/extra-libs/sparkline/sparkline.js"></script>
+    <script src="../dist/js/waves.js"></script>
+    <script src="../dist/js/sidebarmenu.js"></script>
     <script src="../dist/js/custom.min.js"></script>
 </body>
 </html>

@@ -25,7 +25,9 @@ if(isset($_GET['delete']) & !empty($_GET['delete'])){
 $perpage  = 10;
 if(isset($_GET['page']) & !empty($_GET['page'])){
 	$curpage = $_GET['page'];
-}else{ $curpage = 1;}
+}else{
+	$curpage = 1;
+}
 $start = ($curpage * $perpage) - $perpage;
 #necesito el total de elementos
 $PageSql = "SELECT * FROM USUARIOS";
@@ -47,6 +49,7 @@ $previouspage = $curpage - 1;
     <link rel="icon" type="image/jpg" sizes="16x16" href="../../imagen/favicon.jpg">
     <title>Rouxa - Administración</title>
     <link href="../dist/css/style.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -68,7 +71,7 @@ $previouspage = $curpage - 1;
                     <div class="col-5 align-self-center">
                         <h4 class="page-title">Usuarios</h4>
                     </div>
-                    <div class="col-auto align-self-center ml-auto">
+                    <div class="col-7 align-self-center">
                         <div class="d-flex align-items-center justify-content-end">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
@@ -86,17 +89,17 @@ $previouspage = $curpage - 1;
                 </div>
             </div>
             <div class="container-fluid">
-                <div class="row justify-content-around">
-                    <div class="col-sm-4 text-center">
-                      <a class="btn btn-link text-success" href="usuarios.php">Agregar/Eliminar Usuario</a>
-                    </div>
-                    <div class="col-sm-4 text-center">
-                      <a class="btn btn-link text-success" href="categoria.php">Agregar/Eliminar Tipo de Prenda</a>
-                    </div>
-                    <div class="col-sm-4 text-center">
-                      <a class="btn btn-link text-success" href="colores.php">Agregar/Eliminar Color</a>
-                    </div>
-                </div>
+              <div class="row justify-content-around">
+                  <div class="col-4 text-center">
+                    <a class="btn btn-link text-success" href="usuarios.php">Agregar/Eliminar Usuario</a>
+                  </div>
+                  <div class="col-4 text-center">
+                    <a class="btn btn-link text-success" href="categoria.php">Agregar/Eliminar Categoria</a>
+                  </div>
+                  <div class="col-4 text-center">
+                    <a class="btn btn-link text-success" href="colores.php">Agregar/Eliminar Color</a>
+                  </div>
+              </div>
                 <div class="row mt-3">
                   <div class="col-12">
                   <div class="card">
@@ -155,6 +158,11 @@ $previouspage = $curpage - 1;
                   </div>
                 </div>
               </div>
+              <?php
+                  $sql = "SELECT * FROM USUARIOS LIMIT $start, $perpage";
+                  $result = $conn->query($sql);
+                  if ($result->num_rows > 0) {
+              ?>
               <div class="row mt-3">
                 <div class="col-12">
                   <div class="table-responsive">
@@ -168,13 +176,9 @@ $previouspage = $curpage - 1;
                           </tr>
                         </thead>
                         <tbody>
-                         <?php
-                             $sql = "SELECT * FROM USUARIOS LIMIT $start, $perpage";
-                             $result = $conn->query($sql);
-                             if($result->num_rows > 0){
-                             // output data of each row
-                                while($row = $result->fetch_assoc()){
-                                   ?>
+                               <?php
+                                while($row = $result->fetch_assoc()) {
+                                ?>
                                    <tr>
                                     <td><?=$row['CORREO']?></td>
                                     <td><?=$row['NOMBRE']?></td>
@@ -205,42 +209,51 @@ $previouspage = $curpage - 1;
                                      <td><a class="btn btn-outline-danger btn-sm" href="?delete=<?=$row['IDUSUARIO']?>" >Eliminar</a></td>
                               </tr>
                                 <?php
-                                    }
-                                }else{ echo "Sin USUARIOS";} ?>
+                              }?>
+
                         </tbody>
                       </table>
-                         <center>
+                  <center>
                         <nav aria-label="Page navigation example">
                           <ul class="pagination justify-content-center">
-                  <?php if($curpage != $startpage){ ?>
-                    <li class="page-item">
-                      <a class="page-link" href="?page=<?php echo $startpage ?>" tabindex="-1" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">firts</span>
-                      </a>
-                    </li>
-                    <?php }
-                           if($curpage >=2){ ?>
-                            <li class="page-item"><a class="page-link" href="?page=<?php echo $previouspage ?>"><?php echo $previouspage ?></a></li>
-                            <?php }  ?>
-                            <li class="page-item active"><a class="page-link" href="?page=<?php echo $curpage ?>"><?php echo $curpage ?></a></li>
-                            <?php if($curpage != $endpage){ ?>
-                            <li class="page-item"><a class="page-link" href="?page=<?php echo $nextpage ?>"><?php echo $nextpage ?></a></li>
-                        <?php }
-                          if($curpage != $endpage){ ?>
+                      <?php if($curpage != $startpage){ ?>
                         <li class="page-item">
-                          <a class="page-link" href="?page=<?php echo $endpage ?>" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                            <span class="sr-only">Last</span>
+                          <a class="page-link" href="?page=<?php echo $startpage ?>" tabindex="-1" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">firts</span>
                           </a>
                         </li>
-                        <?php } ?>
-                          </ul>
-                        </nav>
-                     </center>
+                        <?php }
+                               if($curpage >=2){ ?>
+                                <li class="page-item"><a class="page-link" href="?page=<?php echo $previouspage ?>"><?php echo $previouspage ?></a></li>
+                                <?php }  ?>
+                                <li class="page-item active"><a class="page-link" href="?page=<?php echo $curpage ?>"><?php echo $curpage ?></a></li>
+                                <?php if($curpage != $endpage){ ?>
+                                <li class="page-item"><a class="page-link" href="?page=<?php echo $nextpage ?>"><?php echo $nextpage ?></a></li>
+                            <?php }
+                              if($curpage != $endpage){ ?>
+                            <li class="page-item">
+                              <a class="page-link" href="?page=<?php echo $endpage ?>" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Last</span>
+                              </a>
+                            </li>
+                            <?php } ?>
+                              </ul>
+                            </nav>
+                    </center>
                     </div>
                 </div>
               </div>
+              <?php
+                }else{
+                ?>
+                <div class="card-body">
+                  <h4 class="card-title text-center">Sin usuarios en Base de Datos</h4>
+
+                </div>
+                <?php
+                 } ?>
             </div>
             <?php include('../common/footer.php'); ?>
         </div>
@@ -248,6 +261,9 @@ $previouspage = $curpage - 1;
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../assets/extra-libs/sparkline/sparkline.js"></script>
+    <script src="../dist/js/waves.js"></script>
+    <script src="../dist/js/sidebarmenu.js"></script>
     <script src="../dist/js/custom.min.js"></script>
 </body>
 </html>
