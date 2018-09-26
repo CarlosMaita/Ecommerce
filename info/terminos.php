@@ -8,7 +8,7 @@
     <meta name="author" content="Eutuxia, C.A.">
     <meta name="application-name" content="Tienda Virtual de Ropa, Rouxa."/>
     <link rel="icon" type="image/jpg" sizes="16x16" href="../imagen/favicon.jpg">
-    <link rel="stylesheet" href="../css/style-main.css">
+    <link rel="stylesheet" href="../css/new.css">
     <link href="../admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
     <title>Rouxa</title>
@@ -192,7 +192,7 @@ En caso de haberse facturado cargos que no hubiesen correspondido, deberá comun
             <p id="res">
                Nos reservamos el derecho de rechazar cualquier pedido que realice con nosotros. Podemos, a nuestra discreción, limitar o cancelar las cantidades compradas por persona, por hogar o por pedido. Estas restricciones pueden incluir pedidos realizados por o bajo la misma cuenta de cliente, la misma tarjeta de crédito, y/o pedidos que utilizan la misma facturación y/o dirección de envío.
 <br><br>
-En el caso de que hagamos un cambio o cancelemos una orden, podemos intentar notificarte poniéndonos en contacto vía correo electrónico y/o dirección de facturación / número de teléfono proporcionado en el momento que se hizo pedido. Nos reservamos el derecho de limitar o prohibir las órdenes que, a nuestro juicio, parecen ser colocado por los concesionarios, revendedores o distribuidores.
+En el caso de que hagamos un cambio o cancelemos una orden, podemos intentar notificarte poniéndonos en contacto vía correo electrónico y/o dirección de facturación / número de teléfono proporcionado en el momento que se hizo pedido. Nos reservamos el derecho de limitar o prohibir las órdenes que, a nuestro juicio, parecen ser colocado por los revendedores o distribuidores.
 <br><br>
 Te comprometes a proporcionar información actual, completa y precisa de la compra de productos y/o servicios en nuestra tienda.  No nos hacemos responsable de errores información proporcionados por tu parte. Mas sin embargo, trataremos de ayudarte rápidamente con la corrección de errores y así poder completar tu compra.
 <br><br>
@@ -291,7 +291,7 @@ En ningún caso Rouxa CA, nuestros directores, funcionarios, empleados, afiliado
 SECCIÓN 17 - INDEMNIZACIÓN
              </h1>
             <p id="res">
-              Aceptas indemnizar, defender y mantener indemne Rouxa CA y nuestras matrices, subsidiarias, afiliados, socios, funcionarios, directores, agentes, contratistas, concesionarios, proveedores de servicios, subcontratistas, proveedores, internos y empleados, de cualquier reclamo o demanda, incluyendo honorarios razonables de abogados, hechos por cualquier tercero a causa o como resultado de tu incumplimiento de las Condiciones de Servicio o de los documentos que incorporan como referencia, o la violación de cualquier ley o de los derechos de un tercero.
+              Aceptas indemnizar, defender y mantener indemne Rouxa CA y nuestras matrices, subsidiarias, afiliados, socios, funcionarios, directores, agentes, contratistas, tiendas, proveedores de servicios, subcontratistas, proveedores, internos y empleados, de cualquier reclamo o demanda, incluyendo honorarios razonables de abogados, hechos por cualquier tercero a causa o como resultado de tu incumplimiento de las Condiciones de Servicio o de los documentos que incorporan como referencia, o la violación de cualquier ley o de los derechos de un tercero.
             </p>
             <hr>
          </div>
@@ -363,9 +363,7 @@ Nos reservamos el derecho, a nuestra sola discreción, de actualizar, modificar 
          </div>
      </div>
 </div>
-<!--Fin  de codigo. !-->
  <?php include_once '../common/footer2.php';?>
-     <script src="../admin/assets/libs/jquery/dist/jquery.min.js"></script>
      <script src="../admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
      <script src="../admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   </body>

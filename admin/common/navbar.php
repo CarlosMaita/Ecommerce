@@ -17,14 +17,14 @@
     <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin6">
         <ul class="navbar-nav float-left mr-auto">
             <li class="nav-item search-box">
-                <a class="nav-link waves-effect waves-dark" href="javascript:void(0)">
+                <!--<a class="nav-link waves-effect waves-dark" href="javascript:void(0)">
                     <div class="d-flex align-items-center">
                         <i class="mdi mdi-magnify font-20 mr-1"></i>
                         <div class="ml-1 d-none d-sm-block">
                             <span>Buscar</span>
                         </div>
                     </div>
-                </a>
+                </a>-->
                 <form class="app-search position-absolute">
                     <input type="text" class="form-control" placeholder="Buscar &amp; enter">
                     <a class="srh-btn">
@@ -37,7 +37,7 @@
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../imagen/favicon.jpg" alt="user" class="rounded-circle" width="31"></a>
                 <div class="dropdown-menu dropdown-menu-right user-dd animated">
-                    <a class="dropdown-item" href="common/configuracion.php"><i class="ti-user m-r-5 m-l-5"></i>Mi Perfil</a>
+                    <a class="dropdown-item" href="perfil.php"><i class="ti-user m-r-5 m-l-5"></i>Mi Perfil</a>
                     <a class="dropdown-item" href="javascript:void(0)" data-toggle="modal" data-target="#closeSesion"><i class="ti-export m-r-5 m-l-5"></i>Cerrar sesión</a>
                 </div>
             </li>
