@@ -314,6 +314,7 @@
                                   </div>
                               </div>
                           </div>
+                          <?php include('../common/footer.php');  ?>
                       </div>
                     <?php
                     }else{
@@ -322,12 +323,12 @@
                         <h5>¡No hay pedidos para sacar!</h5>
                       </div>
                   </div>
-
+                  <?php include('../common/footer.php');  ?>
             </div>
             <?php
               }
                 $conn->close();
-                include('../common/footer.php'); ?>
+                ?>
         </div>
         <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
         <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>

@@ -18,9 +18,9 @@
             <li class="nav-item">
               <a class="nav-link" href="../compras/index.php">Compras</a>
             </li>
-            <li class="nav-item">
+            <!--<li class="nav-item">
               <a class="nav-link disabled" disabled>Vendedores</a>
-            </li>
+            </li>-->
              <li class="nav-item">
               <a class="nav-link" href="../faq/index.php">FAQ</a>
             </li>

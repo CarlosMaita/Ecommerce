@@ -300,6 +300,7 @@ if(isset($_GET['orden'], $_GET['id']) ){
                                         </div>
                                     </div>
                                 </div>
+                                <?php include('../common/footer.php');?>
                             </div>
                           <?php
                         } else{
@@ -308,11 +309,12 @@ if(isset($_GET['orden'], $_GET['id']) ){
                               <h5>¡No hay pedidos para Enviar!</h5>
                             </div>
                         </div>
+                        <?php include('../common/footer.php');?>
                   </div>
                   <?php
                     }
                       $conn->close();
-                      include('../common/footer.php'); ?>
+                     ?>
             </div>
               <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
               <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>

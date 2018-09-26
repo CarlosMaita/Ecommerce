@@ -117,7 +117,7 @@ $url= $_SERVER["REQUEST_URI"];
                           </li>-->
                           <?php
                           break;
-                      case '4':
+                      case '3':
                             ?>
                           <li class="nav-item">
                             <a class="nav-link" href="../vitrina/index.php?genero=1">Damas</a>
@@ -195,8 +195,7 @@ $url= $_SERVER["REQUEST_URI"];
                   <div class="container-fluid">
                     <div class="row"><small><a class="enlace2" href="?genero=1">Dama</a></small></div>
                     <div class="row"><small><a class="enlace2" href="?genero=2">Caballero</a></small></div>
-                    <div class="row"><small><a class="enlace2" href="?genero=3">Niña</a></small></div>
-                    <div class="row"><small><a class="enlace2" href="?genero=3">Niño</a></small></div>
+                    <div class="row"><small><a class="enlace2" href="?genero=3">Niño(a)</a></small></div>
                   </div>
                 </div>
               </div>
@@ -259,32 +258,28 @@ $url= $_SERVER["REQUEST_URI"];
                           ?>
                           <div class="col-12 d-none d-sm-block active2"><small><a class="enlace2" href="?genero=1">Dama</a></small></div>
                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=2">Caballero</a></small></div>
-                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=3">Niña</a></small></div>
-                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=3">Niño</a></small></div>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=3">Niño(a)</a></small></div>
                           <?php
                           break;
                       case '2':
                            ?>
                            <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=1">Dama</a></small></div>
                            <div class="col-12 d-none d-sm-block active2"><small><a class="enlace2" href="?genero=2">Caballero</a></small></div>
-                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=3">Niña</a></small></div>
-                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=3">Niño</a></small></div>
+                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=3">Niño(a)</a></small></div>
                           <?php
                           break;
                       case '3':
                            ?>
                            <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=1">Dama</a></small></div>
                            <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=2">Caballero</a></small></div>
-                           <div class="col-12 d-none d-sm-block active2"><small><a class="enlace2" href="?genero=3">Niña</a></small></div>
-                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=3">Niño</a></small></div>
+                           <div class="col-12 d-none d-sm-block active2"><small><a class="enlace2" href="?genero=3">Niño(a)</a></small></div>
                           <?php
                           break;
                       default:
                           ?>
                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=1">Dama</a></small></div>
                           <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=2">Caballero</a></small></div>
-                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=3">Niña</a></small></div>
-                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=3">Niño</a></small></div>
+                          <div class="col-12 d-none d-sm-block"><small><a class="enlace2" href="?genero=3">Niño(a)</a></small></div>
                           <?php
                           break;
                   }

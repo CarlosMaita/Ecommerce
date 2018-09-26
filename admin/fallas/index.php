@@ -8,17 +8,12 @@
         $solucion=$_GET['comentario'];
         $estatus=$_GET['Estatus'];
         if ($_GET['orden']=='solved'){
-
         $sql="UPDATE `PEDIDOS` SET `ESTATUS`='$estatus' WHERE  `IDPEDIDO`='$newid'";
-              if ($conn->query($sql) === TRUE) {
-              } else {
-                echo "Error: " . $sql. "<br>" . $conn->error;
-              }
+              if($conn->query($sql) === TRUE){
+              }else{ echo "Error: " . $sql. "<br>" . $conn->error; }
        $sql="UPDATE `FALLAS` SET `ESTATUS`='1', `SOLUCION`='$solucion', `FECHASOLUCION`= NOW()   WHERE  `IDPEDIDO`='$newid'";
-               if ($conn->query($sql) === TRUE) {
-              } else {
-                echo "Error: " . $sql. "<br>" . $conn->error;
-               }
+               if($conn->query($sql) === TRUE){
+              }else{ echo "Error: " . $sql. "<br>" . $conn->error; }
         }
         header ('location: ./');
     }
@@ -463,6 +458,7 @@
                                   </div>
                               </div>
                           </div>
+                          <?php include('../common/footer.php');?>
                       </div>
                     <?php
                     }else{
@@ -471,19 +467,16 @@
                         <h5>¡No hay fallas que revisar!</h5>
                       </div>
                   </div>
-
+                  <?php include('../common/footer.php');?>
             </div>
             <?php
               }
                 $conn->close();
-                include('../common/footer.php'); ?>
+                ?>
       </div>
         <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
         <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
         <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="../assets/extra-libs/sparkline/sparkline.js"></script>
-        <script src="../dist/js/waves.js"></script>
-        <script src="../dist/js/sidebarmenu.js"></script>
         <script src="../dist/js/custom.min.js"></script>
     </body>
 </html>

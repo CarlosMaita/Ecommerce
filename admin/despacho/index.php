@@ -109,6 +109,7 @@ require('../../common/conexion.php');
                                 </div>
                             </div>
                         </div>
+                        <?php include('../common/footer.php'); ?>
                     </div>
                     <?php
                     }else{
@@ -117,11 +118,11 @@ require('../../common/conexion.php');
                         <h5>¡No hay pedidos para sacar!</h5>
                       </div>
                 </div>
+                <?php include('../common/footer.php'); ?>
         </div>
         <?php
           }
             $conn->close();
-            include('../common/footer.php');
             ?>
     </div>
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
