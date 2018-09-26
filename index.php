@@ -52,9 +52,10 @@
    </section>
   <div class="jumbotron mb-0">
       <h1 class="display-4 mb-2" style="font-family: 'Playfair Display', serif;">Seguimiento de una compra</h1>
-      <p class="lead">Ofrecemos una novedosa forma de hacerle seguimiento a cada compra realizada en Rouxa. Una Llave digital es la herramienta para conocer el estatus de cualquier compra.</p>
+      <p class="lead">Ofrecemos una novedosa forma de hacerle seguimiento a cada compra realizada en Rouxa. Una Llave digital es la herramienta para conocer el estatus de cualquier compra, la llave digital solo se genera al momento de comprar.</p>
       <hr class="my-4">
-      <small class="text-muted">¿Deseas saber más sobre como hacer el seguimiento de tu compra? <a href="faq/index.php"> Ver más</a>
+      <small class="text-muted">La forma de usar la llave es insertandola en el seguidor de pedido que se encuetrará en el menu principal en "Compras". Podrás visualizar el estatus de un pedido, el número de guia
+        (una vez que se envia el paquete) e información de la compra realizada. ¡La llave es enviada a su correo! <a href="faq/index.php">Ver más</a>
       </small>
     </div>
    <article class="container my-4">
@@ -83,6 +84,13 @@
         }else{ echo " <p>Aun no existen productos en Vitrina</p>"; }?>
      </div>
    </article>
+    <div class="jumbotron mb-0">
+      <h1 class="display-4">¡Se un Vendedor Rouxa!</h1>
+      <p class="lead">Podrás vender nuestros productos sin tener que realizar alguna inversión. ¡Ganarás un porcentaje de las ventas!</p>
+      <hr class="my-4">
+      <p>Solo tendrás que dar tu código de Vendedor Rouxa a tu cliente, y este comprará a tu nombre los articúlos que desee. <small><a href="faq/index.php?id=6">Más info.</a> </small> </p>
+      <a class="btn btn-secondary btn-lg disabled mt-3" href="" role="button">Proximamente</a>
+    </div>
 <?php include_once 'common/footer.php';?>
 <script src="admin/assets/libs/jquery/dist/jquery.min.js"></script>
 <script src="admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>

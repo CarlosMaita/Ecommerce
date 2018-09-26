@@ -8,7 +8,7 @@
     <meta name="author" content="Eutuxia, C.A.">
     <meta name="application-name" content="Tienda Virtual de Ropa, Rouxa."/>
     <link rel="icon" type="image/jpg" sizes="16x16" href="../imagen/favicon.jpg">
-    <link rel="stylesheet" href="../css/new.css">
+    <link rel="stylesheet" href="../css/style-main.css">
     <link href="../admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
     <title>Rouxa</title>
@@ -40,61 +40,82 @@
     <?php include_once '../common/menu2.php';
           include_once '../common/2domenu2.php';
     ?>
+<!-- Inicio de codigo. !-->
    <div style="min-height:100vh; background: #ddd">
      <div class="container p-3">
             <h1 id="letrap" class="text-primary  text-center letrap">
-      Politicas de Envíos
+      Politicas de Envios
              </h1>
               <hr class="my-4">
         </div>
+
      <div class ="container p-3 vista">
+
       <div id="topic" class="container">
+
             <p id="res">
-               Rouxa C.A. Se reserva el derecho de modificar dichas politicas de envíos, en el momento que lo considere necesario. Las modificaciones de dichas políticas serán publicadas y/o divulgadas a través de correo y redes sociales.
+               Rouxa C.A. Se reserva el derecho de modificar dichas politicas de envios, en el momento que lo considere necesario. Las modificaciones de dichas políticas serán publicadas y/o divulgadas a través de correo y redes sociales.
 <br><br>
-Es deber del usuario mantenerse informado de nuestras politicas de envíos a la hora de realizar una compra en nuestro sitio web.
+Es deber del usuario mantenerse informado de nuestras politicas de envios a la hora de realizar una compra en nuestro sitio web.
+
             </p>
             <hr>
          </div>
+
+
       <div id="topic" class="container">
             <h1 id="preg" class="text-center">
-       DESTINO DE ENVÍOS
+       DESTINO DE ENVIOS
              </h1>
             <p id="res">
                 Rouxa C.A. realiza envíos dentro de todo el territorio nacional de venezuela, a través de las empresas de paquetes y/o encomienda.
+
             </p>
             <hr>
          </div>
+
+
       <div id="topic" class="container">
             <h1 id="preg" class="text-center">
      TIEMPOS DE PROCESAMIENTO
              </h1>
             <p id="res">
-               Los envíos los realizamos de 24 a 48 Horas a partir de que se confirme en nuestras cuentas el pago del pedido. Una  vez confirmado el pago, nuestra plataforma cambiará el estatus de su pedido a “Pagado/Por enviar”. Dicho estatus podrá verlo mediante la herramienta de seguimiento ofrecida.
+               Los envios los realizamos de 24 a 48 Horas a partir de que se confirme en nuestras cuentas el pago del pedido. Una  vez confirmado el pago, nuestra plataforma cambiará el estatus de su pedido a “Pagado/Por enviar”. Dicho estatus podrá verlo mediante la herramienta de seguimiento ofrecida.
+
             </p>
             <hr>
          </div>
+
+
       <div id="topic" class="container">
             <h1 id="preg" class="text-center">
-        ENVÍOS DENTRO DEL TERRITORIO NACIONAL
+        ENVIOS DENTRO DEL TERRITORIO NACIONAL
+
              </h1>
             <p id="res">
                Los envíos son realizados de Lunes a Viernes a las 3:00 PM. Sin Excepción. Todos los envíos son realizados con cobro en destino, si desea otro medio de envio, consulte con nosotros.
                <br><br>
 El tiempo que tarda en llegar los pedidos a sus manos dependerá de la empresa de encomiendas, del lugar de destino, y de la fecha en la cual se realiza el envío (feriados, fin de semana). En promedio tarda de 4 a 7 días en llegar.
 Tenga en cuenta que las empresas de encomienda puede incurrir en retrasos por distintos motivos, No nos hacemos responsables de dichos retrasos.
+
             </p>
             <hr>
          </div>
+
+
       <div id="topic" class="container">
             <h1 id="preg" class="text-center">
-    ENVÍOS FUERA DEL TERRITORIO NACIONAL
+    ENVIOS FUERA DEL TERRITORIO NACIONAL
+
              </h1>
             <p id="res">
                Por los momentos no ofrecemos nuestros servicios fuera de la República Bolivariana de Venezuela. Sin embargo, si desea que realizar una compra aca en Venezuela y enviar el pedido fuera de nuestras fronteras le recomendamos escribirnos a nuestro correo de atención al cliente ( Rouxavzla@gmail.com).
+
             </p>
             <hr>
          </div>
+
+
       <div id="topic" class="container">
             <h1 id="preg" class="text-center">
        COSTOS DEL ENVIO
@@ -118,7 +139,10 @@ Si el cliente comete un error en la dirección de envío durante el proceso de c
          </div>
      </div>
 </div>
+<!--Fin  de codigo. !-->
+   <!--Pie de Pagina !-->
    <?php include_once '../common/footer2.php';?>
+     <script src="../admin/assets/libs/jquery/dist/jquery.min.js"></script>
      <script src="../admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
      <script src="../admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   </body>

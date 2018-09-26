@@ -8,7 +8,7 @@
     <meta name="author" content="Eutuxia, C.A.">
     <meta name="application-name" content="Tienda Virtual de Ropa, Rouxa."/>
     <link rel="icon" type="image/jpg" sizes="16x16" href="../imagen/favicon.jpg">
-    <link rel="stylesheet" href="../css/new.css">
+    <link rel="stylesheet" href="../css/style-main.css">
     <link href="../admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
     <title>Rouxa</title>
@@ -150,7 +150,7 @@
               </div>
               <div id="one" class="collapse" aria-labelledby="hone" data-parent="#accordionExample">
                 <div class="card-body">
-                  Los envíos los realizamos de 24 a 48 horas, a partir de la confirmación en nuestras cuentas del pago del pedido.
+                  Los envíos los realizamos de 24 a 48 horas, a partir de la confirmación en nuestras cuentas el pago del pedido.
                 </div>
               </div>
             </div>
@@ -178,7 +178,21 @@
               </div>
               <div id="three" class="collapse" aria-labelledby="hthree" data-parent="#accordionExample">
                 <div class="card-body">
-                  Todos los envíos son realizados con cobro en destino, si desea otro medio de envío, consulte con en <a href="../contacto/atencion.php" target="_blank">atención cercana</a>.
+                  Todos los envíos son realizados con cobro en destino, si desea otro medio de envío, consulte con en <a href="../contacto/atencion.php" target="_blank">atencion cercana</a>.
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="hfour">
+                <h5 class="mb-0">
+                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#four" aria-expanded="false" aria-controls="collapseThree">
+                    ¿Cómo realizan los envíos?
+                  </button>
+                </h5>
+              </div>
+              <div id="four" class="collapse" aria-labelledby="hfour" data-parent="#accordionExample">
+                <div class="card-body">
+                  Todos los envíos son realizados con cobro en destino, si desea otro medio de envío, consulte con nosotros.
                 </div>
               </div>
             </div>
@@ -283,7 +297,7 @@
                 </div>
                 <div id="one" class="collapse" aria-labelledby="hone" data-parent="#accordionExample">
                   <div class="card-body">
-                    No, Sólo podrás devolver los productos que te hayan llegado con defectos de fábrica.
+                    No, Sólo podrás devolver los productos que te hayan llegado con defectos de fabrica.
                   </div>
                 </div>
               </div>
@@ -311,7 +325,7 @@
                 </div>
                 <div id="three" class="collapse" aria-labelledby="hthree" data-parent="#accordionExample">
                   <div class="card-body">
-                    No, los reembolsos solo lo hacemos si la mercancía cuenta con defectos de fábrica.
+                    No, los reembolsos solo lo hacemos si la mercancía cuenta con defectos de fabrica.
                   </div>
                 </div>
               </div>
@@ -325,7 +339,7 @@
                 </div>
                 <div id="four" class="collapse" aria-labelledby="hfour" data-parent="#accordionExample">
                   <div class="card-body">
-                    No, los gastos del envío son montos pagados a la empresa de encomiendas por la realización del envío, por lo cual no se podrán reponer.
+                    No, los gastos del envío son montos pagados a la empresa de encomiendas, por lo cual nosotros no podemos devolver ese costo.
                   </div>
                 </div>
               </div>
@@ -405,24 +419,10 @@
                   </div>
                   <div id="cone" class="collapse" aria-labelledby="onei" data-parent="#ac1">
                     <div class="card-body">
-                      Aceptamos transferencias bancarias realizadas a nuestra cuenta de Mercado Pago. Todos los pagos son procesados por dicha plataforma de cobranza, por motivos de seguridad.
+                      Aceptamos pagos ofrecidos por Mercado pago y Transferencias bancarias a nuestras cuentas. Todos los pagos son procesados por dicha plataforma de cobranza.
                     </div>
                   </div>
                 </div>
-                  <div class="card">
-                    <div class="card-header" id="oneii">
-                      <h5 class="mb-0">
-                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#conei" aria-expanded="true" aria-controls="collapseOne">
-                          ¿Necesito tener una cuenta de Mercado Pago para realizar los pagos?
-                        </button>
-                      </h5>
-                    </div>
-                    <div id="conei" class="collapse" aria-labelledby="oneii" data-parent="#ac1">
-                      <div class="card-body">
-                        No, puedes realizar las transferencias desde tu cuenta bancaria a la plataforma de Mercado Pago, sin necesidad de estar registrado en Mercado Pago.
-                      </div>
-                    </div>
-                  </div>
                 <div class="card">
                   <div class="card-header" id="twoi">
                     <h5 class="mb-0">
@@ -433,7 +433,7 @@
                   </div>
                   <div id="ctwo" class="collapse" aria-labelledby="twoi" data-parent="#ac1">
                     <div class="card-body">
-                      El pago lo puedes realizar mediante una transferencia bancaria y/o mediante el traspaso del dinero desde tu cuenta de Mercado Pago.
+                      El pago lo puedes realizar al momento de realizar su pedido, a traves de la plataforma de cobranza Mercado Pago.
                     </div>
                   </div>
                 </div>
@@ -447,7 +447,7 @@
                   </div>
                   <div id="ctres" class="collapse" aria-labelledby="tres" data-parent="#ac1">
                     <div class="card-body">
-                      No aceptamos cheques, giros bancarios o dinero en efectivo como pago por tu pedido.
+                      No aceptamos cheques, giros bancarios o dinero en efectivo como pago por tu pedido. Los métodos de pago aceptados se indican en los terminos y condiciones.
                     </div>
                   </div>
                 </div>
@@ -461,7 +461,7 @@
                   </div>
                   <div id="ctres" class="collapse" aria-labelledby="tres" data-parent="#ac1">
                     <div class="card-body">
-                      No puedes pagar por tu pedido con varios métodos de pago. Aceptamos el pago mediante una sola transacción.
+                      No puedes pagar por tu pedido con varios métodos de pago.
                     </div>
                   </div>
                 </div>
