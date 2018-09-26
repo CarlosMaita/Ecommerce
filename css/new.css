@@ -90,7 +90,7 @@ width: 75px;
   height: 150px;
 }
 .container-imagen{
-  border: 1px solid #eee;
+  border: 0px solid #eee;
 position: relative;
 }
 .text-block{

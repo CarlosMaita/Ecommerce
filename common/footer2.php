@@ -1,4 +1,4 @@
-  <footer class="">
+  <footer>
      <div class="container-fluid bg-dark d-flex justify-content-around py-5">
        <div class="align-self-center">
          <div class="d-flex justify-content-center">

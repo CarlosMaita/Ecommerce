@@ -85,9 +85,8 @@ and open the template in the editor.
     <meta name="keywords" content="Rouxa, Ropa, Damas, Caballeros, Zapatos, Tienda Virtual">
     <meta name="author" content="Eutuxia, C.A.">
     <meta name="application-name" content="Tienda Virtual de Ropa, Rouxa."/>
-    <link rel="stylesheet" href="../css/style-main.css">
-    <link rel="stylesheet" href="../css/new.css">
     <link rel="icon" type="image/jpg" sizes="16x16" href="../imagen/favicon.jpg">
+    <link rel="stylesheet" href="../css/new.css">
     <link href="../admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
     <script>
@@ -197,13 +196,13 @@ and open the template in the editor.
             <div class="row">
               <div class="col-12">
                 <small class="text-muted"><span class="text-dark">¿Deseas comprar mas de 12 piezas?</span><br>
-                  Ve a compras <a href="../vitrina/index.php?genero=4" target="_blank">Al Mayor</a>, y aprovecha las mejores ofertas.</small>
+                  Ponte en <a href="../contacto/atencion.php" target="_blank">contacto</a> con nosotros, y obtén las mejores ofertas.</small>
               </div>
             </div>
             <div class="row mt-3">
               <div class="col-12">
                 <small class="text-muted"><span class="text-dark">¿No encuentras las tallas que deseas?</span><br>
-                  Ve a <a href="../vitrina.php?genero=4">solicitud de pedido</a>, y consulta por las otras tallas.</small>
+                  Ponte en <a href="../contacto/atencion.php" target="_blank">contacto</a> con nosotros, y consulta por las otras tallas.</small>
               </div>
             </div>
             <hr class="my-3">
@@ -286,8 +285,8 @@ and open the template in the editor.
         </div>
       </div>
     </div>
-  <?php }
-    include_once '../common/footer2.php';?>
+    <?php include_once '../common/footer2.php'; ?>
+  <?php } ?>
     <script type="text/javascript">
     function imageZoom(imgID, resultID) {
     var img, lens, result, cx, cy;
