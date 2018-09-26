@@ -329,13 +329,6 @@
   </div>
 </article>
 -->
-<div class="jumbotron mb-0">
-  <h1 class="display-4">¡Se un Vendedor Rouxa!</h1>
-  <p class="lead">Podrás vender nuestros productos sin tener que realizar alguna inversión.</p>
-  <hr class="my-4">
-  <p>Solo tendrás que dar tu código de Vendedor Rouxa a tu cliente, y este comprará a tu nombre los articúlos que desee.</p>
-  <a class="btn btn-secondary btn-lg disabled mt-3" href="" role="button">Proximamente</a>
-</div>
 <?php include_once '../common/footer2.php';?>
     <script src="../admin/assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="../admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>

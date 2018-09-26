@@ -187,3 +187,7 @@ img.vitrina:hover{
  opacity:0.7;
  filter:alpha(opacity=100); /* For IE8 and earlier */
 }
+.codigo{
+  border: 2px solid rgba(0, 0, 0, 0.5);
+  background-color: #222;
+}
