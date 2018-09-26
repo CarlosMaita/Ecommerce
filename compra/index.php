@@ -10,13 +10,10 @@ if(isset($_GET['idproducto'], $_GET['idmodelo'])){
         WHERE i.IDMODELO='.$idmodelo;
             $res= $conn->query($sql);
             $arreglo[] = array();
-<<<<<<< HEAD
             unset($arreglo[0]);
            if($res->num_rows > 0){
-=======
             #unset($arreglo[0]);
            if ($res->num_rows > 0){
->>>>>>> a491796608e527a0c5e425b9b55314bad8da6888
             while($f=$res->fetch_assoc()){
               $lista_tallas=$lista_tallas.'<option value="'.$f['TALLA'].'">'.$f['TALLA'].'</option>';
               $newarreglo=array('Talla'=>$f['TALLA'], 'Cantidad'=> $f['CANTIDAD'], 'Idinventario'=>$f['IDINVENTARIO'], 'Peso'=>$f['PESO']);
@@ -27,43 +24,41 @@ if(isset($_GET['idproducto'], $_GET['idmodelo'])){
               $newarreglo=array('Talla'=>'N/D', 'Cantidad'=>'0', 'Idinventario'=>'-1', 'Peso'=>'No disponible');
               array_push($arreglo,$newarreglo);
             }
-        #seleccion de Características
-        $sql ="SELECT p.NOMBRE_P, p.PRECIO, p.TIPO, p.GENERO, p.DESCRIPCION, m.IMAGEN ,p.MANGA, p.CUELLO,p.MATERIAL FROM MODELOS m
-        INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
-        WHERE m.IDMODELO=$idmodelo";
-        $res= $conn->query($sql);
-        if($res->num_rows > 0){
+            $sql ="SELECT p.NOMBRE_P, p.PRECIO, p.TIPO, p.GENERO, p.DESCRIPCION, m.IMAGEN ,p.MANGA, p.CUELLO,p.MATERIAL FROM MODELOS m
+            INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
+            WHERE m.IDMODELO=$idmodelo";
+            $res= $conn->query($sql);
+            if($res->num_rows > 0){
          while($f=$res->fetch_assoc()){
            $nombre_p=$f['NOMBRE_P'];
            $precio=$f['PRECIO'];
-           #TIPO
            $tipo=$f['TIPO'];
            $sql2="SELECT NOMBRE FROM CATEGORIAS WHERE IDCATEGORIA=$tipo";
            $result2 = $conn->query($sql2);
-           if ($result2->num_rows > 0) {
+           if($result2->num_rows > 0){
                while($row2 = $result2->fetch_assoc()) {
                  $tipo = $row2['NOMBRE'];
                }
            }
-
            $genero=$f['GENERO'];
            $descripcion=$f['DESCRIPCION'];
            $imagen= $f['IMAGEN'];
            $material=$f['MATERIAL'];
-           switch ($f['MANGA']) {
+           switch ($f['MANGA']){
              case '0':
                $manga='No Aplica';
                break;
             case '1':
-               $manga='Modificar';
+               $manga='Corta';
                break;
             case '2':
-               $manga='Modificar';
+               $manga='3/4';
                break;
             case '3':
-               $manga='Modificar';
+               $manga='Larga';
                break;
             default:
+              $manga='Sin Manga';
                break;
            }
            switch ($f['CUELLO']){
@@ -71,19 +66,21 @@ if(isset($_GET['idproducto'], $_GET['idmodelo'])){
                $cuello='No Aplica';
                break;
                case '1':
-               $cuello='Modificar';
+               $cuello='Redondo';
                break;
                case '2':
-               $cuello='Modificar';
+               $cuello='En V';
                break;
                case '3':
-               $cuello='Modificar';
+               $cuello='Mao';
                  break;
              default:
+              $cuello='Chemise';
                break;
            }
          }
         }
+          }
 }
 ?>
 <!DOCTYPE html>
@@ -152,19 +149,19 @@ and open the template in the editor.
             <div class="row">
               <div class="col-12">
                 <p class="text-muted"><?=ucfirst($tipo)?> de <?php
-                switch ($genero) {
+                switch ($genero){
                   case '1':
                     echo 'Dama';
                     break;
-                    case '2':
-                      echo 'Caballero';
-                      break;
-                      case '3':
-                        echo 'Niña';
-                        break;
-                        case '4':
-                          echo 'Niño';
-                          break;
+                  case '2':
+                    echo 'Caballero';
+                    break;
+                  case '3':
+                    echo 'Niña';
+                    break;
+                  case '4':
+                    echo 'Niño';
+                    break;
                   default:
                     echo 'Otro';
                     break;
@@ -194,9 +191,7 @@ and open the template in the editor.
                   <input  type="number" max="<?php
                       if($arreglo[1]['Cantidad']<11){
                         echo $arreglo[1]['Cantidad'];
-                      }else{
-                        echo '10';
-                      }
+                      }else{ echo '10'; }
                     ?>" min="1" maxlength="4" value="1" name="cantidad"
                    id="cant" required>
                 </div>
@@ -204,7 +199,7 @@ and open the template in the editor.
               <input type="hidden" name="id" id='idinv' value="<?php echo $arreglo[1]['Idinventario'];?>">
               <div class="row mt-3">
                 <div class="col-12">
-                  <button class="btn btn-outline-dark" type="submit" >AÑADIR AL CARRITO</button>
+                  <button class="btn btn-outline-dark" type="submit">AÑADIR AL CARRITO</button>
                 </div>
               </div>
             </form>
@@ -212,7 +207,7 @@ and open the template in the editor.
             <div class="row">
               <div class="col-12">
                 <small class="text-muted"><span class="text-dark">¿Deseas comprar mas de 12 piezas?</span><br>
-                  Ve a compras <a href="../vitrina/index.php?genero=4" target="_blank">Al Mayor</a>, y aprovecha las mejores ofertas.</small>
+                  Ve a compras <a href="../faq/index.php?id=1" target="_blank">Al Mayor</a>, y aprovecha las mejores ofertas.</small>
               </div>
             </div>
             <div class="row mt-3">
@@ -224,7 +219,7 @@ and open the template in the editor.
             <hr class="my-3">
             <div class="row mt-3">
               <div class="col-12">
-                <small class="text-muted"><b>¿Como hacemos los envíos?</b> <br>
+                <small class="text-muted"><b>¿Como hacemos los envíos?</b><br>
                   Los Envíos lo hacemos mediante agencias de encomiendas. <a href="../faq/index.php?id=2" target="_blank">Ver más</a></small>
               </div>
             </div>
@@ -277,14 +272,14 @@ and open the template in the editor.
                                 <b>Prenda: </b><?=ucfirst ($tipo)?>,  <b>Manga: </b><?=ucfirst ($manga)?>,  <b>Cuello: </b><?=ucfirst($cuello)?><br>
                                 <b>Material: </b><?=$material?> <br>
                                 <br>
-                                <b>Peso de la franela:</b>
+                                <!--<b>Peso de la franela:</b>-->
                                 <?php
-                                if ($arreglo[1]['Talla']!='N/D') {
+                                /*if ($arreglo[1]['Talla']!='N/D') {
                                   foreach ($arreglo as $key) {
                                       echo 'Talla: '.$key["Talla"].' ('.$key["Peso"].' gr) ';
                                   }
                                 }else{ echo 'No disponible'; }
-                                 ?>
+                                 */?>
                                 </p>
                              </div>
                            </div>
@@ -308,52 +303,37 @@ and open the template in the editor.
     var img, lens, result, cx, cy;
     img = document.getElementById(imgID);
     result = document.getElementById(resultID);
-    /*create lens:*/
     lens = document.createElement("DIV");
     lens.setAttribute("class", "img-zoom-lens");
-    /*insert lens:*/
     img.parentElement.insertBefore(lens, img);
-    /*calculate the ratio between result DIV and lens:*/
     cx = result.offsetWidth / lens.offsetWidth;
     cy = result.offsetHeight / lens.offsetHeight;
-    /*set background properties for the result DIV*/
     result.style.backgroundImage = "url('" + img.src + "')";
     result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
-    /*execute a function when someone moves the cursor over the image, or the lens:*/
     lens.addEventListener("mousemove", moveLens);
     img.addEventListener("mousemove", moveLens);
-    /*and also for touch screens:*/
     lens.addEventListener("touchmove", moveLens);
     img.addEventListener("touchmove", moveLens);
     function moveLens(e) {
       var pos, x, y;
-      /*prevent any other actions that may occur when moving over the image*/
       e.preventDefault();
-      /*get the cursor's x and y positions:*/
       pos = getCursorPos(e);
-      /*calculate the position of the lens:*/
       x = pos.x - (lens.offsetWidth / 2);
       y = pos.y - (lens.offsetHeight / 2);
-      /*prevent the lens from being positioned outside the image:*/
       if (x > img.width - lens.offsetWidth) {x = img.width - lens.offsetWidth;}
       if (x < 0) {x = 0;}
       if (y > img.height - lens.offsetHeight) {y = img.height - lens.offsetHeight;}
       if (y < 0) {y = 0;}
-      /*set the position of the lens:*/
       lens.style.left = x + "px";
       lens.style.top = y + "px";
-      /*display what the lens "sees":*/
       result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
     }
     function getCursorPos(e) {
       var a, x = 0, y = 0;
       e = e || window.event;
-      /*get the x and y positions of the image:*/
       a = img.getBoundingClientRect();
-      /*calculate the cursor's x and y coordinates, relative to the image:*/
       x = e.pageX - a.left;
       y = e.pageY - a.top;
-      /*consider any page scrolling:*/
       x = x - window.pageXOffset;
       y = y - window.pageYOffset;
       return {x : x, y : y};

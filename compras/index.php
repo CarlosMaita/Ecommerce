@@ -43,15 +43,6 @@
           <div class="input-group col-6">
             <input type="text" class="form-control" placeholder="Inserte su Llave digital" aria-label="Inserte su Llave digital" aria-describedby="basic-addon2"  name="idcompra" maxlength="32"/>
           </div>
-<<<<<<< HEAD
-      <!--  <div class="g-recaptcha col" data-sitekey="6LezMGIUAAAAAK7US9I7C9wD2OV9Hufqb8V5whVY"></div>
-      -->
-      <input type="hidden" name="g-recaptcha-response" value="">
-        <div class="input-group-append mt-3 col-5">
-          <button class="btn btn-outline-secondary" type="submit">Buscar</button>
-        </div>
-    </form>
-=======
           <!--  <div class="g-recaptcha col" data-sitekey="6LezMGIUAAAAAK7US9I7C9wD2OV9Hufqb8V5whVY"></div>
         -->
         <input type="hidden" name="g-recaptcha-response">
@@ -60,7 +51,6 @@
         </div>
       </form>
       </div>
->>>>>>> a491796608e527a0c5e425b9b55314bad8da6888
     </div>
 <div style="min-height:55vh">
  <?php
@@ -339,13 +329,6 @@
   </div>
 </article>
 -->
-<div class="jumbotron mb-0">
-  <h1 class="display-4">¡Se un Vendedor Rouxa!</h1>
-  <p class="lead">Podrás vender nuestros productos sin tener que realizar alguna inversión.</p>
-  <hr class="my-4">
-  <p>Solo tendrás que dar tu código de Vendedor Rouxa a tu cliente, y este comprará a tu nombre los articúlos que desee.</p>
-  <a class="btn btn-secondary btn-lg disabled mt-3" href="" role="button">Proximamente</a>
-</div>
 <?php include_once '../common/footer2.php';?>
     <script src="../admin/assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="../admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>

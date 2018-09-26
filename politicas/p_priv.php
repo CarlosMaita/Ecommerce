@@ -8,7 +8,7 @@
     <meta name="author" content="Eutuxia, C.A.">
     <meta name="application-name" content="Tienda Virtual de Ropa, Rouxa."/>
     <link rel="icon" type="image/jpg" sizes="16x16" href="../imagen/favicon.jpg">
-    <link rel="stylesheet" href="../css/style-main.css">
+    <link rel="stylesheet" href="../css/new.css">
     <link href="../admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
     <title>Rouxa</title>
@@ -39,7 +39,6 @@
     <?php include_once '../common/menu2.php';
           include_once '../common/2domenu2.php';
     ?>
-<!-- Inicio de codigo. !-->
    <div style="min-height:100vh; background: #ddd">
      <div class="container p-3">
             <h1 id="letrap" class="text-primary  text-center letrap">
@@ -50,9 +49,9 @@
      <div class ="container p-3 vista">
       <div id="topic" class="container">
             <p id="res">
-               El presente Política de Privacidad establece los términos en que Rouxa CA usa y protege la información que es proporcionada por sus usuarios al momento de utilizar su sitio web. Esta empresa está comprometida con la seguridad de los datos de sus usuarios. Cuando le pedimos llenar los campos de información personal con la cual usted pueda ser identificado, lo hacemos asegurando que sólo se empleará de acuerdo con los términos de este documento. Sin embargo esta Política de Privacidad puede cambiar con el tiempo o ser actualizada por lo que le recomendamos y enfatizamos revisar continuamente esta página para asegurarse que está de acuerdo con dichos cambios.
+               La presente Política de Privacidad establece los términos en que Rouxa C.A. usa y protege la información que es proporcionada por sus usuarios al momento de utilizar su sitio web. Esta empresa está comprometida con la seguridad de los datos de sus usuarios. Cuando le pedimos llenar los campos de información personal con la cual usted pueda ser identificado, lo hacemos asegurando que sólo se empleará de acuerdo con los términos de este documento. Sin embargo esta Política de Privacidad puede cambiar con el tiempo o ser actualizada por lo que le recomendamos y enfatizamos revisar continuamente esta página para asegurarse que está de acuerdo con dichos cambios.
                <br><br>
-               Rouxa CA Se reserva el derecho de cambiar los términos de la presente Política de Privacidad en cualquier momento.
+               Rouxa C.A. Se reserva el derecho de cambiar los términos de la presente Política de Privacidad en cualquier momento.
             </p>
             <hr>
          </div>
@@ -74,7 +73,7 @@ Tenga en cuenta que datos bancarios, información de tarjetas de crédito / déb
        USO DE LA INFORMACION RECOGIDA
              </h1>
             <p id="res">
-             Nuestro sitio web emplea la información con el fin de proporcionar el mejor servicio posible, particularmente para mantener un registro de las compras de productos y/o Servicios, de pedidos, y de facturación. Es posible que sean enviados correos electrónicos periódicamente a través de nuestro sitio con ofertas especiales, nuevos productos y otra información publicitaria que consideremos relevante para usted o que pueda brindarle algún beneficio, estos correos electrónicos serán enviados a la dirección que usted proporcione y podrán ser cancelados en cualquier momento. Rouxa CA está altamente comprometido para cumplir con el compromiso de mantener su información segura. Usamos los sistemas más avanzados y los actualizamos constantemente para asegurarnos que no exista ningún acceso no autorizado.
+             Nuestro sitio web emplea la información con el fin de proporcionar el mejor servicio posible, particularmente para mantener un registro de las compras de productos y/o Servicios, de pedidos, y de facturación. Es posible que sean enviados correos electrónicos periódicamente a través de nuestro sitio con ofertas especiales, nuevos productos y otra información publicitaria que consideremos relevante para usted o que pueda brindarle algún beneficio, estos correos electrónicos serán enviados a la dirección que usted proporcione y podrán ser cancelados en cualquier momento. Rouxa C.A. está altamente comprometido para cumplir con el compromiso de mantener su información segura. Usamos los sistemas más avanzados y los actualizamos constantemente para asegurarnos que no exista ningún acceso no autorizado.
             </p>
             <hr>
          </div>
@@ -111,7 +110,6 @@ Usted puede aceptar o negar el uso de cookies, sin embargo la mayoría de navega
      </div>
 </div>
 <?php include_once '../common/footer2.php';?>
-    <script src="../admin/assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="../admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="../admin/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   </body>

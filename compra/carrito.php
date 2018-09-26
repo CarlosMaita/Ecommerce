@@ -156,9 +156,6 @@ if (isset($_SESSION['carrito'])){
                             <span class="ml-auto"><?php echo number_format($total_modelo,2,',','.');?> Bs.S</span>
                         </div>
                         <div class="row">
-                          <small>IDINVENTARIO: <span class="text-muted"><?php echo " ".$d['Id']?></span></small>
-                        </div>
-                        <div class="row">
                           <small>TALLA: <span class="text-muted"><?php echo " ".$d['Talla']?></span></small>
                         </div>
                         <div class="row">
@@ -365,13 +362,7 @@ if (isset($_SESSION['carrito'])){
             }
             //</div>
     ?>
-    <div class="jumbotron mb-0 mt-5">
-      <h1 class="display-4">¡Se un Vendedor Rouxa!</h1>
-      <p class="lead">Podrás vender nuestros productos sin tener que realizar alguna inversión.</p>
-      <hr class="my-4">
-      <p>Solo tendrás que dar tu código de Vendedor Rouxa a tu cliente, y este comprará a tu nombre los articúlos que desee.</p>
-      <a class="btn btn-secondary btn-lg disabled mt-3" href="" role="button">Próximamente</a>
-    </div>
+    <br class="my-5">
 <?php include_once '../common/footer2.php';?>
 <script type="text/javascript">
   var cantidad = <?php echo $cantidad_total; ?>;

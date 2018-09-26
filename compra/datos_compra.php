@@ -62,9 +62,7 @@ function Factura(){
     </div>
   </div>
   <hr class="mb-4">
-   <?php
-       if(isset($_SESSION['carrito'])){
-              ?>
+   <?php if(isset($_SESSION['carrito'])){ ?>
     <form action="cuentas_bancarias.php" method="POST" onsubmit="return validacion() && captch()">
     <div class="container">
       <div class="row justify-content-center">
@@ -155,9 +153,9 @@ function Factura(){
         </div>
       </div>
       <div class="row justify-content-center">
-        <p><input id="isfacture" type="checkbox" onclick="Factura()" name="isfacture" value="true"> Yo, deseo factura fiscal</p>
+        <p><input id="isfacture" type="checkbox" onclick="Factura()" name="isfacture" value="true"> <small class="text-muted">Yo, deseo factura fiscal</small></p>
       </div>
-      <div class="row breadcrumb">
+      <div class="row">
         <div class="input-group mb-2 col-6">
           <input type="text" placeholder="Razon Social" name="razon-social" id="razon-social" style="display: none" class="form-control">
         </div>
@@ -173,6 +171,7 @@ function Factura(){
           <input type="text" placeholder="Direccion Fiscal" name="dir-fiscal" id="dir-fiscal" style="display: none" class="form-control">
         </div>
       </div>
+      <hr>
       <div class="row my-3">
         <p><input type="checkbox" required> Yo, declaro haber leido y entendido los <a href="../info/terminos.php" target="_blank">términos, condiciones y politicas</a> que regulan esta tienda virtual. De igual manera declaro que la informacion suministrada mediante este fomulario es correcta.</p>
       </div>
@@ -242,7 +241,6 @@ function Factura(){
               $_SESSION['total']=$total;
               #peso Total
               $_SESSION['peso']=$pesot;
-
             ?>
           </div>
             <h5 class="text-center text-muted">Subtotal: <?=number_format($subtotal,2,',','.') ?> BsS</h5>
