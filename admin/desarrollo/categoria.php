@@ -3,27 +3,27 @@ include_once('../common/sesion2.php');
 if($_SESSION['nivel']==6 || $_SESSION['nivel']==1){
 }else{ header('Location: ../principal.php'); }
 require('../../common/conexion.php');
-if(isset($_GET['color'],$_GET['color_hex'] )){
-        $color=$_GET['color'];
-        $hex=$_GET['color_hex'];
-         $sql = "INSERT INTO `COLOR`(`HEX`, `COLOR`) VALUES ('$hex','$color')";
+if(isset($_GET['nombre'],$_GET['padre']) and !empty($_GET['nombre'])){
+    $nombre=$_GET['nombre'];
+    $padre=$_GET['padre'];
 
-        if ($conn->query($sql) === TRUE) {
-            echo "<center>Nuevo COLOR registrado</center>";
-            header('Location: ./colores.php');
-           } else { //echo "Error: " . $sql . "<br>" . $conn->error;
-                    echo '<script>alert("Error: Color Ya existe")</script>';
-                    }
+    $sql = "INSERT INTO `CATEGORIAS`(`NOMBRE`, `PADRE`) VALUES ('$nombre','$padre')";
+    if ($conn->query($sql) === TRUE) {
+        header('Location: ./categoria.php');
+       } else { //echo "Error: " . $sql . "<br>" . $conn->error;
+        echo '<script>alert("Error: CATEGORIA Ya existe")</script>';
+        }
 }
-#paginacion y eliinacion de productos
+#eliinacion de productos
 if(isset($_GET['delete']) & !empty($_GET['delete'])){
-    $idcolor=$_GET['delete'];
+    $id=$_GET['delete'];
     #eliminar USURIO
-    $sql ="DELETE FROM COLOR WHERE IDCOLOR='$idcolor'";
+    $sql ="DELETE FROM CATEGORIAS WHERE IDCATEGORIA='$id'";
        if ($conn->query($sql) === TRUE) {
            } else { echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>'; }
 }
-$perpage  = 5;
+#paginacion
+$perpage  = 10;
 if(isset($_GET['page']) & !empty($_GET['page'])){
 	$curpage = $_GET['page'];
 }else{
@@ -51,6 +51,7 @@ $previouspage = $curpage - 1;
     <title>Rouxa - Administración</title>
     <link href="../dist/css/style.min.css" rel="stylesheet">
     <link href="../../css/new.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -72,7 +73,7 @@ $previouspage = $curpage - 1;
                     <div class="col-5 align-self-center">
                         <h4 class="page-title">Desarrollo</h4>
                     </div>
-                    <div class="col-auto ml-auto align-self-center">
+                    <div class="col-7 align-self-center">
                         <div class="d-flex align-items-center justify-content-end">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
@@ -91,13 +92,13 @@ $previouspage = $curpage - 1;
             </div>
             <div class="container-fluid">
                 <div class="row justify-content-around">
-                    <div class="col-sm-4 text-center">
+                    <div class="col-4 text-center">
                       <a class="btn btn-link text-success" href="usuarios.php">Agregar/Eliminar Usuario</a>
                     </div>
-                    <div class="col-sm-4 text-center">
-                      <a class="btn btn-link text-success" href="categoria.php">Agregar/Eliminar Tipo de Prenda</a>
+                    <div class="col-4 text-center">
+                      <a class="btn btn-link text-success" href="categoria.php">Agregar/Eliminar Categoria</a>
                     </div>
-                    <div class="col-sm-4 text-center">
+                    <div class="col-4 text-center">
                       <a class="btn btn-link text-success" href="colores.php">Agregar/Eliminar Color</a>
                     </div>
                 </div>
@@ -105,8 +106,18 @@ $previouspage = $curpage - 1;
                   <div class="col-12">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title">Tipos de Prenda en Base de Datos</h4>
-                      <h6 class="card-subtitle">Estas son las prendas que habrán disponibles al momento de agregar productos en el sistema</h6>
+                      <h4 class="card-title">Categorias</h4>
+                      <h6 class="card-subtitle">Representa las prendas y sus derivados, engloba una variable que maneja los productos con jerarquias.</h6>
+                      <hr>
+                      <h4 class="card-title">Tipos de Prenda</h4>
+                      <h6 class="card-subtitle">Representa las prendas con jerarquia mayor en las categorias, engloba todas las categorias añadias con la categoria padre <i>Principal</i>.</h6>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <div class="card-body">
+
+                      <h4 class="card-title">Categorias en Base de Datos</h4>
+                      <h6 class="card-subtitle">Estas son las categorias que habrán disponibles al momento de agregar productos en el sistema</h6>
                     </div>
                     <div class="row justify-content-center mt-1 bg-white py-2">
                       <h3>Agregar nueva categoria</h3>
@@ -115,9 +126,31 @@ $previouspage = $curpage - 1;
                     <div class="row mt-3 justify-content-center">
                       <div class="input-group mb-3 col-6">
                         <div class="input-group-append">
-                          <span class="input-group-text"><b>Nombre de la prenda</b></span>
+                          <span class="input-group-text"><b>Nombre de categoria</b></span>
                         </div>
-                        <input type="text" name="color" class="form-control text-secondary" placeholder="Ej: Franela" required>
+                        <input type="text" name="nombre" class="form-control text-secondary" placeholder="Ej: Franela" required>
+                      </div>
+                      <div class="input-group mb-3 col-6">
+                        <div class="input-group-append">
+                          <span class="input-group-text"><b>Categoria Padre</b></span>
+                        </div>
+                        <select class="form-control text-secondary" name="padre" required>
+                          <option value="0">Principal</option>
+                          <?php
+                            $sql="SELECT IDCATEGORIA, NOMBRE FROM CATEGORIAS ORDER BY IDCATEGORIA";
+                            $result = $conn->query($sql);
+                            if ($result->num_rows > 0) {
+                            // output data of each row
+                               while($row = $result->fetch_assoc()){
+                                  #variabes
+                                  $id=$row['IDCATEGORIA'];
+                                  $nombre=$row['NOMBRE'];
+                                  echo "<option value='$id'>$nombre</option>";
+                               }
+                            }
+                           ?>
+
+                        </select>
                       </div>
                     </div>
                     <div class="row justify-content-center mb-3">
@@ -125,34 +158,59 @@ $previouspage = $curpage - 1;
                     </div>
                     </form>
                   </div>
+                  </div>
                 </div>
-              </div>
                 <div class="row mt-3 justify-content-center">
                   <div class="col-10">
                   <div class="card">
                     <div class="card-body">
-                      <h4 class="card-title">Prendas en el Sistema</h4>
-                      <h6 class="card-subtitle">A continuación todas las prendas que se encuentrán registradas en el sistema</h6>
+                      <h4 class="card-title">Categorias en el Sistema</h4>
+                      <h6 class="card-subtitle">A continuación todas las categorias que se encuentrán registradas en el sistema</h6>
                     </div>
+                    <?php
+                    $sql="SELECT * FROM CATEGORIAS ORDER BY IDCATEGORIA LIMIT $start, $perpage";
+                    $result = $conn->query($sql);
+                    if ($result->num_rows > 0) {?>
                     <div class="table-responsive">
                       <table class="table table-hover">
                         <thead class="thead-light">
                           <tr  class="text-center">
-                            <th scope="col"></th>
-                            <th scope="col">Nombre</th>
-                            <th></th>
+                            <th  scope="col">Nombre de categoria</th>
+                            <th  scope="col">Categoria padre</th>
+                            <th  scope="col"></th>
                           </tr>
                         </thead>
                         <tbody>
+                        <?php
+                          // output data of each row
+                             while($row = $result->fetch_assoc()){
+                               $idpadre=$row['PADRE'];
+                               $nombre=$row['NOMBRE'];
+                               $id=$row['IDCATEGORIA'];
+                               #CONSEGIR NOMBRE DEL PADRE
+                               if ($idpadre>0){
+                                 $sql2="SELECT NOMBRE FROM CATEGORIAS WHERE IDCATEGORIA='$idpadre'  LIMIT 1";
+                                 $result2 = $conn->query($sql2);
+                                 if ($result2->num_rows > 0) {
+                                 // output data of each row
+                                    while($row2 = $result2->fetch_assoc()){
+                                      $padre=$row2['NOMBRE'];
+                                    }
+                                  }
+                               }else{
+                                 $padre='Principal';
+                               }
+                           ?>
                           <tr class="text-center">
-                            <td>Franela</td>
-                            <td><a href="javascript:void(0)" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eli123">Eliminar</a></td>
+                            <td><?=$nombre?></td>
+                            <td><?=$padre?></td>
+                            <td><a href="javascript:void(0)" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eli_<?=$id?>">Eliminar</a></td>
                           </tr>
-                          <div class="modal fade" id="eli123" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal fade" id="eli_<?=$id?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h5 class="modal-title">¿Desea eliminar la prenda?</h5>
+                                  <h5 class="modal-title">¿Desea eliminar la categoria?</h5>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
@@ -161,34 +219,38 @@ $previouspage = $curpage - 1;
                                   <div class="container">
                                     <div class="row justify-content-around">
                                       <div class="col-auto">
-                                        Franela
+                                        <b>Categoria:</b>   <?=$nombre?>
                                       </div>
+                                      <div class="col-auto">
+                                        <b>Categoria Padre:</b> <?=$padre?>
                                     </div>
                                   </div>
+                                </div>
                                 </br>
-                                Tenga en cuenta no se podrá agregar prndas de este tipo al sistema.</br>
+                                Tenga en cuenta no se podrá agregar prendas de este tipo al sistema.</br>
                                 Consulte con su supervisor antes de realizar esta acción.
                                 </div>
                                 <div class="modal-footer">
                                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                  <a href="?delete=ID" class="btn btn-primary">Eliminar</a>
+                                  <a href="?delete=<?=$id?>" class="btn btn-primary">Eliminar</a>
                                 </div>
                               </div>
                             </div>
                           </div>
+                        <?php } ?>
                         </tbody>
                       </table>
                       <center>
                         <nav aria-label="Page navigation example">
                           <ul class="pagination justify-content-center">
-                  <?php if($curpage != $startpage){ ?>
-                    <li class="page-item">
-                      <a class="page-link" href="?page=<?php echo $startpage ?>" tabindex="-1" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">firts</span>
-                      </a>
-                    </li>
-                    <?php }
+                            <?php if($curpage != $startpage){ ?>
+                              <li class="page-item">
+                                <a class="page-link" href="?page=<?php echo $startpage ?>" tabindex="-1" aria-label="Previous">
+                                  <span aria-hidden="true">&laquo;</span>
+                                  <span class="sr-only">firts</span>
+                                </a>
+                              </li>
+                              <?php }
                           if($curpage >=2){ ?>
                             <li class="page-item"><a class="page-link" href="?page=<?php echo $previouspage ?>"><?php echo $previouspage ?></a></li>
                             <?php }  ?>
@@ -208,6 +270,13 @@ $previouspage = $curpage - 1;
                         </nav>
                      </center>
                     </div>
+                  <?php } else {
+                  ?>
+                  <div class="card">
+                    <h6 class="text-center text-secondary">Sin Categorias</h6>
+                  </div>
+                  <?php
+                  } ?>
                   </div>
                 </div>
                 </div>
@@ -218,6 +287,9 @@ $previouspage = $curpage - 1;
     <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
     <script src="../assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="../assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../assets/extra-libs/sparkline/sparkline.js"></script>
+    <script src="../dist/js/waves.js"></script>
+    <script src="../dist/js/sidebarmenu.js"></script>
     <script src="../dist/js/custom.min.js"></script>
 </body>
 </html>
