@@ -18,10 +18,10 @@ if(isset($_GET['genero'])){
               $publicidad="¡Compra los mejores productos para los mas pequeños!";
               $publicidad2="¡Compra lo mejor para Niños!";
             break;
-        case '4':
+        /*case '4':
              $publicidad="¡Compra Al Mayor y obtén excelentes descuentos!";
              $publicidad2="¡Compra Al Mayor y obtén excelentes descuentos!";
-            break;
+            break;*/
     }
 }else{$genero=5;}
 #busqueda por tipo de prenda
@@ -67,7 +67,6 @@ $url= $_SERVER["REQUEST_URI"];
     <meta name="author" content="Eutuxia, C.A.">
     <meta name="application-name" content="Tienda Virtual de Ropa, Rouxa."/>
     <link rel="icon" type="image/jpg" sizes="16x16" href="../imagen/favicon.jpg">
-    <link rel="stylesheet" href="../css/style-main.css">
     <link href="../css/new.css" rel="stylesheet">
     <link href="../admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
@@ -100,9 +99,9 @@ $url= $_SERVER["REQUEST_URI"];
                           <li class="nav-item">
                             <a class="nav-link" href="../vitrina/index.php?genero=2">Caballeros</a>
                           </li>
-                          <li class="nav-item">
+                          <!--<li class="nav-item">
                             <a class="nav-link" href="../vitrina/index.php?genero=4">Al Mayor</a>
-                          </li>
+                          </li>-->
                           <?php
                           break;
                       case '2':
@@ -113,9 +112,9 @@ $url= $_SERVER["REQUEST_URI"];
                           <li class="nav-item active">
                             <a class="nav-link" href="../vitrina/index.php?genero=2">Caballeros</a>
                           </li>
-                          <li class="nav-item">
+                          <!--<li class="nav-item">
                             <a class="nav-link" href="../vitrina/index.php?genero=4">Al Mayor</a>
-                          </li>
+                          </li>-->
                           <?php
                           break;
                       case '4':
@@ -126,9 +125,9 @@ $url= $_SERVER["REQUEST_URI"];
                           <li class="nav-item">
                             <a class="nav-link" href="../vitrina/index.php?genero=2">Caballeros</a>
                           </li>
-                          <li class="nav-item active">
+                          <!--<li class="nav-item active">
                             <a class="nav-link" href="../vitrina/index.php?genero=4">Al Mayor</a>
-                          </li>
+                          </li>-->
                           <?php
                           break;
                       default:
@@ -139,9 +138,9 @@ $url= $_SERVER["REQUEST_URI"];
                             <li class="nav-item">
                               <a class="nav-link" href="../vitrina/index.php?genero=2">Caballeros</a>
                             </li>
-                            <li class="nav-item">
+                            <!--<li class="nav-item">
                               <a class="nav-link" href="../vitrina/index.php?genero=4">Al Mayor</a>
-                            </li>
+                            </li>-->
                                <?php
                           break;
                   }
@@ -149,9 +148,9 @@ $url= $_SERVER["REQUEST_URI"];
             <li class="nav-item">
               <a class="nav-link" href="../compras/index.php">Compras</a>
             </li>
-            <li class="nav-item">
+            <!--<li class="nav-item">
               <a class="nav-link disabled" href="#">Vendedores</a>
-            </li>
+            </li>-->
              <li class="nav-item">
               <a class="nav-link" href="../faq/index.php">FAQ</a>
             </li>
@@ -364,7 +363,7 @@ $url= $_SERVER["REQUEST_URI"];
               <div class="col-auto align-self-center">
                 <b><span class="d-none d-sm-inline-block">TODOS LOS</span> PRODUCTOS <span class="text-muted">[100]</span></b>
               </div>
-              <div class="col-6 align-self-end d-none d-md-inline-block">
+              <!--<div class="col-6 align-self-end d-none d-md-inline-block">
                 <div class="row justify-content-end">
                   <div class="col-auto text-dark align-self-center">
                     <b>ORDENAR POR:</b>
@@ -376,7 +375,7 @@ $url= $_SERVER["REQUEST_URI"];
                     </select>
                   </div>
                 </div>
-              </div>
+              </div>-->
             </div>
             <div class="row">
           <?php

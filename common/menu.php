@@ -12,9 +12,9 @@
             <li class="nav-item">
               <a class="nav-link" href="vitrina/index.php?genero=2">Caballeros</a>
             </li>
-             <li class="nav-item">
+             <!--<li class="nav-item">
               <a class="nav-link" href="vitrina/index.php?genero=4">Al Mayor</a>
-            </li>
+            </li>-->
             <li class="nav-item">
               <a class="nav-link" href="compras/index.php">Compras</a>
             </li>
