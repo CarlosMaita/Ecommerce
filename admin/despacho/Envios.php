@@ -220,9 +220,6 @@ if(isset($_GET['orden'], $_GET['id']) ){
                                                                       <div class="col-auto">
                                                                         <b>Compra de <?=$cliente?></b>
                                                                       </div>
-                                                                      <div class="col-auto ml-auto">
-                                                                        <b>12/5/2018</b>
-                                                                      </div>
                                                                       <div class="col-12">
                                                                         <div class="row">
                                                                           <div class="col-6">
