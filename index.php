@@ -66,7 +66,6 @@
      ORDER BY Rand() LIMIT 4";
      $result = $conn->query($sql);
      if ($result->num_rows > 0){
-     // output data of each row
         while($row = $result->fetch_assoc()){
            ?>
            <div class="col-sm-12 col-md-6 col-lg-3 my-3">
@@ -84,13 +83,6 @@
         }else{ echo " <p>Aun no existen productos en Vitrina</p>"; }?>
      </div>
    </article>
-    <div class="jumbotron mb-0">
-      <h1 class="display-4">¡Se un Vendedor Rouxa!</h1>
-      <p class="lead">Podrás vender nuestros productos sin tener que realizar alguna inversión. ¡Ganarás un porcentaje de las ventas!</p>
-      <hr class="my-4">
-      <p>Solo tendrás que dar tu código de Vendedor Rouxa a tu cliente, y este comprará a tu nombre los articúlos que desee. <small><a href="faq/index.php?id=6">Más info.</a> </small> </p>
-      <a class="btn btn-secondary btn-lg disabled mt-3" href="" role="button">Proximamente</a>
-    </div>
 <?php include_once 'common/footer.php';?>
 <script src="admin/assets/libs/jquery/dist/jquery.min.js"></script>
 <script src="admin/assets/libs/popper.js/dist/umd/popper.min.js"></script>

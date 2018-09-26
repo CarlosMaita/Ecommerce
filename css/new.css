@@ -90,7 +90,7 @@ width: 75px;
   height: 150px;
 }
 .container-imagen{
-  border: 1px solid #eee;
+  border: 0px solid #eee;
 position: relative;
 }
 .text-block{
@@ -116,14 +116,13 @@ padding-right: 20px;
   color: #888;
   text-decoration: underline;
 }
-<<<<<<< HEAD
 .enlace{
   color: #6E6E6E;
 }
 .enlace:hover{
   text-decoration: none;
   color: #D8D8D8;
-=======
+  }
 .status-0{
   background-color: #ED7575;
   color: #fff;
@@ -177,5 +176,18 @@ padding-right: 20px;
   color: #fff;
   padding: 3px;
   border-radius: 2px;
->>>>>>> a491796608e527a0c5e425b9b55314bad8da6888
+}
+img.vitrina{
+  min-height: 300px;
+  max-height: 300px;
+  min-width: auto;
+  max-width: auto;
+}
+img.vitrina:hover{
+ opacity:0.7;
+ filter:alpha(opacity=100); /* For IE8 and earlier */
+}
+.codigo{
+  border: 2px solid rgba(0, 0, 0, 0.5);
+  background-color: #222;
 }

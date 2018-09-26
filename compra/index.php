@@ -10,13 +10,10 @@ if(isset($_GET['idproducto'], $_GET['idmodelo'])){
         WHERE i.IDMODELO='.$idmodelo;
             $res= $conn->query($sql);
             $arreglo[] = array();
-<<<<<<< HEAD
             unset($arreglo[0]);
            if($res->num_rows > 0){
-=======
             #unset($arreglo[0]);
            if ($res->num_rows > 0){
->>>>>>> a491796608e527a0c5e425b9b55314bad8da6888
             while($f=$res->fetch_assoc()){
               $lista_tallas=$lista_tallas.'<option value="'.$f['TALLA'].'">'.$f['TALLA'].'</option>';
               $newarreglo=array('Talla'=>$f['TALLA'], 'Cantidad'=> $f['CANTIDAD'], 'Idinventario'=>$f['IDINVENTARIO'], 'Peso'=>$f['PESO']);
@@ -27,7 +24,6 @@ if(isset($_GET['idproducto'], $_GET['idmodelo'])){
               $newarreglo=array('Talla'=>'N/D', 'Cantidad'=>'0', 'Idinventario'=>'-1', 'Peso'=>'No disponible');
               array_push($arreglo,$newarreglo);
             }
-        #seleccion de Características
         $sql ="SELECT p.NOMBRE_P, p.PRECIO, p.TIPO, p.GENERO, p.DESCRIPCION, m.IMAGEN ,p.MANGA, p.CUELLO,p.MATERIAL FROM MODELOS m
         INNER JOIN PRODUCTOS p ON p.IDPRODUCTO=m.IDPRODUCTO
         WHERE m.IDMODELO=$idmodelo";
@@ -36,53 +32,42 @@ if(isset($_GET['idproducto'], $_GET['idmodelo'])){
          while($f=$res->fetch_assoc()){
            $nombre_p=$f['NOMBRE_P'];
            $precio=$f['PRECIO'];
-           #TIPO
            $tipo=$f['TIPO'];
            $sql2="SELECT NOMBRE FROM CATEGORIAS WHERE IDCATEGORIA=$tipo";
            $result2 = $conn->query($sql2);
-           if ($result2->num_rows > 0) {
-               while($row2 = $result2->fetch_assoc()) {
-                 $tipo = $row2['NOMBRE'];
-               }
+           if($result2->num_rows > 0){
+               while($row2 = $result2->fetch_assoc()){ $tipo = $row2['NOMBRE']; }
            }
-
            $genero=$f['GENERO'];
            $descripcion=$f['DESCRIPCION'];
            $imagen= $f['IMAGEN'];
            $material=$f['MATERIAL'];
-           switch ($f['MANGA']) {
-             case '0':
-               $manga='No Aplica';
+           switch ($f['MANGA']){
+             case '1': $manga='Redondo';
+              break;
+             case '2': $manga='En V';
+              break;
+              case '3': $manga='Mao';
                break;
-            case '1':
-               $manga='Modificar';
+               case '4': $manga='Chemise';
                break;
-            case '2':
-               $manga='Modificar';
-               break;
-            case '3':
-               $manga='Modificar';
-               break;
-            default:
-               break;
-           }
+               default: $manga='No Aplica';
+                break;
+             }
            switch ($f['CUELLO']){
-             case '0':
-               $cuello='No Aplica';
-               break;
-               case '1':
-               $cuello='Modificar';
-               break;
-               case '2':
-               $cuello='Modificar';
-               break;
-               case '3':
-               $cuello='Modificar';
+               case '1': $cuello='Corta';
+                break;
+               case '2': $cuello='3/4';
+                break;
+                case '3': $cuello='Larga';
                  break;
-             default:
-               break;
-           }
+                 case '4': $cuello='Sin Manga';
+                 break;
+                 default: $cuello='No Aplica';
+                  break;
+             }
          }
+        }
         }
 }
 ?>
@@ -100,9 +85,8 @@ and open the template in the editor.
     <meta name="keywords" content="Rouxa, Ropa, Damas, Caballeros, Zapatos, Tienda Virtual">
     <meta name="author" content="Eutuxia, C.A.">
     <meta name="application-name" content="Tienda Virtual de Ropa, Rouxa."/>
-    <link rel="stylesheet" href="../css/style-main.css">
-    <link rel="stylesheet" href="../css/new.css">
     <link rel="icon" type="image/jpg" sizes="16x16" href="../imagen/favicon.jpg">
+    <link rel="stylesheet" href="../css/new.css">
     <link href="../admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
     <script>
@@ -212,13 +196,13 @@ and open the template in the editor.
             <div class="row">
               <div class="col-12">
                 <small class="text-muted"><span class="text-dark">¿Deseas comprar mas de 12 piezas?</span><br>
-                  Ve a compras <a href="../vitrina/index.php?genero=4" target="_blank">Al Mayor</a>, y aprovecha las mejores ofertas.</small>
+                  Ponte en <a href="../contacto/atencion.php" target="_blank">contacto</a> con nosotros, y obtén las mejores ofertas.</small>
               </div>
             </div>
             <div class="row mt-3">
               <div class="col-12">
                 <small class="text-muted"><span class="text-dark">¿No encuentras las tallas que deseas?</span><br>
-                  Ve a <a href="../vitrina.php?genero=4">solicitud de pedido</a>, y consulta por las otras tallas.</small>
+                  Ponte en <a href="../contacto/atencion.php" target="_blank">contacto</a> con nosotros, y consulta por las otras tallas.</small>
               </div>
             </div>
             <hr class="my-3">
@@ -277,13 +261,13 @@ and open the template in the editor.
                                 <b>Prenda: </b><?=ucfirst ($tipo)?>,  <b>Manga: </b><?=ucfirst ($manga)?>,  <b>Cuello: </b><?=ucfirst($cuello)?><br>
                                 <b>Material: </b><?=$material?> <br>
                                 <br>
-                                <b>Peso de la franela:</b>
+                                <!--<b>Peso de la franela:</b>-->
                                 <?php
-                                if ($arreglo[1]['Talla']!='N/D') {
+                                /*if ($arreglo[1]['Talla']!='N/D') {
                                   foreach ($arreglo as $key) {
                                       echo 'Talla: '.$key["Talla"].' ('.$key["Peso"].' gr) ';
                                   }
-                                }else{ echo 'No disponible'; }
+                                }else{ echo 'No disponible'; }*/
                                  ?>
                                 </p>
                              </div>
@@ -301,59 +285,44 @@ and open the template in the editor.
         </div>
       </div>
     </div>
-  <?php }
-    include_once '../common/footer2.php';?>
+    <?php include_once '../common/footer2.php'; ?>
+  <?php } ?>
     <script type="text/javascript">
     function imageZoom(imgID, resultID) {
     var img, lens, result, cx, cy;
     img = document.getElementById(imgID);
     result = document.getElementById(resultID);
-    /*create lens:*/
     lens = document.createElement("DIV");
     lens.setAttribute("class", "img-zoom-lens");
-    /*insert lens:*/
     img.parentElement.insertBefore(lens, img);
-    /*calculate the ratio between result DIV and lens:*/
     cx = result.offsetWidth / lens.offsetWidth;
     cy = result.offsetHeight / lens.offsetHeight;
-    /*set background properties for the result DIV*/
     result.style.backgroundImage = "url('" + img.src + "')";
     result.style.backgroundSize = (img.width * cx) + "px " + (img.height * cy) + "px";
-    /*execute a function when someone moves the cursor over the image, or the lens:*/
     lens.addEventListener("mousemove", moveLens);
     img.addEventListener("mousemove", moveLens);
-    /*and also for touch screens:*/
     lens.addEventListener("touchmove", moveLens);
     img.addEventListener("touchmove", moveLens);
     function moveLens(e) {
       var pos, x, y;
-      /*prevent any other actions that may occur when moving over the image*/
       e.preventDefault();
-      /*get the cursor's x and y positions:*/
       pos = getCursorPos(e);
-      /*calculate the position of the lens:*/
       x = pos.x - (lens.offsetWidth / 2);
       y = pos.y - (lens.offsetHeight / 2);
-      /*prevent the lens from being positioned outside the image:*/
       if (x > img.width - lens.offsetWidth) {x = img.width - lens.offsetWidth;}
       if (x < 0) {x = 0;}
       if (y > img.height - lens.offsetHeight) {y = img.height - lens.offsetHeight;}
       if (y < 0) {y = 0;}
-      /*set the position of the lens:*/
       lens.style.left = x + "px";
       lens.style.top = y + "px";
-      /*display what the lens "sees":*/
       result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
     }
     function getCursorPos(e) {
       var a, x = 0, y = 0;
       e = e || window.event;
-      /*get the x and y positions of the image:*/
       a = img.getBoundingClientRect();
-      /*calculate the cursor's x and y coordinates, relative to the image:*/
       x = e.pageX - a.left;
       y = e.pageY - a.top;
-      /*consider any page scrolling:*/
       x = x - window.pageXOffset;
       y = y - window.pageYOffset;
       return {x : x, y : y};

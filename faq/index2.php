@@ -8,7 +8,7 @@
     <meta name="author" content="Eutuxia, C.A.">
     <meta name="application-name" content="Tienda Virtual de Ropa, Rouxa."/>
     <link rel="icon" type="image/jpg" sizes="16x16" href="../imagen/favicon.jpg">
-    <link rel="stylesheet" href="../css/new.css">
+    <link rel="stylesheet" href="../css/style-main.css">
     <link href="../admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
     <title>Rouxa</title>
@@ -17,7 +17,7 @@
     <?php include_once '../common/menu2.php';
           include_once '../common/2domenu2.php';
     ?>
-   <div style="min-height:100vh; background: #fff;">
+   <div style="min-height:100vh;  background: #ddd;">
     <?php
         if($_GET){
              switch($_GET['id']){
@@ -461,7 +461,6 @@
         </div>
                      <?php
                       break;
-
                  case 5:
                        ?>
        <div class="container p-3">
@@ -826,45 +825,25 @@
              }
         }else{
               ?>
-              <div class="container p-3">
-                <h1 class="text-center text-primary mb-5">Preguntas Frecuentes(FAQ)</h1>
-                <div class="row justify-content-center mt-5">
-                  <div class="col-sm-5">
-                    <div class="bg-dark row p-3 justify-content-center">
-                      <a href="index.php?id=9" class="text-white">Información de Rouxa</a>
-                    </div>
-                    <div class="bg-dark row p-3 justify-content-center">
-                      <a href="index.php?id=2" class="text-white">Envíos</a>
-                    </div>
-                    <div class="bg-dark row p-3 justify-content-center">
-                      <a href="index.php?id=3" class="text-white">Devoluciones y Reembolsos</a>
-                    </div>
-                    <div class="bg-dark row p-3 justify-content-center">
-                      <a href="index.php?id=4" class="text-white">Métodos de pago</a>
-                    </div>
-                    <div class="bg-dark row p-3 justify-content-center">
-                      <a href="index.php?id=8" class="text-white">Retiros en tienda</a>
-                    </div>
-                  </div>
-                  <div class="col-sm-5">
-                    <div class="bg-dark row p-3 justify-content-center">
-                      <a href="index.php?id=1" class="text-white">Al Mayor</a>
-                    </div>
-                    <div class="bg-dark row p-3 justify-content-center">
-                      <a href="index.php?id=5" class="text-white">Seguimiento de Pedidos</a>
-                    </div>
-                    <div class="bg-dark row p-3 justify-content-center">
-                      <a href="index.php?id=6" class="text-white">Vendedores</a >
-                    </div>
-                    <div class="bg-dark row p-3 justify-content-center">
-                      <a href="index.php?id=7" class="text-white">Promociones</a>
-                    </div>
-                    <div class="bg-dark row p-3 justify-content-center">
-                      <a href="index.php?id=10" class="text-white">Publicar Ropa en Rouxa</a>
-                    </div>
-                  </div>
-                </div>
-               </div>
+       <div class="container p-3">
+         <h1 class="text-center text-primary">Preguntas Frecuentes(FAQ)</h1>
+         <div class="row">
+           <div class="col-sm-6">
+             <a href="index.php?id=9" class="bg-dark text-white">Información de Rouxa</a>
+             <a href="index.php?id=2" class="bg-dark text-white">Envíos</a>
+             <a href="index.php?id=3" class="bg-dark text-white">Devoluciones y Reembolsos</a>
+             <a href="index.php?id=4" class="bg-dark text-white">Métodos de pago</a>
+             <a href="index.php?id=8" class="bg-dark text-white">Retiros en tienda</a>
+           </div>
+           <div class="col-sm-6">
+             <a href="index.php?id=1" class="bg-dark text-white">Al Mayor</a>
+             <a href="index.php?id=5" class="bg-dark text-white">Seguimiento de Pedidos</a>
+             <a href="index.php?id=6" class="bg-dark text-white">Vendedores</a >
+             <a href="index.php?id=7" class="bg-dark text-white">Promociones</a>
+             <a href="index.php?id=10" class="bg-dark text-white">Publicar Ropa en Rouxa</a>
+           </div>
+         </div>
+        </div>
          <?php
         }
         ?>

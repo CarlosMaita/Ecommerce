@@ -12,7 +12,6 @@
     <meta name="author" content="Eutuxia, C.A.">
     <meta name="application-name" content="Tienda Virtual de Ropa, Rouxa."/>
     <link rel="icon" type="image/jpg" sizes="16x16" href="../imagen/favicon.jpg">
-    <link rel="stylesheet" href="../css/style-main.css">
     <link rel="stylesheet" href="../css/new.css">
     <link href="../admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
@@ -157,7 +156,7 @@ function Factura(){
       <div class="row justify-content-center">
         <p><input id="isfacture" type="checkbox" onclick="Factura()" name="isfacture" value="true"> Yo, deseo factura fiscal</p>
       </div>
-      <div class="row breadcrumb">
+      <div class="row">
         <div class="input-group mb-2 col-6">
           <input type="text" placeholder="Razon Social" name="razon-social" id="razon-social" style="display: none" class="form-control">
         </div>
@@ -173,6 +172,7 @@ function Factura(){
           <input type="text" placeholder="Direccion Fiscal" name="dir-fiscal" id="dir-fiscal" style="display: none" class="form-control">
         </div>
       </div>
+      <hr>
       <div class="row my-3">
         <p><input type="checkbox" required> Yo, declaro haber leido y entendido los <a href="../info/terminos.php" target="_blank">términos, condiciones y politicas</a> que regulan esta tienda virtual. De igual manera declaro que la informacion suministrada mediante este fomulario es correcta.</p>
       </div>

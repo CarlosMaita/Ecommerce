@@ -45,8 +45,8 @@ $contenido = '<html>
 <body>
 <h1>Compra en rouxa</h1>
 <p style="color:black">Un saludo cordial '.$cliente_mail.',
-<br>Agradecemos tu compra realizada en nuestra tienda virtual Rouxa. Recuerda que puedes hacerles seguimiento a traves del siguiente ID.
-<br>¡Que tengas un Feliz Día!.
+<br>Agradecemos tu compra realizada en nuestra tienda virtual Rouxa, Recuerda que puedes hacerles seguimiento a traves del siguiente ID.
+<br>Que tengas un Feliz Dia.
 </p>
 <h4> IDCOMPRA: '.$Llave.'</h4>
 </body>
@@ -66,10 +66,12 @@ $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
     <meta name="keywords" content="Rouxa, Ropa, Damas, Caballeros, Zapatos, Tienda Virtual">
     <meta name="author" content="Eutuxia, C.A.">
     <meta name="application-name" content="Tienda Virtual de Ropa, Rouxa."/>
-    <link rel="icon" type="image/jpg" sizes="16x16" href="../imagen/favicon.jpg"/>
-    <link href="../admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet"/>
+    <link rel="icon" type="image/jpg" sizes="16x16" href="../imagen/favicon.jpg">
+    <link rel="stylesheet" href="../css/new.css">
+    <link href="../admin/assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css" integrity="sha384-p2jx59pefphTFIpeqCcISO9MdVfIm4pNnsL08A6v5vaQc4owkQqxMV8kg4Yvhaw/" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
     <title>Rouxa</title>
   </head>
   <script>
@@ -95,41 +97,38 @@ $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
          }
     </script>
   <body  onload="deshabilitaRetroceso()">
-     <div class="container mt-4">
-      <h2 class="style="font-family: 'Playfair Display', serif;"">¡Felicidades por tu Compra! </h2>
-      <p class="lead">Usted ha realizado la compra de manera existosa. Para continuar, realice el pago total del carrito de compras a traves de la plataforma de cobranza Mercado pago. <br><br> Su llave digital es la siguiente:</p>
-<<<<<<< HEAD
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="p-2 mb-2 bg-success text-white col-5">
-            <p class="text-center mt-3"><?PHP
-            if($_POST){
-              #echo md5($CS); //Cadena del Id completa
-              #cadena de $Ncadena caracteres de la cadena
-              echo $Llave;
-            }else{ echo 'Error: ID No generado'; }
-            ?>
-          </p>
-        </div>
-        </div>
-        <div class="row justify-content-center">
-          <div class="col-4 text-center">
-            <small>¿Que es una <a href="../faq/index.php?id=5" target="_blank">Llave digital</a>?</small>
-          </div>
-        </div>
-=======
-        <div class="p-3 mb-2 bg-info text-white">
-           <p class="text-center mt-3"><?PHP
-                 if($_POST){
-                     #echo md5($CS); //Cadena del Id completa
-                     #cadena de $Ncadena caracteres de la cadena
-                     echo $Llave;
-                 }else{ echo 'Error: ID No generado'; }
-                 ?></p>
-
->>>>>>> a491796608e527a0c5e425b9b55314bad8da6888
-      </div>
-        <hr class="my-4">
+     <div class="container mb-0">
+       <div class="row my-4">
+         <h1 class="display-4" style="font-family: 'Playfair Display', serif;">¡Felicidades por tu Compra!</h1>
+         <p class="lead">Usted ha realizado la compra de manera existosa. Para continuar, realice el pago total del pedido mediante una transferencia bancaria, o mediante tu saldo disponibe en Mercado Pago.</p>
+       </div>
+       <br>
+       <div class="row mb-4 text-muted">
+         Con el siguiente codigo (Llave digital), junto con su número de cedula, usted podrá realizar el seguimiento de su compra.
+       </div>
+       <div class="row justify-content-center">
+         <div class="p-2 mb-2 col-5 codigo">
+           <p class="text-center text-white mt-3"><?PHP
+           if($_POST){
+             #echo md5($CS); //Cadena del Id completa
+             #cadena de $Ncadena caracteres de la cadena
+             echo $Llave;
+           }else{ echo 'Error: ID No generado'; }
+           ?></p>
+         </div>
+       </div>
+       <div class="row justify-content-center">
+         <div class="col-auto">
+           <small>¿Que es la <a href="../faq/index.php?id=5" target="_blank">Llave digital</a>?</small>
+         </div>
+       </div>
+       <div class="row justify-content-center">
+         <div class="col-auto text-muted">
+           <small>¡No te preocupes! te enviaremos a tu correo la llave digital, para que luego puedas realizar el seguimiento de tu compra.</small>
+         </div>
+       </div>
+     </div>
+      <hr class="my-4">
     <?php
             if (isset($_POST['nombre-cliente'])){
                   $id_mp=$Llave;
@@ -159,7 +158,6 @@ $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
             );
             $preference = $mp->create_preference($preference_data);
                     ?>
-    </div>
             <div class="continer mb-3">
               <div class="row justify-content-around">
                   <a href="<?php echo $preference['response']['init_point']; ?>" id="boton-mercadopago" class="btn btn-outline-success col-4">Pagar</a>
@@ -171,6 +169,7 @@ $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
             <?php
             }
             ?>
+            <hr class="my-4">
             <div class="container mt-2">
              <div class="row justify-content-center">
                <a href="../index.php" target="_blank"><img src="../imagen/logo.png" alt="" width="90px"></a>
