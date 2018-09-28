@@ -81,7 +81,7 @@
               $id= $_GET['idcompra'];
               $docid=$_GET['type-identidad-cliente'].'-'.$_GET['doc-identidad-cliente'];
               $id=md5($id.$docid);
-              $sql= "SELECT p.CLIENTE,p.FECHAPEDIDO,p.ESTATUS,c.MONTO FROM PEDIDOS p
+              $sql= "SELECT p.CLIENTE,p.DOCID,p.TELEFONO,p.EMAIL,p.FECHAPEDIDO,p.ESTATUS,c.MONTO FROM PEDIDOS p
               INNER JOIN COMPRAS c
               ON c.idpedido=p.idpedido
               WHERE p.idpedido='$id'";
@@ -90,6 +90,9 @@
                   // output data of each row
                   $row = $result->fetch_assoc();
                   $cliente=$row['CLIENTE'];
+                  $docid=$row['DOCID'];
+                  $telef=$row['TELEFONO'];
+                  $emailus=$row['EMAIL'];
                   $fecha_pedido=$row['FECHAPEDIDO'];
                   switch($row['ESTATUS']){
                       case '0': $status= 'Aún no has pagado este pedido.'; $id_s=0;
@@ -115,12 +118,21 @@
                       <div class="container">
                         <div class="row my-4">
                           <div class="col-auto">
-                            <h2><b>Compra realizada por <?php echo $cliente;?></b></h2>
-                          </div>
-                          <div class="col-auto ml-auto">
-                            <h4><b class="text-muted" title="Fecha de compra" data-toggle="tooltip"><?php echo $fecha_pedido;?></b></h4>
+                            <h3 class=""><b>Compra realizada por: </b></h2>
                           </div>
                         </div>
+                        <div class="row">
+                          <div class="col-6">
+                            <p>Nombre cliente: <span class="text-muted"><?php echo $cliente;?></span></p>
+                            <p>Documento de Indentidad: <span class="text-muted"><?php echo $docid;?></span></p>
+                            <p>Teléfono: <span class="text-muted"><?php echo $telef;?></span></p>
+                            <p>Correo: <span class="text-muted"><?php echo $emailus;?></span></p>
+                          </div>
+                          <div class="col-auto ml-auto">
+                            <h5 title="Fecha de compra" data-toggle="tooltip"><b class="text-muted"><?php echo $fecha_pedido;?></b></h5>
+                          </div>
+                        </div>
+                        <hr>
                         <div class="row">
                           <div class="col-1 offset-sm-4">
                             <a class="btn btn-outline-success btn-sm" href="javascript:void(0)" data-toggle="modal" data-target="#articulos">Ver Productos comprados</a>

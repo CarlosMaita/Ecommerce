@@ -49,7 +49,7 @@
     <div class="scroll-sidebar">
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
-              <?php if($row["NIVEL"]==1){ ?>
+              <?php if($_SESSION['nivel']==1){ ?>
                 <!--<li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="administracion/index.php" aria-expanded="false">
                         <i class="mdi mdi-av-timer"></i>
@@ -57,7 +57,7 @@
                     </a>
                 </li>-->
                 <?php }
-                if($row["NIVEL"]==6 || $row["NIVEL"]==1){ ?>
+                if($_SESSION['nivel']==6 || $_SESSION['nivel']==1){ ?>
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="desarrollo/" aria-expanded="false">
                         <i class="mdi mdi-account-network"></i>
@@ -65,7 +65,7 @@
                     </a>
                 </li>
                 <?php }
-                if($row["NIVEL"]==7 || $row["NIVEL"]==1){ ?>
+                if($_SESSION['nivel']==7 || $_SESSION['nivel']==1){ ?>
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="inventario/" aria-expanded="false">
                         <i class="mdi mdi-arrange-bring-forward"></i>
@@ -73,7 +73,7 @@
                     </a>
                 </li>
                 <?php }
-                if($row["NIVEL"]==3 || $row["NIVEL"]==1){ ?>
+                if($_SESSION['nivel']==3 || $_SESSION['nivel']==1){ ?>
                 <li class="sidebar-item">
                    <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ventas/" aria-expanded="false">
                        <i class="mdi mdi-cart"></i>
@@ -81,7 +81,7 @@
                    </a>
                </li>
              <?php }
-                  if ($row["NIVEL"]==4 || $row["NIVEL"]==1) {
+                  if ($_SESSION['nivel']==4 || $_SESSION['nivel']==1) {
                 ?>
                 <li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="despacho/" aria-expanded="false">
@@ -90,7 +90,7 @@
                     </a>
                 </li>
                 <?php }
-                   if ($row["NIVEL"]==1) {
+                   if ($_SESSION['nivel']==1) {
                  ?>
                  <li class="sidebar-item">
                      <a class="sidebar-link waves-effect waves-dark sidebar-link" href="fallas/" aria-expanded="false">

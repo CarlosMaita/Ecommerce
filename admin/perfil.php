@@ -2,12 +2,13 @@
   include('common/sesion.php');
   include('../common/conexion.php');
   $email=$_SESSION['USUARIO'];
-  $sql="SELECT NIVEL FROM USUARIOS WHERE CORREO='$email'";
+  $nivel=$_SESSION['nivel'];
+  $sql="SELECT IDUSUARIO, NOMBRE FROM USUARIOS WHERE CORREO='$email'";
   $result_nivel = $conn->query($sql);
   if($row=$result_nivel->fetch_assoc()){
-    $_SESSION['nivel']=$row['NIVEL'];
+    $nombre=$row['NOMBRE'];
+    $id=$row['IDUSUARIO'];
   }
-
   switch($_SESSION['nivel']){
       case '1':
             $status="Administrador";
@@ -92,13 +93,13 @@
                         <div class="card">
                             <div class="card-body">
                                 <center class="m-t-30"> <img src="../../assets/images/users/5.jpg" class="rounded-circle" width="150" />
-                                    <h4 class="card-title m-t-10">Alexis Montilla</h4>
+                                    <h4 class="card-title m-t-10"><?php echo $nombre;?></h4>
                                     <h6 class="card-subtitle">Usuario con permisos de Adminitrador</h6>
                                 </center>
                             </div>
                             <div>
                                 <hr> </div>
-                            <div class="card-body"> <small class="text-muted">Email </small>
+                            <div class="card-body"> <small class="text-muted"><?php echo $email;?></small>
                                 <h6>alexis@gmail.com</h6> <small class="text-muted p-t-30 db"> Dirección de la Empresa</small>
                                 <h6>Valencia, Edo. Carabobo, Venezuela</h6>
                             </div>
@@ -111,13 +112,13 @@
                                     <div class="form-group">
                                         <label class="col-md-12">Nombre</label>
                                         <div class="col-md-12">
-                                            <input type="text" placeholder="Alexis Montilla" class="form-control form-control-line" disabled>
+                                            <input type="text" placeholder="<?php echo $nombre;?>" class="form-control form-control-line" disabled>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="example-email" class="col-md-12">Email</label>
                                         <div class="col-md-12">
-                                            <input type="email" placeholder="alexisamm9261@gmail.com" class="form-control form-control-line" disabled>
+                                            <input type="email" placeholder="<?php echo $email;?>" class="form-control form-control-line" disabled>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -128,7 +129,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-12">
-                                            <button class="btn btn-success">Cambiar Contraseña</button>
+                                            <a class="btn btn-success" href="javascript:void(0)" data-toggle="modal" data-target="#pass">Cambiar Contraseña</a>
                                         </div>
                                     </div>
                                 </form>
@@ -137,6 +138,29 @@
                     </div>
                 </div>
               </div>
+        </div>
+        <div class="modal fade" id="pass" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Cambiar Contraseña</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <form class="" action="index.html" method="post">
+              <div class="modal-body text-center">
+                <p>Le recomendamos crear una nueva contraseña que sea facil de recordar para usted.</p>
+                <input class="form-control" type="text" name="password" placeholder="Inserte la nueva contraseña">
+                <input type="hidden" name="id" value="<?php echo $id;?>">
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-primary" type="submit" name="button">Actualizar</button>
+              </form>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              </div>
+            </div>
+          </div>
         </div>
         <?php include('common/footer.php'); ?>
     </div>
