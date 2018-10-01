@@ -1,5 +1,25 @@
 <?php
-    include('../common/conexion.php');
+include('../common/conexion.php');
+if(isset($_POST['correo'])){
+  //$email=$_SESSION['USUARIO'];
+  $pass=0;
+  $usua=0;
+    if($_POST['correo']!=null && $_POST['clave']!=null){
+      $user=$_POST['correo'];
+      $clave=$_POST['clave'];
+      $sql="select * from USUARIOS where CORREO='$user'";
+      $res=$conn->query($sql);
+      if($row=$res->fetch_assoc()){//usuario registrado
+        $clave=md5($clave);
+        if($clave==$row['CLAVE']){//usuario loggeado
+          session_start();
+          $_SESSION['ACCESO']=TRUE;
+          $_SESSION['USUARIO']=$_POST['correo'];
+          header ('Location:principal.php');
+        }else{ $pass=1; }
+      }else{ $usua=1; }
+    }
+}
     session_start();
     if(isset($_SESSION['USUARIO'])){
       header('Location:principal.php');
@@ -18,28 +38,7 @@
   <link href="assets/libs/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-  <?php
-  if(isset($_POST['correo'])){
-    $email=$_SESSION['USUARIO'];
-    $pass=0;
-    $usua=0;
-      if($_POST['correo']!=null && $_POST['clave']!=null){
-        $user=$_POST['correo'];
-        $clave=$_POST['clave'];
-        $sql="select * from USUARIOS where CORREO='$user'";
-        $res=$conn->query($sql);
-        if($row=$res->fetch_assoc()){//usuario registrado
-          $clave=md5($clave);
-          if($clave==$row['CLAVE']){//usuario loggeado
-            session_start();
-            $_SESSION['ACCESO']=TRUE;
-            $_SESSION['USUARIO']=$_POST['correo'];
-            header ('Location:principal.php');
-          }else{ $pass=1; }
-        }else{ $usua=1; }
-      }
-  }
-      ?>
+
   <div class="container">
     <div class="text-center">
       <img src="../imagen/logo.png" alt="Imagen principal" width="50%">
