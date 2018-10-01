@@ -24,18 +24,17 @@ if(isset($_FILES['archivo'])){
      if ($_FILES["archivo"]["size"]<= $limite_kb*1024){
          $ruta='../../imagen/';
          $archivo = substr(strrchr($_FILES["archivo"]["name"], "."), 1);
-
         $name_archivo=md5($C).'.'.$archivo;
         $archivo=$ruta.$name_archivo;
          if(!file_exists($ruta)){ mkdir($ruta); }
          if(!file_exists($archivo)){
              $resultado=move_uploaded_file($_FILES["archivo"]["tmp_name"], $archivo);
              if ($resultado){
-                 echo "<p>Archivo guardado</p>";
+                 echo '<script> alert("Modelo Agregado"); </script>';
                  $iscreated=true;
-             }else{ echo "Error al guardar el archivo"; }
-         }else{ echo "Archivo ya existe"; }
-     }else{ echo "Archivo  excede de tamaño"; }
+             }else{ echo '<script> alert("Error al guardar el archivo"); </script>'; }
+         }else{ echo '<script> alert("Archivo ya existe"); </script>'; }
+     }else{ echo '<script> alert("El archivo excede de tamaño."); </script>'; }
  }
 }
 if ($iscreated and isset($_POST['producto'], $_POST['color1'], $_POST['color2'])){

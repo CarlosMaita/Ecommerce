@@ -5,8 +5,8 @@ require('../../common/conexion.php');
 if(isset($_GET['delete']) & !empty($_GET['delete'])){
     $idmodelo=$_GET['delete'];
     $sql ="DELETE FROM MODELOS WHERE IDMODELO='$idmodelo'";
-       if ($conn->query($sql) === TRUE) {
-           } else { echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>'; }
+       if($conn->query($sql) === TRUE){
+           }else{ echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>'; }
 }
 $perpage  = 5;
 if(isset($_GET['page']) & !empty($_GET['page'])){
@@ -17,7 +17,6 @@ $start = ($curpage * $perpage) - $perpage;
 $PageSql = "SELECT * FROM MODELOS";
 $pageres = mysqli_query($conn, $PageSql);
 $totalres = mysqli_num_rows($pageres);
-
 $endpage = ceil($totalres/$perpage);
 $startpage = 1;
 $nextpage = $curpage + 1;
@@ -35,7 +34,6 @@ $previouspage = $curpage - 1;
     <title>Rouxa - Administración</title>
     <link href="../../css/new.css" rel="stylesheet">
     <link href="../dist/css/style.min.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -153,7 +151,6 @@ $previouspage = $curpage - 1;
                 <button type="submit" class="btn btn-outline-primary">Agregar</button>
               </div>
             </form>
-
                 <div class="row mt-3">
                   <div class="col-12">
                   <div class="card">

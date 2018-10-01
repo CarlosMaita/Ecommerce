@@ -30,11 +30,11 @@ if(isset($_FILES['archivo'])){
          if(!file_exists($archivo)){
              $resultado=move_uploaded_file($_FILES["archivo"]["tmp_name"], $archivo);
              if ($resultado){
-                 echo "<p>Archivo guardado</p>";
+                 echo '<script> alert("Producto Agregado"); </script>';
                  $iscreated=true;
-             }else{ echo "Error al guardar el archivo"; }
-         }else{ echo "Archivo ya existe"; }
-     }else{ echo "Archivo  excede de tamaño"; }
+             }else{ echo '<script> alert("Error al guardar el archivo"); </script>'; }
+         }else{ echo '<script> alert("Archivo ya existe"); </script>'; }
+     }else{ echo '<script> alert("El archivo excede de tamaño."); </script>'; }
  }
 }
 if ($iscreated and isset($_POST['nombre_p'], $_POST['descripcion'], $_POST['genero'], $_POST['tipo'], $_POST['precio'], $_POST['cuello'], $_POST['manga'], $_POST['material'], $_POST['marca'])){
