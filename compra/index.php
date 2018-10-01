@@ -42,28 +42,28 @@ if(isset($_GET['idproducto'], $_GET['idmodelo'])){
            $descripcion=$f['DESCRIPCION'];
            $imagen= $f['IMAGEN'];
            $material=$f['MATERIAL'];
-           switch ($f['MANGA']){
-             case '1': $manga='Redondo';
+           switch ($f['CUELLO']){
+             case '1': $cuello='Redondo';
               break;
-             case '2': $manga='En V';
+             case '2': $cuello='En V';
               break;
-              case '3': $manga='Mao';
+              case '3': $cuello='Mao';
                break;
-               case '4': $manga='Chemise';
+               case '4': $cuello='Chemise';
                break;
-               default: $manga='No Aplica';
+               default: $cuello='No Aplica';
                 break;
              }
-           switch ($f['CUELLO']){
-               case '1': $cuello='Corta';
+           switch ($f['MANGA']){
+               case '1': $manga='Corta';
                 break;
-               case '2': $cuello='3/4';
+               case '2': $manga='3/4';
                 break;
-                case '3': $cuello='Larga';
+                case '3': $manga='Larga';
                  break;
-                 case '4': $cuello='Sin Manga';
+                 case '4': $manga='Sin Manga';
                  break;
-                 default: $cuello='No Aplica';
+                 default: $manga='No Aplica';
                   break;
              }
          }
