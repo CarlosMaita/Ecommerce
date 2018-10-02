@@ -91,7 +91,9 @@ width: 75px;
 }
 .container-imagen{
   border: 0px solid #eee;
-position: relative;
+  position: relative;
+  max-width: 600px;
+  max-height: 650px;
 }
 .text-block{
 position: absolute;
@@ -190,4 +192,7 @@ img.vitrina:hover{
 .codigo{
   border: 2px solid rgba(0, 0, 0, 0.5);
   background-color: #222;
+}
+.hr{
+  margin: 0px;
 }

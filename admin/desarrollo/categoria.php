@@ -92,13 +92,13 @@ $previouspage = $curpage - 1;
             </div>
             <div class="container-fluid">
                 <div class="row justify-content-around">
-                    <div class="col-4 text-center">
+                    <div class="col-sm-4 text-center">
                       <a class="btn btn-link text-success" href="usuarios.php">Agregar/Eliminar Usuario</a>
                     </div>
-                    <div class="col-4 text-center">
+                    <div class="col-sm-4 text-center">
                       <a class="btn btn-link text-success" href="categoria.php">Agregar/Eliminar Categoria</a>
                     </div>
-                    <div class="col-4 text-center">
+                    <div class="col-sm-4 text-center">
                       <a class="btn btn-link text-success" href="colores.php">Agregar/Eliminar Color</a>
                     </div>
                 </div>
@@ -115,22 +115,21 @@ $previouspage = $curpage - 1;
                   </div>
                   <div class="card">
                     <div class="card-body">
-
                       <h4 class="card-title">Categorias en Base de Datos</h4>
                       <h6 class="card-subtitle">Estas son las categorias que habrán disponibles al momento de agregar productos en el sistema</h6>
                     </div>
                     <div class="row justify-content-center mt-1 bg-white py-2">
                       <h3>Agregar nueva categoria</h3>
                     </div>
-                    <form class="" action="" method="GET">
+                    <form action="" method="GET">
                     <div class="row mt-3 justify-content-center">
-                      <div class="input-group mb-3 col-6">
+                      <div class="input-group mb-3 col-sm-6">
                         <div class="input-group-append">
                           <span class="input-group-text"><b>Nombre de categoria</b></span>
                         </div>
                         <input type="text" name="nombre" class="form-control text-secondary" placeholder="Ej: Franela" required>
                       </div>
-                      <div class="input-group mb-3 col-6">
+                      <div class="input-group mb-3 col-sm-6">
                         <div class="input-group-append">
                           <span class="input-group-text"><b>Categoria Padre</b></span>
                         </div>

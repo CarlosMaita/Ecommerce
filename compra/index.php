@@ -125,13 +125,17 @@ and open the template in the editor.
             </div>
           </div>
         </div>
-        <div class="col-6 text-center">
-            <img src="../imagen/<?=$imagen?>" class="container-imagen" width="600px" height="650px" id="myimage"/>
+        <div class="col-sm-6 text-center">
+            <div class="row">
+                <div class="col-12 text-center">
+            <img src="../imagen/<?=$imagen?>" class="container-imagen img-fluid" id="myimage"/>
             <!--<div class="text-block">
               <div id="myresult" class="img-zoom-result"></div>
             </div>-->
+            </div>
+            </div>
         </div>
-        <div class="col-4">
+        <div class="col-sm-4">
           <div class="container-fluid">
             <div class="row">
               <div class="col-12">

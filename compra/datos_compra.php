@@ -48,16 +48,18 @@ function Factura(){
     ?>
   <div class="container">
     <div class="row justify-content-between align-items-center">
-      <div class="col-6">
+      <div class="col-sm-6 text-center">
         <h2 class="display-4" style="font-family: 'Playfair Display', serif;">Solicitud de Compra</h2>
       </div>
-      <div class="col-4">
-        <a href="../index.php" target="_blank"><img src="../imagen/logo.png" alt="" width="400px" height="auto"></a>
+      <div class="col-sm-4 text-center">
+        <a href="../index.php" target="_blank"><img src="../imagen/logo.png" width="400px" height="auto"></a>
       </div>
     </div>
     <div class="row">
+        <div class="container">
       <p class="lead text-muted">Ingresa los siguientes datos para poder realizar el envío de tus productos. Ten en cuenta que algún dato incorrecto generará problemas para enviar
         los productos al lugar y persona correcta.</p>
+        </div>
     </div>
   </div>
   <hr class="mb-4">
@@ -66,15 +68,15 @@ function Factura(){
               ?>
     <form action="cuentas_bancarias.php" method="POST" onsubmit="return validacion() && captch()">
     <div class="container">
-      <div class="row justify-content-center">
-        <h3 class="ml-5 pl-5">Datos del Cliente</h3>
-        <button type="button" class="enlace2 ml-auto" href="javascript:void(0)" data-toggle="modal" data-target="#ver">Ver productos seleccionados</button>
+      <div class="row justify-content-center text-center">
+        <h3 class="pl-5">Datos del Cliente</h3>
+        <button type="button" class="enlace2 ml-sm-auto" href="javascript:void(0)" data-toggle="modal" data-target="#ver">Ver productos seleccionados</button>
       </div>
       <div class="row my-3">
-        <div class="input-group mb-2 col-6">
+        <div class="input-group mb-2 col-sm-6">
           <input type="text" placeholder="Nombre de cliente" name="nombre-cliente" class="form-control" required>
         </div>
-        <div class="input-group mb-2 col-6">
+        <div class="input-group mb-2 col-sm-6">
           <select name="type-identidad-cliente" style="border: 1px solid #ddd; width:20%; border-radius: 4px 0 0 4px;">
             <option value="V">V</option>
             <option value="E">E</option>
@@ -82,21 +84,21 @@ function Factura(){
           </select>
           <input type="text" placeholder="Documento de identidad del cliente [Ej: 20184765]" name="doc-identidad-cliente" maxlength="30" class="form-control" required>
         </div>
-        <div class="input-group mb-2 col-6">
+        <div class="input-group mb-2 col-sm-6">
           <input type="text" placeholder="Número telefonico del Cliente" name="telf-cliente" class="form-control" required>
         </div>
-        <div class="input-group mb-2 col-6">
+        <div class="input-group mb-2 col-sm-6">
           <input type="email" placeholder="E-mail" name="email-cliente" class="form-control" required>
         </div>
       </div>
       <div class="row">
         <div class="col-12 mb-2">
-          <h3 class="ml-5 pl-5">Datos necesarios para el Envío</h3>
+          <h3 class="pl-5">Datos necesarios para el Envío</h3>
         </div>
-        <div class="input-group mb-2 col-6">
+        <div class="input-group mb-2 col-sm-6">
           <input type="text" placeholder="Nombre y apellido del que recibe" name="receptor" class="form-control">
         </div>
-        <div class="input-group mb-2 col-6">
+        <div class="input-group mb-2 col-sm-6">
           <select name="type-identidad-receptor" style="border: 1px solid #ddd; width:20%; border-radius: 4px 0 0 4px;">
             <option value="V">V</option>
             <option value="E">E</option>
@@ -104,10 +106,10 @@ function Factura(){
           </select>
           <input type="text" placeholder="Documento de identidad del que recibe [Ej: 20184765]" name="doc-identidad-receptor" maxlength="30" class="form-control" required>
         </div>
-        <div class="input-group mb-2 col-6">
+        <div class="input-group mb-2 col-sm-6">
           <input type="text" placeholder="Telefono del que recibe. [Ej: 04149990000]" name="telf-receptor" class="form-control" required>
         </div>
-        <div class="input-group mb-2 col-6">
+        <div class="input-group mb-2 col-sm-6">
           <div class="input-group-prepend">
             <label class="input-group-text" for="pais">Pais</label>
           </div>
@@ -117,28 +119,28 @@ function Factura(){
             <option value="Panama">Panamá</option>
           </select>
         </div>
-        <div class="input-group mb-2 col-6">
+        <div class="input-group mb-2 col-sm-6">
           <input type="text" placeholder="Estado | Departamento | Provincia" name="estado" maxlength="30" class="form-control" required>
         </div>
-        <div class="input-group mb-2 col-6">
+        <div class="input-group mb-2 col-sm-6">
           <input type="text" placeholder="Ciudad" name="ciudad" maxlength="30" class="form-control" required>
         </div>
-        <div class="input-group mb-2 col-6">
+        <div class="input-group mb-2 col-sm-6">
           <input type="text" placeholder="Municipio | Localidad" name="municipio" maxlength="30" class="form-control" required>
         </div>
-        <div class="input-group mb-2 col-6">
+        <div class="input-group mb-2 col-sm-6">
           <input type="text" placeholder="Parroquia" name="parroquia" maxlength="30" class="form-control">
         </div>
-        <div class="input-group mb-2 col-6">
+        <div class="input-group mb-2 col-sm-6">
           <input type="text" placeholder="Direccion -  Barrio | Zona | Sector | Casa | Apartamento | local | Edificio" name="direccion" maxlength="200" class="form-control" >
         </div>
-        <div class="input-group mb-2 col-6">
+        <div class="input-group mb-2 col-sm-6">
           <input type="text" placeholder="Referencia" name="ref" maxlength="200" class="form-control">
         </div>
-        <div class="input-group mb-2 col-6">
+        <div class="input-group mb-2 col-sm-6">
           <input type="text" placeholder="Código Postal" name="codigo-postal" maxlength="20" class="form-control">
         </div>
-        <div class="input-group mb-2 col-6">
+        <div class="input-group mb-2 col-sm-6">
           <div class="input-group-prepend">
             <label class="input-group-text" for="pais">Agencia de Encomienda</label>
           </div>
@@ -157,10 +159,10 @@ function Factura(){
         <p><input id="isfacture" type="checkbox" onclick="Factura()" name="isfacture" value="true"> Yo, deseo factura fiscal</p>
       </div>
       <div class="row">
-        <div class="input-group mb-2 col-6">
+        <div class="input-group mb-2 col-sm-6">
           <input type="text" placeholder="Razon Social" name="razon-social" id="razon-social" style="display: none" class="form-control">
         </div>
-        <div class="input-group mb-2 col-6">
+        <div class="input-group mb-2 col-sm-6">
           <select class="text-center" name="type-identidad" id="type-identidad" style="display: none; border: 1px solid #ddd; width:20%; border-radius: 4px 0 0 4px;">
             <option>J</option>
             <option>P</option>
@@ -174,13 +176,15 @@ function Factura(){
       </div>
       <hr>
       <div class="row my-3">
+          <div class="container">
         <p><input type="checkbox" required> Yo, declaro haber leido y entendido los <a href="../info/terminos.php" target="_blank">términos, condiciones y politicas</a> que regulan esta tienda virtual. De igual manera declaro que la informacion suministrada mediante este fomulario es correcta.</p>
+        </div>
       </div>
       <div class="row my-4 justify-content-center">
-        <div class="col-2">
+        <div class="col-sm-2 text-center mb-3">
           <button class="btn btn-outline-success" type="submit" name="">Confirmar</button>
         </div>
-        <div class="col-2">
+        <div class="col-sm-2 text-center mb-3">
           <a class="btn btn-outline-danger" name="" href="../index.php">Cancelar</a>
         </div>
       </div>

@@ -55,41 +55,43 @@ $previouspage = $curpage - 1;
                 <div class="col-5 align-self-center">
                   <h4 class="page-title">Inventario</h4>
                 </div>
-                <div class="col-7 align-self-center">
+                <div class="col-auto align-self-center ml-auto">
                     <div class="d-flex align-items-center justify-content-end">
-                        <nav aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item">
-                                    <a href="../principal.php">Inicio</a>
-                                </li>
-                                <li class="breadcrumb-item">
-                                    <a href="index.php">Inventario</a>
-                                </li>
-                                  <li class="breadcrumb-item active" aria-current="page">Añadir/Eliminar Modelo</li>
-                            </ol>
-                            </nav>
+                      <div class="container">
+                        <div class="row">
+                          <div class="col-auto">
+                            <a href="../principal.php">Inicio</a>
+                          </div>
+                          <div class="col-auto">
+                            <a href="index.php">Inventario</a>
+                          </div>
+                          <div class="col-auto">
+                            Añadir/Eliminar Modelo
+                          </div>
+                        </div>
+                      </div>
                         </div>
                     </div>
                 </div>
           </div>
           <div class="container-fluid">
-              <div class="row">
-                <div class="col-4 text-center">
+            <div class="row">
+                <div class="col-sm-4 text-center">
                   <a class="btn btn-link text-success" href="producto.php">Agregar/Eliminar Producto</a>
                 </div>
-                <div class="col-4 text-center">
+                <div class="col-sm-4 text-center">
                   <a class="btn btn-link text-success" href="modelo.php">Agregar/Eliminar Modelo</a>
                 </div>
-                <div class="col-4 text-center">
+                <div class="col-sm-4 text-center">
                   <a class="btn btn-link text-success" href="tallas.php">Agregar/Eliminar Talla</a>
                 </div>
-              </div>
+            </div>
               <div class="row justify-content-center mt-1 bg-white py-2">
                 <h3>Agregue las caracteristicas del modelo</h3>
               </div>
             <form class="" action="addModelo.php" method="POST" enctype="multipart/form-data">
               <div class="row mt-3">
-                <div class="input-group mb-3 col-6">
+                <div class="input-group mb-3 col-sm-6">
                   <div class="input-group-prepend">
                     <label class="input-group-text"><b>Seleccione el producto</b></label>
                   </div>
@@ -107,7 +109,7 @@ $previouspage = $curpage - 1;
                       ?>
                   </select>
                 </div>
-                <div class="input-group mb-3 col-3">
+                <div class="input-group mb-3 col-sm-3">
                     <div class="input-group-prepend">
                       <label class="input-group-text"><b>Color principal</b></label>
                     </div>
@@ -125,7 +127,7 @@ $previouspage = $curpage - 1;
                         ?>
                     </select>
                 </div>
-                <div class="input-group mb-3 col-3">
+                <div class="input-group mb-3 col-sm-3">
                   <div class="input-group-prepend">
                     <label class="input-group-text"><b>Color secundario</b></label>
                   </div>

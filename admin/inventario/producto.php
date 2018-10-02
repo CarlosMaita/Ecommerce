@@ -67,50 +67,52 @@ $previouspage = $curpage - 1;
         <div class="page-wrapper">
             <div class="page-breadcrumb">
                 <div class="row">
-                    <div class="col-5 align-self-center">
+                    <div class="col-auto align-self-center">
                         <h4 class="page-title">Inventario</h4>
                     </div>
-                    <div class="col-7 align-self-center">
+                    <div class="col-auto align-self-center ml-auto">
                         <div class="d-flex align-items-center justify-content-end">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-                                        <a href="../principal.php">Inicio</a>
-                                    </li>
-                                    <li class="breadcrumb-item">
-                                        <a href="index.php">Inventario</a>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Añadir/Eliminar Producto</li>
-                                </ol>
-                            </nav>
+                          <div class="container">
+                            <div class="row">
+                              <div class="col-auto">
+                                <a href="../principal.php">Inicio</a>
+                              </div>
+                              <div class="col-auto">
+                                <a href="index.php">Inventario</a>
+                              </div>
+                              <div class="col-auto">
+                                Añadir/Eliminar Producto
+                              </div>
+                            </div>
+                          </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="container-fluid">
               <div class="row">
-                <div class="col-4 text-center">
-                  <a class="btn btn-link text-success" href="producto.php">Agregar/Eliminar Producto</a>
-                </div>
-                <div class="col-4 text-center">
-                  <a class="btn btn-link text-success" href="modelo.php">Agregar/Eliminar Modelo</a>
-                </div>
-                <div class="col-4 text-center">
-                  <a class="btn btn-link text-success" href="tallas.php">Agregar/Eliminar Talla</a>
-                </div>
+                  <div class="col-sm-4 text-center">
+                    <a class="btn btn-link text-success" href="producto.php">Agregar/Eliminar Producto</a>
+                  </div>
+                  <div class="col-sm-4 text-center">
+                    <a class="btn btn-link text-success" href="modelo.php">Agregar/Eliminar Modelo</a>
+                  </div>
+                  <div class="col-sm-4 text-center">
+                    <a class="btn btn-link text-success" href="tallas.php">Agregar/Eliminar Talla</a>
+                  </div>
               </div>
               <div class="row justify-content-center mt-1 bg-white py-2">
                 <h3>Agregue las caracteristicas del producto</h3>
               </div>
               <form class="" action="addProducto.php" method="POST" enctype="multipart/form-data">
                 <div class="row mt-3">
-                <div class="input-group mb-3 col-6">
+                <div class="input-group mb-3 col-sm-6">
                   <div class="input-group-append">
                     <span class="input-group-text"><b>Nombre del Producto</b></span>
                   </div>
                   <input type="text" name="nombre_p" class="form-control text-secondary" placeholder="Ingrese el nombre" required>
                 </div>
-                <div class="input-group mb-3 col-3">
+                <div class="input-group mb-3 col-sm-3">
                   <div class="input-group-prepend">
                     <label class="input-group-text"><b>Prenda</b></label>
                   </div>
@@ -130,7 +132,7 @@ $previouspage = $curpage - 1;
                    ?>
                   </select>
                 </div>
-                <div class="input-group mb-3 col-3">
+                <div class="input-group mb-3 col-sm-3">
                   <div class="input-group-prepend">
                     <label class="input-group-text"><b>Genero</b></label>
                   </div>
@@ -141,7 +143,7 @@ $previouspage = $curpage - 1;
                     <option value="4">Niña</option>
                   </select>
                 </div>
-                <div class="input-group mb-3 col-3">
+                <div class="input-group mb-3 col-sm-3">
                   <div class="input-group-prepend">
                     <label class="input-group-text"><b>Marca</b></label>
                   </div>
@@ -152,13 +154,13 @@ $previouspage = $curpage - 1;
                     <option value="Adidas">Adidas</option>
                   </select>
                 </div>
-                <div class="input-group mb-3 col-3">
+                <div class="input-group mb-3 col-sm-3">
                   <div class="input-group-append">
                     <span class="input-group-text"><b>Material</b></span>
                   </div>
                   <input type="text" name="material" class="form-control text-secondary" placeholder="Ej: Algodon" required>
                 </div>
-                <div class="input-group mb-3 col-3">
+                <div class="input-group mb-3 col-sm-3">
                   <div class="input-group-prepend">
                     <label class="input-group-text"><b>Cuello</b></label>
                   </div>
@@ -170,7 +172,7 @@ $previouspage = $curpage - 1;
                     <option value="4">Chemise</option>
                   </select>
                 </div>
-                <div class="input-group mb-3 col-3">
+                <div class="input-group mb-3 col-sm-3">
                   <div class="input-group-prepend">
                     <label class="input-group-text"><b>Manga</b></label>
                   </div>
@@ -182,13 +184,13 @@ $previouspage = $curpage - 1;
                     <option value="4">Sin Manga</option>
                   </select>
                 </div>
-                <div class="input-group mb-3 col-3">
+                <div class="input-group mb-3 col-sm-3">
                   <div class="input-group-append">
                     <span class="input-group-text"><b>Precio</b></span>
                   </div>
                   <input type="number" name="precio" class="form-control text-secondary" placeholder="Precio al detal" required>
                 </div>
-                <div class="input-group mb-3 col-9">
+                <div class="input-group mb-3 col-sm-9">
                   <div class="input-group-append">
                     <span class="input-group-text"><b>Descripción</b></span>
                   </div>
@@ -257,7 +259,7 @@ $previouspage = $curpage - 1;
                                     <td><?=ucwords($row['MATERIAL']);?></td>
                                     <td><?php echo number_format($row['PRECIO'], 2, ',', '.'); ?></td>
                                     <td><a href="editProducto.php?idproducto=<?=$row['IDPRODUCTO']?>" class="btn btn-outline-success btn-sm">Editar</a>
-                                      <a  href="javascript:void(0)"class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eli<?=$row['IDPRODUCTO']?>">Eliminar</a>
+                                      <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#eli<?=$row['IDPRODUCTO']?>">Eliminar</a>
                                     </td>
                                   </tr>
                                   <div class="modal fade" id="eli<?=$row['IDPRODUCTO']?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

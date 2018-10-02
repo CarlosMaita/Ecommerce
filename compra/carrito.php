@@ -106,7 +106,7 @@ if (isset($_SESSION['carrito'])){
               </div>
               <div class="container">
                 <div class="row justify-content-between">
-                  <div class="col-7 mt-2">
+                  <div class="col-sm-7 mt-2">
                     <div class="row justify-content-between bg-light py-2">
                       <div class="col-auto">
                         <h5 id="title"></h5>
@@ -153,7 +153,7 @@ if (isset($_SESSION['carrito'])){
                       <div class="col-9 my-2">
                         <div class="row">
                             <small><a class="enlace2" href="index.php?idproducto=<?php echo $idinv;?>&idmodelo=<?php echo $idmodelo;?>" target="_blank"><?php echo $d['Nombre'];?></a></small>
-                            <span class="ml-auto"><?php echo number_format($total_modelo,2,',','.');?> Bs.S</span>
+                            <span class="ml-auto pr-4"><?php echo number_format($total_modelo,2,',','.');?> Bs.S</span>
                         </div>
                         <div class="row">
                           <small>TALLA: <span class="text-muted"><?php echo " ".$d['Talla']?></span></small>
@@ -322,7 +322,7 @@ if (isset($_SESSION['carrito'])){
                     No tienes productos en el carrrito.
                   </div>
                   <div class="text-secondary text-center">
-                    <p><small>Con la compra de mas de 5000 BsS en productos, el envio te sale gratis.</small></p>
+                    <p><small></small></p>
                   </div>
                   <hr>
                 </div>

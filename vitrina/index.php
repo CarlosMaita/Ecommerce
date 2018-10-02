@@ -178,12 +178,12 @@ $url= $_SERVER["REQUEST_URI"];
     </div>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-2 ">
+        <div class="d-none d-sm-block col-2">
           <div class="container">
           <h5 title="Revisar" data-toggle="tooltip">Filtros</h5>
           <div class="d-block d-sm-none" id="accordionExample">
-            <div class="">
-              <div class="" id="headingOne">
+            <div>
+              <div id="headingOne">
                 <p class="mb-0">
                   <button class="btn enlace2 btn-sm" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                     <b>Genero</b>
@@ -191,7 +191,7 @@ $url= $_SERVER["REQUEST_URI"];
                 </p>
               </div>
               <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
-                <div class="">
+                <div>
                   <div class="container-fluid">
                     <div class="row"><small><a class="enlace2" href="?genero=1">Dama</a></small></div>
                     <div class="row"><small><a class="enlace2" href="?genero=2">Caballero</a></small></div>
@@ -200,8 +200,8 @@ $url= $_SERVER["REQUEST_URI"];
                 </div>
               </div>
             </div>
-            <div class="">
-              <div class="" id="headingTwo">
+            <div>
+              <div id="headingTwo">
                 <h5 class="mb-0">
                   <button class="btn enlace2 btn-sm collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                     <b>Marca</b>
@@ -209,7 +209,7 @@ $url= $_SERVER["REQUEST_URI"];
                 </h5>
               </div>
               <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                <div class="">
+                <div>
                   <div class="container-fluid">
                     <div class="row"><small><a class="enlace2" href="?marca=rouxa">Rouxa</a></small></div>
                     <div class="row"><small><a class="enlace2" href="?marca=nike">Nike</a></small></div>
@@ -219,8 +219,8 @@ $url= $_SERVER["REQUEST_URI"];
                 </div>
               </div>
             </div>
-            <div class="">
-              <div class="" id="headingThree">
+            <div>
+              <div id="headingThree">
                 <h5 class="mb-0">
                   <button class="btn enlace2 btn-sm collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                     <b>Color</b>
@@ -352,7 +352,7 @@ $url= $_SERVER["REQUEST_URI"];
           <hr class="d-none d-sm-block">
         </div>
         </div>
-        <div class="col-10">
+        <div class="col-xs-12 col-sm-10">
           <div class="container-fluid">
             <div class="row justify-content-between">
               <div class="col-auto align-self-center">
