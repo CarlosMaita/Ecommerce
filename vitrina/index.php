@@ -44,6 +44,10 @@ if(isset($_GET['tipo'])){
              $publicidad="¡Compra Zapatos de diferentes marcas y estilos!";
              $publicidad2="¡Los Zapatos que buscas!";
             break;
+            default:
+                 $publicidad="¡Compra la mejor ropa en un solo sitio!";
+                 $publicidad2=$publicidad;
+                break;
     }
 }else{ $tipo=NULL; }
 #busqueda con color
