@@ -28,19 +28,19 @@ if(isset($_GET['genero'])){
 if(isset($_GET['tipo'])){
     $tipo=$_GET['tipo'];
     switch($tipo){
-        case 'franela':
+        case '1'://franela
              $publicidad="¡Las mejores y más cómodas Franelas!";
              $publicidad2="¡Todas las Franelas!";
             break;
-        case 'chemise':
+        case 'chemise': //chemise
              $publicidad="¡Chemises para todos los gustos!";
              $publicidad2="¡Chemises para todos!";
             break;
-        case 'pantalon':
+        case 'pantalon': //pantalon
              $publicidad="¡Pantalones excelentes!";
              $publicidad2="¡Pantalones excelentes!";
             break;
-        case 'zapatos':
+        case 'zapatos': //zapatos
              $publicidad="¡Compra Zapatos de diferentes marcas y estilos!";
              $publicidad2="¡Los Zapatos que buscas!";
             break;
@@ -356,7 +356,7 @@ $url= $_SERVER["REQUEST_URI"];
           <div class="container-fluid">
             <div class="row justify-content-between">
               <div class="col-auto align-self-center">
-                <b><span class="d-none d-sm-inline-block">TODOS LOS</span> PRODUCTOS <span class="text-muted">[100]</span></b>
+                <b><span class="d-none d-sm-inline-block">TODOS LOS</span> PRODUCTOS <span class="text-muted"></span></b>
               </div>
               <!--<div class="col-6 align-self-end d-none d-md-inline-block">
                 <div class="row justify-content-end">
