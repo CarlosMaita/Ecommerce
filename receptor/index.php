@@ -60,6 +60,9 @@ if ($merchant_order_info["status"] == 200) {
 	if($paid_amount >= $merchant_order_info["response"]["total_amount"]){
 		if(count($merchant_order_info["response"]["shipments"]) > 0) { // The merchant_order has shipments
   			if($merchant_order_info["response"]["shipments"][0]["status"] == "ready_to_ship"){
+
+                    			    //Enviar mail
+
         print_r("Totally paid. Print the label and release your item.");
 			}
 		} else { // The merchant_order don't has any shipments

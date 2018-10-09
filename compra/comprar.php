@@ -25,7 +25,7 @@ if(isset($_POST['isfacture'])){
     $dir_fiscal='';
 }
 $STATUS_START=0;
-//AÑADIR VARIABLE SOLICITADA
+//ESCRIBE Los COMANDOS SQLs
 $sqla="SELECT `VALUE` FROM  VARIABLES WHERE `NOMBRE`='CS'";
 $result = $conn->query($sqla);
 if ($result->num_rows > 0) {
@@ -35,40 +35,15 @@ if ($result->num_rows > 0) {
     }
 }
 $CS=$CS+1;
-$sqlb="UPDATE `VARIABLES` SET `VALUE`=$CS WHERE `NOMBRE`='CS';";
-  if ($conn->query($sqlb) === TRUE) {
-   }else{
-     echo "Error: " . $sql0 . "<br>" . $conn->error;
-  }
-
+$sqlb="UPDATE `VARIABLES` SET `VALUE`='$CS' WHERE `NOMBRE`='CS';";
+if ($conn->query($sqlb) === TRUE) {
+   }else{ echo "Error: " . $sql0 . "<br>" . $conn->error; }
 $sqlc="SELECT `IDPEDIDO` FROM `PEDIDOS` WHERE `EMAIL`='$email_cliente' AND `ESTATUS`='$STATUS_START'";
 $result = $conn->query($sqlc);
 if ($result->num_rows > 0) {
-    //Elimina Los Pedidos Repetidos
+    // output data of each row
     while($row = $result->fetch_assoc()) {
-      #ID PEDIDO.
      $id=$row['IDPEDIDO'];
-     #devolver INVENTARIO
-     $sql_devolucion1="SELECT * FROM ITEMS WHERE IDPEDIDO='$id'";
-     $result_d = $conn->query($sql_devolucion1);
-     if ($result_d->num_rows > 0) {
-       while($row_d = $result_d->fetch_assoc()) {
-         #conseguir Id de inventario
-         $idinv=$row_d['IDINVENTARIO'];
-         #cantidad de inventario
-         $cantidad= $row_d['CANTIDAD'];
-         #Añadir INVENTARIO
-         $sql ="UPDATE INVENTARIO SET CANTIDAD=CANTIDAD+$cantidad WHERE IDINVENTARIO='$idinv'";
-         if($conn->query($sql) === TRUE){
-           #PRODUCTO AÑADIDO
-         }
-         else{
-           #echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';
-         }
-
-       }
-     }
-     #Eliminar Todo el pedido.
         $sqld="
         DELETE p,c,i,e
         FROM PEDIDOS p
@@ -80,13 +55,15 @@ if ($result->num_rows > 0) {
           ON e.idpedido=p.idpedido
         WHERE p.idpedido = '$id';";
           if ($conn->query($sqld) === TRUE) {
-            #Pedido ELiminado.
-              }else{
-                #  echo "Error: " . $sqld . "<br>" . $conn->error;
-              }
-      }
+               }else{ echo "Error: " . $sqld . "<br>" . $conn->error; }
+        }
+    }
+$sql0="DELETE FROM PEDIDOS WHERE ESTATUS=0 AND EMAIL='$email_cliente' ";
+if ($conn->query($sql0) == TRUE) {
+  #Eliminado
+   } else {
+    echo "Error: " . $sql0 . "<br>" . $conn->error;
 }
-
 #Llave Digital
 $Ncadena=6;
 $Llave=substr(md5($CS), 0, $Ncadena);
@@ -94,16 +71,12 @@ $Llave=substr(md5($CS), 0, $Ncadena);
 $md5=$Llave.$docid_cliente;
 #$md5= md5($CS);
 $sql1 = "INSERT INTO PEDIDOS (IDPEDIDO,CLIENTE,DOCID,TELEFONO,EMAIL,ESTATUS, FECHAPEDIDO) VALUES ( MD5('$md5'),'$nombre_cliente','$docid_cliente', '$telf_cliente', '$email_cliente', '$STATUS_START', CURRENT_DATE());";
-  if ($conn->query($sql1) === TRUE) {
-   } else {
-     echo "Error: " . $sql1 . "<br>" . $conn->error;
-    }
-   $sql2="INSERT INTO `COMPRAS`( `IDPEDIDO`, `MONTO`, `PESO` ,  `RAZONSOCIAL`, `RIFCI`, `DIRFISCAL`) VALUES (MD5('$md5'), '$monto','$pesot',  '$razon',' $identidad','$dir_fiscal');";
-  if ($conn->query($sql2) === TRUE) {
 
-   } else {
-     echo "Error: " . $sql0 . "<br>" . $conn->error;
-   }
+if ($conn->query($sql1) === TRUE) {
+   } else { echo "Error: " . $sql1 . "<br>" . $conn->error; }
+$sql2="INSERT INTO `COMPRAS`( `IDPEDIDO`, `MONTO`, `PESO` ,  `RAZONSOCIAL`, `RIFCI`, `DIRFISCAL`) VALUES (MD5('$md5'), '$monto','$pesot',  '$razon',' $identidad','$dir_fiscal');";
+if ($conn->query($sql2) === TRUE) {
+   } else { echo "Error: " . $sql0 . "<br>" . $conn->error; }
    if(isset($_SESSION['carrito'])){
         $datos=$_SESSION['carrito'];
         foreach ($datos as $d){
@@ -143,21 +116,5 @@ $sql1 = "INSERT INTO PEDIDOS (IDPEDIDO,CLIENTE,DOCID,TELEFONO,EMAIL,ESTATUS, FEC
        } else {
         echo "Error: " .$sql. "<br>" . $conn->error;
     }
-
-#restar inventario
-$datos=$_SESSION['carrito'];
-for($i=0;$i<count($datos);$i++){
-    #conseguir Id de inventario
-    $idinv=$datos[$i]['Id'];
-    #cantidad de inventario
-    $cantidad= $datos[$i]['Cantidad'];
-    #REstar INVENTARIO
-    $sql ="UPDATE INVENTARIO SET CANTIDAD=CANTIDAD-$cantidad WHERE IDINVENTARIO=$idinv";
-    if($conn->query($sql) === TRUE){
-    }
-    else{
-      #echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';
-    }
-}
 $conn->close();
 ?>

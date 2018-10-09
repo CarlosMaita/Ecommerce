@@ -2,7 +2,6 @@
  if(!isset($_SESSION)){
    session_start();
  }
-
 require_once ('../common/mercadopago.php');
 $mp = new MP('1153047962046613', 'i3RGdgCvJXrKT1ceMNOHs4YLNHdgZ9Mj');
 if ($_POST){
@@ -55,8 +54,7 @@ $contenido = '<html>
 $headers = "MIME-Version: 1.0" . "\r\n";
 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
-mail($destino, $titulo, $contenido, $headers);
-
+    mail($destino, $titulo, $contenido, $headers);
 }
 ?>
  <!doctype html>
@@ -133,8 +131,7 @@ mail($destino, $titulo, $contenido, $headers);
       <hr class="my-4">
     <?php
             if (isset($_POST['nombre-cliente'])){
-                  $doc=$_SESSION['type-identidad-cliente'].'-'.$_SESSION['doc-identidad-cliente'];
-                  $id_mp=md5($Llave.$doc); //id registrado en el inventario
+                  $id_mp=$Llave;
                   $cliente_mp=$_POST['nombre-cliente'];
             }
             if (!empty($total) and isset($_POST['nombre-cliente']) and isset($_POST['email-cliente'])){
