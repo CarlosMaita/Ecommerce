@@ -153,7 +153,7 @@ if (isset($_SESSION['carrito'])){
                       <div class="col-9 my-2">
                         <div class="row">
                             <small><a class="enlace2" href="index.php?idproducto=<?php echo $idinv;?>&idmodelo=<?php echo $idmodelo;?>" target="_blank"><?php echo $d['Nombre'];?></a></small>
-                            <span class="ml-auto pr-4"><?php echo number_format($total_modelo,2,',','.');?> Bs.S</span>
+                            <span class="ml-auto pr-4<?php echo number_format($total_modelo*1.16,2,',','.');?> Bs.S</span>
                         </div>
                         <div class="row">
                           <small>TALLA: <span class="text-muted"><?php echo " ".$d['Talla']?></span></small>

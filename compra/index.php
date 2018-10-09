@@ -69,6 +69,8 @@ if(isset($_GET['idproducto'], $_GET['idmodelo'])){
          }
         }
         }
+}else{
+  header('Location: ../vitrina/');
 }
 ?>
 <!DOCTYPE html>
@@ -160,7 +162,7 @@ and open the template in the editor.
                 <h2><b><?=$nombre_p?></b></h2>
               </div>
               <div class="col-12 mb-4">
-                <h3 class="lead"><?=number_format($precio, '2', ',', '.')?> Bs.S</h3>
+                <h3 class="lead"><?=number_format($precio*$tasa_usd*1.16, '2', ',', '.')?> Bs.S</h3>
               </div>
             </div>
             <div class="row">

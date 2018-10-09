@@ -1,4 +1,7 @@
 <?php
+#Quitar el comentario para entrar en mantenimiento.
+#header('Location: mantenimiento/');
+
     session_start();
     include 'common/conexion.php';
     include 'common/TasaUSD.php';
@@ -74,7 +77,7 @@
                <div class="card-body">
                  <h5 class="card-title"><?php echo $row['NOMBRE_P']; ?></h5>
                  <p class="card-text"><?php echo $row['DESCRIPCION']; ?></p>
-                 <p class="card-text"><small class="text-muted">Precio: <?php echo number_format($row['PRECIO']*$tasa_usd, 2, ',', '.'); ?>  Bs.</small></p>
+                 <p class="card-text"><small class="text-muted">Precio: <?php echo number_format($row['PRECIO']*$tasa_usd*1.16, 2, ',', '.'); ?>  Bs.</small></p>
                </div>
              </div>
            </div>

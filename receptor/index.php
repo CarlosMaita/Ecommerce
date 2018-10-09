@@ -50,7 +50,7 @@ if ($merchant_order_info["status"] == 200) {
 	$paid_amount = 0;
 
     $id_mp= $merchant_order_info["response"]["external_reference"];
-    $id_mp=md5($id_mp);
+  //  $id_mp=md5($id_mp);
 
 	foreach ($merchant_order_info["response"]["payments"] as  $payment) {
 		if ($payment['status'] == 'approved'){
@@ -59,40 +59,64 @@ if ($merchant_order_info["status"] == 200) {
 	}
 	if($paid_amount >= $merchant_order_info["response"]["total_amount"]){
 		if(count($merchant_order_info["response"]["shipments"]) > 0) { // The merchant_order has shipments
-			if($merchant_order_info["response"]["shipments"][0]["status"] == "ready_to_ship"){
-
-                    			    //Enviar mail
-                    $destino='Carlosmaita2009@gmail.com'; //Administrador de empaquetado
-                    $titulo="Nueva Compra";
-
-                    $contenido = '<html>
-                    <head>
-                    <title>Rouxa</title>
-                    </head>
-                    <body>
-                    <h1>Nueva compra en rouxa</h1>
-                    <p>Buen dia Administrador rouxa,</p>
-                    <p>Un nuevo cliente ha realizado una compra, Revisa el tablero de empaquetar.</p>
-                    <p>Que tenga un Feliz Dia.</p>
-                    </body>
-                    </html>';
-                    $headers = "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
-                    $headers = "MIME-Version: 1.0" . "\r\n";
-                    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-                        mail($destino, $titulo, $contenido, $headers);
-				print_r("Totally paid. Print the label and release your item.");
+  			if($merchant_order_info["response"]["shipments"][0]["status"] == "ready_to_ship"){
+        print_r("Totally paid. Print the label and release your item.");
 			}
 		} else { // The merchant_order don't has any shipments
 		//	print_r("Totally paid. Release your item.");
+
+            #Cambia el estatus del pedido - Por Buscar
              $sql0="UPDATE `PEDIDOS` SET `ESTATUS`='3' WHERE  `IDPEDIDO`='$id_mp'";
-                        if ($conn->query($sql0) === TRUE) {
-                        } else {
-                        echo "Error: " . $sql0 . "<br>" . $conn->error;
-                        }
+                if ($conn->query($sql0) === TRUE) {
+                } else {
+                echo "Error: " . $sql0 . "<br>" . $conn->error;
+                }
+            #informar al encargado de empaquetar
+            $sql1="SELECT CORREO FROM USUARIOS WHERE NIVEL=4 LIMIT 1";
+            $result = $conn->query($sql);
+            if($result->num_rows > 0){
+                $row = $result->fetch_assoc();
+                $destino=$row['CORREO']; // dESPACHADOR
+                $titulo="Nueva Compra";
+                $contenido = '<html>
+                              <head>
+                              <title>Rouxa</title>
+                              </head>
+                              <body>
+                              <h1>Nueva compra en rouxa</h1>
+                              <p>¡Hola! Administrador rouxa,</p>
+                              <p>Un nuevo cliente ha realizado una compra, Revisa el tablero de empaquetar, Lo mas pronto posible.</p>
+                              <p>Que tenga un Feliz Dia.</p>
+                              </body>
+                              </html>';
+                $headers = "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
+                $headers = "MIME-Version: 1.0" . "\r\n";
+                $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+                mail($destino, $titulo, $contenido, $headers);
+            }else{
+              $destino='rouxavzla@gmail.com'; // dESPACHADOR
+              $titulo="Nueva Compra";
+              $contenido = '<html>
+                            <head>
+                            <title>Rouxa</title>
+                            </head>
+                            <body>
+                            <h1>Nueva compra en rouxa</h1>
+                            <p>¡Hola! Administrador rouxa,</p>
+                            <p>Un nuevo cliente ha realizado una compra, Revisa el tablero de empaquetar, Lo mas pronto posible.</p>
+                            <p>Que tenga un Feliz Dia.</p>
+                            </body>
+                            </html>';
+              $headers = "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
+              $headers = "MIME-Version: 1.0" . "\r\n";
+              $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+              mail($destino, $titulo, $contenido, $headers);
+            }
+
 		}
 	} else {
 	//	print_r("Not paid yet. Do not release your item.");
-        $sql0="UPDATE `PEDIDOS` SET `ESTATUS`='2' WHERE  `IDPEDIDO`='$id_mp'";
+        $sql0="UPDATE `PEDIDOS` SET `ESTATUS`='10' WHERE  `IDPEDIDO`='$id_mp'";
                         if ($conn->query($sql0) === TRUE) {
                         } else {
                         echo "Error: " . $sql0 . "<br>" . $conn->error;
