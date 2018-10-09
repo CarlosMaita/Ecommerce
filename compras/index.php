@@ -32,7 +32,7 @@
     <div class="container">
       <form action="" method="get">
       <div class="row my-3">
-          <div class="input-group col-6">
+          <div class="input-group col-sm-6 mb-2">
             <select name="type-identidad-cliente" style="border: 1px solid #ddd; width:20%; border-radius: 4px 0 0 4px;">
               <option value="V" selected>V</option>
               <option value="E">E</option>
@@ -40,7 +40,7 @@
             </select>
             <input type="text" placeholder="Documento de identidad del cliente [Ej: 20184765]" name="doc-identidad-cliente" maxlength="30" class="form-control" required>
           </div>
-          <div class="input-group col-6">
+          <div class="input-group col-sm-6 mb-2">
             <input type="text" class="form-control" placeholder="Inserte su Llave digital" aria-label="Inserte su Llave digital" aria-describedby="basic-addon2"  name="idcompra" maxlength="32"/>
           </div>
           <!--  <div class="g-recaptcha col" data-sitekey="6LezMGIUAAAAAK7US9I7C9wD2OV9Hufqb8V5whVY"></div>
@@ -134,10 +134,10 @@
                         </div>
                         <hr>
                         <div class="row">
-                          <div class="col-1 offset-sm-4">
+                          <div class="col-sm-1 offset-sm-4 mb-3 text-center">
                             <a class="btn btn-outline-success btn-sm" href="javascript:void(0)" data-toggle="modal" data-target="#articulos">Ver Productos comprados</a>
                           </div>
-                          <div class="col-1 offset-sm-2">
+                          <div class="col-sm-1 offset-sm-2 mb-3 text-center">
                             <a class="btn btn-outline-success btn-sm" href="javascript:void(0)" data-toggle="modal" data-target="#ver">Ver Estatus de la compra</a>
                           </div>
                         </div>
@@ -172,7 +172,7 @@
                                         WHERE i.IDINVENTARIO='$id_inv' LIMIT 1";
                                         $result3 = $conn->query($sql3);
                                         if($result3->num_rows > 0){
-                                          while($row3 = $result3->fetch_assoc()) {
+                                          while($row3 = $result3->fetch_assoc()){
                                             $nombre_p=$row3['NOMBRE_P'];
                                           }
                                         }

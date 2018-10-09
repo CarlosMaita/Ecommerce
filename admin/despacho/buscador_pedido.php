@@ -21,7 +21,6 @@
            $estatus=0;
            #ORIGEN
            $origen='Busqueda';
-
            $sql="UPDATE `PEDIDOS` SET `ESTATUS`='10' WHERE  `IDPEDIDO`='$newid'";
             if ($conn->query($sql) === TRUE) {
             } else { echo "Error: " . $sql. "<br>" . $conn->error; }
@@ -75,32 +74,34 @@
                     <div class="col-5 align-self-center">
                         <h4 class="page-title">Despacho</h4>
                     </div>
-                    <div class="col-7 align-self-center">
+                    <div class="col-auto align-self-center ml-auto">
                         <div class="d-flex align-items-center justify-content-end">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item">
-                                        <a href="../principal.php">Inicio</a>
-                                    </li>
-                                    <li class="breadcrumb-item">
-                                        <a href="index.php">Despacho</a>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page">Buscador Pedido</li>
-                                </ol>
-                            </nav>
+                          <div class="container">
+                            <div class="row">
+                              <div class="col-auto">
+                                <a href="../principal.php">Inicio</a>
+                              </div>
+                              <div class="col-auto">
+                                <a href="index.php">Despacho</a>
+                              </div>
+                              <div class="col-auto">
+                                Busqueda de Pedidos
+                              </div>
+                            </div>
+                          </div>
                         </div>
                     </div>
                 </div>
             </div>
                   <div class="container-fluid">
                     <div class="row justify-content-around mb-3">
-                      <div class="col-4 text-center">
+                      <div class="col-sm-4 text-center">
                         <a class="btn btn-link text-success" href="buscador_pedido.php">Busqueda de Pedidos</a>
                       </div>
-                      <div class="col-4 text-center">
+                      <div class="col-sm-4 text-center">
                         <a class="btn btn-link text-success" href="empaquetado.php">Empaquetado</a>
                       </div>
-                      <div class="col-4 text-center">
+                      <div class="col-sm-4 text-center">
                         <a class="btn btn-link text-success" href="envios.php">Envíos</a>
                       </div>
                     </div>

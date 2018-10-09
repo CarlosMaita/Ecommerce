@@ -95,13 +95,13 @@ $previouspage = $curpage - 1;
             </div>
             <div class="container-fluid">
               <div class="row justify-content-around">
-                  <div class="col-4 text-center">
+                  <div class="col-sm-4 text-center">
                     <a class="btn btn-link text-success" href="usuarios.php">Agregar/Eliminar Usuario</a>
                   </div>
-                  <div class="col-4 text-center">
+                  <div class="col-sm-4 text-center">
                     <a class="btn btn-link text-success" href="categoria.php">Agregar/Eliminar Categoria</a>
                   </div>
-                  <div class="col-4 text-center">
+                  <div class="col-sm-4 text-center">
                     <a class="btn btn-link text-success" href="colores.php">Agregar/Eliminar Color</a>
                   </div>
               </div>

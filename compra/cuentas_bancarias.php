@@ -101,12 +101,16 @@ mail($destino, $titulo, $contenido, $headers);
   <body  onload="deshabilitaRetroceso()">
      <div class="container mb-0">
        <div class="row my-4">
-         <h1 class="display-4" style="font-family: 'Playfair Display', serif;">¡Felicidades por tu Compra!</h1>
-         <p class="lead">Usted ha realizado la compra de manera existosa. Para continuar, realice el pago total del pedido mediante una transferencia bancaria, o mediante tu saldo disponibe en Mercado Pago.</p>
+         <div class="container text-center">
+           <h1 class="display-4" style="font-family: 'Playfair Display', serif;">¡Felicidades por tu Compra!</h1>
+         </div>
+         <p class="lead px-3">Usted ha realizado la compra de manera existosa. Para continuar, realice el pago total del pedido mediante una transferencia bancaria, o mediante tu saldo disponibe en Mercado Pago.</p>
        </div>
        <br>
        <div class="row mb-4 text-muted">
-         Con el siguiente codigo (Llave digital), junto con su número de cedula, usted podrá realizar el seguimiento de su compra.
+         <div class="container">
+           Con el siguiente codigo (Llave digital), junto con su número de cedula, usted podrá realizar el seguimiento de su compra.
+         </div>
        </div>
        <div class="row justify-content-center">
          <div class="p-2 mb-2 col-5 codigo">
@@ -125,7 +129,7 @@ mail($destino, $titulo, $contenido, $headers);
          </div>
        </div>
        <div class="row justify-content-center">
-         <div class="col-auto text-muted">
+         <div class="container text-muted">
            <small>¡No te preocupes! te enviaremos a tu correo la llave digital, para que luego puedas realizar el seguimiento de tu compra.</small>
          </div>
        </div>

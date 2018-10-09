@@ -25,9 +25,7 @@ if(isset($_GET['delete']) & !empty($_GET['delete'])){
 $perpage  = 10;
 if(isset($_GET['page']) & !empty($_GET['page'])){
 	$curpage = $_GET['page'];
-}else{
-	$curpage = 1;
-}
+}else{ $curpage = 1;}
 $start = ($curpage * $perpage) - $perpage;
 #necesito el total de elementos
 $PageSql = "SELECT * FROM USUARIOS";
@@ -49,7 +47,6 @@ $previouspage = $curpage - 1;
     <link rel="icon" type="image/jpg" sizes="16x16" href="../../imagen/favicon.jpg">
     <title>Rouxa - Administración</title>
     <link href="../dist/css/style.min.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -90,13 +87,13 @@ $previouspage = $curpage - 1;
             </div>
             <div class="container-fluid">
               <div class="row justify-content-around">
-                  <div class="col-4 text-center">
+                  <div class="col-sm-4 text-center">
                     <a class="btn btn-link text-success" href="usuarios.php">Agregar/Eliminar Usuario</a>
                   </div>
-                  <div class="col-4 text-center">
+                  <div class="col-sm-4 text-center">
                     <a class="btn btn-link text-success" href="categoria.php">Agregar/Eliminar Categoria</a>
                   </div>
-                  <div class="col-4 text-center">
+                  <div class="col-sm-4 text-center">
                     <a class="btn btn-link text-success" href="colores.php">Agregar/Eliminar Color</a>
                   </div>
               </div>
@@ -110,21 +107,21 @@ $previouspage = $curpage - 1;
                     <div class="row justify-content-center mt-1 bg-white py-2">
                       <h3>Agregue el nuevo usuario</h3>
                     </div>
-                    <form class="" action="" method="GET">
+                    <form action="" method="GET">
                     <div class="row mt-3">
-                      <div class="input-group mb-3 col-4">
+                      <div class="input-group mb-3 col-sm-4">
                         <div class="input-group-append">
                           <span class="input-group-text"><b>Nombre</b></span>
                         </div>
                         <input type="text" name="nombre" class="form-control text-secondary" placeholder="Ingrese el nombre" required>
                       </div>
-                      <div class="input-group mb-3 col-4">
+                      <div class="input-group mb-3 col-sm-4">
                         <div class="input-group-append">
                           <span class="input-group-text"><b>Apellido</b></span>
                         </div>
                         <input type="text" name="apellido" class="form-control text-secondary" placeholder="Ingrese el apellido" required>
                       </div>
-                      <div class="input-group mb-3 col-4">
+                      <div class="input-group mb-3 col-sm-4">
                         <div class="input-group-prepend">
                           <label class="input-group-text"><b>Perfil</b></label>
                         </div>
@@ -138,13 +135,13 @@ $previouspage = $curpage - 1;
                            <option value="7">Almacenista</option>
                         </select>
                       </div>
-                      <div class="input-group mb-3 col-6">
+                      <div class="input-group mb-3 col-sm-6">
                         <div class="input-group-append">
                           <span class="input-group-text"><b>Correo</b></span>
                         </div>
                         <input type="email" name="email" class="form-control text-secondary" required>
                       </div>
-                      <div class="input-group mb-3 col-6">
+                      <div class="input-group mb-3 col-sm-6">
                         <div class="input-group-append">
                           <span class="input-group-text"><b>Password</b></span>
                         </div>
