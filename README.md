@@ -1,4 +1,4 @@
-# Rouxa
+# Rouxa V1.0
 
 ![rouxa](https://avatars0.githubusercontent.com/u/42948884?s=460&v=4)
 
@@ -12,4 +12,4 @@ Es el proyecto de desarrollo de un sistema de venta de ropa por internet. Usamos
 
 ### https://www.rouxa.com.ve/ 
 
-Venezuela 2018
+Venezuela 9 de Agosto, 2018 - Finalizacion de la v1.0
