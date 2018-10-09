@@ -37,7 +37,7 @@ if(isset($_GET['orden'], $_GET['id']) ){
           } else { echo "Error: " . $sql. "<br>" . $conn->error; }
           $conn->close();
         }
-        header ('location: Envios.php');
+        header ('location: envios.php');
  }
 ?>
 <!DOCTYPE html>
@@ -186,7 +186,7 @@ if(isset($_GET['orden'], $_GET['id']) ){
                                                            }
                                                         ?>
                                                     <tr>
-                                                      <form action="Envios.php" method="get">
+                                                      <form action="envios.php" method="get">
                                                         <td class="txt-oflo"> <small><?php echo $id;?></small></td>
                                                         <td><span class="label label-warning label-rounded">Por Enviar</span></td>
                                                         <td class="txt-oflo"><?=$fecha?></td>
@@ -195,7 +195,7 @@ if(isset($_GET['orden'], $_GET['id']) ){
                                                           <input type="hidden" value="good" name="orden">
                                                           <input type="text" value="<?php echo $id;?>" name="id" style="display: none">
                                                         <td>
-                                                            <input class="form-control" type="text" placeholder="Código de Seguimiento" id="guia" name="guia">
+                                                            <input class="form-control" type="text" placeholder="Código de Seguimiento" id="guia" name="guia" required>
                                                         </td>
                                                         <td>
                                                           <button type="submit" id="Enviado" class="btn btn-outline-success btn-sm" >Enviado</button>
@@ -266,7 +266,7 @@ if(isset($_GET['orden'], $_GET['id']) ){
                                                     <div class="modal fade" id="fal<?php echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                       <div class="modal-dialog" role="document">
                                                         <div class="modal-content">
-                                                          <form action="Envios.php" method="get">
+                                                          <form action="envios.php" method="get">
                                                           <div class="modal-header">
                                                             <h5 class="modal-title">¿Desea reportar una falla o inconveniente?</h5>
                                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">

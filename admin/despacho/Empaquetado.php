@@ -28,7 +28,7 @@
             } else { echo "Error: " . $sql. "<br>" . $conn->error; }
             $conn->close();
         }
-         header ('location:Empaquetado.php');
+         header ('location:empaquetado.php');
     }
 ?>
 <!DOCTYPE html>
@@ -142,7 +142,7 @@
                                             <td><span class="label label-info label-rounded">Por Empaquetar</span></td>
                                             <td class="txt-oflo"><?=$fecha?></td>
                                             <td><span class="font-medium"><button type="button" class="enlace2 ml-auto" href="javascript:void(0)" data-toggle="modal" data-target="#ver<?php echo $id;?>">Ver artículos</button></span></td>
-                                            <td><a id="good" class="btn btn-outline-success btn-sm" href="Empaquetado.php?orden=good&id=<?php echo $id;?>">Listo</a>
+                                            <td><a id="good" class="btn btn-outline-success btn-sm" href="empaquetado.php?orden=good&id=<?php echo $id;?>">Listo</a>
                                             <a id="bad" class="btn btn-outline-danger btn-sm" href="javascript:void(0)" data-toggle="modal" data-target="#fal<?php echo $id;?>"><span title="Reportar Inconveniente" data-toggle="tooltip">Falla</span></a></td>
                                         </tr>
 
@@ -279,7 +279,7 @@
                                         <div class="modal fade" id="fal<?php echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                           <div class="modal-dialog" role="document">
                                             <div class="modal-content">
-                                            <form action="Empaquetado.php" method="get">
+                                            <form action="empaquetado.php" method="get">
                                               <div class="modal-header">
                                                 <h5 class="modal-title">¿Desea reportar una falla o inconveniente?</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
