@@ -102,6 +102,12 @@ require('../../common/conexion.php');
                                                $codigopostal=$row2['CODIGOPOSTAL'];
                                                $encomienda=$row2['ENCOMIENDA'];
                                                $observaciones=$row2['OBSERVACIONES'];
+                                               #refencia de ENVIOS
+                                               if($row2['GUIA']!=NULL){
+                                                 $guia= $row2['GUIA'];
+                                               }else{
+                                                 $guia='Sin Enviar';
+                                               }
                                                #receptor
                                                $receptor=$row2['RECEPTOR'];
                                                $ci_receptor=$row2['CIRECEPTOR'];
@@ -361,7 +367,9 @@ require('../../common/conexion.php');
                                                                 <small class="d-block">Estado: <span class="text-muted"><?=$estado?></span></small>
                                                                 <small class="d-block">Parroquia: <span class="text-muted"><?=$parroquia?></span></small>
                                                                 <small class="d-block">Dirección: <span class="text-muted"><?=$direccion?></span></small>
-
+                                                                <small class="d-block">Guia: <span class="text-muted"><?=$guia?></span></small>
+                                                                </div>
+                                                                <div class="col-12">
                                                               </div>
                                                               <div class="col-12">
                                                                 <small class="d-block">Observaciones: <span class="text-muted"><?=$observaciones?></span></small>

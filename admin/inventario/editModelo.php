@@ -32,7 +32,7 @@ if ($conn->query($sql) === TRUE) {
     #echo "<p>MODELO Modificado</p>";
     header('Location: ./modelo.php');
    }else {
-      echo "Error: " . $sql . "<br>" . $conn->error;
+  #   echo "Error: " . $sql . "<br>" . $conn->error;
     }
 }
 

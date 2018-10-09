@@ -30,11 +30,14 @@ if(isset($_FILES['archivo'])){
          if(!file_exists($archivo)){
              $resultado=move_uploaded_file($_FILES["archivo"]["tmp_name"], $archivo);
              if ($resultado){
-                 echo '<script> alert("Producto Agregado"); </script>';
+                # echo '<script> alert("Producto Agregado"); </script>';
                  $iscreated=true;
-             }else{ echo '<script> alert("Error al guardar el archivo"); </script>'; }
-         }else{ echo '<script> alert("Archivo ya existe"); </script>'; }
-     }else{ echo '<script> alert("El archivo excede de tamaño."); </script>'; }
+             }else{ #echo '<script> alert("Error al guardar el archivo"); </script>';
+              }
+         }else{ #echo '<script> alert("Archivo ya existe"); </script>';
+         }
+     }else{ #echo '<script> alert("El archivo excede de tamaño."); </script>';
+      }
  }
 }
 if ($iscreated and isset($_POST['nombre_p'], $_POST['descripcion'], $_POST['genero'], $_POST['tipo'], $_POST['precio'], $_POST['cuello'], $_POST['manga'], $_POST['material'], $_POST['marca'])){
@@ -63,10 +66,11 @@ $manga=$_POST['manga']; //Entero
 $material=$_POST['material'];
 $marca=$_POST['marca'];
 //ESCRIBE EL COMANDO SQL
-$sql = "INSERT INTO `PRODUCTOS`(`NOMBRE_P`, `DESCRIPCION`, `GENERO`, `TIPO`, `PRECIO`, `IMAGEN`,`CUELLO`, `MANGA`, `MATERIAL`, `MARCA`) VALUES ('$nombre_p','$descripcion','$genero','$tipo','$precio','$name_archivo', '$cuello', '$manga', '$material' ,'$marca')";
+$sql = "INSERT INTO `PRODUCTOS`(`NOMBRE_P`, `DESCRIPCION`, `GENERO`, `TIPO`, `PRECIO`, `IMAGEN`,`CUELLO`, `MANGA`, `MATERIAL`, `MARCA`) VALUES ('$nombre_p','$descripcion','$genero','$tipo','$precio',
+  '$name_archivo', '$cuello', '$manga', '$material' ,'$marca')";
 if ($conn->query($sql) === TRUE) {
-    echo "<p>Nuevo PRODUCTO registrado</p>";
-    header('Location: ./producto.php');
+    #echo '<p>Nuevo PRODUCTO registrado</p>' ;
+    header('Location: producto.php') ;
    } else { echo "Error: " . $sql . "<br>" . $conn->error;}
 }else{ echo 'producto no registrado, ocurrio un error';}
 $conn->close();

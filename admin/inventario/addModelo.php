@@ -30,11 +30,14 @@ if(isset($_FILES['archivo'])){
          if(!file_exists($archivo)){
              $resultado=move_uploaded_file($_FILES["archivo"]["tmp_name"], $archivo);
              if ($resultado){
-                 echo '<script> alert("Modelo Agregado"); </script>';
+                # echo '<script> alert("Modelo Agregado"); </script>';
                  $iscreated=true;
-             }else{ echo '<script> alert("Error al guardar el archivo"); </script>'; }
-         }else{ echo '<script> alert("Archivo ya existe"); </script>'; }
-     }else{ echo '<script> alert("El archivo excede de tamaño."); </script>'; }
+             }else{ #echo '<script> alert("Error al guardar el archivo"); </script>';
+              }
+         }else{ #echo '<script> alert("Archivo ya existe"); </script>';
+          }
+     }else{ #echo '<script> alert("El archivo excede de tamaño."); </script>';
+      }
  }
 }
 if ($iscreated and isset($_POST['producto'], $_POST['color1'], $_POST['color2'])){
@@ -48,7 +51,7 @@ $sql = "INSERT INTO `MODELOS`(`IDPRODUCTO`, `COLOR1`, `COLOR2`, `IMAGEN`) VALUES
 
 if ($conn->query($sql) === TRUE) {
 #    echo "<p>Nuevo MODELO registrado</p>";
-    header('Location: ./modelo.php');
+    header('Location: modelo.php');
    } else { echo "Error: " . $sql . "<br>" . $conn->error;}
 }else{ echo 'producto no registrado, ocurrio un error';}
 $conn->close();

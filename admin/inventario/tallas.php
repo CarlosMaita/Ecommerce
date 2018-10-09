@@ -10,7 +10,7 @@ if(isset($_POST['add'],$_POST['cant']) & !empty($_POST['add'])){
                         #echo '<script> alert("Inventario Actualizado"); </script>';
                         header('Location: ./tallas.php');
                       } else {
-                         echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';
+                      #   echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';
                         }
 }
 #eliminar elemento
@@ -18,7 +18,8 @@ if(isset($_GET['delete']) & !empty($_GET['delete'])){
     $idinventario=$_GET['delete'];
     $sql ="DELETE FROM INVENTARIO WHERE IDINVENTARIO='$idinventario'";
        if ($conn->query($sql) === TRUE) {
-           }else{ echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>'; }
+       }else{# echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';
+       }
 }
 #paginacion de tallas bien aqui..
 $perpage  = 5;
@@ -54,15 +55,17 @@ if(isset($_POST['modelo'],$_POST['talla'],$_POST['cantidad'], $_POST['peso'])){
               if ($encontro){
                   $sql = "UPDATE INVENTARIO SET CANTIDAD='$cantidad' WHERE IDINVENTARIO = '$idinventario';";
                    if ($conn->query($sql) === TRUE) {
-                        echo '<script> alert("Inventario Actualizado"); </script>';
-                       }else{ echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';}
+                      #  echo '<script> alert("Inventario Actualizado"); </script>';
+                    }else{# echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';
+                    }
               }else{
                   //ESCRIBE EL COMANDO SQL
                 $sql = "INSERT INTO INVENTARIO (IDMODELO,TALLA, CANTIDAD, PESO)
                 VALUES ('$idmodelo', '$talla', '$cantidad', '$peso')";
                     if ($conn->query($sql) === TRUE) {
-                        echo '<script> alert("Inventario añadido"); </script>';
-                       } else {echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';}
+                    #    echo '<script> alert("Inventario añadido"); </script>';
+                  } else {#echo '<script> alert("Error:'. $sql . '<br>'. $conn->error.'"); </script>';
+                  }
               }
                }
         }
