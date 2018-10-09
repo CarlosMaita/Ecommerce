@@ -69,6 +69,8 @@ if(isset($_GET['idproducto'], $_GET['idmodelo'])){
          }
         }
         }
+}else{
+  header('Location: ../vitrina/');
 }
 ?>
 <!DOCTYPE html>

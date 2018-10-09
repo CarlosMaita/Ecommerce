@@ -354,25 +354,6 @@ $url= $_SERVER["REQUEST_URI"];
         </div>
         <div class="col-10">
           <div class="container-fluid">
-            <div class="row justify-content-between">
-              <div class="col-auto align-self-center">
-                <b><span class="d-none d-sm-inline-block">TODOS LOS</span> PRODUCTOS <span class="text-muted"></span></b>
-              </div>
-              <!--<div class="col-6 align-self-end d-none d-md-inline-block">
-                <div class="row justify-content-end">
-                  <div class="col-auto text-dark align-self-center">
-                    <b>ORDENAR POR:</b>
-                  </div>
-                  <div class="col-auto">
-                    <select name="orden" class="text-secondary">
-                      <option value="1"><a href="?precio=bajo">Menor precio</a></option>
-                      <option value="2"><a href="?precio=alto">Mayor precio</a></option>
-                    </select>
-                  </div>
-                </div>
-              </div>-->
-            </div>
-            <div class="row">
           <?php
         $offset=0;
         $void=false;
@@ -417,32 +398,53 @@ $url= $_SERVER["REQUEST_URI"];
            }
         $result = $conn->query($sql);
         $cant=$result->num_rows;
+        ?>
+        <div class="row justify-content-between">
+          <div class="col-auto align-self-center">
+            <b><span class="d-none d-sm-inline-block">TODOS LOS PRODUCTOS</span><span class="text-muted">[<?=$cant?>]</span></b>
+          </div>
+          <!--<div class="col-6 align-self-end d-none d-md-inline-block">
+            <div class="row justify-content-end">
+              <div class="col-auto text-dark align-self-center">
+                <b>ORDENAR POR:</b>
+              </div>
+              <div class="col-auto">
+                <select name="orden" class="text-secondary">
+                  <option value="1"><a href="?precio=bajo">Menor precio</a></option>
+                  <option value="2"><a href="?precio=alto">Mayor precio</a></option>
+                </select>
+              </div>
+            </div>
+          </div>-->
+        </div>
+        <div class="row">
+        <?php
         if($cant > 0){
             ?>
-       <article class="container my-4">
-         <div class="card-deck">
-                  <?php
-           while($row = $result->fetch_assoc()){
-              ?>
-          <div class="card col-md-4">
-            <a href="../compra/index.php?idproducto=<?php echo $row['IDPRODUCTO']; ?>&idmodelo=<?php echo $row['IDMODELO']; ?>"><img class="card-img-top img-fluid vitrina" src="../imagen/<?php echo $row['IMA']; ?>" alt="<?php echo $row['NOMBRE_P']; ?>"></a>
-            <div class="card-body">
-              <h5 class="card-title"><?php echo $row['NOMBRE_P']; ?></h5>
-              <p class="text-muted"><?php echo $row['DESCRIPCION']; ?></p>
-              <p class="card-text"><small class="text-secondary">Precio: <?php echo number_format($row['PRECIO']*$tasa_usd*1.16, 2, ',', '.'); ?>  Bs</small></p>
-            </div>
-          </div>
-           <?php
-               }
-             for($i=0; $i<$numProd-$cant;$i++){ echo '<div class="card" style="border:none"></div>'; }
-            ?>
+           <article class="container my-4">
+             <div class="card-deck">
+                      <?php
+               while($row = $result->fetch_assoc()){
+                  ?>
+              <div class="card col-md-4">
+                <a href="../compra/index.php?idproducto=<?php echo $row['IDPRODUCTO']; ?>&idmodelo=<?php echo $row['IDMODELO']; ?>"><img class="card-img-top img-fluid vitrina" src="../imagen/<?php echo $row['IMA']; ?>" alt="<?php echo $row['NOMBRE_P']; ?>"></a>
+                <div class="card-body">
+                  <h5 class="card-title"><?php echo $row['NOMBRE_P']; ?></h5>
+                  <p class="text-muted"><?php echo $row['DESCRIPCION']; ?></p>
+                  <p class="card-text"><small class="text-secondary">Precio: <?php echo number_format($row['PRECIO']*$tasa_usd*1.16, 2, ',', '.'); ?>  Bs</small></p>
                 </div>
-          </article>
-            <?php
-            $offset=$offset+$numProd;
-           }
+              </div>
+               <?php
+                   }
+                 for($i=0; $i<$numProd-$cant;$i++){ echo '<div class="card" style="border:none"></div>'; }
+                ?>
+              </div>
+              </article>
+              <?php
+              $offset=$offset+$numProd;
+          }
            else{ $void=true; }
-         }
+          }
          ?>
            </div>
           </div>
