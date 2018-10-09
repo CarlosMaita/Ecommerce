@@ -354,6 +354,25 @@ $url= $_SERVER["REQUEST_URI"];
         </div>
         <div class="col-10">
           <div class="container-fluid">
+            <div class="row justify-content-between">
+              <div class="col-auto align-self-center">
+                <b><span class="d-none d-sm-inline-block">TODOS LOS PRODUCTOS</span><span class="text-muted"></span></b>
+              </div>
+              <!--<div class="col-6 align-self-end d-none d-md-inline-block">
+                <div class="row justify-content-end">
+                  <div class="col-auto text-dark align-self-center">
+                    <b>ORDENAR POR:</b>
+                  </div>
+                  <div class="col-auto">
+                    <select name="orden" class="text-secondary">
+                      <option value="1"><a href="?precio=bajo">Menor precio</a></option>
+                      <option value="2"><a href="?precio=alto">Mayor precio</a></option>
+                    </select>
+                  </div>
+                </div>
+              </div>-->
+            </div>
+            <div class="row">
           <?php
         $offset=0;
         $void=false;
@@ -399,25 +418,7 @@ $url= $_SERVER["REQUEST_URI"];
         $result = $conn->query($sql);
         $cant=$result->num_rows;
         ?>
-        <div class="row justify-content-between">
-          <div class="col-auto align-self-center">
-            <b><span class="d-none d-sm-inline-block">TODOS LOS PRODUCTOS</span><span class="text-muted">[<?=$cant?>]</span></b>
-          </div>
-          <!--<div class="col-6 align-self-end d-none d-md-inline-block">
-            <div class="row justify-content-end">
-              <div class="col-auto text-dark align-self-center">
-                <b>ORDENAR POR:</b>
-              </div>
-              <div class="col-auto">
-                <select name="orden" class="text-secondary">
-                  <option value="1"><a href="?precio=bajo">Menor precio</a></option>
-                  <option value="2"><a href="?precio=alto">Mayor precio</a></option>
-                </select>
-              </div>
-            </div>
-          </div>-->
-        </div>
-        <div class="row">
+
         <?php
         if($cant > 0){
             ?>
