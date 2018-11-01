@@ -36,27 +36,27 @@ if (isset($_SESSION['total'])){
     $total=$_SESSION['total'];
   }
 //Enviar mail
-$cliente_mail=$_SESSION['nombre-cliente'];
-$destino=$_SESSION['email-cliente'];
-$titulo="Compra en Rouxa";
-$contenido = '<html>
-<head>
-<title>Rouxa</title>
-</head>
-<body>
-<h1>Compra en rouxa</h1>
-<p style="color:black">Un saludo cordial '.$cliente_mail.',
-<br>Agradecemos tu compra realizada en nuestra tienda virtual Rouxa, Recuerda que puedes hacerles seguimiento a traves del siguiente ID.
-<br>Que tengas un Feliz Dia.
-</p>
-<h4> IDCOMPRA: '.$Llave.'</h4>
-</body>
-</html>';
-$headers = "MIME-Version: 1.0" . "\r\n";
-$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-$headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
-mail($destino, $titulo, $contenido, $headers);
-
+  /*$cliente_mail=$_SESSION['nombre-cliente'];
+  $destino=$_SESSION['email-cliente'];
+  $titulo="Compra en Rouxa";
+  $contenido = '<html>
+  <head>
+  <title>Rouxa</title>
+  </head>
+  <body>
+  <h1>Compra en rouxa</h1>
+  <p style="color:black">Un saludo cordial '.$cliente_mail.',
+  <br>Agradecemos tu compra realizada en nuestra tienda virtual Rouxa, Recuerda que puedes hacerles seguimiento a traves del siguiente ID.
+  <br>Que tengas un Feliz Dia.
+  </p>
+  <h4> IDCOMPRA: '.$Llave.'</h4>
+  </body>
+  </html>';
+  $headers = "MIME-Version: 1.0" . "\r\n";
+  $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+  $headers .= "From: Rouxa <Rouxavzla@gmail.com>" . "\r\n";
+  mail($destino, $titulo, $contenido, $headers);
+  */
 }
 ?>
  <!doctype html>
@@ -167,10 +167,10 @@ mail($destino, $titulo, $contenido, $headers);
                     ?>
             <div class="continer mb-3">
               <div class="row justify-content-around">
-                  <a href="<?php echo $preference['response']['init_point']; ?>" id="boton-mercadopago" class="btn btn-outline-success col-4">Pagar</a>
-                <div class="col-auto">
-                  <a href="index.php?reset=" id="boton-mercadopago" class="btn btn-outline-danger">Cancelar compra</a>
-                </div>
+                  <a href="<?php echo $preference['response']['init_point']; ?>" id="boton-mercadopago" class="btn btn-outline-success btn-lg  col-4">Pagar</a>
+              </div>
+              <div class="row justify-content-around my-2">
+                <small>Si desea cancelar la Compra presione: <a href="index.php?reset=" id="boton-mercadopago" class="text-muted">Vaciar Carrito</a></small>
               </div>
             </div>
             <?php
