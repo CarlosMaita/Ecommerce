@@ -49,6 +49,7 @@
     <div class="scroll-sidebar">
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
+
               <?php if($_SESSION['nivel']==1){ ?>
                 <!--<li class="sidebar-item">
                     <a class="sidebar-link waves-effect waves-dark sidebar-link" href="administracion/index.php" aria-expanded="false">
@@ -56,6 +57,7 @@
                         <span class="hide-menu">Administración</span>
                     </a>
                 </li>-->
+
                 <?php }
                 if($_SESSION['nivel']==6 || $_SESSION['nivel']==1){ ?>
                 <li class="sidebar-item">
@@ -64,6 +66,7 @@
                         <span class="hide-menu">Desarrollo </span>
                     </a>
                 </li>
+
                 <?php }
                 if($_SESSION['nivel']==7 || $_SESSION['nivel']==1){ ?>
                 <li class="sidebar-item">
@@ -80,6 +83,14 @@
                        <span class="hide-menu">Ventas</span>
                    </a>
                </li>
+             <?php }
+             if($_SESSION['nivel']==3 || $_SESSION['nivel']==1){ ?>
+             <li class="sidebar-item">
+                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="pagoExternos/" aria-expanded="false">
+                    <i class="mdi mdi-ticket"></i>
+                    <span class="hide-menu">Pagos Externos</span>
+                </a>
+            </li>
              <?php }
                   if ($_SESSION['nivel']==4 || $_SESSION['nivel']==1) {
                 ?>

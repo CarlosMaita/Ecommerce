@@ -87,6 +87,14 @@ if($row=$result->fetch_assoc()){
                    </a>
                </li>
              <?php }
+             if($_SESSION['nivel']==3 || $_SESSION['nivel']==1){ ?>
+             <li class="sidebar-item">
+                <a class="sidebar-link waves-effect waves-dark sidebar-link" href="../pagoExterno/" aria-expanded="false">
+                    <i class="mdi mdi-ticket"></i>
+                    <span class="hide-menu">Pagos Externos</span>
+                </a>
+            </li>
+             <?php }
                   if ($row["NIVEL"]==4 || $row["NIVEL"]==1) {
                 ?>
                 <li class="sidebar-item">

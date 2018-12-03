@@ -142,8 +142,14 @@ require('../../common/conexion.php');
                                                       break;
                                                   case '7': echo '<span class="label label-success label-rounded">Completado</span>';
                                                       break;
+                                                  case '8': echo '<span class="label label-info label-rounded">Pago Externo</span>';
+                                                          break;
+                                                  case '9': echo '<span class="label label-success label-rounded">Completado</span>';
+                                                                  break;
                                                   case '10': echo '<span class="label label-danger label-rounded">Bajo Revisión</span>';
                                                     break;
+                                                    case '11': echo '<span class="label label-danger label-rounded">Cancelado</span>';
+                                                      break;
                                                   default:
                                                   echo '<span class="label label-danger label-rounded">Error</span>';
                                                     break;
@@ -295,28 +301,33 @@ require('../../common/conexion.php');
                                                   <div class="col-6">
                                                     <?php
                                                     switch ($estatus) {
-                                                          case '0': echo '<span class="label label-info label-rounded">Por Pagar</span>';
+                                                      case '0': echo '<span class="label label-info label-rounded">Por Pagar</span>';
+                                                          break;
+                                                      case '1':  echo '<span class="label label-danger label-rounded">Pago Fallido</span>';
+                                                          break;
+                                                      case '2': echo '<span class="label label-warning  label-rounded">Pago Pendiente</span>';
+                                                          break;
+                                                      case '3':  echo '<span class="label label-purple label-rounded">Por Buscar</span>';
+                                                          break;
+                                                      case '4':  echo '<span class="label label-info label-rounded">Por Empaquetar</span>';
+                                                          break;
+                                                      case '5': echo '<span class="label label-warning label-rounded">Por Enviar</span>';
+                                                          break;
+                                                      case '6': echo '<span class="label label-success label-rounded">Enviado</span>';
+                                                          break;
+                                                      case '7': echo '<span class="label label-success label-rounded">Completado</span>';
+                                                          break;
+                                                      case '8': echo '<span class="label label-info label-rounded">Pago Externo</span>';
                                                               break;
-                                                          case '1':  echo '<span class="label label-danger label-rounded">Pago Fallido</span>';
-                                                              break;
-                                                          case '2': echo '<span class="label label-warning  label-rounded">Pago Pendiente</span>';
-                                                              break;
-                                                          case '3':  echo '<span class="label label-purple label-rounded">Por Buscar</span>';
-                                                              break;
-                                                          case '4':  echo '<span class="label label-info label-rounded">Por Empaquetar</span>';
-                                                              break;
-                                                          case '5': echo '<span class="label label-warning label-rounded">Por Enviar</span>';
-                                                              break;
-                                                          case '6': echo '<span class="label label-success label-rounded">Enviado</span>';
-                                                              break;
-                                                          case '7': echo '<span class="label label-success label-rounded">Completado</span>';
-                                                              break;
-                                                          case '10': echo '<span class="label label-danger label-rounded">Bajo Revisión</span>';
-                                                            break;
-                                                          default:
-                                                          echo '<span class="label label-danger label-rounded">Error</span>';
-                                                            break;
-
+                                                      case '9': echo '<span class="label label-success label-rounded">Completado</span>';
+                                                                      break;
+                                                      case '10': echo '<span class="label label-danger label-rounded">Bajo Revisión</span>';
+                                                        break;
+                                                        case '11': echo '<span class="label label-danger label-rounded">Cancelado</span>';
+                                                          break;
+                                                      default:
+                                                      echo '<span class="label label-danger label-rounded">Error</span>';
+                                                        break;
                                                       }
                                                      ?>
                                                   </div>
