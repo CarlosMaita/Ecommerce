@@ -55,7 +55,7 @@
              </h1>
             <p id="res">
                 Se expone que: <b>Rouxa C.A.</b>, Rif J-411161314  es el Titular del sitio web <i>www.rouxa.com.ve.</i> <br>
-<i>www.rouxa.com.ve</i> es operado por <b>Rouxa C.A.</b>. En todo el sitio, los términos “nosotros”, “nos” y “nuestro” se refieren a <b>Rouxa C.A.</b>
+<i>www.rouxa.com.ve</i> es operado por <b>Rouxa C.A.</b> y Nuestro aliado Comercial <b>Alpargata Skate, C.A.</b>, Rif J-405852089. En todo el sitio, los términos “nosotros”, “nos” y “nuestro” se refieren a <b>Rouxa C.A.</b>
 <br><br>
 <b>Rouxa C.A.</b> ofrece el sitio web <i>www.rouxa.com.ve</i> , incluyendo toda la información, herramientas y servicios disponibles en este sitio, el usuario, está condicionado a la aceptación de todos los términos, condiciones, políticas y notificaciones aquí establecidos.
 <br><br>
@@ -153,7 +153,7 @@ No garantizamos que la calidad de los productos, servicios, información u otro 
             <h1 id="preg" class="text-center">
         SECCIÓN 7 - MÉTODOS DE PAGO
              </h1>
-            <p id="res">
+          <!--  <p id="res">
                Rouxa C.A. ofrece los métodos de pago que proporciona la plataforma de pago de mercadolibre en Venezuela, Los cuales son:
  <br><br>
 1.- Tarjeta de crédito Visa o Mastercard
@@ -169,7 +169,16 @@ Si usted presenta dificultades al realizar proceso de pago, por favor proceda a 
 En el caso de que usted sospeche que su orden ha sido duplicada, por favor contacte inmediatamente a nuestro equipo de atención al cliente a través del correo electrónico Rouxavzla@gmail.com , para proceder a investigar el problema y proceder a reversar el pago antes que el pedido sea procesado. Cualquier orden duplicada que haya sido enviada antes de que Rouxa C.A  haya sido notificada, será reversada una vez que los productos hayan sido devueltos a nuestra dirección, y posteriormente verificados.
 <br><br>
 La moneda disponible para realizar pagos en www.rouxa.com.ve es el Bolívar (Bs), Moneda oficial de Venezuela.
-            </p>
+</p> -->
+<p id="res">
+     Rouxa C.A. ofrece como metodos de pago las transferencias bancarias. ¡Importante! Circunstacialmente, estaremos recibiendo los pagos a traves de las cuentas de nuestro aliado comercial <b>Alpargata Skate, C.A. RIF: J-405852089</b>.
+<br><br>
+Si usted presenta dificultades al realizar proceso de pago, por favor proceda a comunicarse con nuestro equipo de atención al cliente Rouxavzla@gmail.com
+<br><br>
+En el caso de que usted sospeche que su orden ha sido duplicada, por favor contacte inmediatamente a nuestro equipo de atención al cliente a través del correo electrónico Rouxavzla@gmail.com , para proceder a investigar el problema y proceder a reversar el pago antes que el pedido sea procesado. Cualquier orden duplicada que haya sido enviada antes de que Rouxa C.A  haya sido notificada, será reversada una vez que los productos hayan sido devueltos a nuestra dirección, y posteriormente verificados.
+<br><br>
+La moneda disponible para realizar pagos en www.rouxa.com.ve es el Bolívar (Bs), Moneda oficial de Venezuela.
+</p>
             <hr>
          </div>
           <div id="topic" class="container">
@@ -177,7 +186,7 @@ La moneda disponible para realizar pagos en www.rouxa.com.ve es el Bolívar (Bs)
         SECCIÓN 8 - FACTURACIÓN
              </h1>
             <p id="res">
-               El usuario que realiza un compra “Cliente” tiene la posibilidad de abonar el importe de sus pedidos, con Tarjeta de Crédito/Débito a través de MercadoPago.
+               El usuario que realiza un compra “Cliente” tiene la posibilidad de abonar el importe de sus pedidos, con una Transaferencia bancarias.
                <br><br>
 El cliente deberá suministrar sus datos personales y dirección de residencia con la finalidad de emitir una factura fiscal por la compra efectuada, cumpliendo así con los requisitos exigidos por el SENIAT.
 <br><br>

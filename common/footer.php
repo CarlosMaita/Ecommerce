@@ -26,6 +26,12 @@
            <li><a class="disabled enlace" href="faq/index.php?id=4">Metodos de Pago</a></li>
          </ul>
        </div>
+       <div class="d-none d-md-block d-lg-block">
+          <ul class="lista">
+            <li><h4 class="text-white">Tiendas</h4></li>
+                 <li><a class="disabled enlace" href="https://www.google.com/maps/place/Alpargata+Skate/@10.2092092,-67.9589927,18.69z/data=!4m13!1m7!3m6!1s0x0:0x0!2zMTDCsDEyJzMxLjIiTiA2N8KwNTcnMjkuOSJX!3b1!8m2!3d10.2086638!4d-67.9583019!3m4!1s0x0:0x2cde6f5617bf8239!8m2!3d10.2092014!4d-67.9583037?hl=es" target="_blank">Tienda Alpargata Skate</a></li>
+          </ul>
+        </div>
     <div class="d-none d-md-block d-lg-block">
          <ul class="lista">
            <li><h4 class="text-white">Soporte</h4></li>

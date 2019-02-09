@@ -1,6 +1,32 @@
 <?php
 include_once('../common/sesion2.php');
 require('../../common/conexion.php');
+if (isset($_GET['search'])){
+  $search=$_GET['search'];
+}
+if(isset($_GET['orden'], $_GET['id']) ){
+      $newid=$_GET['id'];
+      if ($_GET['orden']=='completed'){
+        //validar que esta en su etapa finalizada
+        $sql="SELECT * FROM PEDIDOS WHERE IDPEDIDO='$newid' and ESTATUS=6 LIMIT 1";
+        $result = $conn->query($sql);
+        if ($result->num_rows > 0){
+         while($row = $result->fetch_assoc()) {
+           $band =true;
+         }
+      }
+      if ($band){
+        //actualizar estatus a completado.
+        $sql3="UPDATE `PEDIDOS` SET `ESTATUS`='9' WHERE  `IDPEDIDO`='$newid'";
+        if ($conn->query($sql3) === TRUE) {
+          //good
+        }else {
+          echo "Error: " . $sql3. "<br>" . $conn->error;
+        }
+      }
+    }
+  header('location: ../ventas/');
+}
  ?>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -29,12 +55,12 @@ require('../../common/conexion.php');
         </div>
     </div>
     <div id="main-wrapper" data-navbarbg="skin6" data-theme="light" data-layout="vertical" data-sidebartype="full" data-boxed-layout="full">
-        <?php include('../common/navbar2.php'); ?>
+        <?php include('../common/navbar-ventas.php'); ?>
         <div class="page-wrapper">
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-5 align-self-center">
-                        <h4 class="page-title">Ventas</h4>
+                        <h4 class="page-title">Ventas  <a href="../ventas" class="m-2" ><i title="Actualizar" data-toggle="tooltip" class="ti-loop"></i></a></h4>
                     </div>
                     <div class="col-7 align-self-center">
                         <div class="d-flex align-items-center justify-content-end">
@@ -52,7 +78,30 @@ require('../../common/conexion.php');
             </div>
             <div class="container-fluid">
               <?php
-                  $sql="SELECT `IDPEDIDO` FROM `PEDIDOS` ORDER BY FECHAPEDIDO DESC ";
+              if (isset($search)){
+                if ($search=='ccc'){
+                  $sql="SELECT `IDPEDIDO` FROM `PEDIDOS` WHERE ESTATUS='9' ORDER BY FECHAPEDIDO DESC";
+                }else if($search=='fii'){
+                  $sql="SELECT `IDPEDIDO` FROM `PEDIDOS` WHERE ESTATUS='12' ORDER BY FECHAPEDIDO DESC";
+
+                }else if($search=='rrr'){
+                  $sql="SELECT `IDPEDIDO` FROM `PEDIDOS` WHERE ESTATUS='10' ORDER BY FECHAPEDIDO DESC";
+
+                }else if($search=='eee'){
+                  $sql="SELECT `IDPEDIDO` FROM `PEDIDOS` WHERE ESTATUS='6' ORDER BY FECHAPEDIDO DESC";
+
+                }else if($search=='bbb'){
+                  $sql="SELECT `IDPEDIDO` FROM `PEDIDOS` WHERE ESTATUS='3' ORDER BY FECHAPEDIDO DESC";
+                }else if($search=='ppp'){
+                  $sql="SELECT `IDPEDIDO` FROM `PEDIDOS` WHERE ESTATUS='2' ORDER BY FECHAPEDIDO DESC";
+                }else if($search=='ppee'){
+                  $sql="SELECT `IDPEDIDO` FROM `PEDIDOS` WHERE ESTATUS='5' ORDER BY FECHAPEDIDO DESC";
+                }else{
+                  $sql="SELECT `IDPEDIDO` FROM `PEDIDOS` WHERE DOCID LIKE '%$search%' ORDER BY FECHAPEDIDO DESC";
+                }
+              }else{
+                $sql="SELECT `IDPEDIDO` FROM `PEDIDOS` ORDER BY FECHAPEDIDO DESC";
+              }
                   $result = $conn->query($sql);
                   if ($result->num_rows > 0){
                 ?>
@@ -148,7 +197,9 @@ require('../../common/conexion.php');
                                                                   break;
                                                   case '10': echo '<span class="label label-danger label-rounded">Bajo Revisión</span>';
                                                     break;
-                                                    case '11': echo '<span class="label label-danger label-rounded">Cancelado</span>';
+                                                  case '11': echo '<span class="label label-danger label-rounded">Cancelado</span>';
+                                                      break;
+                                                  case '12': echo '<span class="label label-warning  label-rounded">Fondos insuficientes</span>';
                                                       break;
                                                   default:
                                                   echo '<span class="label label-danger label-rounded">Error</span>';
@@ -159,8 +210,39 @@ require('../../common/conexion.php');
                                             <td class="txt-oflo"><?=$fecha?></td>
                                             <td><span class="font-medium"><button type="button" class="enlace2 ml-auto" href="javascript:void(0)" data-toggle="modal" data-target="#ver_<?=$id?>">Ver artículos</button></span></td>
                                             <td><span class="font-medium"><?=number_format($monto,2,',','.')?></span></td>
-                                            <td><a href="javascript:void(0)" data-toggle="modal" data-target="#edit_<?=$id?>"><i title="Revisar" data-toggle="tooltip" class="ti-pencil-alt"></i></a></td>
+                                            <td><a href="javascript:void(0)" data-toggle="modal" data-target="#edit_<?=$id?>"><i title="Revisar" data-toggle="tooltip" class="ti-pencil-alt"></i></a>
+                                          <?php if ($estatus=='6'){ echo '<a href="javascript:void(0)" data-toggle="modal" data-target="#completed_'.$id.'"><i title="Completar" data-toggle="tooltip" class=" mx-2 text-success ti-check"></i></a>'; } ?>
+                                            </td>
                                         </tr>
+                                        <div class="modal fade" id="completed_<?php echo $id;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                              <form action="index.php" method="get">
+                                              <div class="modal-header">
+                                                <h5 class="modal-title">Finalizar compra</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                  <span aria-hidden="true">&times;</span>
+                                                </button>
+                                              </div>
+                                              <div class="modal-body">
+                                                <div class="container-fluid">
+                                                  <div class="row">
+                                                    <div class="col-12">
+                                                      <input type="hidden" value="completed" name="orden">
+                                                      <input type="hidden" name="id" value="<?php echo $id;?>">
+                                                      <p class="text-center">¿Estás seguro que desea finalizar la compra?<br><span class="text-muted"> Recuerda que esta accion no puede ser modificada en un Futuro.</span></p>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                              <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <input type="submit"  id="boton-enviar" class="btn btn-primary" value="Completar">
+                                              </div>
+                                            </form>
+                                          </div>
+                                        </div>
+                                      </div>
 
                                     <div class="modal fade bd-example-modal-lg" id="ver_<?=$id?>" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
                                           <div class="modal-dialog" role="document">

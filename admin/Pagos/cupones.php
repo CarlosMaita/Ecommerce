@@ -69,18 +69,20 @@
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-5 align-self-center">
-                        <h4 class="page-title"> Pagos Externos</h4>
+                        <h4 class="page-title"> Pagos </h4>
                     </div>
                     <div class="col-auto align-self-center ml-auto">
                         <div class="d-flex align-items-center justify-content-end">
                           <div class="container">
                             <div class="row">
-                              <div class="col-auto">
-                                <a href="../principal.php">Inicio</a>
-                              </div>
-                              <div class="col-auto">
-                        Pagos Externos
-                              </div>
+                              <nav aria-label="breadcrumb">
+                                  <ol class="breadcrumb">
+                                      <li class="breadcrumb-item">
+                                          <a href="../principal.php">Inicio</a>
+                                      </li>
+                                      <li class="breadcrumb-item active" aria-current="page">Inventario</li>
+                                  </ol>
+                              </nav>
                             </div>
                           </div>
                         </div>
@@ -88,10 +90,13 @@
                 </div>
             </div>
             <div class="row justify-content-around mb-3">
-                <div class="col-sm-6 text-center">
-                  <a class="btn btn-link text-success" href="index.php">Pagos Externos</a>
+              <div class="col-sm-4 text-center">
+              <a class="btn btn-link text-success" href="../Pagos/">Pagos</a>
+              </div>
+                <div class="col-sm-4 text-center">
+                  <a class="btn btn-link text-success" href="cupones.php">Cupones</a>
                 </div>
-                <div class="col-sm-6 text-center">
+                <div class="col-sm-4 text-center">
                   <a class="btn btn-link text-success" href="tickets.php">Tickets</a>
                 </div>
             </div>

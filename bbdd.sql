@@ -180,6 +180,29 @@ CREATE TABLE TICKETS (
     ON DELETE CASCADE
 );
 
+/*
+  Estutus
+  0 - Pago por Validar.
+  1 - Pago Exitoso.
+  2-  Pago rechazado.
+*/
+CREATE TABLE PAGOS (
+    IDPAGO INT AUTO_INCREMENT,
+    IDPEDIDO VARCHAR(32),
+    BANCOEMISOR VARCHAR(250),
+    BANCORECEPTOR VARCHAR(250),
+    MONTO DOUBLE,
+    MONEDA VARCHAR(20),
+    REFERENCIA VARCHAR (100),
+    FECHAPAGO DATE,
+    ESTATUS INT,
+
+    PRIMARY KEY (IDPAGO),
+    FOREIGN KEY (IDPEDIDO) REFERENCES PEDIDOS(IDPEDIDO)
+    ON DELETE CASCADE
+);
+
+
 /******sistema de compra y envios Rouxa******/
 
 

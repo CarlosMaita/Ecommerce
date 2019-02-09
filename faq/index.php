@@ -375,7 +375,7 @@
                   </div>
                   <div id="cone" class="collapse" aria-labelledby="onei" data-parent="#ac1">
                     <div class="card-body">
-                      Aceptamos pagos ofrecidos por Mercado pago y Transferencias bancarias a nuestras cuentas. Todos los pagos son procesados por dicha plataforma de cobranza.
+                      Actualmente, aceptamos solo transferencias bancarias a nuestro aliado comercial <b>Alpargata Skate C.A.</b>
                     </div>
                   </div>
                 </div>
@@ -383,12 +383,12 @@
                 <div class="row justify-content-center">
                   <div id="twoi">
                       <a href="javascript:void(0)" class="btn btn-link" data-toggle="collapse" data-target="#ctwo" aria-expanded="false" aria-controls="collapseTwo">
-                        ¿Comó puedo realizar el pago de mi pedido?
+                        ¿Comó reporto una transacción bancaria?
                       </a>
                   </div>
                   <div id="ctwo" class="collapse" aria-labelledby="twoi" data-parent="#ac1">
                     <div>
-                      El pago lo puedes realizar al momento de realizar su pedido, a traves de la plataforma de cobranza Mercado Pago.
+                      La plataforma Rouxa ofrece la opcion <a href="../compras" target="_blank">> compras</a> en el menu principal para hacer el reporte de los pagos asociados a una compra, solo necesitas tu cedula, la llave digital de la compra y los datos de la transacción.
                     </div>
                   </div>
                 </div>
@@ -409,12 +409,12 @@
                 <div class="row justify-content-center">
                   <div id="tres3">
                       <a href="javascript:void(0)" class="btn btn-link" data-toggle="collapse" data-target="#ctres3" aria-expanded="false" aria-controls="collapseThree">
-                        ¿Puedo usar varios métodos de pago para mi pedido?
+                        ¿Puedo pagar mi pedido con mas de una transacción bancaria?
                       </a>
                   </div>
                   <div id="ctres3" class="collapse" aria-labelledby="tres3" data-parent="#ac1">
                     <div>
-                      No puedes pagar por tu pedido con varios métodos de pago.
+                      Si, puedes reportar más de un pago por transacción bancaria en la plataforma, Pero recuerda que debes cancelar el monto total de la transaccion lo mas pronto posible. Nos reservamos el derecho a cancelar la compra si has prolongado por mucho tiempo el pago total.
                     </div>
                   </div>
                 </div>
@@ -442,6 +442,20 @@
            <div class="col-sm-8 text-center">
               <div class="container" id="ac1">
                 <div class="row justify-content-center">
+                    <div id="twoi">
+                        <a href="javascript:void(0)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#ctwo" aria-expanded="false" aria-controls="collapseTwo">
+                          ¿Que es una Llave digital?
+                        </a>
+                    </div>
+                    <div id="ctwo" class="collapse" aria-labelledby="twoi" data-parent="#ac1">
+                      <div>
+                        La <b>Llave digital</b> es un codigo generado por nuestro sistema, con el cual podrás obtener toda la información
+                        referente a tu pedido. Ademas, Es un requisito necesario para reportar los pago por transaferencia bancaria.
+                      </div>
+                    </div>
+                  </div>
+                  <hr class="hr">
+                  <div class="row justify-content-center">
                   <div id="onei">
                       <a href="javascript:void(0)" class="btn btn-link" data-toggle="collapse" data-target="#cone" aria-expanded="true" aria-controls="collapseOne">
                         ¿Como se en donde se encuentra mi pedido?
@@ -449,25 +463,12 @@
                   </div>
                   <div id="cone" class="collapse" aria-labelledby="onei" data-parent="#ac1">
                     <div>
-                      La ubicación de tu pedido la podrás observar en la pagina de <a href="../compras/index.php">seguimiento</a>, colocando tu llave dital.
+                      La ubicación de tu pedido la podrás observar en <a href="../compras/" target="_blank"> > Compras</a> > ¡Has le seguimiento a tu compra!, colocando tu cedula y la llave digital de tu compra.
                     </div>
                   </div>
                 </div>
                 <hr class="hr">
-                <div class="row justify-content-center">
-                  <div id="twoi">
-                      <a href="javascript:void(0)" class="btn btn-link collapsed" data-toggle="collapse" data-target="#ctwo" aria-expanded="false" aria-controls="collapseTwo">
-                        ¿Que es una Llave digital?
-                      </a>
-                  </div>
-                  <div id="ctwo" class="collapse" aria-labelledby="twoi" data-parent="#ac1">
-                    <div>
-                      La <b>Llave digital</b> es un codigo generado por nuestro sistema, con el cual podrás obtener toda la información
-                      referente a tu pedido.
-                    </div>
-                  </div>
-                </div>
-                <hr class="hr">
+
               </div>
             </div>
           </div>
@@ -512,25 +513,38 @@
                 <div class="row justify-content-center">
                   <div id="onei">
                       <a href="javascript:void(0)" class="btn btn-link" data-toggle="collapse" data-target="#cone" aria-expanded="true" aria-controls="collapseOne">
-                        ¿Dónde puedo retirar mi pedido?
+                      ¿Ustedes tienen tienda fisica?
                       </a>
                   </div>
                   <div id="cone" class="collapse" aria-labelledby="onei" data-parent="#ac1">
                     <div>
-                      Los pedidos los puedes retirar en la oficina de la empresa de encomiendas a la cual se te haya sido enviado el pedido.
+                      Si, Tenemos la tienda Alpargata Skate en San Diego, Carabobo. Venezuela.
                     </div>
                   </div>
                 </div>
                 <hr class="hr">
                 <div class="row justify-content-center">
                   <div id="twoi">
-                      <button href="javascript:void(0)" class="btn btn-link" data-toggle="collapse" data-target="#ctwo" aria-expanded="false" aria-controls="collapseTwo">
-                        ¿Ustedes tienen tienda fisica?
-                      </button>
+                      <a href="javascript:void(0)" class="btn btn-link" data-toggle="collapse" data-target="#ctwo" aria-expanded="false" aria-controls="collapseTwo">
+                        ¿Donde estan ubicadas sus tiendas Fisicas?
+                      </a>
                   </div>
                   <div id="ctwo" class="collapse" aria-labelledby="twoi" data-parent="#ac1">
                     <div>
-                      No, nosotros somos tienda virtual.
+                      Ubicación de Alpargata Skate: Calle ppal. de Campo Solo, casa #55-77, San Diego Edo. Carabobo. Referencia: Bajar por la Clinica Los Jarales, cruzar a mano derecha en la Panadería Michell Pan, a 4 casas del Liceo Campo Solo, Frente a la Ferretería.
+                    </div>
+                  </div>
+                </div>
+                <hr class="hr">
+                <div class="row justify-content-center">
+                  <div id="tresi">
+                      <a href="javascript:void(0)" class="btn btn-link" data-toggle="collapse" data-target="#ctres" aria-expanded="false" aria-controls="collapseTwo">
+                        ¿A que Horario puedo retirar por tienda Fisica?
+                      </a>
+                  </div>
+                  <div id="ctres" class="collapse" aria-labelledby="twoi" data-parent="#ac1">
+                    <div>
+                      Puede retirar su pedido, de Lunes a Viernes. En Horario de 9:00 AM a 12:00 PM y 2:00 PM a 5:30PM.
                     </div>
                   </div>
                 </div>

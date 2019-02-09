@@ -42,6 +42,70 @@ function Factura(){
           }
     }
 </script>
+<script type="text/javascript">
+function Tienda(){
+          // Get the checkbox
+          var checkBox = document.getElementById("istienda");
+          // Get the output text
+          var txt1 =  document.getElementById("estado");
+          var txt2 =  document.getElementById("ciudad");
+          var txt3 =  document.getElementById("municipio");
+          var txt4 =  document.getElementById("parroquia");
+          var txt5 =  document.getElementById("direccion");
+          var txt6 =  document.getElementById("ref");
+          var txt7 =  document.getElementById("codigo-postal");
+          var txt8 =  document.getElementById("encomienda");
+          var txt9 =  document.getElementById("observaciones");
+          var txt10 =  document.getElementById("encomienda-label");
+          var txt11 =  document.getElementById("tienda-direccion");
+
+          // If the checkbox is checked, display the output text
+          if (checkBox.checked == false){
+            txt1.style.display = "block";
+            txt2.style.display = "block";
+            txt3.style.display = "block";
+            txt4.style.display = "block";
+            txt5.style.display = "block";
+            txt6.style.display = "block";
+            txt7.style.display = "block";
+            txt8.style.display = "block";
+            txt9.style.display = "block";
+            txt10.style.display = "block";
+            txt11.style.display = "none";
+            //darle valor a Tienda
+          txt1.value='';
+          txt2.value='';
+          txt3.value='';
+          txt4.value='';
+          txt5.value='';
+          txt6.value='';
+          txt7.value='';
+          txt8.value='Domesa';
+
+          } else {
+            txt1.style.display = "none";
+            txt2.style.display = "none";
+            txt3.style.display = "none";
+            txt4.style.display = "none";
+            txt5.style.display = "none";
+            txt6.style.display = "none";
+            txt7.style.display = "none";
+            txt8.style.display = "none";
+            txt9.style.display = "none";
+            txt10.style.display = "none";
+              txt11.style.display = "block";
+              //darle valor a Tienda
+            txt1.value='Tienda';
+            txt2.value='Tienda';
+            txt3.value='Tienda';
+            txt4.value='Tienda';
+            txt5.value='Tienda';
+            txt6.value='Tienda';
+            txt7.value='0000';
+            txt8.value='Tienda';
+          }
+    }
+</script>
   <body>
     <?php include_once '../common/menu2.php';
           include_once '../common/2domenu2.php';
@@ -119,42 +183,58 @@ function Factura(){
             <option value="Panama">Panamá</option>
           </select>
         </div>
-        <div class="input-group mb-2 col-sm-6">
-          <input type="text" placeholder="Estado | Departamento | Provincia" name="estado" maxlength="30" class="form-control" required>
+        <div class="input-group my-3 col-6">
+          <h5 class="text-muted">Dirección</h5>
+        </div>
+        <div class="input-group my-3 col-6">
+            <p class=""><input id="istienda" type="checkbox" onclick="Tienda()" name="istienda" value="false"> Retiro en Tienda</p>
         </div>
         <div class="input-group mb-2 col-sm-6">
-          <input type="text" placeholder="Ciudad" name="ciudad" maxlength="30" class="form-control" required>
+          <input type="text" placeholder="Estado | Departamento | Provincia" name="estado" id="estado"  maxlength="30" class="form-control" required>
         </div>
         <div class="input-group mb-2 col-sm-6">
-          <input type="text" placeholder="Municipio | Localidad" name="municipio" maxlength="30" class="form-control" required>
+          <input type="text" placeholder="Ciudad" name="ciudad"   id="ciudad" maxlength="30" class="form-control" required>
         </div>
         <div class="input-group mb-2 col-sm-6">
-          <input type="text" placeholder="Parroquia" name="parroquia" maxlength="30" class="form-control">
+          <input type="text" placeholder="Municipio | Localidad" name="municipio"  id="municipio"  maxlength="30" class="form-control" required>
         </div>
         <div class="input-group mb-2 col-sm-6">
-          <input type="text" placeholder="Direccion -  Barrio | Zona | Sector | Casa | Apartamento | local | Edificio" name="direccion" maxlength="200" class="form-control" >
+          <input type="text" placeholder="Parroquia" name="parroquia" id="parroquia" maxlength="30" class="form-control">
         </div>
         <div class="input-group mb-2 col-sm-6">
-          <input type="text" placeholder="Referencia" name="ref" maxlength="200" class="form-control">
+          <input type="text" placeholder="Direccion -  Barrio | Zona | Sector | Casa | Apartamento | local | Edificio" name="direccion" id="direccion" maxlength="200" class="form-control" >
         </div>
         <div class="input-group mb-2 col-sm-6">
-          <input type="text" placeholder="Código Postal" name="codigo-postal" maxlength="20" class="form-control">
+          <input type="text" placeholder="Referencia" name="ref" id="ref" maxlength="200" class="form-control">
         </div>
         <div class="input-group mb-2 col-sm-6">
-          <div class="input-group-prepend">
-            <label class="input-group-text" for="pais">Agencia de Encomienda</label>
+          <input type="text" placeholder="Código Postal" name="codigo-postal" id="codigo-postal"  maxlength="20" class="form-control">
+        </div>
+        <div class="input-group mb-2 col-sm-6" >
+          <div class="input-group-prepend" id="encomienda-label">
+            <label class="input-group-text"  for="Agencia">Agencia de Encomienda</label>
           </div>
-          <select name="encomienda" class="custom-select" required>
+          <select name="encomienda" id="encomienda"  class="custom-select" required>
             <option value="Domesa">Domesa</option>
             <option value="MRW">MRW</option>
             <option value="Tealca">Tealca</option>
             <option value="Zoom">Zoom</option>
+            <option value="Tienda" hidden>Tienda</option>
           </select>
         </div>
         <div class="input-group mb-2 col-12">
-          <input type="text" placeholder="Observaciones de envío" name="observaciones" maxlength="200" class="form-control">
+          <input type="text" placeholder="Observaciones de envío" name="observaciones" id="observaciones" maxlength="200" class="form-control">
         </div>
+
+      <div class="input-group mb-2 col-12" id="tienda-direccion" style="display: none" >
+        <h5 class="text-center text-info">Tienda Alpargata Skate: Calle ppal. de Campo Solo, casa #55-77, San Diego Edo. Carabobo. Venezuela</h5>
+        <p class="text-center text-muted">Referencia: Bajar por la Clinica Los Jarales, cruzar a mano derecha en la Panadería Michell Pan, a 4 casas del Liceo Campo Solo, Frente a la Ferretería.
+          <br><a href="https://www.google.com/maps/place/Alpargata+Skate/@10.2092092,-67.9589927,18.69z/data=!4m13!1m7!3m6!1s0x0:0x0!2zMTDCsDEyJzMxLjIiTiA2N8KwNTcnMjkuOSJX!3b1!8m2!3d10.2086638!4d-67.9583019!3m4!1s0x0:0x2cde6f5617bf8239!8m2!3d10.2092014!4d-67.9583037?hl=es" target="_blank">Ubicación en GoogleMap</a>
+        </p>
       </div>
+      </div>
+
+      <hr class="my-3">
       <div class="row justify-content-center">
         <p><input id="isfacture" type="checkbox" onclick="Factura()" name="isfacture" value="true"> Yo, deseo factura fiscal</p>
       </div>

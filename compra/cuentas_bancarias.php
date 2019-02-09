@@ -2,6 +2,8 @@
  if(!isset($_SESSION)){
    session_start();
  }
+//mensaje de $msn_cuentas
+$msn_cuentas="";
 
 require_once ('../common/mercadopago.php');
 $mp = new MP('1153047962046613', 'i3RGdgCvJXrKT1ceMNOHs4YLNHdgZ9Mj');
@@ -104,38 +106,63 @@ if (isset($_SESSION['total'])){
          <div class="container text-center">
            <h1 class="display-4" style="font-family: 'Playfair Display', serif;">¡Felicidades por tu Compra!</h1>
          </div>
-         <p class="lead px-3">Usted ha realizado la compra de manera existosa. Para continuar, realice el pago total del pedido mediante una transferencia bancaria, o mediante tu saldo disponibe en Mercado Pago.</p>
-       </div>
-       <br>
-       <div class="row mb-4 text-muted">
-         <div class="container">
-           Con el siguiente codigo (Llave digital), junto con su número de cedula, usted podrá realizar el seguimiento de su compra.
+         <div class="">
+           <p class="lead px-3">Usted ha realizado la compra de manera existosa. Para continuar, realice el pago total del pedido mediante una transferencia bancaria a nuestras cuentas.</p>
          </div>
        </div>
+          <div class="row bg-light my-3 py-2">
+            <h5 class="col-sm-4 text-muted"><b>Banesco</b></h5>
+            <h6 class="col-sm-4"><b>N°</b> 0134 0464 03 4641026277</h6>
+            <h6 class="col-sm-4 text-center"><b>Tipo: </b>Corriente</h6>
+            <h5 class="col-sm-4 text-muted"><b>Banco Mercantil</b></h5>
+            <h6 class="col-sm-4"><b>N°</b>0105 0283 7512 83148412</h6>
+            <h6 class="col-sm-4 text-center"><b>Tipo: </b>Corriente</h6>
+            <h5 class="col-sm-4 text-muted"><b>Banco Provincial</b></h5>
+            <h6 class="col-sm-4"><b>N°</b> 0108 0558 9901 00043593</h6>
+            <h6 class="col-sm-4 text-center"><b>Tipo: </b>Corriente</h6>
+            <h5 class="col-sm-4 text-muted"><b>Banco del Tesoro</b></h5>
+            <h6 class="col-sm-4"><b>N°</b> 0163 0217 1121 73013146</h6>
+            <h6 class="col-sm-4 text-center"><b>Tipo: </b>Corriente</h6>
+            <hr class="col-sm-11">
+            <h6 class="col-sm-6 text-center"><b>Titular: </b>Alpargata Skate, C.A.</h6>
+            <h6 class="col-sm-6 text-center"><b>RIF: </b>J-405852089</h6>
+          </div>
+
+          <div class="row bg-light my-3 py-2">
+            <h5 class="col-sm-12 text-dark text-center"><b>Monto:</b> <?php echo number_format($total,2, ",","."); ?> Bs </h5>
+          </div>
+          <div class="container-fluid text-center bg-light mt-3 pt-2">
+            <h3 class="display-6" style="font-family: 'Playfair Display', serif;">Llave Digital</h3>
+
+          <div class="row mb-4 text-muted">
+            <div class="container text-justify">
+              Con la <a href="../faq/index.php?id=5" target="_blank">Llave digital</a>, tu número de cedula y los datos de la transacción podrás reportar los pagos asociados a tu compra. Además, podrás hacerle seguimiento a tu pedido. La opcion de <a href="../compras/" target="_blank"> > <i>Compras</i></a> en el menu principal le permitirá realizar estas operaciones.
+            </div>
+          </div>
        <div class="row justify-content-center">
-         <div class="p-2 mb-2 col-5 codigo">
-           <p class="text-center text-white mt-3"><?PHP
+         <div class="p-2 mb-2 col-5 bg-info">
+           <h2 class="text-center text-light mt-3"><?PHP
            if($_POST){
              #echo md5($CS); //Cadena del Id completa
              #cadena de $Ncadena caracteres de la cadena
              echo $Llave;
            }else{ echo 'Error: ID No generado'; }
-           ?></p>
-         </div>
-       </div>
-       <div class="row justify-content-center">
-         <div class="col-auto">
-           <small>¿Que es la <a href="../faq/index.php?id=5" target="_blank">Llave digital</a>?</small>
+           ?></h2>
          </div>
        </div>
        <div class="row justify-content-center">
          <div class="container text-muted">
-           <small>¡No te preocupes! te enviaremos a tu correo la llave digital, para que luego puedas realizar el seguimiento de tu compra.</small>
+           <small>Ten encuenta que nuestro sistema cancela tu pedido de no recibir un <i>Reporte de pago</i>, luego de dos (2) Horas. Procura transferir y hacer el reporte los más pronto posible. Te enviaremos la llave digital a tu correo, para que luego puedas realizar el seguimiento de tu compra. ¡Feliz Día!</small>
          </div>
+       </div>
        </div>
      </div>
       <hr class="my-4">
     <?php
+    /**
+    Mercadopago
+    **/
+    /*
             if (isset($_POST['nombre-cliente'])){
                   $doc=$_SESSION['type-identidad-cliente'].'-'.$_SESSION['doc-identidad-cliente'];
                   $id_mp=md5($Llave.$doc); //id registrado en el inventario
@@ -175,8 +202,10 @@ if (isset($_SESSION['total'])){
             </div>
             <?php
             }
+
+*/
             ?>
-            <hr class="my-4">
+ <!--  <hr class="my-4"> -->
             <div class="container mt-2">
              <div class="row justify-content-center">
                <a href="../index.php" target="_blank"><img src="../imagen/logo.png" alt="" width="90px"></a>
